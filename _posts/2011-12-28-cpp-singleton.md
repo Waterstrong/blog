@@ -3,7 +3,7 @@ layout: post
 title: "C++单例模式实现"
 description: ""
 category: Design Pattern
-tags: [C++, 设计模式]
+tags: [设计模式, C++, Singleton]
 ---
 {% include JB/setup %}
 
