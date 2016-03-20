@@ -6,7 +6,7 @@ Blog: <http://waterstrong.github.io/blog>
 ### Usage
 
 ```
-rake post title="Title" [category="category"] [tags=[tag1,tag2]] [description="description"]
+rake post title="Title" [category="category"] [tags="[tag1,tag2]"] [description="description"]
 ```
 
 
