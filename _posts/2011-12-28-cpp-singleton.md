@@ -9,7 +9,7 @@ tags: [设计模式, C++, Singleton]
 
 之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
 
-```
+```c_cpp
 #include <iostream>
 using namespace std;
 class Singleton
@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 **补充：**
 
-```
+```c_cpp
 #include <process.h>
 #include <Windows.h>
 HANDLE mutex = CreateMutex(NULL,FALSE,NULL); //创建互斥量
@@ -71,14 +71,14 @@ WaitForSingleObject(mutex,INFINITE);//等待互斥量
 ```
 //......互斥代码
 
-```
+```c_cpp
 ReleaseMutex(mutex);//释放权限，让下一个线程可以进入
 CloseHandle(mutex);//关闭创建的mutex句柄
 mutex = NULL;
 ```
 双重锁定，当然要先创建互斥量并初始化，最后要清除。
 
-```
+```c_cpp
 static Singleton* GetInstance()
 {
     if(!sin)
