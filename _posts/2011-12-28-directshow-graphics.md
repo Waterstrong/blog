@@ -9,7 +9,7 @@ tags: [图形图像, DirectX, C++, OpenCV]
 
 #### 在Windows下配置DirectX Aug09 DShow获取摄像头图像:
 
-1、首先带例子安装DXSDK_Aug09.exe，可在官网下载（msdn.microsoft.com/directx/）[DirectX August 2009](http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe)。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
+1、首先带例子安装DXSDK_Aug09.exe，可在[官网](msdn.microsoft.com/directx/)下载[DirectX August 2009](http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe)。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
 
 2、将strmbasd+&+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。
 
@@ -116,4 +116,4 @@ int _tmain(int argc, _TCHAR* argv[])
 ```
 
 ---
-*注：以上除DXSDK_Aug09.exe安装文件外（太大了553MB），其他都可在资源《[配置DX_Aug09_DShow获取摄像头图像](http://download.csdn.net/download/waterstrong/3981334)》中下载。*
+*注：以上除DXSDK_Aug09.exe安装文件外(553MB)，其他都可在资源《[配置DX_Aug09_DShow获取摄像头图像](http://download.csdn.net/download/waterstrong/3981334)》中下载。*
