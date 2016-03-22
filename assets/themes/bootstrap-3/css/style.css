@@ -37,10 +37,14 @@ h1, h2, h3, h4 {
   margin: 10px 0;
   text-align: left; }
 
+/* page header */
+.page-header .date {
+  margin-bottom: 0px;
+  font-weight: normal;
+  font-style: italic;
+  float: right; }
+
 /* post-full*/
-.post-full .date {
-  margin-bottom: 20px;
-  font-weight: bold; }
 
 /* tag_box */
 .tag_box {
