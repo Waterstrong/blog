@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Water Studio</title>
+  <title>DirectShow获取摄像头图像 | Water Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Waterstrong&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Water Studio">
-<meta property="og:url" content="http://waterstrong.github.io/blog/index.html">
+  <meta name="description" content="在Windows下配置DirectX Aug09 DShow获取摄像头图像:1、首先带例子安装DXSDK_Aug09.exe，可在官网下载DirectX August 2009。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
+2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Progra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectShow获取摄像头图像">
+<meta property="og:url" content="http://waterstrong.github.io/blog/directshow-graphics/index.html">
 <meta property="og:site_name" content="Water Studio">
-<meta property="og:description" content="Waterstrong&apos;s Blog">
+<meta property="og:description" content="在Windows下配置DirectX Aug09 DShow获取摄像头图像:1、首先带例子安装DXSDK_Aug09.exe，可在官网下载DirectX August 2009。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
+2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Progra">
+<meta property="og:updated_time" content="2016-03-23T15:13:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Water Studio">
-<meta name="twitter:description" content="Waterstrong&apos;s Blog">
+<meta name="twitter:title" content="DirectShow获取摄像头图像">
+<meta name="twitter:description" content="在Windows下配置DirectX Aug09 DShow获取摄像头图像:1、首先带例子安装DXSDK_Aug09.exe，可在官网下载DirectX August 2009。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
+2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Progra">
   
     <link rel="alternate" href="/atom.xml" title="Water Studio" type="application/atom+xml">
   
@@ -66,103 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/hello-world/" class="article-date">
-  <time datetime="2016-03-19T16:00:00.000Z" itemprop="datePublished">2016-03-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Tech/">Tech</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Hello-World-Let’s-Begin"><a href="#Hello-World-Let’s-Begin" class="headerlink" title="Hello World, Let’s Begin!"></a>Hello World, Let’s Begin!</h4><p><em>This is a test!</em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://waterstrong.github.io/blog/blog/hello-world/" data-id="cim4zpqa60004jx0i2f2sf8i1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/life/">life</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/tech/">tech</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-cpp-singleton" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/cpp-singleton/" class="article-date">
-  <time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Design-Pattern/">Design Pattern</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/cpp-singleton/">C++单例模式实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Singleton</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    static Singleton* sin;//如果定义为static Singleton sin;在C++里这句话相当于有对象产生，还调用了构造函数，而此时此刻的Singleton 还没有创造出来，所以调用里就会有无法解析的外部符号的编译错误</span><br><span class="line">    Singleton() //阻止创建实例</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;con&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">public:</span><br><span class="line">    static Singleton* GetInstance()//返回实例，要么返回指针，要么返回引用</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;ins&quot;&lt;&lt;endl;</span><br><span class="line">        return sin;</span><br><span class="line">    &#125;</span><br><span class="line">    static void Destroy()//应该显式释放sin，如果不显式释放，或者直接在析构函数里delete，当然在外部显式访问析构函数访问没问题，但是在delete sin时会再次调用析构函数，这样将造成不断地循环调用析构函数，这是非常可怕的。</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;destroy&quot;&lt;&lt;endl;</span><br><span class="line">        if(sin)//显式释放</span><br><span class="line">        &#123;</span><br><span class="line">            delete sin;</span><br><span class="line">            sin = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;descon&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton* Singleton::sin = new Singleton();//全局初始化, 必须new出来，在编译时就初始化了，如果出现派生的情况也只会有一个惟一的实例，而且构造函数声明为private后，派生类也没法写出构造函数，要注意的一点就是如果只有一个文件就可以直接写在后面，如果有.h和.cpp两个文件，那初始化应该写在.cpp文件中，否则可能会重定义错误。如果初始化为null,下次用时再判断并new的话必须要加双重锁定，消耗比较大，所以就采用这种方式了，不过这种消耗只有第一次才会出现，以后都不会new，但每次都要判断是否为null,也是很不爽的事。</span><br><span class="line"></span><br><span class="line">int _tmain(int argc, _TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    Singleton* sin1 = Singleton::GetInstance();</span><br><span class="line">    Singleton* sin2 = Singleton::GetInstance();</span><br><span class="line">    if (sin1 == sin2)</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;not the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Singleton::Destroy();//一定要显式调用释放sin，可能还有其方法，但暂时还没有想到，最好能隐式释放，毕竟让客户端负责释放是不太明智的。</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>补充：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;process.h&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line">HANDLE mutex = CreateMutex(NULL,FALSE,NULL); //创建互斥量</span><br><span class="line">WaitForSingleObject(mutex,INFINITE);//等待互斥量</span><br></pre></td></tr></table></figure>
-<p>//……互斥代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ReleaseMutex(mutex);//释放权限，让下一个线程可以进入</span><br><span class="line">CloseHandle(mutex);//关闭创建的mutex句柄</span><br><span class="line">mutex = NULL;</span><br></pre></td></tr></table></figure>
-<p>双重锁定，当然要先创建互斥量并初始化，最后要清除。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">static Singleton* GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">    if(!sin)</span><br><span class="line">    &#123;</span><br><span class="line">        WaitForSingleObject(mutex,INFINITE);</span><br><span class="line">        if (!sin)</span><br><span class="line">        &#123;</span><br><span class="line">            sin = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        ReleaseMutex(mutex);</span><br><span class="line">        sin = new Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    return sin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/" data-id="cim4zpq9w0000jx0ioq7cj07e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Singleton/">Singleton</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-directshow-graphics" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-directshow-graphics" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/directshow-graphics/" class="article-date">
   <time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time>
@@ -179,8 +87,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a>
+    <h1 class="article-title" itemprop="name">
+      DirectShow获取摄像头图像
     </h1>
   
 
@@ -218,10 +126,23 @@
     </footer>
   </div>
   
-</article>
-
+    
+<nav id="article-nav">
+  
+    <a href="/blog/cpp-singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C++单例模式实现
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
   
+</article>
 
 </section>
         
