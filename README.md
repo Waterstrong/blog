@@ -41,7 +41,3 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
-
-
-----
-[Waterstrong's Blog Page](http://waterstrong.github.io/blog) is maintained by [Waterstrong](https://github.com/waterstrong). Powered by [Hexo](https://hexo.io/).
