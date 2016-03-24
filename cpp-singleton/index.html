@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  <title>C++单例模式实现 | Water Studio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
+    <meta charset="utf-8">
+    
+    <title>C++单例模式实现 | Watersrong Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++单例模式实现">
 <meta property="og:url" content="http://waterstrong.github.io/blog/cpp-singleton/index.html">
-<meta property="og:site_name" content="Water Studio">
+<meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
 <meta property="og:updated_time" content="2016-03-23T15:13:09.000Z">
@@ -18,85 +18,182 @@
 <meta name="twitter:title" content="C++单例模式实现">
 <meta name="twitter:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
-  
-    <link rel="alternate" href="/atom.xml" title="Water Studio" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/blog/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/blog/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/blog/css/style.css">
+
+    <script src="/blog/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/blog/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
 
 </head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">Water Studio</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/blog/" id="subtitle">Enjoy this moment!</a>
-        </h2>
-      
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/blog/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Watersrong Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/blog/.">Home</a>
+                
+                    <a class="main-nav-link" href="/blog/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/blog/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/blog/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/blog/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/blog/css/images/my-avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://waterstrong.github.io/blog"></form>
+
+</div>
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/blog/">Home</a>
-        
-          <a class="main-nav-link" href="/blog/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://waterstrong.github.io/blog"></form>
-      </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/blog/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/about">About</a></td>
+                
+                <td>
+                    
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://waterstrong.github.io/blog"></form>
+
+                </td>
+            </tr>
+        </table>
     </div>
-  </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-cpp-singleton" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/cpp-singleton/" class="article-date">
-  <time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Design-Pattern/">Design Pattern</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/blog/css/images/my-avatar.jpg" />
+            <h2 id="name">Waterstrong</h2>
+            <h3 id="title">Developer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Chengdu, China</span>
+            <a id="follow" target="_blank" href="https://github.com/waterstrong">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                3
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                8
+                <span>tags</span>
+            </div>
+        </div>
         
-  
-    <h1 class="article-title" itemprop="name">
-      C++单例模式实现
-    </h1>
-  
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="https://github.com/waterstrong" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                    <td><a href="https://twitter.com/shuiqianglin" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+                    
+                    <td><a href="https://www.facebook.com/linshuiqiang" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+                    
+                    <td><a href="/blog/waterstrong" target="_blank" title="weixin"><i class="fa fa-weixin"></i></a></td>
+                    
+                    <td><a href="/blog/Shuiqiang Lin" target="_blank" title="linkedin"><i class="fa fa-linkedin"></i></a></td>
+                    
+                    <td><a href="/blog/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
 
-      </header>
+            
+            <section id="main"><article id="post-cpp-singleton" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。</p>
+        <h1 class="article-title" itemprop="name">
+            C++单例模式实现
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/blog/cpp-singleton/">
+            <time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time>
+        </a>
+    </div>
+
+
+                    
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/blog/categories/Design-Pattern/">Design Pattern</a>
+    </div>
+
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/C/">C++</a>, <a class="tag-link" href="/blog/tags/Singleton/">Singleton</a>, <a class="tag-link" href="/blog/tags/设计模式/">设计模式</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Singleton</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    static Singleton* sin;//如果定义为static Singleton sin;在C++里这句话相当于有对象产生，还调用了构造函数，而此时此刻的Singleton 还没有创造出来，所以调用里就会有无法解析的外部符号的编译错误</span><br><span class="line">    Singleton() //阻止创建实例</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;con&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">public:</span><br><span class="line">    static Singleton* GetInstance()//返回实例，要么返回指针，要么返回引用</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;ins&quot;&lt;&lt;endl;</span><br><span class="line">        return sin;</span><br><span class="line">    &#125;</span><br><span class="line">    static void Destroy()//应该显式释放sin，如果不显式释放，或者直接在析构函数里delete，当然在外部显式访问析构函数访问没问题，但是在delete sin时会再次调用析构函数，这样将造成不断地循环调用析构函数，这是非常可怕的。</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;destroy&quot;&lt;&lt;endl;</span><br><span class="line">        if(sin)//显式释放</span><br><span class="line">        &#123;</span><br><span class="line">            delete sin;</span><br><span class="line">            sin = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;descon&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton* Singleton::sin = new Singleton();//全局初始化, 必须new出来，在编译时就初始化了，如果出现派生的情况也只会有一个惟一的实例，而且构造函数声明为private后，派生类也没法写出构造函数，要注意的一点就是如果只有一个文件就可以直接写在后面，如果有.h和.cpp两个文件，那初始化应该写在.cpp文件中，否则可能会重定义错误。如果初始化为null,下次用时再判断并new的话必须要加双重锁定，消耗比较大，所以就采用这种方式了，不过这种消耗只有第一次才会出现，以后都不会new，但每次都要判断是否为null,也是很不爽的事。</span><br><span class="line"></span><br><span class="line">int _tmain(int argc, _TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    Singleton* sin1 = Singleton::GetInstance();</span><br><span class="line">    Singleton* sin2 = Singleton::GetInstance();</span><br><span class="line">    if (sin1 == sin2)</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;not the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Singleton::Destroy();//一定要显式调用释放sin，可能还有其方法，但暂时还没有想到，最好能隐式释放，毕竟让客户端负责释放是不太明智的。</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>补充：</strong></p>
@@ -106,137 +203,285 @@
 <p>双重锁定，当然要先创建互斥量并初始化，最后要清除。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">static Singleton* GetInstance()</span><br><span class="line">&#123;</span><br><span class="line">    if(!sin)</span><br><span class="line">    &#123;</span><br><span class="line">        WaitForSingleObject(mutex,INFINITE);</span><br><span class="line">        if (!sin)</span><br><span class="line">        &#123;</span><br><span class="line">            sin = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        ReleaseMutex(mutex);</span><br><span class="line">        sin = new Singleton();</span><br><span class="line">    &#125;</span><br><span class="line">    return sin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/" data-id="cim52zmza0000ys0ip9bse7c8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Singleton/">Singleton</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/设计模式/">设计模式</a></li></ul>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
-    </footer>
-  </div>
-  
+
+
+</div>
+
+    <a data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/" data-id="cim6g4uhf0000wt0ivg3v1z69" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
     
+        <a href="http://waterstrong.github.io/blog/blog/cpp-singleton/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://waterstrong.github.io/blog/blog/cpp-singleton/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
 <nav id="article-nav">
-  
-    <a href="/blog/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/directshow-graphics/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">DirectShow获取摄像头图像</div>
-    </a>
-  
+    
+        <a href="/blog/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Hello World
+                
+            </div>
+        </a>
+    
+    
+        <a href="/blog/directshow-graphics/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">DirectShow获取摄像头图像</div>
+        </a>
+    
 </nav>
 
-  
+
+    
 </article>
 
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
-        
-          <aside id="sidebar">
-  
+            
+                <aside id="sidebar">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Design-Pattern/">Design Pattern</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Graphics/">Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Tech/">Tech</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/DirectX/">DirectX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/OpenCV/">OpenCV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Singleton/">Singleton</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tech/">tech</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/图形图像/">图形图像</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/设计模式/">设计模式</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/12/">December 2011</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
         
-          <li>
-            <a href="/blog/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/blog/cpp-singleton/">C++单例模式实现</a>
-          </li>
-        
-          <li>
-            <a href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a>
-          </li>
-        
-      </ul>
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Tech/">Tech</a></p>
+                            <p class="item-title"><a href="/blog/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2016-03-19T16:00:00.000Z" itemprop="datePublished">2016-03-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/cpp-singleton/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Design-Pattern/">Design Pattern</a></p>
+                            <p class="item-title"><a href="/blog/cpp-singleton/" class="title">C++单例模式实现</a></p>
+                            <p class="item-date"><time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/blog/directshow-graphics/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Graphics/">Graphics</a></p>
+                            <p class="item-title"><a href="/blog/directshow-graphics/" class="title">DirectShow获取摄像头图像</a></p>
+                            <p class="item-date"><time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">2011-12-28</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
     </div>
-  </div>
 
-  
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Design-Pattern/">Design Pattern</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Graphics/">Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Tech/">Tech</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/12/">December 2011</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/DirectX/">DirectX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/OpenCV/">OpenCV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Singleton/">Singleton</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/life/">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tech/">tech</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/图形图像/">图形图像</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://waterstrong.github.io/">Waterstrong Home</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-chevron-up"></div>
 </aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 Waterstrong<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 Waterstrong<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
     </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/blog/" class="mobile-nav-link">Home</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-icarus';
+    
+    
+    var disqus_url = 'http://waterstrong.github.io/blog/blog/cpp-singleton/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/blog/vendor/fancybox/jquery.fancybox.pack.js"></script>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
+<!-- Custom Scripts -->
+<script src="/blog/js/main.js"></script>
 
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
-
-  </div>
+    </div>
 </body>
 </html>
