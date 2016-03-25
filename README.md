@@ -2,6 +2,26 @@
 
 Blog: <http://waterstrong.github.io/blog>
 
+## Installation
+
+### Install Node.js
+``` bash
+$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+or
+$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+
+$ nvm install 5
+```
+
+### Install Hexo
+``` bash
+$ npm install -g hexo-cli
+```
+### Install Dependency
+``` bash
+$ cd blog
+$ npm install
+```
 
 ## Usage
 
