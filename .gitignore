@@ -1,0 +1,16 @@
+_site/
+_theme_packages/
+.sass-cache/
+.jekyll-metadata
+
+Thumbs.db
+.DS_Store
+
+!.gitkeep
+
+.rbenv-version
+.rvmrc
+
+.idea/
+*.iml
+*.ipr
