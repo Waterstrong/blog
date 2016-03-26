@@ -61,7 +61,7 @@ plugins:
     fancybox: true # options: true, false
     google_analytics: # enter the tracking ID for your Google Analytics
     google_site_verification: # enter Google site verification code
-    baidu_analytics: # enter Baidu Analytics hash key
+    baidu_analytics: 693ad4e275d81e72c100e71459f00b8f # enter Baidu Analytics hash key
 
 # Miscellaneous
 miscellaneous:
