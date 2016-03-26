@@ -160,7 +160,8 @@ baidu_site:
 google_site: 
 
 # Fill in Google Analytics tracking ID, #e.g. UA-XXXXX-X
-google_analytics: 
+google_analytics:
+baidu_analytics: 693ad4e275d81e72c100e71459f00b8f # enter Baidu Analytics hash key
 
 # 不蒜子网站计数设置
 # http://ibruce.info/2015/04/04/busuanzi/
