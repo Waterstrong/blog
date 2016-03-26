@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="在Windows下配置DirectX Aug09 DShow获取摄像头图像:1、首先带例子安装DXSDK_Aug09.exe，可在官网下载DirectX August 2009。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
 2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Progra">
-<meta property="og:updated_time" content="2016-03-26T03:38:50.000Z">
+<meta property="og:updated_time" content="2016-03-26T04:59:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DirectShow获取摄像头图像">
 <meta name="twitter:description" content="在Windows下配置DirectX Aug09 DShow获取摄像头图像:1、首先带例子安装DXSDK_Aug09.exe，可在官网下载DirectX August 2009。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。
@@ -200,6 +200,7 @@
 <p>5、添加库文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86到最顶端。</p>
 <p>6、添加strmbase.lib strmbasd.lib到lib链接器中。</p>
 <p>7、将ARFrameGrabber文件夹中的ARFrameGrabber.h 和 ARFrameGrabber.cpp 拷贝到到自己工程中（自己修改一下，加了些逻辑判断），再添加进来。测试一下：</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;  </span><br><span class="line">#include &lt;highgui.h&gt;  </span><br><span class="line">#include &quot;ARFrameGrabber.h&quot;  </span><br><span class="line">#include &lt;Windows.h&gt;  </span><br><span class="line">using namespace std;  </span><br><span class="line">int _tmain(int argc, _TCHAR* argv[])  </span><br><span class="line">&#123;  </span><br><span class="line">    static ARFrameGrabber frameGrabber;  </span><br><span class="line">    IplImage ds_frame;  </span><br><span class="line">    int stride;  </span><br><span class="line">    BYTE* myBuffer;  </span><br><span class="line">    frameGrabber.Init(0, true); //设置支持directshow的设备编号，从0开始  </span><br><span class="line">    frameGrabber.SetFlippedImage(true); //图像是否翻转  </span><br><span class="line">    IplImage* frame=NULL;  </span><br><span class="line">    cvNamedWindow(&quot;test&quot;,0);  </span><br><span class="line">    while (true)  </span><br><span class="line">    &#123;  </span><br><span class="line">        frame = NULL;  </span><br><span class="line">        frameGrabber.GrabByteFrame(); //获取一帧  </span><br><span class="line">        myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  </span><br><span class="line">        while(!myBuffer)  </span><br><span class="line">        &#123;  </span><br><span class="line">            UINT nRet=MessageBox(0,&quot;警告：\n\n摄像头正被其他程序占用，请关闭可能使用摄像头的程序后重试！&quot;,&quot;启动出错&quot;,MB_RETRYCANCEL|MB_ICONEXCLAMATION);  </span><br><span class="line">            if(nRet==IDRETRY)  </span><br><span class="line">            &#123;  </span><br><span class="line">                frameGrabber.GrabByteFrame(); //获取一帧  </span><br><span class="line">                myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  </span><br><span class="line">            &#125;  </span><br><span class="line">            else  </span><br><span class="line">            &#123;  </span><br><span class="line">                cvDestroyAllWindows();  </span><br><span class="line">                exit(0);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        int width = frameGrabber.GetWidth();  </span><br><span class="line">        int height = frameGrabber.GetHeight();  </span><br><span class="line">        stride  = (width * sizeof( RGBTRIPLE ) + 3) &amp; -4;//图像每行所占的字节数，4的倍数，对齐  </span><br><span class="line">        cvInitImageHeader( &amp;ds_frame, cvSize(width, height), 8, 3,IPL_ORIGIN_BL, 4 ); //创建IplImage  </span><br><span class="line">        ds_frame.widthStep = stride;  </span><br><span class="line">        cvSetData( &amp;ds_frame, myBuffer, stride ); //copy数据  </span><br><span class="line">        frame = &amp;ds_frame;  </span><br><span class="line">        cvShowImage(&quot;test&quot;,frame);  </span><br><span class="line">        if (cvWaitKey(3)==27)  </span><br><span class="line">        &#123;  </span><br><span class="line">            break;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    cvDestroyAllWindows();  </span><br><span class="line">    return 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="遇到问题一："><a href="#遇到问题一：" class="headerlink" title="遇到问题一："></a>遇到问题一：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果报错: &quot;dxtrans.h&quot;: No such file or directory</span><br></pre></td></tr></table></figure>
@@ -221,7 +222,7 @@
 
 </div>
 
-    <a data-url="http://waterstrong.github.io/blog/blog/directshow-graphics/" data-id="cim8mmhp300079dmphcpw5wzm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://waterstrong.github.io/blog/blog/directshow-graphics/" data-id="cim8xv1wq0005w7mpphsc7f4p" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -289,7 +290,7 @@
 
             
     
-        <a href="http://waterstrong.github.io/blog/blog/directshow-graphics/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://waterstrong.github.io/blog/blog/directshow-graphics/">Comments</a>
+        <a href="http://waterstrong.github.io/blog/blog/directshow-graphics/#comments" class="article-comment-link ds-thread-count" data-thread-key="directshow-graphics/">Comments</a>
     
 
         </footer>
@@ -319,9 +320,44 @@
     <section id="comments">
     
         
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
+    <div class="ds-thread" data-thread-key="directshow-graphics/" data-title="DirectShow获取摄像头图像" data-url="http://waterstrong.github.io/blog/blog/directshow-graphics/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
 
     
     </section>
@@ -461,18 +497,15 @@
 </footer>
         
     
-    <script>
-    var disqus_shortname = 'hexo-theme-icarus';
-    
-    
-    var disqus_url = 'http://waterstrong.github.io/blog/blog/directshow-graphics/';
-    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'waterstrong'};
     (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
     </script>
 

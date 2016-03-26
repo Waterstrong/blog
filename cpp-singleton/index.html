@@ -5,19 +5,16 @@
     
     <title>C++单例模式实现 | Watersrong Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
+    <meta name="description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++单例模式实现">
 <meta property="og:url" content="http://waterstrong.github.io/blog/cpp-singleton/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
-<meta property="og:updated_time" content="2016-03-26T03:38:47.000Z">
+<meta property="og:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。">
+<meta property="og:updated_time" content="2016-03-26T04:59:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++单例模式实现">
-<meta name="twitter:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include">
+<meta name="twitter:description" content="之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。">
     
 
     
@@ -194,6 +191,7 @@
         
             
             <p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Singleton</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    static Singleton* sin;//如果定义为static Singleton sin;在C++里这句话相当于有对象产生，还调用了构造函数，而此时此刻的Singleton 还没有创造出来，所以调用里就会有无法解析的外部符号的编译错误</span><br><span class="line">    Singleton() //阻止创建实例</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;con&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">public:</span><br><span class="line">    static Singleton* GetInstance()//返回实例，要么返回指针，要么返回引用</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;ins&quot;&lt;&lt;endl;</span><br><span class="line">        return sin;</span><br><span class="line">    &#125;</span><br><span class="line">    static void Destroy()//应该显式释放sin，如果不显式释放，或者直接在析构函数里delete，当然在外部显式访问析构函数访问没问题，但是在delete sin时会再次调用析构函数，这样将造成不断地循环调用析构函数，这是非常可怕的。</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;destroy&quot;&lt;&lt;endl;</span><br><span class="line">        if(sin)//显式释放</span><br><span class="line">        &#123;</span><br><span class="line">            delete sin;</span><br><span class="line">            sin = NULL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Singleton()</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;descon&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton* Singleton::sin = new Singleton();//全局初始化, 必须new出来，在编译时就初始化了，如果出现派生的情况也只会有一个惟一的实例，而且构造函数声明为private后，派生类也没法写出构造函数，要注意的一点就是如果只有一个文件就可以直接写在后面，如果有.h和.cpp两个文件，那初始化应该写在.cpp文件中，否则可能会重定义错误。如果初始化为null,下次用时再判断并new的话必须要加双重锁定，消耗比较大，所以就采用这种方式了，不过这种消耗只有第一次才会出现，以后都不会new，但每次都要判断是否为null,也是很不爽的事。</span><br><span class="line"></span><br><span class="line">int _tmain(int argc, _TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    Singleton* sin1 = Singleton::GetInstance();</span><br><span class="line">    Singleton* sin2 = Singleton::GetInstance();</span><br><span class="line">    if (sin1 == sin2)</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt;&quot;not the same&quot;&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    Singleton::Destroy();//一定要显式调用释放sin，可能还有其方法，但暂时还没有想到，最好能隐式释放，毕竟让客户端负责释放是不太明智的。</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>补充：</strong></p>
@@ -212,7 +210,7 @@
 
 </div>
 
-    <a data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/" data-id="cim8mmhov00019dmpvaxcw5x5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/" data-id="cim8xv1wo0003w7mpqzw2vvv9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -280,7 +278,7 @@
 
             
     
-        <a href="http://waterstrong.github.io/blog/blog/cpp-singleton/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://waterstrong.github.io/blog/blog/cpp-singleton/">Comments</a>
+        <a href="http://waterstrong.github.io/blog/blog/cpp-singleton/#comments" class="article-comment-link ds-thread-count" data-thread-key="cpp-singleton/">Comments</a>
     
 
         </footer>
@@ -315,9 +313,44 @@
     <section id="comments">
     
         
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
+    <div class="ds-thread" data-thread-key="cpp-singleton/" data-title="C++单例模式实现" data-url="http://waterstrong.github.io/blog/blog/cpp-singleton/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
 
     
     </section>
@@ -457,18 +490,15 @@
 </footer>
         
     
-    <script>
-    var disqus_shortname = 'hexo-theme-icarus';
-    
-    
-    var disqus_url = 'http://waterstrong.github.io/blog/blog/cpp-singleton/';
-    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'waterstrong'};
     (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
     </script>
 
