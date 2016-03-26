@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  >
 <head>
   <meta charset="utf-8">
   
@@ -18,23 +18,28 @@
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="img/favicon.png">
+    <link rel="icon" href="/blog/img/favicon.png">
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
   
-  <link rel="stylesheet" href="/css/style.css">
+  
+        <link href="//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png">
   
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
+
   <!-- 加载特效 -->
     <script src="/js/pace.js"></script>
     <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
   <script>
       var yiliaConfig = {
+          rootUrl: '/blog/',
           fancybox: true,
           animate: true,
           isHome: false,
@@ -67,7 +72,7 @@
     <header id="header" class="inner">
         <a href="/" class="profilepic">
             
-            <img lazy-src="img/head.jpg" class="js-avatar">
+            <img lazy-src="/blog/img/head.jpg" class="js-avatar">
             
         </a>
 
@@ -127,13 +132,13 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">Home</a></li>
+                            <li><a href="/blog/">Home</a></li>
                         
-                            <li><a href="/archives">Archives</a></li>
+                            <li><a href="/blog/archives">Archives</a></li>
                         
-                            <li><a href="/tags">Tag Cloud</a></li>
+                            <li><a href="/blog/tags">Tag Cloud</a></li>
                         
-                            <li><a href="/about">About</a></li>
+                            <li><a href="/blog/about">About</a></li>
                         
                         </ul>
                     </nav>
@@ -152,7 +157,7 @@
                             
                                 <a class="fl facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="facebook">facebook</a>
                             
-                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                                <a class="fl rss" target="_blank" href="/blog/atom.xml" title="rss">rss</a>
                             
                         </ul>
                     </nav>
@@ -161,7 +166,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/tech/" style="font-size: 10px;">tech</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+                        <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a>
                     </div>
                 </section>
                 
@@ -170,7 +175,7 @@
                 <section class="switch-part switch-part3">
                     <div id="js-friends">
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="/">who</a>
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="/blog/">who</a>
                     
                     </div>
                 </section>
@@ -198,7 +203,7 @@
         <header id="header" class="inner">
             <a href="/" class="profilepic">
                 
-                    <img lazy-src="img/head.jpg" class="js-avatar">
+                    <img lazy-src="/blog/img/head.jpg" class="js-avatar">
                 
             </a>
             <hgroup>
@@ -210,13 +215,13 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/blog/">Home</a></li>
                 
-                    <li><a href="/archives">Archives</a></li>
+                    <li><a href="/blog/archives">Archives</a></li>
                 
-                    <li><a href="/tags">Tag Cloud</a></li>
+                    <li><a href="/blog/tags">Tag Cloud</a></li>
                 
-                    <li><a href="/about">About</a></li>
+                    <li><a href="/blog/about">About</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -236,7 +241,7 @@
                     
                         <a class="facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="facebook">facebook</a>
                     
-                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                        <a class="rss" target="_blank" href="/blog/atom.xml" title="rss">rss</a>
                     
                 </div>
             </nav>
@@ -252,7 +257,7 @@
       
       <section class="archives-wrap">
         <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
+          <a href="/blog/archives/2016" class="archive-year">2016</a>
         </div>
         <div class="archives">
     
@@ -260,27 +265,27 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
           <div class="article-meta">
-              <a href="/hello-world/" class="archive-article-date">
+              <a href="/blog/hello-world/" class="archive-article-date">
       <time datetime="2016-03-19T16:00:00.000Z" itemprop="datePublished">03-20</time>
 </a>
         </div>
          
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/hello-world/">Hello World</a>
+      <a class="archive-article-title" href="/blog/hello-world/">Hello World</a>
     </h1>
   
 
         <div class="article-info info-on-archive">
           
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tech/">Tech</a>
+    <a class="article-category-link" href="/blog/categories/Tech/">Tech</a>
     </div>
 
 
           
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tech/">tech</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/life/">life</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/tech/">tech</a></li></ul>
     </div>
 
         </div>
@@ -332,12 +337,12 @@
 
     </div>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="/blog/js/main.js"></script>
 
     <script>
         $(document).ready(function() {
             var backgroundnum = 13;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
         })
