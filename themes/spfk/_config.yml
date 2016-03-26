@@ -6,8 +6,7 @@
 menu:
   Home: .
   Archives: /archives
-  Categories: /categories
-  Tags: /tags
+  Tag Cloud: /tags
   About: /about
 
 # Link to your avatar | 填写头像地址
@@ -168,7 +167,7 @@ google_analytics:
 visit_counter:
   on: true
   site_visit: Site Visit
-  page_visit: Paeg Visit
+  page_visit: Page Visit
 
 # A标签提示
 TipTitle: true
