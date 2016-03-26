@@ -10,10 +10,15 @@ menu:
   About: /about
 
 # Link to your avatar | 填写头像地址
-avatar: /img/head.jpg
+avatar: img/head.jpg
 
 # Small icon of Your site | 站点小图标地址
-favicon: /img/favicon.png
+favicon: img/favicon.png
+
+# If your site' url is 'http://yoursite.com/blog', set root_url as '/blog/'
+# 网站若存放在子目录，请按上面格式填写
+# https://hexo.io/docs/configuration.html#URL
+root_url: /blog/
 
 # Social info. Bar | 社交信息展示
 ## Keep "mailto:" in Email | 设置 Email 时保留 "mailto:"
@@ -79,7 +84,7 @@ youyan:
 background:
   on: true
   background_sum: 13
-  background_image: 1
+  background_image: 1 # if "on: false", the background img is the one
 
 highlight_style:
   #on: true
@@ -108,12 +113,15 @@ excerpt_link: more #修改more>>的文字
 
 # 是否显示边栏中的搜索框（仅样式，未添加搜索功能）
 # Search Box in left column
-# search_box: true
+search_box: false
 
 # 是否开启主页及加载头像时的动画效果
 # Animation in Homepage and Loading avatar
 animate: true
 
+# Load jQuery UI to style tooltips
+# 工具提示框样式美化
+jquery_ui: true
 
 # >>> Small features | 小功能设置 <<<
 
@@ -150,13 +158,13 @@ fancybox: true
 mathjax: false
 
 # Socail Share | 是否开启分享
-# share: true
 baidushare: true
-#showshare: true
+# share: true  # Deprecated
+# showshare: true
 
 # 百度、谷歌站长验证。填写 HTML 标签 content
 # Site Verification for Google and Baidu. HTML label content.
-baidu_site: 
+baidu_site: c167b9feb4f0b208b712c79629c188e4
 google_site: 
 
 # Fill in Google Analytics tracking ID, #e.g. UA-XXXXX-X
