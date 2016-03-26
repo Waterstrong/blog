@@ -4,7 +4,7 @@
 ## About Page: `hexo new page about`
 ## Tags Cloud Page: `hexo new page tags`
 menu:
-  Home: .
+  Home: /
   Archives: /archives
   Tag Cloud: /tags
   About: /about
@@ -53,12 +53,11 @@ disqus:
   #on: true
   shortname: 
   # https://help.disqus.com/customer/en/portal/articles/466208-what-s-a-shortname-
-  # It is unnecessary to enable disqus here if 
-  # you have set "disqus_shortname" in your site's "_config.yml" 
+  # It is unnecessary to enable disqus here if you have set "disqus_shortname" in your site's "_config.yml"
 
 duoshuo: 
   on: true
-  domain: luums
+  domain: waterstrong
   # 是否开启多说评论，http://duoshuo.com/create-site/
   # 使用上面网址登陆你的多说，然后创建站点，在 domain 中填入你设定的域名前半部分
   # http://<要填的部分>.duoshuo.com (domain只填上<>里的内容，不要填整个网址)
@@ -124,7 +123,8 @@ tagcloud: true
 
 # Blogroll, Link exchange | 友情链接
 # friends: false
-friends: false
+friends:
+  who: #
 
 
 #是否开启“关于我”。
@@ -166,8 +166,8 @@ google_analytics:
 # http://ibruce.info/2015/04/04/busuanzi/
 visit_counter:
   on: true
-  site_visit: Site Visit
-  page_visit: Page Visit
+  site_visit: 本站到访数
+  page_visit: 本页阅读量
 
 # A标签提示
 TipTitle: true
