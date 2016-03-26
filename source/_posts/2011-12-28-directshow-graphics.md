@@ -20,6 +20,8 @@ tags: [图形图像, DirectX, C++, OpenCV]
 
 7、将ARFrameGrabber文件夹中的ARFrameGrabber.h 和 ARFrameGrabber.cpp 拷贝到到自己工程中（自己修改一下，加了些逻辑判断），再添加进来。测试一下：
 
+<!-- more -->
+
 ```c_cpp
 #include<iostream>  
 #include <highgui.h>  

@@ -6,6 +6,8 @@ tags: [设计模式, C++, Singleton]
 
 之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。
 
+<!-- more -->
+
 ```c_cpp
 #include <iostream>
 using namespace std;
