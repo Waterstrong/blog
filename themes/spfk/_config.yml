@@ -105,7 +105,7 @@ toc_nowrap: false
 
 # 自定义"阅读全文"链接按钮的显示文字
 # Customize the text on excerpt link
-excerpt_link: 大航海 #修改more>>的文字
+excerpt_link: more #修改more>>的文字
 
 # 是否显示边栏中的搜索框（仅样式，未添加搜索功能）
 # Search Box in left column
@@ -128,7 +128,7 @@ friends: false
 
 
 #是否开启“关于我”。
-aboutme: false
+aboutme: I'm Waterstrong! The man who has made up his mind to win will never say "Impossible"!
 #aboutme: false
 
 # 是否在新窗口打开链接
