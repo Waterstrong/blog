@@ -12,6 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+## or else set url as 'http://yoursite.com' and root as '/'
 url: http://waterstrong.github.io/blog
 root: /blog/
 permalink: :title/
