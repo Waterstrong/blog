@@ -54,7 +54,7 @@ comment:
     youyan: # enter youyan uid here
 
 # Share
-share: default # options: jiathis, bdshare, addtoany, default
+share: bdshare # options: jiathis, bdshare, addtoany, default
 
 # Plugins
 plugins:
