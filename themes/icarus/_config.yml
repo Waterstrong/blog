@@ -59,10 +59,10 @@ share: bdshare # options: jiathis, bdshare, addtoany, default
 # Plugins
 plugins:
     fancybox: true # options: true, false
-    google_analytics: # enter the tracking ID for your Google Analytics
-    google_site_verification: # enter Google site verification code
-    baidu_analytics: 693ad4e275d81e72c100e71459f00b8f # enter Baidu Analytics hash key
-    baidu_site_verification: c167b9feb4f0b208b712c79629c188e4 # enter Baidu site verification code
+    google_analytics: UA-75679138-1 # enter the tracking ID for your Google Analytics
+    google_site_verification: pFW527fHrjfI0si2w4NQ0w3cTw12AvvuohAu1PUfqKA # enter Google site verification code
+    baidu_analytics: # 693ad4e275d81e72c100e71459f00b8f # enter Baidu Analytics hash key
+    baidu_site_verification: # c167b9feb4f0b208b712c79629c188e4 # enter Baidu site verification code
 
 # Miscellaneous
 miscellaneous:
