@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Categories | Watersrong Blog</title>
+  <title>MySQL在Linux下默认区分大小写 | Watersrong Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Waterstrong&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Categories">
-<meta property="og:url" content="http://waterstrong.me/blog/categories/index.html">
+  <meta name="description" content="前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL在Linux下默认区分大小写">
+<meta property="og:url" content="http://waterstrong.me/blog/mysql-case-sensitive-linux/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="Waterstrong&apos;s Blog">
-<meta property="og:updated_time" content="2016-03-28T14:44:09.000Z">
+<meta property="og:description" content="前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。">
+<meta property="og:updated_time" content="2016-03-28T16:27:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Categories">
-<meta name="twitter:description" content="Waterstrong&apos;s Blog">
+<meta name="twitter:title" content="MySQL在Linux下默认区分大小写">
+<meta name="twitter:description" content="前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -44,7 +44,7 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -237,11 +237,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="categories-undefined" class="article article-type-categories" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-mysql-case-sensitive-linux" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/blog/categories/index.html" class="article-date">
-      <time datetime="2016-03-28T14:44:09.000Z" itemprop="datePublished">2016-03-28</time>
+      <a href="/blog/mysql-case-sensitive-linux/" class="article-date">
+      <time datetime="2015-12-20T14:28:42.000Z" itemprop="datePublished">2015-12-20</time>
 </a>
     </div>
   
@@ -254,7 +254,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Categories
+      MySQL在Linux下默认区分大小写
     </h1>
   
 
@@ -262,8 +262,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/Database/">Database</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hibernate/">Hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/JPA/">JPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/数据库/">数据库</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -271,52 +279,121 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta {
-        display: none;
-    }
-    #container .article .article-title {
-        padding-right: 0;
-    }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
-    }
-    .article-header:hover {
-        border-left: none;
-    }
-    .article-title {
-        font-size: 1.6em
-    }
-    .article-meta {
-        display: none;
-    }
-    .article-entry hr {
-        margin: 0;
-    }
-    #container .article-info-post.article-info {
-      display: none;
-      }
-    #container .article .article-title {
-    padding: 0;
-    }
-</style>
+        <p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。</p>
+<a id="more"></a>
+<h4 id="默认大小写敏感"><a href="#默认大小写敏感" class="headerlink" title="默认大小写敏感"></a>默认大小写敏感</h4><p>MySQL数据库名、表名、别名在Linux下默认区分大小写，root登录通过命令查看其配置：<br>mysql&gt; show variables like ‘lower%’;<br>+————————+——-+<br>| Variable_name          | Value |<br>+————————+——-+<br>| lower_case_file_system | OFF   |<br>| lower_case_table_names | 0     |<br>+————————+——-+</p>
+<h4 id="变量名和值解释"><a href="#变量名和值解释" class="headerlink" title="变量名和值解释"></a>变量名和值解释</h4><p>lower_case_file_system为只读属性，显示出系统的文件系统是否大小写敏感，OFF表示大小写敏感，ON表示大小写不敏感。<br>lower_case_table_names默认为0，表示大小写敏感；设置1表示大小写不敏感，创建的表/数据库以小写形式存放在磁盘上，对于sql语句转换为小写操作；设置2表示创建的表/数据库依据语句上格式存放，但查找都是转换为小写进行。</p>
+<p>lower_case_file_system解释可参见<a href="http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_file_system" target="_blank" rel="external">官方文档</a>说明：</p>
+<blockquote>
+<p>This variable describes the case sensitivity of file names on the file system where the data directory is located. OFF means file names are case sensitive,ON means they are not case sensitive. This variable is read only because it reflects a file system attribute and setting it would have no effect on the file system.</p>
+</blockquote>
+<p>lower_case_table_names解释可参见<a href="http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names" target="_blank" rel="external">官方文档</a>的说明：</p>
+<blockquote>
+<p><a href="http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names" target="_blank" rel="external">lower_case_table_names</a>, If set to 0, table names are stored as specified and comparisons are case sensitive. If set to 1, table names are stored in lowercase on disk and comparisons are not case sensitive. If set to 2, table names are stored as given but compared in lowercase. This option also applies to database names and table aliases. For additional information, see <a href="http://dev.mysql.com/doc/refman/5.6/en/identifier-case-sensitivity.html" target="_blank" rel="external">Section 9.2.2</a>, “Identifier Case Sensitivity”.</p>
+<p>On Windows the default value is 1. On OS X, the default value is 2.</p>
+<p>You should <em>not</em> set <strong>lower_case_table_names</strong> to 0 if you are running MySQL on a system where the data directory resides on a case-insensitive file system (such as on Windows or OS X). It is an unsupported combination that could result in a hang condition when running an INSERT INTO … SELECT … FROM <strong>tbl_name</strong> operation with the wrong <strong>tbl_name</strong> letter case. With MyISAM, accessing table names using different letter cases could cause index corruption.</p>
+</blockquote>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>关于Hibernate/JPA数据库schema自动映射时，对于Linux上MySQL大小写敏感解决方案为：</p>
+<ol>
+<li><strong>方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。</strong></li>
+<li><strong>方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。</strong></li>
+</ol>
+<p><strong>但是特别注意：</strong></p>
+<blockquote>
+<p>As of MySQL 5.6.27, an error message is printed and the server exits if you attempt to start the server with –lower_case_table_names=0 on a case-insensitive file system.</p>
+</blockquote>
+<p>若需要设置lower_case_table_names = 1时，在重启数据库实例之前就需要将原来的数据库和表转换为小写，否则将找不到数据库名。而数据库名无法直接更名，可以新建一个小写的数据库名，然后rename table到新的数据库，完成表的迁移。</p>
 
-
-          
-        
       
     </div>
     
   </div>
   
     
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2015年12月20日 - 22时28分</p>
+        <p><span>最后更新:</span>2016年03月29日 - 00时27分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/blog/mysql-case-sensitive-linux/" title="MySQL在Linux下默认区分大小写">http://waterstrong.me/blog/mysql-case-sensitive-linux/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/mysql-case-sensitive-linux/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/blog/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
 
+
+
+<nav id="article-nav">
+  
+    <a href="/blog/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/cpp-singleton/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++单例模式实现</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#默认大小写敏感"><span class="toc-number">1.</span> <span class="toc-text">默认大小写敏感</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量名和值解释"><span class="toc-number">2.</span> <span class="toc-text">变量名和值解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
 
 
 
@@ -337,7 +414,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="categories/index.html" data-title="Categories" data-url="http://waterstrong.me/blog/blog/categories/index.html"></div>
+    <div class="ds-thread" data-thread-key="mysql-case-sensitive-linux/" data-title="MySQL在Linux下默认区分大小写" data-url="http://waterstrong.me/blog/blog/mysql-case-sensitive-linux/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -357,6 +434,41 @@
     
 
 
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/hello-world/" title="上一篇: Hello World">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/blog/cpp-singleton/" title="下一篇: C++单例模式实现">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
 
