@@ -39,8 +39,8 @@ lower_case_table_names解释可参见[官方文档](http://dev.mysql.com/doc/ref
 
 #### 解决方案
 关于Hibernate/JPA数据库schema自动映射时，对于Linux上MySQL大小写敏感解决方案为：
-1. __方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。__
-2. **方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。**
+* **方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。**
+* **方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。**
 
 **但是特别注意：**
 > As of MySQL 5.6.27, an error message is printed and the server exits if you attempt to start the server with --lower_case_table_names=0 on a case-insensitive file system.
