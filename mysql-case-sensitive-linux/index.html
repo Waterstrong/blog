@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://waterstrong.me/blog/mysql-case-sensitive-linux/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。">
-<meta property="og:updated_time" content="2016-03-28T16:27:36.000Z">
+<meta property="og:updated_time" content="2016-03-29T15:47:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL在Linux下默认区分大小写">
 <meta name="twitter:description" content="前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。">
@@ -294,10 +294,10 @@
 <p>You should <em>not</em> set <strong>lower_case_table_names</strong> to 0 if you are running MySQL on a system where the data directory resides on a case-insensitive file system (such as on Windows or OS X). It is an unsupported combination that could result in a hang condition when running an INSERT INTO … SELECT … FROM <strong>tbl_name</strong> operation with the wrong <strong>tbl_name</strong> letter case. With MyISAM, accessing table names using different letter cases could cause index corruption.</p>
 </blockquote>
 <h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>关于Hibernate/JPA数据库schema自动映射时，对于Linux上MySQL大小写敏感解决方案为：</p>
-<ol>
+<ul>
 <li><strong>方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。</strong></li>
 <li><strong>方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。</strong></li>
-</ol>
+</ul>
 <p><strong>但是特别注意：</strong></p>
 <blockquote>
 <p>As of MySQL 5.6.27, an error message is printed and the server exits if you attempt to start the server with –lower_case_table_names=0 on a case-insensitive file system.</p>
@@ -314,7 +314,7 @@
         <p><span>本文标题:</span><a href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2015年12月20日 - 22时28分</p>
-        <p><span>最后更新:</span>2016年03月29日 - 00时27分</p>
+        <p><span>最后更新:</span>2016年03月29日 - 23时47分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/blog/mysql-case-sensitive-linux/" title="MySQL在Linux下默认区分大小写">http://waterstrong.me/blog/mysql-case-sensitive-linux/</a>
             <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/mysql-case-sensitive-linux/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
