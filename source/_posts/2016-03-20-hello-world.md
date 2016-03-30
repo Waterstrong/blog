@@ -10,3 +10,6 @@ tags: [tech, life]
 
 <http://waterstrong.me>
 
+<!-- more -->
+
+![Hello Nature](../images/hello-world/nature.jpg)
