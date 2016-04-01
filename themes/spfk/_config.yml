@@ -4,7 +4,7 @@
 ## About Page: `hexo new page about`
 ## Tags Cloud Page: `hexo new page tags`
 menu:
-  Home: /
+  Home: http://waterstrong.me
   Archives: /archives
   Tag Cloud: /tags
   About: /about
