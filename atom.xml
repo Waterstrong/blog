@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Watersrong Blog</title>
+  <subtitle>Enjoy this moment!</subtitle>
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="http://waterstrong.me/blog/"/>
+  <updated>2016-03-30T10:37:33.000Z</updated>
+  <id>http://waterstrong.me/blog/</id>
+  
+  <author>
+    <name>Waterstrong</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://waterstrong.me/blog/hello-world/"/>
+    <id>http://waterstrong.me/blog/hello-world/</id>
+    <published>2016-03-19T16:00:00.000Z</published>
+    <updated>2016-03-30T10:37:33.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;Hello-World-Let’s-Begin&quot;&gt;&lt;a href=&quot;#Hello-World-Let’s-Begin&quot; class=&quot;headerlink&quot; title=&quot;Hello World, Let’s Begin!&quot;&gt;&lt;/a&gt;Hello World, Let’s Begin!&lt;/h4&gt;&lt;p&gt;&lt;em&gt;This is a test!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://waterstrong.me&quot;&gt;http://waterstrong.me&lt;/a&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;img src=&quot;../images/hello-world/nature.jpg&quot; alt=&quot;Hello Nature&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;Hello-World-Let’s-Begin&quot;&gt;&lt;a href=&quot;#Hello-World-Let’s-Begin&quot; class=&quot;headerlink&quot; title=&quot;Hello World, Let’s Begin!&quot;&gt;&lt;/a&gt;Hello World, Let’s Begin!&lt;/h4&gt;&lt;p&gt;&lt;em&gt;This is a test!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://waterstrong.me&quot;&gt;http://waterstrong.me&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tech" scheme="http://waterstrong.me/blog/categories/Tech/"/>
+    
+    
+      <category term="tech" scheme="http://waterstrong.me/blog/tags/tech/"/>
+    
+      <category term="life" scheme="http://waterstrong.me/blog/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL在Linux下默认区分大小写</title>
+    <link href="http://waterstrong.me/blog/mysql-case-sensitive-linux/"/>
+    <id>http://waterstrong.me/blog/mysql-case-sensitive-linux/</id>
+    <published>2015-12-20T14:28:42.000Z</published>
+    <updated>2016-03-29T15:47:25.000Z</updated>
+    
+    <content type="html">&lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h4 id=&quot;默认大小写敏感&quot;&gt;&lt;a href=&quot;#默认大小写敏感&quot; class=&quot;headerlink&quot; title=&quot;默认大小写敏感&quot;&gt;&lt;/a&gt;默认大小写敏感&lt;/h4&gt;&lt;p&gt;MySQL数据库名、表名、别名在Linux下默认区分大小写，root登录通过命令查看其配置：&lt;br&gt;mysql&amp;gt; show variables like ‘lower%’;&lt;br&gt;+————————+——-+&lt;br&gt;| Variable_name          | Value |&lt;br&gt;+————————+——-+&lt;br&gt;| lower_case_file_system | OFF   |&lt;br&gt;| lower_case_table_names | 0     |&lt;br&gt;+————————+——-+&lt;/p&gt;
+&lt;h4 id=&quot;变量名和值解释&quot;&gt;&lt;a href=&quot;#变量名和值解释&quot; class=&quot;headerlink&quot; title=&quot;变量名和值解释&quot;&gt;&lt;/a&gt;变量名和值解释&lt;/h4&gt;&lt;p&gt;lower_case_file_system为只读属性，显示出系统的文件系统是否大小写敏感，OFF表示大小写敏感，ON表示大小写不敏感。&lt;br&gt;lower_case_table_names默认为0，表示大小写敏感；设置1表示大小写不敏感，创建的表/数据库以小写形式存放在磁盘上，对于sql语句转换为小写操作；设置2表示创建的表/数据库依据语句上格式存放，但查找都是转换为小写进行。&lt;/p&gt;
+&lt;p&gt;lower_case_file_system解释可参见&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_file_system&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/a&gt;说明：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This variable describes the case sensitivity of file names on the file system where the data directory is located. OFF means file names are case sensitive,ON means they are not case sensitive. This variable is read only because it reflects a file system attribute and setting it would have no effect on the file system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;lower_case_table_names解释可参见&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/a&gt;的说明：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;lower_case_table_names&lt;/a&gt;, If set to 0, table names are stored as specified and comparisons are case sensitive. If set to 1, table names are stored in lowercase on disk and comparisons are not case sensitive. If set to 2, table names are stored as given but compared in lowercase. This option also applies to database names and table aliases. For additional information, see &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/identifier-case-sensitivity.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Section 9.2.2&lt;/a&gt;, “Identifier Case Sensitivity”.&lt;/p&gt;
+&lt;p&gt;On Windows the default value is 1. On OS X, the default value is 2.&lt;/p&gt;
+&lt;p&gt;You should &lt;em&gt;not&lt;/em&gt; set &lt;strong&gt;lower_case_table_names&lt;/strong&gt; to 0 if you are running MySQL on a system where the data directory resides on a case-insensitive file system (such as on Windows or OS X). It is an unsupported combination that could result in a hang condition when running an INSERT INTO … SELECT … FROM &lt;strong&gt;tbl_name&lt;/strong&gt; operation with the wrong &lt;strong&gt;tbl_name&lt;/strong&gt; letter case. With MyISAM, accessing table names using different letter cases could cause index corruption.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h4&gt;&lt;p&gt;关于Hibernate/JPA数据库schema自动映射时，对于Linux上MySQL大小写敏感解决方案为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;但是特别注意：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As of MySQL 5.6.27, an error message is printed and the server exits if you attempt to start the server with –lower_case_table_names=0 on a case-insensitive file system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;若需要设置lower_case_table_names = 1时，在重启数据库实例之前就需要将原来的数据库和表转换为小写，否则将找不到数据库名。而数据库名无法直接更名，可以新建一个小写的数据库名，然后rename table到新的数据库，完成表的迁移。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Database" scheme="http://waterstrong.me/blog/categories/Database/"/>
+    
+    
+      <category term="数据库" scheme="http://waterstrong.me/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="MySQL" scheme="http://waterstrong.me/blog/tags/MySQL/"/>
+    
+      <category term="Linux" scheme="http://waterstrong.me/blog/tags/Linux/"/>
+    
+      <category term="Hibernate" scheme="http://waterstrong.me/blog/tags/Hibernate/"/>
+    
+      <category term="JPA" scheme="http://waterstrong.me/blog/tags/JPA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++单例模式实现</title>
+    <link href="http://waterstrong.me/blog/cpp-singleton/"/>
+    <id>http://waterstrong.me/blog/cpp-singleton/</id>
+    <published>2011-12-27T16:00:00.000Z</published>
+    <updated>2016-03-26T04:59:45.000Z</updated>
+    
+    <content type="html">&lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;using namespace std;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;class Singleton&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;private:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static Singleton* sin;//如果定义为static Singleton sin;在C++里这句话相当于有对象产生，还调用了构造函数，而此时此刻的Singleton 还没有创造出来，所以调用里就会有无法解析的外部符号的编译错误&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton() //阻止创建实例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;con&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static Singleton* GetInstance()//返回实例，要么返回指针，要么返回引用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;ins&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static void Destroy()//应该显式释放sin，如果不显式释放，或者直接在析构函数里delete，当然在外部显式访问析构函数访问没问题，但是在delete sin时会再次调用析构函数，这样将造成不断地循环调用析构函数，这是非常可怕的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;destroy&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(sin)//显式释放&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            delete sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sin = NULL;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ~Singleton()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;descon&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Singleton* Singleton::sin = new Singleton();//全局初始化, 必须new出来，在编译时就初始化了，如果出现派生的情况也只会有一个惟一的实例，而且构造函数声明为private后，派生类也没法写出构造函数，要注意的一点就是如果只有一个文件就可以直接写在后面，如果有.h和.cpp两个文件，那初始化应该写在.cpp文件中，否则可能会重定义错误。如果初始化为null,下次用时再判断并new的话必须要加双重锁定，消耗比较大，所以就采用这种方式了，不过这种消耗只有第一次才会出现，以后都不会new，但每次都要判断是否为null,也是很不爽的事。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int _tmain(int argc, _TCHAR* argv[])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton* sin1 = Singleton::GetInstance();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton* sin2 = Singleton::GetInstance();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (sin1 == sin2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;the same&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;not the same&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton::Destroy();//一定要显式调用释放sin，可能还有其方法，但暂时还没有想到，最好能隐式释放，毕竟让客户端负责释放是不太明智的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    system(&amp;quot;pause&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;补充：&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;process.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HANDLE mutex = CreateMutex(NULL,FALSE,NULL); //创建互斥量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;WaitForSingleObject(mutex,INFINITE);//等待互斥量&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;//……互斥代码&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ReleaseMutex(mutex);//释放权限，让下一个线程可以进入&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CloseHandle(mutex);//关闭创建的mutex句柄&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mutex = NULL;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;双重锁定，当然要先创建互斥量并初始化，最后要清除。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static Singleton* GetInstance()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if(!sin)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        WaitForSingleObject(mutex,INFINITE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (!sin)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sin = new Singleton();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ReleaseMutex(mutex);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sin = new Singleton();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Design Pattern" scheme="http://waterstrong.me/blog/categories/Design-Pattern/"/>
+    
+    
+      <category term="设计模式" scheme="http://waterstrong.me/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
+    
+      <category term="Singleton" scheme="http://waterstrong.me/blog/tags/Singleton/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DirectShow获取摄像头图像</title>
+    <link href="http://waterstrong.me/blog/directshow-graphics/"/>
+    <id>http://waterstrong.me/blog/directshow-graphics/</id>
+    <published>2011-12-27T16:00:00.000Z</published>
+    <updated>2016-03-29T15:50:03.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
+&lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
+&lt;p&gt;3、将DShow文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\sample\C++下。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;4、Visual Studio中包含文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Include和D:\Program Files\Microsoft DirectX SDK (August 2009)\Samples\C++\DirectShow\BaseClasses。&lt;/p&gt;
+&lt;p&gt;5、添加库文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86到最顶端。&lt;/p&gt;
+&lt;p&gt;6、添加strmbase.lib strmbasd.lib到lib链接器中。&lt;/p&gt;
+&lt;p&gt;7、将ARFrameGrabber文件夹中的ARFrameGrabber.h 和 ARFrameGrabber.cpp 拷贝到到自己工程中（自己修改一下，加了些逻辑判断），再添加进来。测试一下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include&amp;lt;iostream&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;highgui.h&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;ARFrameGrabber.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;Windows.h&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;using namespace std;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int _tmain(int argc, _TCHAR* argv[])  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static ARFrameGrabber frameGrabber;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    IplImage ds_frame;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int stride;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    BYTE* myBuffer;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    frameGrabber.Init(0, true); //设置支持directshow的设备编号，从0开始  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    frameGrabber.SetFlippedImage(true); //图像是否翻转  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    IplImage* frame=NULL;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    cvNamedWindow(&amp;quot;test&amp;quot;,0);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while (true)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frame = NULL;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frameGrabber.GrabByteFrame(); //获取一帧  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        while(!myBuffer)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            UINT nRet=MessageBox(0,&amp;quot;警告：\n\n摄像头正被其他程序占用，请关闭可能使用摄像头的程序后重试！&amp;quot;,&amp;quot;启动出错&amp;quot;,MB_RETRYCANCEL|MB_ICONEXCLAMATION);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if(nRet==IDRETRY)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                frameGrabber.GrabByteFrame(); //获取一帧  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            else  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                cvDestroyAllWindows();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                exit(0);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        int width = frameGrabber.GetWidth();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        int height = frameGrabber.GetHeight();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        stride  = (width * sizeof( RGBTRIPLE ) + 3) &amp;amp; -4;//图像每行所占的字节数，4的倍数，对齐  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvInitImageHeader( &amp;amp;ds_frame, cvSize(width, height), 8, 3,IPL_ORIGIN_BL, 4 ); //创建IplImage  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ds_frame.widthStep = stride;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvSetData( &amp;amp;ds_frame, myBuffer, stride ); //copy数据  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frame = &amp;amp;ds_frame;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvShowImage(&amp;quot;test&amp;quot;,frame);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (cvWaitKey(3)==27)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            break;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    cvDestroyAllWindows();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;遇到问题一：&quot;&gt;&lt;a href=&quot;#遇到问题一：&quot; class=&quot;headerlink&quot; title=&quot;遇到问题一：&quot;&gt;&lt;/a&gt;遇到问题一：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;如果报错: &amp;quot;dxtrans.h&amp;quot;: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在qedit.h 中添加如下&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtCompositor_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtAlphaSetter_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtJpeg_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtKey_INTERFACE_DEFINED__&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;再修改qedit.h 中引用 dxtrans.h 的部分，要求注释掉&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;oaidl.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;ocidl.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//#include &amp;quot;dxtrans.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;amstream.h&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;遇到问题二：&quot;&gt;&lt;a href=&quot;#遇到问题二：&quot; class=&quot;headerlink&quot; title=&quot;遇到问题二：&quot;&gt;&lt;/a&gt;遇到问题二：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//#include &amp;lt;qedit.h&amp;gt; 出现问题，或者找不到了什么基类可以直接用下面方式  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtCompositor_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtAlphaSetter_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtJpeg_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtKey_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;qedit.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;注：以上除DXSDK_Aug09.exe安装文件外(553MB)，其他都可在资源《&lt;a href=&quot;http://download.csdn.net/download/waterstrong/3981334&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;配置DX_Aug09_DShow获取摄像头图像&lt;/a&gt;》中下载。&lt;/em&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
+&lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
+&lt;p&gt;3、将DShow文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\sample\C++下。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Graphics" scheme="http://waterstrong.me/blog/categories/Graphics/"/>
+    
+    
+      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
+    
+      <category term="图形图像" scheme="http://waterstrong.me/blog/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
+    
+      <category term="DirectX" scheme="http://waterstrong.me/blog/tags/DirectX/"/>
+    
+      <category term="OpenCV" scheme="http://waterstrong.me/blog/tags/OpenCV/"/>
+    
+  </entry>
+  
+</feed>
