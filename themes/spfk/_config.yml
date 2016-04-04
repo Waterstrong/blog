@@ -18,29 +18,24 @@ favicon: img/favicon.png
 # Social info. Bar | 社交信息展示
 ## Keep "mailto:" in Email | 设置 Email 时保留 "mailto:"
 ## Encrypt email 加密邮件地址 http://ctrlq.org/encode/
-## RSS requires a plugin to take effect | 使用 RSS 需先安装对应插件
+## RSS requires a plugin to take effect | 使用 RSS 需先安装对应插件 hexo-generator-feed
+## Sitemap 安装对应插件 hexo-generator-sitemap
 ## https://github.com/hexojs/hexo-generator-feed
 subnav:
-  mail: "mailto:sqlin@thoughtworks.com"
-  github: "https://github.com/waterstrong"
-  weibo: "http://weibo.com/waterstrong"
-  linkedin: "https://cn.linkedin.com/in/shuiqiang-lin-191a0a112"
-  twitter: "https://twitter.com/shuiqianglin"
-  facebook: "https://www.facebook.com/linshuiqiang"
-  rss: /atom.xml
-  # linkedin: "https://www.linkedin.com/in/%E5%BF%A0%E6%88%90-%E6%9D%8E-a48562b1"
-  # douban: "#"
-  # google: "#"
-  # zhihu: "zhihu"
-  # douban: "douban"
-  # Facebook: "#"
+  Email: "mailto:sqlin@thoughtworks.com"
+  Github: "http://github.com/waterstrong"
+  Wechat: "img/qrcode.png"
+#  QQ: "#"
+  Weibo: "http://weibo.com/waterstrong"
+#  StackOverflow: "#"
+#  Zhihu: "zhihu"
+#  Douban: "#"
+#  Twitter: "https://twitter.com/shuiqianglin"
+  Facebook: "https://www.facebook.com/linshuiqiang"
+  LinkedIn: "https://cn.linkedin.com/in/shuiqiang-lin-191a0a112"
+  RSS: /atom.xml
   # Google: "#"
-  # Twitter: "#"
-  # LinkedIn: "#"
-  # QQ: "#"
-  # 微信: "Wechat"
   # PayPal: "#"
-  # StackOverflow: "#"
   # Instagram: "#"
   # Flickr: "#"
 
