@@ -102,16 +102,34 @@ Programmatic与Local Transaction的区别在于Programmatic把Local方式下的c
 
 ## 声明式事务（Declarative Transaction）
 
-对目标方法上添加注解或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。
+声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。
 
 ### 声明式事务 模型
+```
+@Transaction
+void doSomething() {
+    process1();
+    process2();
+    ……
+    repository.save();
+}
+```
+其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是AOP(面向切面编程)的方式进行方法的拦截。
+```
+Object intercept(proxy, method, args) {
+    trans.begin();
+    try {
+    	method.invoke(target, args);
+    	trans.commit();
+    } catch (Exception e) {
+    	trans.rollback();
+    }
+}
+```
 
-More…
+以上所有的事务实现方式都主要集中在单一数据库情况，那么对于多数据库协调或者混合数据源情形，如数据库加消息队列等，又如何保证事务正确有效地执行呢？答案是分布式事务，也称全局事务来管理了。
 
-数据源有哪些
-对于单一的数据库情况
-对于多数据库协调问题
-对于混合的数据源情形
+----
 
 ## 全局/分布式事务（Global/Distributed Transaction）
 跨越多个数据库或进程，多资源协调（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）
