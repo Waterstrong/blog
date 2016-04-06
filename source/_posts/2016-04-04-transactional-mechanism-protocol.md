@@ -41,7 +41,7 @@ tags: [事务, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行�
 ----
 
 ## 本地事务（Local Transaction）
-本地事务主要指限制在单个进程内的事务，不涉及多个数据库源，通常会有Begin Transaction … End Transaction来控制事务的开始与结束。以对数据库访问为例，接下来用伪代码实现事务的提交/回滚。
+本地事务(Local Transaction)主要指限制在单个进程内的事务，不涉及多个数据库源，通常会有Begin Transaction … End Transaction来控制事务的开始与结束。以对数据库访问为例，接下来用伪代码实现事务的提交/回滚。
 
 ### 本地事务 模型1
 设置自动提交的情况：
@@ -82,12 +82,23 @@ finally {
 
 ## 编程式事务（Programmatic Transaction）
 
-通过编程语言提供的事务API和事务服务提供者进行事务控制。
-在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。
+编程式事务(Programmatic Transaction)通过编程语言提供的事务API和事务服务提供者进行事务控制。通常的做法是在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。
 
 ### 编程式事务 模型
+```
+userTransaction.begin();
+try {
+    doSomething();
+    doAnotherThing();
+    userTransaction.commit();
+} catch (Exception ex) {
+    userTransaction.rollback();
+}
+```
 
-Innovation…
+Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方式呢，声明式事务会给你想要的答案。
+
+----
 
 ## 声明式事务（Declarative Transaction）
 
