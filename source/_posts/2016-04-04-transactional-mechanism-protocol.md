@@ -97,7 +97,7 @@ try {
 }
 ```
 
-Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方式呢，声明式事务会给你想要的答案。
+Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方法呢，声明式事务会给你想要的答案。
 
 ----
 
@@ -145,7 +145,7 @@ Object intercept(proxy, method, args) {
 
 ### JMS触发DB更新的实例
 
-#### 伪代码(DB+JMS)
+#### DB+JMS 伪代码
 ```
 @JMSListener(...)
 void onMessage(...) {
@@ -168,6 +168,8 @@ void merge(…) {
 5. Commit database transaction
 6. Commit messaging transaction
 
+成功调用Happy Pass当然没有什么问题，正常提交到数据库，也完成消息提交，但在实际情况中往往不是所期望的。
+
 #### 可能失败的情形
 > 1. Start messaging transaction
 2. **Receive message**
@@ -176,33 +178,24 @@ void merge(…) {
 5. Roll back database transaction
 6. Roll back messaging transaction
 
-那么，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Global Transaction是如何协调多资源的呢？
+可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Global Transaction是如何协调多资源的呢？
 
 ### 多资源协调管理
 
 #### X/Open XA规范接口
 
+XA协议采用两阶段提交方式来管理分布式事务，XA接口提供资源管理器(RM)与事务管理器(TM)之间进行通信的标准接口。下图来自网络，大致描述了RM和TM的关系以及XA工作范畴，资源管理器管理着多个资源，事务管理器与资源管理器通过XA进行双向通信。
 ![](../images/transactional-mp/XA_standard_interface.png)
 
-#### XA事务实现原理
-> * XA transactions need a global transaction id and local transaction id(xid) for each XA resource.
-* Each XA Resource is enlisted to XA Manager by start(xid) method. This method tells that XA Resource is being involved in the transaction(be ready for operations).
+XA事务实现原理主要是针对每一个XA资源给全局事务和本地事务分配一个xid，每一个XA资源都被加入的XA的管理器中，通过某个方法来决定XA资源已经被加入到事务中并且已经准备就绪，最后统一提交，也就是所谓的两阶段提交。
 
 #### XA两阶段提交协议
-
-在全局事务中协调多个资源。
-准备阶段（Prepare）
-READY
-READ_ONLY
-NOT_READY
-提交阶段（Commit）
+两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段提交协议包含了两个阶段：准备阶段(Prepare)和提交阶段(Commit)。准备阶段需要检查资源的状态(READY, READ_ONLY, NOT_READY)，当且仅当所有资源都是READY状态，准备阶段完成，否则进行Rollback操作。下图来自网络，大致描述了2PC的工作流程。
 
 ![](../images/transactional-mp/XA_two_phase_commit.png)
 
 
-谁是卧底游戏
-
-
+TM/RM初始化和XA两阶段提交伪代码如下:
 ```
 // TM/RM Init 伪代码
 TransactionManager() {
