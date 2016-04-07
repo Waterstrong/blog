@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://waterstrong.me/blog/"/>
-  <updated>2016-03-30T10:37:33.000Z</updated>
+  <updated>2016-04-07T04:27:39.000Z</updated>
   <id>http://waterstrong.me/blog/</id>
   
   <author>
@@ -14,6 +14,145 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>事务处理机制与协议</title>
+    <link href="http://waterstrong.me/blog/transactional-mechanism-protocol/"/>
+    <id>http://waterstrong.me/blog/transactional-mechanism-protocol/</id>
+    <published>2016-04-04T11:11:03.000Z</published>
+    <updated>2016-04-07T04:27:39.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;事务定义及其特性&quot;&gt;&lt;a href=&quot;#事务定义及其特性&quot; class=&quot;headerlink&quot; title=&quot;事务定义及其特性&quot;&gt;&lt;/a&gt;事务定义及其特性&lt;/h2&gt;&lt;h3 id=&quot;什么是事务？&quot;&gt;&lt;a href=&quot;#什么是事务？&quot; class=&quot;headerlink&quot; title=&quot;什么是事务？&quot;&gt;&lt;/a&gt;什么是事务？&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;事务的ACID特性&quot;&gt;&lt;a href=&quot;#事务的ACID特性&quot; class=&quot;headerlink&quot; title=&quot;事务的ACID特性&quot;&gt;&lt;/a&gt;事务的ACID特性&lt;/h3&gt;&lt;p&gt;事务的四大特性分别为原子性、一致性、隔离性和永久性，称为ACID特性，也称酸性。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;原子性（Atomicity）&lt;/strong&gt;&lt;br&gt;一个事务中所有操作是一个不可分割的操作序列，要么全做，要么全不做。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一致性（Consistency）&lt;/strong&gt;&lt;br&gt;数据不会因为事务的执行而遭到破坏，一致性保证了这个事务所包含的一系列的操作完成后系统仍然在一个一致的状态，侧重点在于，事务执行前后在某种程度上是等价的，从一个一致状态到另一个一致状态。例如，对银行转帐事务，不管事务成功还是失败，应该保证事务结束后两人存款总额为定值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隔离性（Isolation）&lt;/strong&gt;&lt;br&gt;一个事务的执行，不受其他事务（进程）的干扰，既并发执行的个事务之间互不干扰，每个事务都有各自的完整数据空间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;永久性（Durability）&lt;/strong&gt;&lt;br&gt;一个事务一旦提交，它对数据库所作的改变将是永久的，使发生系统崩溃，重新启动数据库系统后，数据库还能恢复到事务成功结束时的状态。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;数据库事务管理&quot;&gt;&lt;a href=&quot;#数据库事务管理&quot; class=&quot;headerlink&quot; title=&quot;数据库事务管理&quot;&gt;&lt;/a&gt;数据库事务管理&lt;/h3&gt;&lt;p&gt;对于数据库来说，事务的ACID特性是由关系数据库管理系统（RDBMS，数据库系统）来实现的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DBMS采用&lt;strong&gt;日志&lt;/strong&gt;来保证事务的原子性、一致性和持久性。&lt;ul&gt;
+&lt;li&gt;日志记录了事务对数据库所做的更新，如果某个事务在执行过程中发生错误，就可以根据日志撤销事务对数据库已做的更新，使数据库退回到执行事务前的初始状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DBMS采用&lt;strong&gt;锁机制&lt;/strong&gt;来实现事务的隔离性。&lt;ul&gt;
+&lt;li&gt;每个事务对所依赖的资源（如行、页或表）请求不同类型的锁，当多个事务同时更新数据库中相同的数据时，只允许持有锁的事务能更新该数据，其他事务必须等待，直到前一个事务释放了锁，其他事务才有机会更新该数据。锁可以阻止其他事务以某种可能会导致事务请求锁出错的方式修改资源，当事务不再依赖锁定的资源时，它将释放锁。通常会有共享(S)锁、排它(X)锁、更新(U)锁等，各锁的解释、并发效率、锁冲突及其防止办法不在本文范围，有兴趣可以自行了解。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;除了锁定外，也可能采用&lt;strong&gt;行版本控制&lt;/strong&gt;来实现事务隔离性。&lt;ul&gt;
+&lt;li&gt;当启用了基于行版本控制的隔离级别时，数据库引擎将维护修改的每一行的版本，应用程序可以指定事务使用行版本查看事务或查询开始时存在的数据，而不是使用锁保护所有读取。通过使用行版本控制，读取操作阻止其他事务的可能性将大大降低，锁数量减少，死锁可能性降低，有效减少了管理锁的开销。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;锁定和行版本控制可以防止用户读取未提交的数据，还可以防止多个用户尝试同时更改同一数据。如果不进行锁定或行版本控制，对数据执行的查询可能会返回数据库中尚未提交的数据，从而产生意外的结果。&lt;/p&gt;
+&lt;p&gt;在了解数据库保证事务ACID特性的基本原理后，那么……对程序提供的数据库编程接口，如何实现事务的呢？接下来介绍本地事务。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;本地事务（Local-Transaction）&quot;&gt;&lt;a href=&quot;#本地事务（Local-Transaction）&quot; class=&quot;headerlink&quot; title=&quot;本地事务（Local Transaction）&quot;&gt;&lt;/a&gt;本地事务（Local Transaction）&lt;/h2&gt;&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;本地事务(Local Transaction)主要指限制在单个进程内的事务，不涉及多个数据库源，通常会有Begin Transaction … End Transaction来控制事务的开始与结束。以对数据库访问为例，接下来用伪代码实现事务的提交/回滚。&lt;/p&gt;
+&lt;h3 id=&quot;本地事务-模型1&quot;&gt;&lt;a href=&quot;#本地事务-模型1&quot; class=&quot;headerlink&quot; title=&quot;本地事务 模型1&quot;&gt;&lt;/a&gt;本地事务 模型1&lt;/h3&gt;&lt;p&gt;设置自动提交的情况：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conn = getConnection(“url&amp;quot;,&amp;quot;user&amp;quot;,&amp;quot;pwd&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conn.setAutoCommit(true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;try&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.execute(...);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;catch(Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(e);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;finally &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;本地事务-模型2&quot;&gt;&lt;a href=&quot;#本地事务-模型2&quot; class=&quot;headerlink&quot; title=&quot;本地事务 模型2&quot;&gt;&lt;/a&gt;本地事务 模型2&lt;/h3&gt;&lt;p&gt;设置非自动提交情况：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conn = getConnection(“url&amp;quot;,&amp;quot;user&amp;quot;,&amp;quot;pwd&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conn.setAutoCommit(false);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;try&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.execute(…);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;catch(Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.rollback();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;finally &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conn.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这也是最早的访问方式，相信你也发现一些问题了，如果设置为自动提交，当某个操作需要多个执行序列完成时，那么每次execute时都会commit，在很程度上降低了执行效率。若设置为非自动提交，虽然解决了多次execute的问题，但直接暴露conn并不是理想的做法，同时还需要手动close连接。因此，有没有更好地方式呢？答案是肯定的，接下来就看看编程式事务的实现方式。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;编程式事务（Programmatic-Transaction）&quot;&gt;&lt;a href=&quot;#编程式事务（Programmatic-Transaction）&quot; class=&quot;headerlink&quot; title=&quot;编程式事务（Programmatic Transaction）&quot;&gt;&lt;/a&gt;编程式事务（Programmatic Transaction）&lt;/h2&gt;&lt;h3 id=&quot;基本介绍-1&quot;&gt;&lt;a href=&quot;#基本介绍-1&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;编程式事务(Programmatic Transaction)通过编程语言提供的事务API和事务服务提供者进行事务控制。通常的做法是在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。&lt;/p&gt;
+&lt;h3 id=&quot;编程式事务-模型&quot;&gt;&lt;a href=&quot;#编程式事务-模型&quot; class=&quot;headerlink&quot; title=&quot;编程式事务 模型&quot;&gt;&lt;/a&gt;编程式事务 模型&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;userTransaction.begin();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    doSomething();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    doAnotherThing();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    userTransaction.commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125; catch (Exception ex) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    userTransaction.rollback();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;与Local事务的区别&quot;&gt;&lt;a href=&quot;#与Local事务的区别&quot; class=&quot;headerlink&quot; title=&quot;与Local事务的区别&quot;&gt;&lt;/a&gt;与Local事务的区别&lt;/h3&gt;&lt;p&gt;Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方法呢，声明式事务会给你想要的答案。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;声明式事务（Declarative-Transaction）&quot;&gt;&lt;a href=&quot;#声明式事务（Declarative-Transaction）&quot; class=&quot;headerlink&quot; title=&quot;声明式事务（Declarative Transaction）&quot;&gt;&lt;/a&gt;声明式事务（Declarative Transaction）&lt;/h2&gt;&lt;h3 id=&quot;基本介绍-2&quot;&gt;&lt;a href=&quot;#基本介绍-2&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。&lt;/p&gt;
+&lt;h3 id=&quot;声明式事务-模型&quot;&gt;&lt;a href=&quot;#声明式事务-模型&quot; class=&quot;headerlink&quot; title=&quot;声明式事务 模型&quot;&gt;&lt;/a&gt;声明式事务 模型&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@Transaction&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void doSomething() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    process1();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    process2();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ……&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    repository.save();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是AOP(面向切面编程)的方式进行方法的拦截。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Object intercept(proxy, method, args) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    trans.begin();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	method.invoke(target, args);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	trans.commit();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; catch (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	trans.rollback();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;以上所有的事务实现方式都主要集中在单一数据库情况，那么对于多数据库协调或者混合数据源情形，如数据库加消息队列等，又如何保证事务正确有效地执行呢？答案是分布式事务，也称全局事务来管理了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;全局-分布式事务（Global-Distributed-Transaction）&quot;&gt;&lt;a href=&quot;#全局-分布式事务（Global-Distributed-Transaction）&quot; class=&quot;headerlink&quot; title=&quot;全局/分布式事务（Global/Distributed Transaction）&quot;&gt;&lt;/a&gt;全局/分布式事务（Global/Distributed Transaction）&lt;/h2&gt;&lt;h3 id=&quot;基本介绍-3&quot;&gt;&lt;a href=&quot;#基本介绍-3&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;全局/分布式事务(Global/Distributed Transaction)也称XA事务，主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;事务管理器（Transaction Manager）&lt;/li&gt;
+&lt;li&gt;资源管理器（Resource Manager）&lt;/li&gt;
+&lt;li&gt;XA协议标准（eXtended Architecture Standard）&lt;/li&gt;
+&lt;li&gt;两阶段提交（Two-Phase Commit）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先来看一个关于JMS Message触发数据库更新操作的实例。&lt;/p&gt;
+&lt;h3 id=&quot;JMS触发DB更新的实例&quot;&gt;&lt;a href=&quot;#JMS触发DB更新的实例&quot; class=&quot;headerlink&quot; title=&quot;JMS触发DB更新的实例&quot;&gt;&lt;/a&gt;JMS触发DB更新的实例&lt;/h3&gt;&lt;h4 id=&quot;DB-JMS-伪代码&quot;&gt;&lt;a href=&quot;#DB-JMS-伪代码&quot; class=&quot;headerlink&quot; title=&quot;DB+JMS 伪代码&quot;&gt;&lt;/a&gt;DB+JMS 伪代码&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@JMSListener(...)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void onMessage(...) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    service.merge(...);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Transaction&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;void merge(…) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ……&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    repository.update(…);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ……&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;成功调用过程&quot;&gt;&lt;a href=&quot;#成功调用过程&quot; class=&quot;headerlink&quot; title=&quot;成功调用过程&quot;&gt;&lt;/a&gt;成功调用过程&lt;/h4&gt;&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Start messaging transaction&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Receive message&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Start database transaction&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Update database&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Commit database transaction&lt;/li&gt;
+&lt;li&gt;Commit messaging transaction&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;成功调用Happy Pass当然没有什么问题，正常提交到数据库，也完成消息提交，但在实际情况中往往不是所期望的。&lt;/p&gt;
+&lt;h4 id=&quot;可能失败的情形&quot;&gt;&lt;a href=&quot;#可能失败的情形&quot; class=&quot;headerlink&quot; title=&quot;可能失败的情形&quot;&gt;&lt;/a&gt;可能失败的情形&lt;/h4&gt;&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Start messaging transaction&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Receive message&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Start database transaction&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Update database, fail!&lt;/strong&gt; &amp;lt;–&lt;/li&gt;
+&lt;li&gt;Roll back database transaction&lt;/li&gt;
+&lt;li&gt;Roll back messaging transaction&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Transaction是如何协调多资源的呢？&lt;/p&gt;
+&lt;h3 id=&quot;XA事务多资源协调&quot;&gt;&lt;a href=&quot;#XA事务多资源协调&quot; class=&quot;headerlink&quot; title=&quot;XA事务多资源协调&quot;&gt;&lt;/a&gt;XA事务多资源协调&lt;/h3&gt;&lt;h4 id=&quot;X-Open-XA规范接口&quot;&gt;&lt;a href=&quot;#X-Open-XA规范接口&quot; class=&quot;headerlink&quot; title=&quot;X/Open XA规范接口&quot;&gt;&lt;/a&gt;X/Open XA规范接口&lt;/h4&gt;&lt;p&gt;XA协议采用两阶段提交方式来管理分布式事务，XA接口提供资源管理器(RM)与事务管理器(TM)之间进行通信的标准接口。下图来自网络，大致描述了RM和TM的关系以及XA工作范畴，资源管理器管理着多个资源，事务管理器与资源管理器通过XA进行双向通信。&lt;br&gt;&lt;img src=&quot;../images/transactional-mp/XA_standard_interface.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;XA事务实现原理主要是针对每一个XA资源给全局事务和本地事务分配一个xid，每一个XA资源都被加入的XA的管理器中，通过某个方法来决定XA资源已经被加入到事务中并且已经准备就绪，最后统一提交，也就是所谓的两阶段提交。&lt;/p&gt;
+&lt;h4 id=&quot;XA两阶段提交协议&quot;&gt;&lt;a href=&quot;#XA两阶段提交协议&quot; class=&quot;headerlink&quot; title=&quot;XA两阶段提交协议&quot;&gt;&lt;/a&gt;XA两阶段提交协议&lt;/h4&gt;&lt;p&gt;两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段提交协议包含了两个阶段：准备阶段(Prepare)和提交阶段(Commit)。准备阶段需要检查资源的状态(READY, READ_ONLY, NOT_READY)，当且仅当所有资源都是READY状态，准备阶段完成，否则进行Rollback操作。下图来自网络，大致描述了2PC的工作流程。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../images/transactional-mp/XA_two_phase_commit.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;TM可以向RM查询事务的状态，RM必须要返回一系列事务的XID，表明事务是prepared状态，还是已经commit的状态。TM会把XID,已完成的RM等这样的事务信息保存起来的，只有当全部的RM提交或者回滚完后，才能丢弃这些事务的信息。&lt;strong&gt;XA事务都假定了TM和RM都是有牢靠的存储，所以也保证了TM重启后可以从日志里恢复还未处理完的事务。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;TM/RM初始化和XA两阶段提交伪代码如下:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// TM/RM Init 伪代码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;TransactionManager() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    xaResourceManager = new XAResourceManager(gtrid);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bool enlistResource(xaResource) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    xaResourceHolder = findXAResourceHolder(xaResource);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    xaResourceHolderState = new XAResourceHolderState(xaResourceHolder);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    xaResourceHolderState.setTransactionTimeoutDate(timeout);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    xaResourceManager.enlist(xaResourceHolderState);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;////////////////////////////////&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// XA 2PC 伪代码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;List&amp;lt;XAResourceHolderState&amp;gt; interestedResources;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    interestedResources = preparer.prepare(this); //Get resources and check their states&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125; catch(RollbackException ex) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rollbackPrepareFailure(ex); // If one of the resources is not ready&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;committer.commit(this, interestedResources); // All resources are ready and commit all at once&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;…… // Other code goes here&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;////////////////////////////////&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 备注:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// preparer.prepare(this) is to get the resources and check their states&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// should call resource manager: transaction.getResourceManager().getAllResources();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;XA事务问题与优化策略&quot;&gt;&lt;a href=&quot;#XA事务问题与优化策略&quot; class=&quot;headerlink&quot; title=&quot;XA事务问题与优化策略&quot;&gt;&lt;/a&gt;XA事务问题与优化策略&lt;/h2&gt;&lt;p&gt;对于非XA事务，范围仅限于单个可识别数据资源的事务操作。对于XA事务，可能出现timeout问题，连锁反应导致系统变慢，同时XA事务也会消耗更多性能资源。因此，仅在同一个事务上下文中需要协调多种资源时，才有必要使用XA，也就是说仅当多个资源必须在同一个事务范畴内被协调时，才有必要用XA。&lt;/p&gt;
+&lt;p&gt;针对XA事务可能出现的问题，目前常用的优化策略:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;最后资源提交优化（Last Resource Commit Optimization）&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;最后资源提交优化允许有且仅有一个资源是非XA资源，不必进入到准备阶段而可以直接提交或回滚，如果有这样的一个资源存在XA事务中，那首先应该尝试准备其他XA的资源，然后提交该非XA资源，如果成功，提交其他XA资源，否则回滚所有资源。通常的场景是当如JDBC这样的Driver不支持XA时，可以将其配置成最后参与者(资源)，然后就可以和XA资源进行协作了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一阶段提交优化（One-Phase Commit Optimization）&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;如果使用了XA事务，但资源只有一个，为了节省不必要的开销，XA不会执行两阶段提交，准确地说是没有准备阶段，而是当作单个资源处理并直接提交。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;经验异常（Heuristic Exception）处理&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;在两阶段提交的过程，资源管理器可能会使用“经验化决策”的策略，提交或者回滚，而不受事务管理器的控制。“经验化决策”是指根据多种内部和外部因素做出智能决定的过程，当资源管理器这么做了，它会向客户端报上一个经验异常（Heuristic Exception）。在XA环境下，两阶段提交的过程中，特别是事务参与者在第一阶段产生了响应之后，经验异常最常见的原因是第一阶段和第二阶段之间的超时情况，当网络延迟或故障、资源锁定以及资源使用过量时，资源管理器或许要做出提交或回滚其工作的决定，以释放资源。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;学海无涯-Keep-Learning&quot;&gt;&lt;a href=&quot;#学海无涯-Keep-Learning&quot; class=&quot;headerlink&quot; title=&quot;学海无涯 Keep Learning&quot;&gt;&lt;/a&gt;学海无涯 Keep Learning&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;1. 可以研究下Java中Spring JTA Transaction Manager, 如Bitronix, Atomikos, etc.
+2. 可以研究下各数据库如何开启和关闭支持XA事务，如何设置同时处于&amp;quot;准备好&amp;quot;状态的事务的最大数目（max_prepared_transactions）.
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;事务定义及其特性&quot;&gt;&lt;a href=&quot;#事务定义及其特性&quot; class=&quot;headerlink&quot; title=&quot;事务定义及其特性&quot;&gt;&lt;/a&gt;事务定义及其特性&lt;/h2&gt;&lt;h3 id=&quot;什么是事务？&quot;&gt;&lt;a href=&quot;#什么是事务？&quot; class=&quot;headerlink&quot; title=&quot;什么是事务？&quot;&gt;&lt;/a&gt;什么是事务？&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Transaction" scheme="http://waterstrong.me/blog/categories/Transaction/"/>
+    
+    
+      <category term="数据库" scheme="http://waterstrong.me/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="事务" scheme="http://waterstrong.me/blog/tags/%E4%BA%8B%E5%8A%A1/"/>
+    
+      <category term="ACID特性" scheme="http://waterstrong.me/blog/tags/ACID%E7%89%B9%E6%80%A7/"/>
+    
+      <category term="XA协议" scheme="http://waterstrong.me/blog/tags/XA%E5%8D%8F%E8%AE%AE/"/>
+    
+      <category term="分布式事务" scheme="http://waterstrong.me/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
+      <category term="锁机制" scheme="http://waterstrong.me/blog/tags/%E9%94%81%E6%9C%BA%E5%88%B6/"/>
+    
+      <category term="行版本控制" scheme="http://waterstrong.me/blog/tags/%E8%A1%8C%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

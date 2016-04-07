@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>事务处理机制与协议 | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="事务定义及其特性什么是事务？
+A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.
+
+直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事务处理机制与协议">
+<meta property="og:url" content="http://waterstrong.me/blog/transactional-mechanism-protocol/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="事务定义及其特性什么是事务？
+A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.
+
+直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。">
+<meta property="og:image" content="http://waterstrong.me/blog/../images/transactional-mp/XA_standard_interface.png">
+<meta property="og:image" content="http://waterstrong.me/blog/../images/transactional-mp/XA_two_phase_commit.png">
+<meta property="og:updated_time" content="2016-04-07T04:27:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事务处理机制与协议">
+<meta name="twitter:description" content="事务定义及其特性什么是事务？
+A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.
+
+直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。">
+<meta name="twitter:image" content="http://waterstrong.me/blog/../images/transactional-mp/XA_standard_interface.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  
+        <link href="//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link rel="stylesheet" href="/blog/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  
+
+  <!-- 加载特效 -->
+    <script src="/blog/js/pace.js"></script>
+    <link href="/blog/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/blog/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            
+            <img lazy-src="/blog/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/" title="Hi Mate">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/blog/archives">Archives</a></li>
+                        
+                            <li><a href="/blog/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/blog/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/blog/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/blog/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/blog/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/blog/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/blog/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/事务/" style="font-size: 10px;">事务</a> <a href="/blog/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/blog/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/blog/tags/锁机制/" style="font-size: 10px;">锁机制</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="/blog/">who</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/blog/" title="Me">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                
+                    <img lazy-src="/blog/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/blog/archives">Archives</a></li>
+                
+                    <li><a href="/blog/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/blog/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/blog/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/blog/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-transactional-mechanism-protocol" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/transactional-mechanism-protocol/" class="article-date">
+      <time datetime="2016-04-04T11:11:03.000Z" itemprop="datePublished">2016-04-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      事务处理机制与协议
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/Transaction/">Transaction</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ACID特性/">ACID特性</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/XA协议/">XA协议</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/分布式事务/">分布式事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/数据库/">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/行版本控制/">行版本控制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/锁机制/">锁机制</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="事务定义及其特性"><a href="#事务定义及其特性" class="headerlink" title="事务定义及其特性"></a>事务定义及其特性</h2><h3 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h3><blockquote>
+<p>A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.</p>
+</blockquote>
+<p>直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。</p>
+<a id="more"></a>
+<h3 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h3><p>事务的四大特性分别为原子性、一致性、隔离性和永久性，称为ACID特性，也称酸性。</p>
+<ol>
+<li><strong>原子性（Atomicity）</strong><br>一个事务中所有操作是一个不可分割的操作序列，要么全做，要么全不做。</li>
+<li><strong>一致性（Consistency）</strong><br>数据不会因为事务的执行而遭到破坏，一致性保证了这个事务所包含的一系列的操作完成后系统仍然在一个一致的状态，侧重点在于，事务执行前后在某种程度上是等价的，从一个一致状态到另一个一致状态。例如，对银行转帐事务，不管事务成功还是失败，应该保证事务结束后两人存款总额为定值。</li>
+<li><strong>隔离性（Isolation）</strong><br>一个事务的执行，不受其他事务（进程）的干扰，既并发执行的个事务之间互不干扰，每个事务都有各自的完整数据空间。</li>
+<li><strong>永久性（Durability）</strong><br>一个事务一旦提交，它对数据库所作的改变将是永久的，使发生系统崩溃，重新启动数据库系统后，数据库还能恢复到事务成功结束时的状态。</li>
+</ol>
+<h3 id="数据库事务管理"><a href="#数据库事务管理" class="headerlink" title="数据库事务管理"></a>数据库事务管理</h3><p>对于数据库来说，事务的ACID特性是由关系数据库管理系统（RDBMS，数据库系统）来实现的。</p>
+<ul>
+<li>DBMS采用<strong>日志</strong>来保证事务的原子性、一致性和持久性。<ul>
+<li>日志记录了事务对数据库所做的更新，如果某个事务在执行过程中发生错误，就可以根据日志撤销事务对数据库已做的更新，使数据库退回到执行事务前的初始状态。</li>
+</ul>
+</li>
+<li>DBMS采用<strong>锁机制</strong>来实现事务的隔离性。<ul>
+<li>每个事务对所依赖的资源（如行、页或表）请求不同类型的锁，当多个事务同时更新数据库中相同的数据时，只允许持有锁的事务能更新该数据，其他事务必须等待，直到前一个事务释放了锁，其他事务才有机会更新该数据。锁可以阻止其他事务以某种可能会导致事务请求锁出错的方式修改资源，当事务不再依赖锁定的资源时，它将释放锁。通常会有共享(S)锁、排它(X)锁、更新(U)锁等，各锁的解释、并发效率、锁冲突及其防止办法不在本文范围，有兴趣可以自行了解。</li>
+</ul>
+</li>
+<li>除了锁定外，也可能采用<strong>行版本控制</strong>来实现事务隔离性。<ul>
+<li>当启用了基于行版本控制的隔离级别时，数据库引擎将维护修改的每一行的版本，应用程序可以指定事务使用行版本查看事务或查询开始时存在的数据，而不是使用锁保护所有读取。通过使用行版本控制，读取操作阻止其他事务的可能性将大大降低，锁数量减少，死锁可能性降低，有效减少了管理锁的开销。</li>
+</ul>
+</li>
+</ul>
+<p>锁定和行版本控制可以防止用户读取未提交的数据，还可以防止多个用户尝试同时更改同一数据。如果不进行锁定或行版本控制，对数据执行的查询可能会返回数据库中尚未提交的数据，从而产生意外的结果。</p>
+<p>在了解数据库保证事务ACID特性的基本原理后，那么……对程序提供的数据库编程接口，如何实现事务的呢？接下来介绍本地事务。</p>
+<hr>
+<h2 id="本地事务（Local-Transaction）"><a href="#本地事务（Local-Transaction）" class="headerlink" title="本地事务（Local Transaction）"></a>本地事务（Local Transaction）</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>本地事务(Local Transaction)主要指限制在单个进程内的事务，不涉及多个数据库源，通常会有Begin Transaction … End Transaction来控制事务的开始与结束。以对数据库访问为例，接下来用伪代码实现事务的提交/回滚。</p>
+<h3 id="本地事务-模型1"><a href="#本地事务-模型1" class="headerlink" title="本地事务 模型1"></a>本地事务 模型1</h3><p>设置自动提交的情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conn = getConnection(“url&quot;,&quot;user&quot;,&quot;pwd&quot;);</span><br><span class="line">conn.setAutoCommit(true);</span><br><span class="line">try&#123;</span><br><span class="line">    conn.execute(...);</span><br><span class="line">&#125;</span><br><span class="line">catch(Exception e) &#123;</span><br><span class="line">    print(e);</span><br><span class="line">&#125;</span><br><span class="line">finally &#123;</span><br><span class="line">    conn.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="本地事务-模型2"><a href="#本地事务-模型2" class="headerlink" title="本地事务 模型2"></a>本地事务 模型2</h3><p>设置非自动提交情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">conn = getConnection(“url&quot;,&quot;user&quot;,&quot;pwd&quot;);</span><br><span class="line">conn.setAutoCommit(false);</span><br><span class="line">try&#123;</span><br><span class="line">    conn.execute(…);</span><br><span class="line">    conn.commit();</span><br><span class="line">&#125;</span><br><span class="line">catch(Exception e) &#123;</span><br><span class="line">    conn.rollback();</span><br><span class="line">&#125;</span><br><span class="line">finally &#123;</span><br><span class="line">    conn.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这也是最早的访问方式，相信你也发现一些问题了，如果设置为自动提交，当某个操作需要多个执行序列完成时，那么每次execute时都会commit，在很程度上降低了执行效率。若设置为非自动提交，虽然解决了多次execute的问题，但直接暴露conn并不是理想的做法，同时还需要手动close连接。因此，有没有更好地方式呢？答案是肯定的，接下来就看看编程式事务的实现方式。</p>
+<hr>
+<h2 id="编程式事务（Programmatic-Transaction）"><a href="#编程式事务（Programmatic-Transaction）" class="headerlink" title="编程式事务（Programmatic Transaction）"></a>编程式事务（Programmatic Transaction）</h2><h3 id="基本介绍-1"><a href="#基本介绍-1" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>编程式事务(Programmatic Transaction)通过编程语言提供的事务API和事务服务提供者进行事务控制。通常的做法是在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。</p>
+<h3 id="编程式事务-模型"><a href="#编程式事务-模型" class="headerlink" title="编程式事务 模型"></a>编程式事务 模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">userTransaction.begin();</span><br><span class="line">try &#123;</span><br><span class="line">    doSomething();</span><br><span class="line">    doAnotherThing();</span><br><span class="line">    userTransaction.commit();</span><br><span class="line">&#125; catch (Exception ex) &#123;</span><br><span class="line">    userTransaction.rollback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="与Local事务的区别"><a href="#与Local事务的区别" class="headerlink" title="与Local事务的区别"></a>与Local事务的区别</h3><p>Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方法呢，声明式事务会给你想要的答案。</p>
+<hr>
+<h2 id="声明式事务（Declarative-Transaction）"><a href="#声明式事务（Declarative-Transaction）" class="headerlink" title="声明式事务（Declarative Transaction）"></a>声明式事务（Declarative Transaction）</h2><h3 id="基本介绍-2"><a href="#基本介绍-2" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。</p>
+<h3 id="声明式事务-模型"><a href="#声明式事务-模型" class="headerlink" title="声明式事务 模型"></a>声明式事务 模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Transaction</span><br><span class="line">void doSomething() &#123;</span><br><span class="line">    process1();</span><br><span class="line">    process2();</span><br><span class="line">    ……</span><br><span class="line">    repository.save();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是AOP(面向切面编程)的方式进行方法的拦截。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object intercept(proxy, method, args) &#123;</span><br><span class="line">    trans.begin();</span><br><span class="line">    try &#123;</span><br><span class="line">    	method.invoke(target, args);</span><br><span class="line">    	trans.commit();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	trans.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上所有的事务实现方式都主要集中在单一数据库情况，那么对于多数据库协调或者混合数据源情形，如数据库加消息队列等，又如何保证事务正确有效地执行呢？答案是分布式事务，也称全局事务来管理了。</p>
+<hr>
+<h2 id="全局-分布式事务（Global-Distributed-Transaction）"><a href="#全局-分布式事务（Global-Distributed-Transaction）" class="headerlink" title="全局/分布式事务（Global/Distributed Transaction）"></a>全局/分布式事务（Global/Distributed Transaction）</h2><h3 id="基本介绍-3"><a href="#基本介绍-3" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>全局/分布式事务(Global/Distributed Transaction)也称XA事务，主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:</p>
+<ul>
+<li>事务管理器（Transaction Manager）</li>
+<li>资源管理器（Resource Manager）</li>
+<li>XA协议标准（eXtended Architecture Standard）</li>
+<li>两阶段提交（Two-Phase Commit）</li>
+</ul>
+<p>首先来看一个关于JMS Message触发数据库更新操作的实例。</p>
+<h3 id="JMS触发DB更新的实例"><a href="#JMS触发DB更新的实例" class="headerlink" title="JMS触发DB更新的实例"></a>JMS触发DB更新的实例</h3><h4 id="DB-JMS-伪代码"><a href="#DB-JMS-伪代码" class="headerlink" title="DB+JMS 伪代码"></a>DB+JMS 伪代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@JMSListener(...)</span><br><span class="line">void onMessage(...) &#123;</span><br><span class="line">    service.merge(...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Transaction</span><br><span class="line">void merge(…) &#123;</span><br><span class="line">    ……</span><br><span class="line">    repository.update(…);</span><br><span class="line">    ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="成功调用过程"><a href="#成功调用过程" class="headerlink" title="成功调用过程"></a>成功调用过程</h4><blockquote>
+<ol>
+<li>Start messaging transaction</li>
+<li><strong>Receive message</strong></li>
+<li>Start database transaction</li>
+<li><strong>Update database</strong></li>
+<li>Commit database transaction</li>
+<li>Commit messaging transaction</li>
+</ol>
+</blockquote>
+<p>成功调用Happy Pass当然没有什么问题，正常提交到数据库，也完成消息提交，但在实际情况中往往不是所期望的。</p>
+<h4 id="可能失败的情形"><a href="#可能失败的情形" class="headerlink" title="可能失败的情形"></a>可能失败的情形</h4><blockquote>
+<ol>
+<li>Start messaging transaction</li>
+<li><strong>Receive message</strong></li>
+<li>Start database transaction</li>
+<li><strong>Update database, fail!</strong> &lt;–</li>
+<li>Roll back database transaction</li>
+<li>Roll back messaging transaction</li>
+</ol>
+</blockquote>
+<p>可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Transaction是如何协调多资源的呢？</p>
+<h3 id="XA事务多资源协调"><a href="#XA事务多资源协调" class="headerlink" title="XA事务多资源协调"></a>XA事务多资源协调</h3><h4 id="X-Open-XA规范接口"><a href="#X-Open-XA规范接口" class="headerlink" title="X/Open XA规范接口"></a>X/Open XA规范接口</h4><p>XA协议采用两阶段提交方式来管理分布式事务，XA接口提供资源管理器(RM)与事务管理器(TM)之间进行通信的标准接口。下图来自网络，大致描述了RM和TM的关系以及XA工作范畴，资源管理器管理着多个资源，事务管理器与资源管理器通过XA进行双向通信。<br><img src="../images/transactional-mp/XA_standard_interface.png" alt=""></p>
+<p>XA事务实现原理主要是针对每一个XA资源给全局事务和本地事务分配一个xid，每一个XA资源都被加入的XA的管理器中，通过某个方法来决定XA资源已经被加入到事务中并且已经准备就绪，最后统一提交，也就是所谓的两阶段提交。</p>
+<h4 id="XA两阶段提交协议"><a href="#XA两阶段提交协议" class="headerlink" title="XA两阶段提交协议"></a>XA两阶段提交协议</h4><p>两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段提交协议包含了两个阶段：准备阶段(Prepare)和提交阶段(Commit)。准备阶段需要检查资源的状态(READY, READ_ONLY, NOT_READY)，当且仅当所有资源都是READY状态，准备阶段完成，否则进行Rollback操作。下图来自网络，大致描述了2PC的工作流程。</p>
+<p><img src="../images/transactional-mp/XA_two_phase_commit.png" alt=""></p>
+<p>TM可以向RM查询事务的状态，RM必须要返回一系列事务的XID，表明事务是prepared状态，还是已经commit的状态。TM会把XID,已完成的RM等这样的事务信息保存起来的，只有当全部的RM提交或者回滚完后，才能丢弃这些事务的信息。<strong>XA事务都假定了TM和RM都是有牢靠的存储，所以也保证了TM重启后可以从日志里恢复还未处理完的事务。</strong></p>
+<p>TM/RM初始化和XA两阶段提交伪代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// TM/RM Init 伪代码</span><br><span class="line">TransactionManager() &#123;</span><br><span class="line">    xaResourceManager = new XAResourceManager(gtrid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool enlistResource(xaResource) &#123;</span><br><span class="line">    xaResourceHolder = findXAResourceHolder(xaResource);</span><br><span class="line">    xaResourceHolderState = new XAResourceHolderState(xaResourceHolder);</span><br><span class="line">    xaResourceHolderState.setTransactionTimeoutDate(timeout);</span><br><span class="line">    xaResourceManager.enlist(xaResourceHolderState);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">////////////////////////////////</span><br><span class="line">// XA 2PC 伪代码</span><br><span class="line">List&lt;XAResourceHolderState&gt; interestedResources;</span><br><span class="line">try &#123;</span><br><span class="line">    interestedResources = preparer.prepare(this); //Get resources and check their states</span><br><span class="line">&#125; catch(RollbackException ex) &#123;</span><br><span class="line">    rollbackPrepareFailure(ex); // If one of the resources is not ready</span><br><span class="line">&#125;</span><br><span class="line">committer.commit(this, interestedResources); // All resources are ready and commit all at once</span><br><span class="line">…… // Other code goes here</span><br><span class="line"></span><br><span class="line">////////////////////////////////</span><br><span class="line">// 备注:</span><br><span class="line">// preparer.prepare(this) is to get the resources and check their states</span><br><span class="line">// should call resource manager: transaction.getResourceManager().getAllResources();</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="XA事务问题与优化策略"><a href="#XA事务问题与优化策略" class="headerlink" title="XA事务问题与优化策略"></a>XA事务问题与优化策略</h2><p>对于非XA事务，范围仅限于单个可识别数据资源的事务操作。对于XA事务，可能出现timeout问题，连锁反应导致系统变慢，同时XA事务也会消耗更多性能资源。因此，仅在同一个事务上下文中需要协调多种资源时，才有必要使用XA，也就是说仅当多个资源必须在同一个事务范畴内被协调时，才有必要用XA。</p>
+<p>针对XA事务可能出现的问题，目前常用的优化策略:</p>
+<ul>
+<li><strong>最后资源提交优化（Last Resource Commit Optimization）</strong><ul>
+<li>最后资源提交优化允许有且仅有一个资源是非XA资源，不必进入到准备阶段而可以直接提交或回滚，如果有这样的一个资源存在XA事务中，那首先应该尝试准备其他XA的资源，然后提交该非XA资源，如果成功，提交其他XA资源，否则回滚所有资源。通常的场景是当如JDBC这样的Driver不支持XA时，可以将其配置成最后参与者(资源)，然后就可以和XA资源进行协作了。</li>
+</ul>
+</li>
+<li><strong>一阶段提交优化（One-Phase Commit Optimization）</strong><ul>
+<li>如果使用了XA事务，但资源只有一个，为了节省不必要的开销，XA不会执行两阶段提交，准确地说是没有准备阶段，而是当作单个资源处理并直接提交。</li>
+</ul>
+</li>
+<li><strong>经验异常（Heuristic Exception）处理</strong><ul>
+<li>在两阶段提交的过程，资源管理器可能会使用“经验化决策”的策略，提交或者回滚，而不受事务管理器的控制。“经验化决策”是指根据多种内部和外部因素做出智能决定的过程，当资源管理器这么做了，它会向客户端报上一个经验异常（Heuristic Exception）。在XA环境下，两阶段提交的过程中，特别是事务参与者在第一阶段产生了响应之后，经验异常最常见的原因是第一阶段和第二阶段之间的超时情况，当网络延迟或故障、资源锁定以及资源使用过量时，资源管理器或许要做出提交或回滚其工作的决定，以释放资源。</li>
+</ul>
+</li>
+</ul>
+<h2 id="学海无涯-Keep-Learning"><a href="#学海无涯-Keep-Learning" class="headerlink" title="学海无涯 Keep Learning"></a>学海无涯 Keep Learning</h2><pre><code>1. 可以研究下Java中Spring JTA Transaction Manager, 如Bitronix, Atomikos, etc.
+2. 可以研究下各数据库如何开启和关闭支持XA事务，如何设置同时处于&quot;准备好&quot;状态的事务的最大数目（max_prepared_transactions）.
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></p>
+        <p><span>文章作者:</span><a href="/blog/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016年04月04日 - 19时11分</p>
+        <p><span>最后更新:</span>2016年04月07日 - 12时27分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/blog/transactional-mechanism-protocol/" title="事务处理机制与协议">http://waterstrong.me/blog/transactional-mechanism-protocol/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/transactional-mechanism-protocol/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/blog/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/blog/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#事务定义及其特性"><span class="toc-number">1.</span> <span class="toc-text">事务定义及其特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是事务？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是事务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的ACID特性"><span class="toc-number">1.2.</span> <span class="toc-text">事务的ACID特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库事务管理"><span class="toc-number">1.3.</span> <span class="toc-text">数据库事务管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地事务（Local-Transaction）"><span class="toc-number">2.</span> <span class="toc-text">本地事务（Local Transaction）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">2.1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地事务-模型1"><span class="toc-number">2.2.</span> <span class="toc-text">本地事务 模型1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地事务-模型2"><span class="toc-number">2.3.</span> <span class="toc-text">本地事务 模型2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编程式事务（Programmatic-Transaction）"><span class="toc-number">3.</span> <span class="toc-text">编程式事务（Programmatic Transaction）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍-1"><span class="toc-number">3.1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编程式事务-模型"><span class="toc-number">3.2.</span> <span class="toc-text">编程式事务 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与Local事务的区别"><span class="toc-number">3.3.</span> <span class="toc-text">与Local事务的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明式事务（Declarative-Transaction）"><span class="toc-number">4.</span> <span class="toc-text">声明式事务（Declarative Transaction）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍-2"><span class="toc-number">4.1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明式事务-模型"><span class="toc-number">4.2.</span> <span class="toc-text">声明式事务 模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局-分布式事务（Global-Distributed-Transaction）"><span class="toc-number">5.</span> <span class="toc-text">全局/分布式事务（Global/Distributed Transaction）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍-3"><span class="toc-number">5.1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JMS触发DB更新的实例"><span class="toc-number">5.2.</span> <span class="toc-text">JMS触发DB更新的实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DB-JMS-伪代码"><span class="toc-number">5.2.1.</span> <span class="toc-text">DB+JMS 伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#成功调用过程"><span class="toc-number">5.2.2.</span> <span class="toc-text">成功调用过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可能失败的情形"><span class="toc-number">5.2.3.</span> <span class="toc-text">可能失败的情形</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XA事务多资源协调"><span class="toc-number">5.3.</span> <span class="toc-text">XA事务多资源协调</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#X-Open-XA规范接口"><span class="toc-number">5.3.1.</span> <span class="toc-text">X/Open XA规范接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#XA两阶段提交协议"><span class="toc-number">5.3.2.</span> <span class="toc-text">XA两阶段提交协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XA事务问题与优化策略"><span class="toc-number">6.</span> <span class="toc-text">XA事务问题与优化策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学海无涯-Keep-Learning"><span class="toc-number">7.</span> <span class="toc-text">学海无涯 Keep Learning</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="transactional-mechanism-protocol/" data-title="事务处理机制与协议" data-url="http://waterstrong.me/blog/blog/transactional-mechanism-protocol/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"waterstrong"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/" title="回到首页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/blog/hello-world/" title="下一篇: Hello World">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/blog/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 13;
+            var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75679138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?693ad4e275d81e72c100e71459f00b8f";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+  </div>
+</body>
+</html>
