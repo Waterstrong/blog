@@ -42,6 +42,8 @@ tags: [事务, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行�
 ----
 
 ## 本地事务（Local Transaction）
+
+### 基本介绍
 本地事务(Local Transaction)主要指限制在单个进程内的事务，不涉及多个数据库源，通常会有Begin Transaction … End Transaction来控制事务的开始与结束。以对数据库访问为例，接下来用伪代码实现事务的提交/回滚。
 
 ### 本地事务 模型1
@@ -83,6 +85,7 @@ finally {
 
 ## 编程式事务（Programmatic Transaction）
 
+### 基本介绍
 编程式事务(Programmatic Transaction)通过编程语言提供的事务API和事务服务提供者进行事务控制。通常的做法是在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。
 
 ### 编程式事务 模型
@@ -96,13 +99,14 @@ try {
     userTransaction.rollback();
 }
 ```
-
+### 与Local事务的区别
 Programmatic与Local Transaction的区别在于Programmatic把Local方式下的conn封装起来，并且手动控制commit和rollback，在一定程序上简化了编程的繁琐性，更加关注事务开始、提交与回滚。你觉得这种方式就已经很棒了么，再想想还有没有更好更创新的方法呢，声明式事务会给你想要的答案。
 
 ----
 
 ## 声明式事务（Declarative Transaction）
 
+### 基本介绍
 声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。
 
 ### 声明式事务 模型
@@ -133,8 +137,9 @@ Object intercept(proxy, method, args) {
 ----
 
 ## 全局/分布式事务（Global/Distributed Transaction）
+
 ### 基本介绍
-全局/分布式事务(Global/Distributed Transaction)主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:
+全局/分布式事务(Global/Distributed Transaction)也称XA事务，主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:
 
 - 事务管理器（Transaction Manager）
 - 资源管理器（Resource Manager）
@@ -178,9 +183,9 @@ void merge(…) {
 5. Roll back database transaction
 6. Roll back messaging transaction
 
-可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Global Transaction是如何协调多资源的呢？
+可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Transaction是如何协调多资源的呢？
 
-### 多资源协调管理
+### XA事务多资源协调
 
 #### X/Open XA规范接口
 
@@ -193,6 +198,8 @@ XA事务实现原理主要是针对每一个XA资源给全局事务和本地事�
 两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段提交协议包含了两个阶段：准备阶段(Prepare)和提交阶段(Commit)。准备阶段需要检查资源的状态(READY, READ_ONLY, NOT_READY)，当且仅当所有资源都是READY状态，准备阶段完成，否则进行Rollback操作。下图来自网络，大致描述了2PC的工作流程。
 
 ![](../images/transactional-mp/XA_two_phase_commit.png)
+
+TM可以向RM查询事务的状态，RM必须要返回一系列事务的XID，表明事务是prepared状态，还是已经commit的状态。TM会把XID,已完成的RM等这样的事务信息保存起来的，只有当全部的RM提交或者回滚完后，才能丢弃这些事务的信息。**XA事务都假定了TM和RM都是有牢靠的存储，所以也保证了TM重启后可以从日志里恢复还未处理完的事务。**
 
 
 TM/RM初始化和XA两阶段提交伪代码如下:
@@ -227,13 +234,22 @@ committer.commit(this, interestedResources); // All resources are ready and comm
 
 ```
 
-## 结束语 Last but Not the Last
+----
 
-事务的实现方式与分类
-对于Local事务，范围仅限于单个可识别数据资源的事务操作。
-对于Global事务，可能出现timeout问题，连锁反应导致系统变慢，同时会消耗更多性能资源。
-仅在同一个事务上下文中需要协调多种资源时，才有必要使用XA。也就是说仅当多个资源必须在同一个事务范畴内被协调时，才有必要用XA。
+## XA事务问题与优化策略
 
+对于非XA事务，范围仅限于单个可识别数据资源的事务操作。对于XA事务，可能出现timeout问题，连锁反应导致系统变慢，同时XA事务也会消耗更多性能资源。因此，仅在同一个事务上下文中需要协调多种资源时，才有必要使用XA，也就是说仅当多个资源必须在同一个事务范畴内被协调时，才有必要用XA。
 
-## 思考和深入学习
+针对XA事务可能出现的问题，目前常用的优化策略:
+- **最后资源提交优化（Last Resource Commit Optimization）**
+  + 最后资源提交优化允许有且仅有一个资源是非XA资源，不必进入到准备阶段而可以直接提交或回滚，如果有这样的一个资源存在XA事务中，那首先应该尝试准备其他XA的资源，然后提交该非XA资源，如果成功，提交其他XA资源，否则回滚所有资源。通常的场景是当如JDBC这样的Driver不支持XA时，可以将其配置成最后参与者(资源)，然后就可以和XA资源进行协作了。
+- **一阶段提交优化（One-Phase Commit Optimization）**
+  + 如果使用了XA事务，但资源只有一个，为了节省不必要的开销，XA不会执行两阶段提交，准确地说是没有准备阶段，而是当作单个资源处理并直接提交。
+- **经验异常（Heuristic Exception）处理**
+  + 在两阶段提交的过程，资源管理器可能会使用“经验化决策”的策略，提交或者回滚，而不受事务管理器的控制。“经验化决策”是指根据多种内部和外部因素做出智能决定的过程，当资源管理器这么做了，它会向客户端报上一个经验异常（Heuristic Exception）。在XA环境下，两阶段提交的过程中，特别是事务参与者在第一阶段产生了响应之后，经验异常最常见的原因是第一阶段和第二阶段之间的超时情况，当网络延迟或故障、资源锁定以及资源使用过量时，资源管理器或许要做出提交或回滚其工作的决定，以释放资源。
+
+## 学海无涯 Keep Learning
+    1. 可以研究下Java中Spring JTA Transaction Manager, 如Bitronix, Atomikos, etc.
+    2. 可以研究下各数据库如何开启和关闭支持XA事务，如何设置同时处于"准备好"状态的事务的最大数目（max_prepared_transactions）.
+
 
