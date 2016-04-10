@@ -119,7 +119,7 @@ void doSomething() {
     repository.save();
 }
 ```
-其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是AOP(面向切面编程)的方式进行方法的拦截。
+其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是[AOP(面向切面编程)](/blog/aspect-oriented-programming)的方式进行方法的拦截。
 ```
 Object intercept(proxy, method, args) {
     trans.begin();
