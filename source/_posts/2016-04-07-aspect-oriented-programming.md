@@ -26,10 +26,10 @@ AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态
 #### Advice（通知/增强）
 在切面的某个特定的连接点(Joinpoint)上执行的动作，是执行切面的具体逻辑，包括Before，AfterReturning，AfterThrowing，After，Around等Advice。
    - Before Advice: 前置通知，在方法执行前执行
-   - AfterReturning: 后置返回通知，在方法执行后返回结果后执行
-   - AfterThrowing Advice: 异常通知，在方法执行过程中抛出异常的时候执行
-   - After Advice: 后置通知，在方法执行后返回结果前执行
-   - Around Advice: 环绕通知，在方法执行前后和抛出异常时执行
+   - AfterReturning: 后置返回通知，在方法执行正常返回后执行，方法没有抛出任何异常
+   - AfterThrowing Advice: 后置异常通知，在方法执行过程中抛出异常的时候执行
+   - After Advice: 后置通知/后置最终通知，在方法执行完成后执行，不论是正常返回还是异常退出
+   - Around Advice: 环绕通知，在方法执行前后和抛出异常时执行，环绕通知可以在方法调用前后完成自定义的行为
 
 #### Pointcut（切入点）
 匹配连接点(Joinpoint)的断言，通知(Advice)和切入点(Pointcut)表达式关联，并在满足该切入点(Pointcut)的连接点(Joinpoint)上运行，可以认为是连接点的集合，本质是一个捕获连接点的结构，通常可用正则表达式来找到那些匹配的连接点。
