@@ -19,7 +19,7 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
 直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。">
 <meta property="og:image" content="http://waterstrong.me/blog/../images/transactional-mp/XA_standard_interface.png">
 <meta property="og:image" content="http://waterstrong.me/blog/../images/transactional-mp/XA_two_phase_commit.png">
-<meta property="og:updated_time" content="2016-04-07T04:27:39.000Z">
+<meta property="og:updated_time" content="2016-04-10T15:58:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务处理机制与协议">
 <meta name="twitter:description" content="事务定义及其特性什么是事务？
@@ -167,7 +167,7 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/blog/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/blog/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/blog/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/事务/" style="font-size: 10px;">事务</a> <a href="/blog/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/blog/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/blog/tags/锁机制/" style="font-size: 10px;">锁机制</a>
+                        <a href="/blog/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/blog/tags/C/" style="font-size: 20px;">C++</a> <a href="/blog/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/blog/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/blog/tags/life/" style="font-size: 10px;">life</a> <a href="/blog/tags/tech/" style="font-size: 10px;">tech</a> <a href="/blog/tags/事务/" style="font-size: 10px;">事务</a> <a href="/blog/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/blog/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/blog/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/blog/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/blog/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
                     </div>
                 </section>
                 
@@ -334,7 +334,7 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
 <hr>
 <h2 id="声明式事务（Declarative-Transaction）"><a href="#声明式事务（Declarative-Transaction）" class="headerlink" title="声明式事务（Declarative Transaction）"></a>声明式事务（Declarative Transaction）</h2><h3 id="基本介绍-2"><a href="#基本介绍-2" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。</p>
 <h3 id="声明式事务-模型"><a href="#声明式事务-模型" class="headerlink" title="声明式事务 模型"></a>声明式事务 模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Transaction</span><br><span class="line">void doSomething() &#123;</span><br><span class="line">    process1();</span><br><span class="line">    process2();</span><br><span class="line">    ……</span><br><span class="line">    repository.save();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是AOP(面向切面编程)的方式进行方法的拦截。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object intercept(proxy, method, args) &#123;</span><br><span class="line">    trans.begin();</span><br><span class="line">    try &#123;</span><br><span class="line">    	method.invoke(target, args);</span><br><span class="line">    	trans.commit();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	trans.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是<a href="/blog/aspect-oriented-programming">AOP(面向切面编程)</a>的方式进行方法的拦截。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object intercept(proxy, method, args) &#123;</span><br><span class="line">    trans.begin();</span><br><span class="line">    try &#123;</span><br><span class="line">    	method.invoke(target, args);</span><br><span class="line">    	trans.commit();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	trans.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>以上所有的事务实现方式都主要集中在单一数据库情况，那么对于多数据库协调或者混合数据源情形，如数据库加消息队列等，又如何保证事务正确有效地执行呢？答案是分布式事务，也称全局事务来管理了。</p>
 <hr>
 <h2 id="全局-分布式事务（Global-Distributed-Transaction）"><a href="#全局-分布式事务（Global-Distributed-Transaction）" class="headerlink" title="全局/分布式事务（Global/Distributed Transaction）"></a>全局/分布式事务（Global/Distributed Transaction）</h2><h3 id="基本介绍-3"><a href="#基本介绍-3" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>全局/分布式事务(Global/Distributed Transaction)也称XA事务，主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:</p>
@@ -404,7 +404,7 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
         <p><span>本文标题:</span><a href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></p>
         <p><span>文章作者:</span><a href="/blog/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016年04月04日 - 19时11分</p>
-        <p><span>最后更新:</span>2016年04月07日 - 12时27分</p>
+        <p><span>最后更新:</span>2016年04月10日 - 23时58分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/blog/transactional-mechanism-protocol/" title="事务处理机制与协议">http://waterstrong.me/blog/transactional-mechanism-protocol/</a>
             <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/transactional-mechanism-protocol/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -419,6 +419,15 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
 
 
 <nav id="article-nav">
+  
+    <a href="/blog/aspect-oriented-programming/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          AOP面向切面编程
+        
+      </div>
+    </a>
   
   
     <a href="/blog/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -518,7 +527,9 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/blog/" title="回到首页"><i class="fa fa-home"></i></a>
+            <a href="/blog/aspect-oriented-programming/" title="上一篇: AOP面向切面编程">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
@@ -527,7 +538,7 @@ A transaction is a unit of work that you want to treat as “a whole”. It has 
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/aspect-oriented-programming/">AOP面向切面编程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
