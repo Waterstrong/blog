@@ -2,7 +2,7 @@
 title: AOP面向切面编程
 date: 2016-04-07 13:45:32
 category: AOP
-tags: [面向切面编程, 反射机制, 动态代理, Proxy, Java, CGLib]
+tags: [面向切面编程, 反射机制, 代理模式, Proxy, Java, CGLib]
 ---
 
 ## What is AOP ?
@@ -87,7 +87,7 @@ OOP引入封装、继承和多态来建立对象层次结构，从而模拟公�
 ## AOP in Practice
 主要针对AOP在Java中的实现，并解读在Spring中AOP的伪代码实现。
 
-### Proxy DP
+### 代理设计模式
 首先来回顾一下设计模式中的代理模式:
 > 代理模式(Proxy Design Pattern)，为其他对象提供一种代理以控制对这个对象的访问。
 
@@ -112,9 +112,9 @@ public class Hello implements IHello {
 
 // 代理类，通过调用代理方法访问实际方法并且添加新的职责
 class HelloProxy implements IHello {
-	private IHello hello = new Hello();
+    private IHello hello = new Hello(); // 指向目标对象,通常在用构造方法传值
 
-  	@Override
+    @Override
     public void sayHello(String name) {
         println("before...."); // 实际调用前添加新的行为
         hello.sayHello(name);
@@ -124,36 +124,47 @@ class HelloProxy implements IHello {
 
 ```
 
-### JDK Dynamic Proxy
-JDK动态代理方式，使用接口实现：
+在回顾了代理模式后，那么进一步了解如何结合代理模式在运行时通过反射机制动态创建代理类，即动态代理技术。
+
+### JDK动态代理
+主要针对JDK动态代理方式，使用接口实现，给出核心部分伪代码：
 
 ```
 public class DynamicProxyHello implements InvocationHandler {
-    private Object target;
+    private Object target; // 目标对象
     public Object bind(Object target){
         this.target = target;
+        // 通过目标类和接口来生成代理类
         return Proxy.newProxyInstance(target.getClass().getClassLoader(),
                                       target.getClass().getInterfaces(), this);
     }
 
-    @Override
+    @Override // 代理类中拦截了目标对象的方法
     public Object invoke(Object proxy, Method method, Object[] args) {
-        do("before..... ");
-        Object result = method.invoke(target, args);
+        do("before..... "); // 代理类中Advice
+        Object result = method.invoke(target, args); // 目标对象的实际方法
         do("after.....");
         return result;
     }
 }
 ```
 
-### CGLib Proxy
+特别注意: JDK动态代理只能基于接口动态代理。一般默认情况下，如果目标类是接口，则使用JDK动态代理技术，否则只能使用CGLib来生成代理。
+
+### CGLib代理
 CGLIB方式，使用继承实现：
 
 ```
-MethodInterceptor
+// 主要了解以下几个类, 代码在相应的库中都可以找到, 此处不再赘述
 
-Enhancer
+MethodInterceptor // 方法拦截, 定义代理类需要实现该接口以调用intercept方法
 
-MethodProxy
+Enhancer // 增强类, 继承至AbstractClassGenerator, 主要用于生成目标类的子类
+
+MethodProxy // 生成的子类, 可以通过调用invokeSuper来调用目标对象的实际方法
 
 ```
+
+特别注意: CGLib代理基于接口和非final类代理，不能代理static方法。
+
+之前有实现过简单的IoC和AOP，有兴趣可以参见工程: [summarine](https://github.com/Waterstrong/summarine)。
