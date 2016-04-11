@@ -157,14 +157,14 @@ CGLIB方式，使用继承实现：
 ```
 // 主要了解以下几个类, 代码在相应的库中都可以找到, 此处不再赘述
 
-MethodInterceptor // 方法拦截, 定义代理类需要实现该接口以调用intercept方法
+MethodInterceptor // 方法拦截类, 定义的代理类需要实现该接口以调用intercept方法添加Advice
 
 Enhancer // 增强类, 继承至AbstractClassGenerator, 主要用于生成目标类的子类
 
-MethodProxy // 生成的子类, 可以通过调用invokeSuper来调用目标对象的实际方法
+MethodProxy // 生成的子类, 可以在intercept中通过调用proxy.invokeSuper()来调用目标对象的实际方法
 
 ```
 
 特别注意: CGLib代理基于接口和非final类代理，不能代理static方法。
 
-之前有实现过简单的IoC和AOP，有兴趣可以参见工程: [summarine](https://github.com/Waterstrong/summarine)。
+之前有用Java实现过简单的IoC和AOP，有兴趣可以参见工程: [summarine](https://github.com/Waterstrong/summarine)。
