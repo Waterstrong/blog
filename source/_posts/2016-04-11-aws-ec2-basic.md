@@ -1,8 +1,8 @@
 ---
-title: AWS EC2入门与实践
+title: AWS EC2入门篇
 date: 2016-04-11 12:00:08
 category: DevOps
-tags: [AWS, EC2, IaaS, 云服务, 翻墙, Nexus, FTP]
+tags: [AWS, EC2, IaaS, 云服务, SSH]
 ---
 
 ### 基本介绍
@@ -18,6 +18,17 @@ Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源。通俗的
 
 2.Instances management
 3.Volumes 卷，硬盘， S3，EBS
+df -h
+df -T
+sudo fdisk -l
+
+sudo mkfs.ext4 /dev/xvdf
+
+sudo mount /dev/xvdf /mnt/ebs
+
+sudo umount /dev/xvdf
+
+
 4.Snapshots 每个快照代表一个卷在一个特定时间点的状态。
 5.Key Pairs 安全密钥对
 6.Placement Groups
