@@ -1,3 +1,4 @@
 ---
 title: Archives
+comments: false
 ---
