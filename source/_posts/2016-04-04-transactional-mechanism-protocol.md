@@ -3,6 +3,7 @@ title: 事务处理机制与协议
 date: 2016-04-04 19:11:03
 category: Transaction
 tags: [事务, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行版本控制]
+description: 事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。
 ---
 
 ## 事务定义及其特性
@@ -10,8 +11,6 @@ tags: [事务, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行�
 > A transaction is a unit of work that you want to treat as "a whole". It has to either happen in full, or not at all.
 
 直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。
-
-<!-- more -->
 
 ### 事务的ACID特性
 事务的四大特性分别为原子性、一致性、隔离性和永久性，称为ACID特性，也称酸性。

@@ -1,7 +1,7 @@
 ---
 title: "Hello World"
 category: Tech
-tags: [tech, life]
+tags: [Tech, Life]
 ---
 
 #### Hello World, Let's Begin!
