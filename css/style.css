@@ -2526,7 +2526,7 @@ color
   visibility: hidden;
 }
 .article img {
-  max-width: 100%;
+  width: 550px;
 }
 @-webkit-keyframes cd-bounce-1 {
   0% {
@@ -3378,7 +3378,6 @@ color
   background-color: #2e2e2e;
 }
 .article-entry .highlight::before {
-  content: attr(data-lang) " code";
   display: block;
   background-color: #0083a0;
   margin: 0 -16px 16px -16px;

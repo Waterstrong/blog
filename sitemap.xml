@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://waterstrong.me/blog/blog/cpp-singleton/</loc>
+    
+    <lastmod>2016-04-17T10:35:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://waterstrong.me/blog/blog/code-your-ioc/</loc>
     
     <lastmod>2016-04-17T09:30:09.000Z</lastmod>
@@ -23,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://waterstrong.me/blog/blog/transactional-mechanism-protocol/</loc>
+    <loc>http://waterstrong.me/blog/blog/aws-ec2-vpn/</loc>
     
     <lastmod>2016-04-17T04:09:36.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://waterstrong.me/blog/blog/aws-ec2-vpn/</loc>
+    <loc>http://waterstrong.me/blog/blog/transactional-mechanism-protocol/</loc>
     
     <lastmod>2016-04-17T04:09:36.000Z</lastmod>
     
@@ -89,13 +96,6 @@
     <loc>http://waterstrong.me/blog/blog/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-03-29T15:47:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://waterstrong.me/blog/blog/cpp-singleton/</loc>
-    
-    <lastmod>2016-03-26T04:59:45.000Z</lastmod>
     
   </url>
   
