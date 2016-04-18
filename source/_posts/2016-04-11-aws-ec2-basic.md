@@ -41,27 +41,37 @@ Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分�
 标签(Tag)为了`方便管理实例、映像以及其他Amazon EC2资源`，可通过标签的形式为每个资源分配元数据(Meta Data)。`标签可按各种标准(例如用途、所有者或环境)对AWS资源进行分类`，每个标签都包含定义的一个键和一个可选值，例如下图所示：
 ![](../images/aws-ec2-basic/tag_example.png)
 
-### Volumes 存储卷
+### Volumes 卷
+卷是一种数据块级存储设备，可以连接到单个EC2实例，可以像使用其他物理硬盘一样使用它。使用Amazon Elastic Block Store(Amazon EBS)的数据的持久性存储卷，也称为Amazon EBS卷，提供了三种卷类型：通用型SSD、Provisioned IOPS和磁介质，各卷类型特点可参见: [Amazon EBS 卷类型](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
 
-临时数据（停止或终止实例时会删除这些数据）的存储卷，也称为实例存储卷
-使用 Amazon Elastic Block Store (Amazon EBS) 的数据的持久性存储卷，也称为 Amazon EBS 卷。
+除了EBS，还有提供临时性块级存储[实例存储](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/InstanceStorage.html)和存储Internet数据的Amazon Simple Storage Service ([Amazon S3](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/AmazonS3.html))
 
-用于存储资源的多个物理位置，例如实例和 Amazon EBS 卷，也称为区域和可用区
+卷存储的架构如下图所示:
+![](../images/aws-ec2-basic/architecture_storage.png)
 
+可以选择`elastic block store -> Volumes -> Create Volume`创建一个新卷:
+![](../images/aws-ec2-basic/create_volume.png)
 
-Elastic Block Store
-卷，硬盘， S3，EBS
+选择Volumes中的一个条目，通过`Actions或右键 -> Attach Volume`连接到某个Instance上:
+![](../images/aws-ec2-basic/attach_volume.png)
 
-df -h
-df -T
-sudo fdisk -l
+在Instance上通过以下命令实现Mount(挂载)创建的卷:
 
-sudo mkfs.ext4 /dev/xvdf
+```
+df -h  # 查看已挂载的卷
+df -T  # 可以查看挂载卷的类型
 
-sudo mount /dev/xvdf /mnt/ebs
+sudo fdisk -l  # 查看连接到的卷
 
+# 当确定卷的名称为 /dev/xvdf
+sudo mkfs.ext4 /dev/xvdf  # 格式化卷类型为ext4
+mkdir /mnt/ebs  # 创建文件夹
+sudo mount /dev/xvdf /mnt/ebs  # 挂载卷到ebs
+df -T  # 再次查看挂载情况
+
+# 若需要卸载卷
 sudo umount /dev/xvdf
-
+```
 
 ### Snapshots 快照
 每个快照代表一个卷在一个特定时间点的状态。
@@ -71,7 +81,10 @@ sudo umount /dev/xvdf
 
 可以使用安全组来控制实例的访问权限，这些安全组类似于一个传入网络防火墙，可以指定允许访问实例的协议、端口和源IP范围。可以创建多个安全组，并给每个安全组指定不同的规则，然后可以给每个实例分配一个或多个安全组，通过这些规则规则确定允许哪些流量可访问实例。
 
-如下图所示选择`Network & Security -> Security Groups -> Create Security Group`创建一个新的安全组:
+Security Group安全组架构如图所示:
+![](../images/aws-ec2-basic/architecture_security_group.png)
+
+创建新的安全组，选择`Network & Security -> Security Groups -> Create Security Group`进行创建:
 ![](../images/aws-ec2-basic/create_security_group.png)
 
 上图显示下拉列表中，可以根据需要选择如SSH,TCP,UDP等，也可以选择Customer Rule来自定义端口号等，还可指定来源IP范围。
@@ -95,7 +108,7 @@ sudo umount /dev/xvdf
 如下图所示选择`Network & Security -> Elastic IPs -> Allocate New Address`分配一个新的EIP:
 ![](../images/aws-ec2-basic/new_elastic_ip.png)
 
-选择一个条目，通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
+选择Elastic IPs中一个条目，通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
 ![](../images/aws-ec2-basic/associate_elastic_ip.png)
 
 此时可以通过EIP访问关联到的Instance了。
@@ -123,17 +136,13 @@ sudo umount /dev/xvdf
 [Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)
 [在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
 
-![](../images/aws-ec2-basic/architecture_security_group.png)
-![](../images/aws-ec2-basic/architecture_storage.png)
 
-![](../images/aws-ec2-basic/attach_volume.png)
+
 ![](../images/aws-ec2-basic/aws_homepage.png)
 ![](../images/aws-ec2-basic/aws_overview.png)
 ![](../images/aws-ec2-basic/choose_location_area.png)
 ![](../images/aws-ec2-basic/cloud_ping.png)
 ![](../images/aws-ec2-basic/create_key_pair.png)
-
-![](../images/aws-ec2-basic/create_volume.png)
 
 ![](../images/aws-ec2-basic/launch_add_storage.png)
 ![](../images/aws-ec2-basic/launch_choose_ami.png)
