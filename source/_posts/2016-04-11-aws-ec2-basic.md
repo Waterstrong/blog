@@ -29,11 +29,36 @@ IaaS通常分为三种用法：公有云、私有云和混合云。Amazon EC2在
 
 Internet上其他类型的服务包括平台即服务(Platform as a Service, PaaS)和软件即服务(Software as a Service, SaaS)。PaaS提供了用户可以访问的完整或部分的应用程序开发，SaaS则提供了完整的可直接使用的应用程序，比如通过 Internet管理企业资源。
 
-### Instances Management 实例管理
-虚拟计算环境，也称为实例(Instance)。
-实例的预配置模板，也称为亚马逊系统映像 (AMI)，其中包含您的服务器需要的程序包（包括操作系统和其他软件）。
-实例 CPU、内存、存储和网络容量的多种配置，也称为实例类型
+### 注册并创建EC2实例
+若没有帐号可进入[AWS主页](http://aws.amazon.com/)选择`Create an AWS Account`注册:
+![](../images/aws-ec2-basic/aws_homepage.png)
 
+大概需要填写用户名密码,联系人信息,信用卡信息等，信用卡会被扣掉1美元:
+![](../images/aws-ec2-basic/register_in_process.png)
+
+然后进入AWS控制台选择EC2:
+![](../images/aws-ec2-basic/aws_overview.png)
+
+为了选择最近的地区，可以在[CloudPing](http://www.cloudping.info/)上测试一下Ping速度，选择最快的Singapore:
+![](../images/aws-ec2-basic/choose_location_area.png)
+![](../images/aws-ec2-basic/cloud_ping.png)
+
+点击`Launch Instance`创建一个实例，可以选择`Community AMIs`进行筛选，也可能直接选择Amazon的Linux AMI，据说是速度和性能都进行过优化:
+![](../images/aws-ec2-basic/launch_choose_ami.png)
+
+一定只选择标记为`Free tier eligible`的免费类型，否则运行一段时间就等着哭吧:
+![](../images/aws-ec2-basic/launch_choose_instance_type.png)
+
+根据步骤和提示一步步完成即可，最后启动会选择Key Pair。当系统提示提供密钥时，选择Choose an existing key pair，然后选择已创建的密钥对。另外，也可以新建密钥对，选择Create a new key pair，输入密钥对的名称，然后选择Download Key Pair。这是保存私有密钥文件的唯一机会，因此务必单击进行下载，将私有密钥文件保存在安全位置。当启动实例时，需要提供密钥对的名称，当每次连接到实例时，需要提供相应的私有密钥。
+![](../images/aws-ec2-basic/launch_select_key_pair.png)
+
+最后就可以看到Instances页面出现了已创建成功的实例。更多说明请参见[Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)和[在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
+
+### Instances Management 实例管理
+实例(Instance), 即虚拟计算环境。实例的预配置模板，也称为亚马逊系统映像(AMI)，其中包含服务器需要的程序包(包括操作系统和其他软件)。实例CPU、内存、存储和网络容量的多种配置，也称为实例类型。
+
+在`Instances`栏中可以对实例进行Reboot, Stop, Start, Terminate(永久删除)以及其他的网络,安全,卷等设置。
+![](../images/aws-ec2-basic/instances.png)
 
 ### Resource & Tags 资源 & 标签
 Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分资源包括映像、实例、卷和快照，在创建某个资源时，该资源会被分配一个唯一资源 ID。可以定义某个值标记某些资源，来帮助组织和识别这些资源，即Tags。
@@ -74,8 +99,7 @@ sudo umount /dev/xvdf
 ```
 
 ### Snapshots 快照
-每个快照代表一个卷在一个特定时间点的状态。
-
+每个快照代表一个卷在一个特定时间点的状态。快照属于增量备份，这意味着仅保存设备上在最新快照之后更改的数据块。相对容易理解，此处不再赘述。
 
 ### Security Groups 安全组
 
@@ -96,8 +120,11 @@ Security Group安全组架构如图所示:
 
 
 ### Key Pairs 密钥对
+Amazon EC2使用公有密钥密码术加密和解密登录信息。公有密钥密码术使用公有密钥加密某个数据(如一个密码)，然后收件人可以使用私有密钥解密数据，公有和私有密钥被称为密钥对。AWS存储公有密钥，个人在安全位置存储私有密钥。如果经常使用SSH那就比较清楚了。
 
-使用密钥对的实例的安全登录信息（AWS 存储公有密钥，您在安全位置存储私有密钥）
+选择`Network & Security -> Key Pairs -> Import Key Pair`可以导入本机的公钥，当然也可以创建Key Pair:
+![](../images/aws-ec2-basic/create_key_pair.png)
+
 
 ### Placement Groups 置放群组
 
@@ -116,44 +143,14 @@ Security Group安全组架构如图所示:
 `特别注意:` 为确保弹性IP地址的有效使用，如果弹性IP地址未与正在运行的实例关联，或者它已与停止的实例或未连接的网络接口关联，Amazon将强制收取小额的小时费用，每小时是$0.005。当实例正在运行时，无需为与该实例关联的某个弹性IP地址付费。当重新映射弹性IP地址次数一个月内超过了100次将收取$0.10费用。在默认情况下，所有AWS账户最多可拥有5个EIP。
 
 ### Network Interfaces 网络接口
-
-您可以创建的虚拟网络，这些网络与其余 AWS 云在逻辑上隔离，并且您可以选择连接到您自己的网络，也称为 Virtual Private Cloud (VPC)
+您可以创建的虚拟网络，这些网络与其余 AWS 云在逻辑上隔离，并且您可以选择连接到您自己的网络，也称为Virtual Private Cloud(VPC)。
 
 ### Load Banlancers 负载均衡
-
-### Dedicated Hosts
+可以跨越多个Amazon EC2实例自动分配应用程序的传入流量。
 
 ### Auto Scaling
+根据定义的条件自动扩展Amazon EC2容量。
 
 
-当系统提示提供密钥时，选择 Choose an existing key pair，然后选择您在进行设置时创建的密钥对。
-
-另外，您也可以新建密钥对。选择 Create a new key pair，输入密钥对的名称，然后选择 Download Key Pair。这是您保存私有密钥文件的唯一机会，因此务必单击进行下载。将私有密钥文件保存在安全位置。当您启动实例时，您将需要提供密钥对的名称；当您每次连接到实例时，您将需要提供相应的私有密钥。
-
-允许从您的 IP 地址到您的实例的入站 SSH 流量
-确保与您的实例关联的安全组允许来自您的 IP 地址的传入 SSH 流量
-
-[Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)
-[在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
-
-
-
-![](../images/aws-ec2-basic/aws_homepage.png)
-![](../images/aws-ec2-basic/aws_overview.png)
-![](../images/aws-ec2-basic/choose_location_area.png)
-![](../images/aws-ec2-basic/cloud_ping.png)
-![](../images/aws-ec2-basic/create_key_pair.png)
-
-![](../images/aws-ec2-basic/launch_add_storage.png)
-![](../images/aws-ec2-basic/launch_choose_ami.png)
-![](../images/aws-ec2-basic/launch_choose_instance_type.png)
-![](../images/aws-ec2-basic/launch_configure_instance.png)
-![](../images/aws-ec2-basic/launch_configure_sg.png)
-![](../images/aws-ec2-basic/launch_review.png)
-![](../images/aws-ec2-basic/launch_select_key_pair.png)
-![](../images/aws-ec2-basic/launch_tag_instance.png)
-![](../images/aws-ec2-basic/register_in_process.png)
-
-
-参考资料
+### 参考资料
 [1] [Amazon EC2 User Guide for Linux Instances](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
