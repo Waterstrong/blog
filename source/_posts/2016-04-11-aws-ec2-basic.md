@@ -30,7 +30,7 @@ IaaS通常分为三种用法：公有云、私有云和混合云。Amazon EC2在
 Internet上其他类型的服务包括平台即服务(Platform as a Service, PaaS)和软件即服务(Software as a Service, SaaS)。PaaS提供了用户可以访问的完整或部分的应用程序开发，SaaS则提供了完整的可直接使用的应用程序，比如通过 Internet管理企业资源。
 
 ### Instances Management 实例管理
-虚拟计算环境，也称为实例
+虚拟计算环境，也称为实例(Instance)。
 实例的预配置模板，也称为亚马逊系统映像 (AMI)，其中包含您的服务器需要的程序包（包括操作系统和其他软件）。
 实例 CPU、内存、存储和网络容量的多种配置，也称为实例类型
 
@@ -38,7 +38,7 @@ Internet上其他类型的服务包括平台即服务(Platform as a Service, Paa
 ### Resource & Tags 资源 & 标签
 Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分资源包括映像、实例、卷和快照，在创建某个资源时，该资源会被分配一个唯一资源 ID。可以定义某个值标记某些资源，来帮助组织和识别这些资源，即Tags。
 
-标签(Tag)为了方便管理实例、映像以及其他Amazon EC2资源，可通过标签的形式为每个资源分配元数据(Meta Data)。标签可按各种标准（例如用途、所有者或环境）对AWS资源进行分类，每个标签都包含定义的一个键和一个可选值，例如下图所示：
+标签(Tag)为了`方便管理实例、映像以及其他Amazon EC2资源`，可通过标签的形式为每个资源分配元数据(Meta Data)。`标签可按各种标准(例如用途、所有者或环境)对AWS资源进行分类`，每个标签都包含定义的一个键和一个可选值，例如下图所示：
 ![](../images/aws-ec2-basic/tag_example.png)
 
 ### Volumes 存储卷
@@ -82,9 +82,17 @@ sudo umount /dev/xvdf
 
 
 ### Elastic IPs 弹性IP
-弹性IP地址是专为动态云计算设计的静态IP地址。实例在重启后会自动重新分配一个与原实例不同的公有IP地址，如果应用程序需要一个静态IP地址，可以使用弹性IP地址关联到实例，并且在实例发生故障的情况下能够将该地址映射到另一实例，并能够将 DNS主机名用于所有其他节点间通信，从而屏蔽实例故障。
+弹性IP地址是专为动态云计算设计的静态IP地址。`实例在重启后会自动重新分配一个与原实例不同的公有IP地址`，如果应用程序需要一个静态IP地址，可以使用弹性IP地址关联到实例，并且在实例发生故障的情况下能够将该地址映射到另一实例，并能够将 DNS主机名用于所有其他节点间通信，从而屏蔽实例故障。
 
-为确保弹性IP地址的有效使用，如果弹性IP地址未与正在运行的实例关联，或者它已与停止的实例或未连接的网络接口关联，Amazon将强制收取小额的小时费用，每小时是$0.005。当实例正在运行时，无需为与该实例关联的某个弹性IP地址付费。当重新映射弹性IP地址次数一个月内超过了100次将收取$0.10费用。在默认情况下，所有AWS账户最多可拥有5个EIP。
+如下图所示选择`Network & Security -> Elastic IPs -> Allocate New Address`分配一个新的EIP:
+![](../images/aws-ec2-basic/new_elastic_ip.png)
+
+通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
+![](../images/aws-ec2-basic/associate_elastic_ip.png)
+
+此时可以通过EIP访问关联到的Instance了。
+
+`特别注意:` 为确保弹性IP地址的有效使用，如果弹性IP地址未与正在运行的实例关联，或者它已与停止的实例或未连接的网络接口关联，Amazon将强制收取小额的小时费用，每小时是$0.005。当实例正在运行时，无需为与该实例关联的某个弹性IP地址付费。当重新映射弹性IP地址次数一个月内超过了100次将收取$0.10费用。在默认情况下，所有AWS账户最多可拥有5个EIP。
 
 ### Network Interfaces 网络接口
 
@@ -109,7 +117,7 @@ sudo umount /dev/xvdf
 
 ![](../images/aws-ec2-basic/architecture_security_group.png)
 ![](../images/aws-ec2-basic/architecture_storage.png)
-![](../images/aws-ec2-basic/associate_elastic_ip.png)
+
 ![](../images/aws-ec2-basic/attach_volume.png)
 ![](../images/aws-ec2-basic/aws_homepage.png)
 ![](../images/aws-ec2-basic/aws_overview.png)
@@ -127,9 +135,7 @@ sudo umount /dev/xvdf
 ![](../images/aws-ec2-basic/launch_review.png)
 ![](../images/aws-ec2-basic/launch_select_key_pair.png)
 ![](../images/aws-ec2-basic/launch_tag_instance.png)
-![](../images/aws-ec2-basic/new_elastic_ip.png)
 ![](../images/aws-ec2-basic/register_in_process.png)
-![](../images/aws-ec2-basic/tag_example.png)
 
 
 参考资料
