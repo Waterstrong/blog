@@ -69,9 +69,17 @@ sudo umount /dev/xvdf
 
 ### Security Groups 安全组
 
-防火墙，让您可以指定协议、端口，以及能够使用安全组到达您的实例的源 IP 范围
+可以使用安全组来控制实例的访问权限，这些安全组类似于一个传入网络防火墙，可以指定允许访问实例的协议、端口和源IP范围。可以创建多个安全组，并给每个安全组指定不同的规则，然后可以给每个实例分配一个或多个安全组，通过这些规则规则确定允许哪些流量可访问实例。
 
-您可以使用安全组来控制您的实例的访问权限。这些安全组类似于一个传入网络防火墙，使您可以指定允许访问您的实例的协议、端口和源 IP 范围。您可以创建多个安全组，并给每个安全组指定不同的规则。然后您可以给每个实例分配一个或多个安全组，我们将按照这些规则确定允许哪些流量可访问实例。您可以配置一个安全组，以便只有特定的 IP 地址或特定的安全组可以访问实例。
+如下图所示选择`Network & Security -> Security Groups -> Create Security Group`创建一个新的安全组:
+![](../images/aws-ec2-basic/create_security_group.png)
+
+上图显示下拉列表中，可以根据需要选择如SSH,TCP,UDP等，也可以选择Customer Rule来自定义端口号等，还可指定来源IP范围。
+
+选择Security Groups中一个条目，通过`Actions或右键 -> Edit inbound rules或Edit outbound rules`来添加流量流入和流出限制规则:
+![](../images/aws-ec2-basic/edit_inbound_rules.png)
+
+可以根据实际需要添加规则，如果对安全性没有需求，可以不设置防火墙限制(但不推荐)，可直接选择`type`为`All traffic`，选择`source`为`Anywhere`，这样就允许所有类型和源的流量流入。
 
 
 ### Key Pairs 密钥对
@@ -87,7 +95,7 @@ sudo umount /dev/xvdf
 如下图所示选择`Network & Security -> Elastic IPs -> Allocate New Address`分配一个新的EIP:
 ![](../images/aws-ec2-basic/new_elastic_ip.png)
 
-通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
+选择一个条目，通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
 ![](../images/aws-ec2-basic/associate_elastic_ip.png)
 
 此时可以通过EIP访问关联到的Instance了。
@@ -124,9 +132,9 @@ sudo umount /dev/xvdf
 ![](../images/aws-ec2-basic/choose_location_area.png)
 ![](../images/aws-ec2-basic/cloud_ping.png)
 ![](../images/aws-ec2-basic/create_key_pair.png)
-![](../images/aws-ec2-basic/create_security_group.png)
+
 ![](../images/aws-ec2-basic/create_volume.png)
-![](../images/aws-ec2-basic/edit_inbound_rules.png)
+
 ![](../images/aws-ec2-basic/launch_add_storage.png)
 ![](../images/aws-ec2-basic/launch_choose_ami.png)
 ![](../images/aws-ec2-basic/launch_choose_instance_type.png)
