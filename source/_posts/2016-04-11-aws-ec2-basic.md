@@ -105,6 +105,31 @@ sudo umount /dev/xvdf
 确保与您的实例关联的安全组允许来自您的 IP 地址的传入 SSH 流量
 
 [Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)
+[在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
+
+![](../images/aws-ec2-basic/architecture_security_group.png)
+![](../images/aws-ec2-basic/architecture_storage.png)
+![](../images/aws-ec2-basic/associate_elastic_ip.png)
+![](../images/aws-ec2-basic/attach_volume.png)
+![](../images/aws-ec2-basic/aws_homepage.png)
+![](../images/aws-ec2-basic/aws_overview.png)
+![](../images/aws-ec2-basic/choose_location_area.png)
+![](../images/aws-ec2-basic/cloud_ping.png)
+![](../images/aws-ec2-basic/create_key_pair.png)
+![](../images/aws-ec2-basic/create_security_group.png)
+![](../images/aws-ec2-basic/create_volume.png)
+![](../images/aws-ec2-basic/edit_inbound_rules.png)
+![](../images/aws-ec2-basic/launch_add_storage.png)
+![](../images/aws-ec2-basic/launch_choose_ami.png)
+![](../images/aws-ec2-basic/launch_choose_instance_type.png)
+![](../images/aws-ec2-basic/launch_configure_instance.png)
+![](../images/aws-ec2-basic/launch_configure_sg.png)
+![](../images/aws-ec2-basic/launch_review.png)
+![](../images/aws-ec2-basic/launch_select_key_pair.png)
+![](../images/aws-ec2-basic/launch_tag_instance.png)
+![](../images/aws-ec2-basic/new_elastic_ip.png)
+![](../images/aws-ec2-basic/register_in_process.png)
+![](../images/aws-ec2-basic/tag_example.png)
 
 
 参考资料
