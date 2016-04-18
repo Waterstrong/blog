@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AWS EC2入门篇 | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS EC2入门篇">
+<meta property="og:url" content="http://waterstrong.me/blog/aws-ec2-basic/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。">
+<meta property="og:image" content="http://waterstrong.me/blog/../images/aws-ec2-basic/tag_example.png">
+<meta property="og:updated_time" content="2016-04-18T10:17:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AWS EC2入门篇">
+<meta name="twitter:description" content="Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。">
+<meta name="twitter:image" content="http://waterstrong.me/blog/../images/aws-ec2-basic/tag_example.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  
+        <link href="//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link rel="stylesheet" href="/blog/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  
+
+  <!-- 加载特效 -->
+    <script src="/blog/js/pace.js"></script>
+    <link href="/blog/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/blog/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            
+            <img lazy-src="/blog/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/" title="Hi Mate">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/blog/archives">Archives</a></li>
+                        
+                            <li><a href="/blog/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/blog/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/blog/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/blog/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/blog/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/blog/tags/AWS/" style="font-size: 15px;">AWS</a> <a href="/blog/tags/C/" style="font-size: 15px;">C++</a> <a href="/blog/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/blog/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/blog/tags/EC2/" style="font-size: 15px;">EC2</a> <a href="/blog/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/blog/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/blog/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/blog/tags/Java/" style="font-size: 20px;">Java</a> <a href="/blog/tags/Life/" style="font-size: 10px;">Life</a> <a href="/blog/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/blog/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/blog/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/blog/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/blog/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/blog/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/blog/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/blog/tags/Tech/" style="font-size: 10px;">Tech</a> <a href="/blog/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/blog/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/blog/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/blog/tags/事务/" style="font-size: 10px;">事务</a> <a href="/blog/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/blog/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/blog/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/blog/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/blog/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/blog/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/blog/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/blog/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/blog/tags/数据库/" style="font-size: 20px;">数据库</a> <a href="/blog/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/blog/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/blog/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/blog/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="/blog/">who</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/blog/" title="Me">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                
+                    <img lazy-src="/blog/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/blog/archives">Archives</a></li>
+                
+                    <li><a href="/blog/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/blog/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/blog/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/blog/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-aws-ec2-basic" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/aws-ec2-basic/" class="article-date">
+      <time datetime="2016-04-11T04:00:08.000Z" itemprop="datePublished">2016-04-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AWS EC2入门篇
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/DevOps/">DevOps</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/EC2/">EC2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/IaaS/">IaaS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/SSH/">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/云服务/">云服务</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><h4 id="什么是Amazon-EC2"><a href="#什么是Amazon-EC2" class="headerlink" title="什么是Amazon EC2"></a>什么是Amazon EC2</h4><blockquote>
+<p>Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) cloud.</p>
+</blockquote>
+<p>Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，通俗地讲，就是提供多种类型的虚拟机。EC2也是整个AWS最核心的组成部分，AWS中有许多的服务需要依赖它。在EC2环境中，虚拟机被称为实例，实例的镜像被称为AMI(Amazon Machine Image)。使用AWS EC2有如下优势：</p>
+<ul>
+<li>可避免前期的硬件投入，因此能够快速开发和部署应用程序</li>
+<li>可根据自身需要快速启动任意数量的虚拟服务器、配置安全和网络以及管理存储</li>
+<li>允许根据需要进行缩放以应对需求变化或流行高峰，降低流量预测需求</li>
+<li>主要是根据类型和使用时间收费，即使用多少收多少的费用</li>
+</ul>
+<h4 id="相关概念和名词解释"><a href="#相关概念和名词解释" class="headerlink" title="相关概念和名词解释"></a>相关概念和名词解释</h4><p>Instance: 实例，在EC2环境中，虚拟计算环境被称为实例。<br>AMI: Amazon Machine Image，亚马逊系统映像，即实例的预配置模板，其中包含服务器需要的程序包（包括操作系统和其他软件）。</p>
+<p>IaaS: Infrastructure as a Service, 基础设施即服务。消费者通过Internet可以从完善的计算机基础设施获得服务，这类服务称为基础设施即服务(IaaS)，基于Internet的服务（如存储和数据库）是IaaS的一部分。</p>
+<p>IaaS通常分为三种用法：公有云、私有云和混合云。Amazon EC2在基础设施云中使用公共服务器池(公有云)，更加私有化的服务会使用企业内部数据中心的一组公用或私有服务器池(私有云)，如果在企业数据中心环境中开发软件，那么这两种类型公有云、私有云都能使用(混合云)。</p>
+<p>Internet上其他类型的服务包括平台即服务(Platform as a Service, PaaS)和软件即服务(Software as a Service, SaaS)。PaaS提供了用户可以访问的完整或部分的应用程序开发，SaaS则提供了完整的可直接使用的应用程序，比如通过 Internet管理企业资源。</p>
+<h3 id="Instances-Management-实例管理"><a href="#Instances-Management-实例管理" class="headerlink" title="Instances Management 实例管理"></a>Instances Management 实例管理</h3><p>虚拟计算环境，也称为实例<br>实例的预配置模板，也称为亚马逊系统映像 (AMI)，其中包含您的服务器需要的程序包（包括操作系统和其他软件）。<br>实例 CPU、内存、存储和网络容量的多种配置，也称为实例类型</p>
+<h3 id="Resource-amp-Tags-资源-amp-标签"><a href="#Resource-amp-Tags-资源-amp-标签" class="headerlink" title="Resource &amp; Tags 资源 &amp; 标签"></a>Resource &amp; Tags 资源 &amp; 标签</h3><p>Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分资源包括映像、实例、卷和快照，在创建某个资源时，该资源会被分配一个唯一资源 ID。可以定义某个值标记某些资源，来帮助组织和识别这些资源，即Tags。</p>
+<p>标签(Tag)为了方便管理实例、映像以及其他Amazon EC2资源，可通过标签的形式为每个资源分配元数据(Meta Data)。标签可按各种标准（例如用途、所有者或环境）对AWS资源进行分类，每个标签都包含定义的一个键和一个可选值，例如下图所示：<br><img src="../images/aws-ec2-basic/tag_example.png" alt=""></p>
+<h3 id="Volumes-存储卷"><a href="#Volumes-存储卷" class="headerlink" title="Volumes 存储卷"></a>Volumes 存储卷</h3><h3 id="Snapshots-快照"><a href="#Snapshots-快照" class="headerlink" title="Snapshots 快照"></a>Snapshots 快照</h3><h3 id="Security-Groups-安全组"><a href="#Security-Groups-安全组" class="headerlink" title="Security Groups 安全组"></a>Security Groups 安全组</h3><h3 id="Key-Pairs-密钥对"><a href="#Key-Pairs-密钥对" class="headerlink" title="Key Pairs 密钥对"></a>Key Pairs 密钥对</h3><h3 id="Placement-Groups-置放群组"><a href="#Placement-Groups-置放群组" class="headerlink" title="Placement Groups 置放群组"></a>Placement Groups 置放群组</h3><h3 id="Elastic-IPs-弹性IP"><a href="#Elastic-IPs-弹性IP" class="headerlink" title="Elastic IPs 弹性IP"></a>Elastic IPs 弹性IP</h3><p>弹性IP地址是专为动态云计算设计的静态IP地址。实例在重启后会自动重新分配一个与原实例不同的公有IP地址，如果应用程序需要一个静态IP地址，可以使用弹性IP地址关联到实例，并且在实例发生故障的情况下能够将该地址映射到另一实例，并能够将 DNS主机名用于所有其他节点间通信，从而屏蔽实例故障。</p>
+<p>为确保弹性IP地址的有效使用，如果弹性IP地址未与正在运行的实例关联，或者它已与停止的实例或未连接的网络接口关联，Amazon将强制收取小额的小时费用，每小时是$0.005。当实例正在运行时，无需为与该实例关联的某个弹性IP地址付费。当重新映射弹性IP地址次数一个月内超过了100次将收取$0.10费用。在默认情况下，所有AWS账户最多可拥有5个EIP。</p>
+<h3 id="Network-Interfaces-网络接口"><a href="#Network-Interfaces-网络接口" class="headerlink" title="Network Interfaces 网络接口"></a>Network Interfaces 网络接口</h3><h3 id="Load-Banlancers-负载均衡"><a href="#Load-Banlancers-负载均衡" class="headerlink" title="Load Banlancers 负载均衡"></a>Load Banlancers 负载均衡</h3><h3 id="Dedicated-Hosts"><a href="#Dedicated-Hosts" class="headerlink" title="Dedicated Hosts"></a>Dedicated Hosts</h3><h3 id="Auto-Scaling"><a href="#Auto-Scaling" class="headerlink" title="Auto Scaling"></a>Auto Scaling</h3><p>参考资料<br>[1] <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html" target="_blank" rel="external">Amazon EC2 User Guide for Linux Instances</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/blog/aws-ec2-basic/">AWS EC2入门篇</a></p>
+        <p><span>文章作者:</span><a href="/blog/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016年04月11日 - 12时00分</p>
+        <p><span>最后更新:</span>2016年04月18日 - 18时17分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/blog/aws-ec2-basic/" title="AWS EC2入门篇">http://waterstrong.me/blog/aws-ec2-basic/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/aws-ec2-basic/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/blog/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/blog/aws-ec2-vpn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          AWS EC2搭建VPN服务器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/aspect-oriented-programming/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AOP面向切面编程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">1.</span> <span class="toc-text">基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是Amazon-EC2"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Amazon EC2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相关概念和名词解释"><span class="toc-number">1.2.</span> <span class="toc-text">相关概念和名词解释</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instances-Management-实例管理"><span class="toc-number">2.</span> <span class="toc-text">Instances Management 实例管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-amp-Tags-资源-amp-标签"><span class="toc-number">3.</span> <span class="toc-text">Resource & Tags 资源 & 标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Volumes-存储卷"><span class="toc-number">4.</span> <span class="toc-text">Volumes 存储卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Snapshots-快照"><span class="toc-number">5.</span> <span class="toc-text">Snapshots 快照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Groups-安全组"><span class="toc-number">6.</span> <span class="toc-text">Security Groups 安全组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Pairs-密钥对"><span class="toc-number">7.</span> <span class="toc-text">Key Pairs 密钥对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Placement-Groups-置放群组"><span class="toc-number">8.</span> <span class="toc-text">Placement Groups 置放群组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elastic-IPs-弹性IP"><span class="toc-number">9.</span> <span class="toc-text">Elastic IPs 弹性IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Network-Interfaces-网络接口"><span class="toc-number">10.</span> <span class="toc-text">Network Interfaces 网络接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Load-Banlancers-负载均衡"><span class="toc-number">11.</span> <span class="toc-text">Load Banlancers 负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dedicated-Hosts"><span class="toc-number">12.</span> <span class="toc-text">Dedicated Hosts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Auto-Scaling"><span class="toc-number">13.</span> <span class="toc-text">Auto Scaling</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="aws-ec2-basic/" data-title="AWS EC2入门篇" data-url="http://waterstrong.me/blog/blog/aws-ec2-basic/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"waterstrong"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/aws-ec2-vpn/" title="上一篇: AWS EC2搭建VPN服务器">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/blog/aspect-oriented-programming/" title="下一篇: AOP面向切面编程">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/aws-ec2-vpn/">AWS EC2搭建VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/aws-ec2-basic/">AWS EC2入门篇</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/aspect-oriented-programming/">AOP面向切面编程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/code-your-ioc/">如何实现一个简单的IoC容器</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mybatis-in-practice/">MyBatis入门与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/blog/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 13;
+            var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75679138-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?693ad4e275d81e72c100e71459f00b8f";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+  </div>
+</body>
+</html>

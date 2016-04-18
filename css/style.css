@@ -2526,7 +2526,7 @@ color
   visibility: hidden;
 }
 .article img {
-  width: 550px;
+  max-width: 550px;
 }
 @-webkit-keyframes cd-bounce-1 {
   0% {
