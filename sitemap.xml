@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://waterstrong.me/blog/blog/transactional-mechanism-protocol/</loc>
+    
+    <lastmod>2016-04-19T13:50:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://waterstrong.me/blog/blog/aspect-oriented-programming/</loc>
+    
+    <lastmod>2016-04-19T13:50:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://waterstrong.me/blog/blog/concourse-ci/</loc>
     
     <lastmod>2016-04-19T05:40:26.000Z</lastmod>
@@ -33,20 +47,6 @@
     <loc>http://waterstrong.me/blog/blog/mybatis-in-practice/</loc>
     
     <lastmod>2016-04-17T09:12:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://waterstrong.me/blog/blog/aspect-oriented-programming/</loc>
-    
-    <lastmod>2016-04-17T04:09:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://waterstrong.me/blog/blog/transactional-mechanism-protocol/</loc>
-    
-    <lastmod>2016-04-17T04:09:36.000Z</lastmod>
     
   </url>
   
