@@ -154,7 +154,7 @@
     <link href="http://waterstrong.me/blog/aws-ec2-basic/"/>
     <id>http://waterstrong.me/blog/aws-ec2-basic/</id>
     <published>2016-04-11T04:00:08.000Z</published>
-    <updated>2016-04-19T05:01:49.000Z</updated>
+    <updated>2016-04-19T05:11:06.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h4 id=&quot;什么是Amazon-EC2&quot;&gt;&lt;a href=&quot;#什么是Amazon-EC2&quot; class=&quot;headerlink&quot; title=&quot;什么是Amazon EC2&quot;&gt;&lt;/a&gt;什么是Amazon EC2&lt;/h4&gt;&lt;blockquote&gt;
 &lt;p&gt;Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) cloud.&lt;/p&gt;
@@ -177,7 +177,10 @@
 &lt;p&gt;点击&lt;code&gt;Launch Instance&lt;/code&gt;创建一个实例，可以选择&lt;code&gt;Community AMIs&lt;/code&gt;进行筛选，也可能直接选择Amazon的Linux AMI，据说是速度和性能都进行过优化:&lt;br&gt;&lt;img src=&quot;../images/aws-ec2-basic/launch_choose_ami.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;一定只选择标记为&lt;code&gt;Free tier eligible&lt;/code&gt;的免费类型，否则运行一段时间就等着哭吧:&lt;br&gt;&lt;img src=&quot;../images/aws-ec2-basic/launch_choose_instance_type.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;根据步骤和提示一步步完成即可，最后启动会选择Key Pair。当系统提示提供密钥时，选择Choose an existing key pair，然后选择已创建的密钥对。另外，也可以新建密钥对，选择Create a new key pair，输入密钥对的名称，然后选择Download Key Pair。这是保存私有密钥文件的唯一机会，因此务必单击进行下载，将私有密钥文件保存在安全位置。当启动实例时，需要提供密钥对的名称，当每次连接到实例时，需要提供相应的私有密钥。&lt;br&gt;&lt;img src=&quot;../images/aws-ec2-basic/launch_select_key_pair.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;../images/aws-ec2-basic/instances.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击&lt;code&gt;Instances -&amp;gt; 选择Instance -&amp;gt; Connect&lt;/code&gt;查看，Shell Command如下:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ssh -i &amp;lt;key.pem&amp;gt; &amp;lt;username&amp;gt;@&amp;lt;instance-address&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;更多说明请参见&lt;a href=&quot;http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Amazon EC2 的设置&lt;/a&gt;和&lt;a href=&quot;http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;在 Linux 实例上管理用户账户&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Instances-Management-实例管理&quot;&gt;&lt;a href=&quot;#Instances-Management-实例管理&quot; class=&quot;headerlink&quot; title=&quot;Instances Management 实例管理&quot;&gt;&lt;/a&gt;Instances Management 实例管理&lt;/h3&gt;&lt;p&gt;实例(Instance), 即虚拟计算环境。实例的预配置模板，也称为亚马逊系统映像(AMI)，其中包含服务器需要的程序包(包括操作系统和其他软件)。实例CPU、内存、存储和网络容量的多种配置，也称为实例类型。&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;Instances&lt;/code&gt;栏中可以对实例进行Reboot, Stop, Start, Terminate(永久删除)以及其他的网络,安全,卷等设置。&lt;br&gt;&lt;img src=&quot;../images/aws-ec2-basic/instances.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;Resource-amp-Tags-资源-amp-标签&quot;&gt;&lt;a href=&quot;#Resource-amp-Tags-资源-amp-标签&quot; class=&quot;headerlink&quot; title=&quot;Resource &amp;amp; Tags 资源 &amp;amp; 标签&quot;&gt;&lt;/a&gt;Resource &amp;amp; Tags 资源 &amp;amp; 标签&lt;/h3&gt;&lt;p&gt;Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分资源包括映像、实例、卷和快照，在创建某个资源时，该资源会被分配一个唯一资源 ID。可以定义某个值标记某些资源，来帮助组织和识别这些资源，即Tags。&lt;/p&gt;
 &lt;p&gt;标签(Tag)为了&lt;code&gt;方便管理实例、映像以及其他Amazon EC2资源&lt;/code&gt;，可通过标签的形式为每个资源分配元数据(Meta Data)。&lt;code&gt;标签可按各种标准(例如用途、所有者或环境)对AWS资源进行分类&lt;/code&gt;，每个标签都包含定义的一个键和一个可选值，例如下图所示：&lt;br&gt;&lt;img src=&quot;../images/aws-ec2-basic/tag_example.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;Volumes-卷&quot;&gt;&lt;a href=&quot;#Volumes-卷&quot; class=&quot;headerlink&quot; title=&quot;Volumes 卷&quot;&gt;&lt;/a&gt;Volumes 卷&lt;/h3&gt;&lt;p&gt;卷是一种数据块级存储设备，可以连接到单个EC2实例，可以像使用其他物理硬盘一样使用它。使用Amazon Elastic Block Store(Amazon EBS)的数据的持久性存储卷，也称为Amazon EBS卷，提供了三种卷类型：通用型SSD、Provisioned IOPS和磁介质，各卷类型特点可参见: &lt;a href=&quot;http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/EBSVolumeTypes.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Amazon EBS 卷类型&lt;/a&gt;。&lt;/p&gt;
@@ -561,8 +564,6 @@
       <category term="Design Pattern" scheme="http://waterstrong.me/blog/categories/Design-Pattern/"/>
     
     
-      <category term="Java" scheme="http://waterstrong.me/blog/tags/Java/"/>
-    
       <category term="控制反转" scheme="http://waterstrong.me/blog/tags/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/"/>
     
       <category term="依赖倒置" scheme="http://waterstrong.me/blog/tags/%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE/"/>
@@ -570,6 +571,8 @@
       <category term="依赖注入" scheme="http://waterstrong.me/blog/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://waterstrong.me/blog/tags/SOLID%E5%8E%9F%E5%88%99/"/>
+    
+      <category term="Java" scheme="http://waterstrong.me/blog/tags/Java/"/>
     
   </entry>
   
@@ -600,13 +603,13 @@
       <category term="Database" scheme="http://waterstrong.me/blog/categories/Database/"/>
     
     
+      <category term="Java" scheme="http://waterstrong.me/blog/tags/Java/"/>
+    
       <category term="数据库" scheme="http://waterstrong.me/blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
       <category term="持久层框架" scheme="http://waterstrong.me/blog/tags/%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/"/>
     
       <category term="动态SQL" scheme="http://waterstrong.me/blog/tags/%E5%8A%A8%E6%80%81SQL/"/>
-    
-      <category term="Java" scheme="http://waterstrong.me/blog/tags/Java/"/>
     
   </entry>
   
