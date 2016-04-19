@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://waterstrong.me/blog/blog/cicd-tools-comparison/</loc>
+    
+    <lastmod>2016-04-19T05:10:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://waterstrong.me/blog/blog/aws-ec2-basic/</loc>
     
-    <lastmod>2016-04-19T04:43:43.000Z</lastmod>
+    <lastmod>2016-04-19T05:01:49.000Z</lastmod>
     
   </url>
   
@@ -30,6 +37,13 @@
   </url>
   
   <url>
+    <loc>http://waterstrong.me/blog/blog/aspect-oriented-programming/</loc>
+    
+    <lastmod>2016-04-17T04:09:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://waterstrong.me/blog/blog/aws-ec2-vpn/</loc>
     
     <lastmod>2016-04-17T04:09:36.000Z</lastmod>
@@ -38,13 +52,6 @@
   
   <url>
     <loc>http://waterstrong.me/blog/blog/transactional-mechanism-protocol/</loc>
-    
-    <lastmod>2016-04-17T04:09:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://waterstrong.me/blog/blog/aspect-oriented-programming/</loc>
     
     <lastmod>2016-04-17T04:09:36.000Z</lastmod>
     
