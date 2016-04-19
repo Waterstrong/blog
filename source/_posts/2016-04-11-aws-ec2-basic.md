@@ -52,7 +52,12 @@ Internet上其他类型的服务包括平台即服务(Platform as a Service, Paa
 根据步骤和提示一步步完成即可，最后启动会选择Key Pair。当系统提示提供密钥时，选择Choose an existing key pair，然后选择已创建的密钥对。另外，也可以新建密钥对，选择Create a new key pair，输入密钥对的名称，然后选择Download Key Pair。这是保存私有密钥文件的唯一机会，因此务必单击进行下载，将私有密钥文件保存在安全位置。当启动实例时，需要提供密钥对的名称，当每次连接到实例时，需要提供相应的私有密钥。
 ![](../images/aws-ec2-basic/launch_select_key_pair.png)
 
-最后就可以看到Instances页面出现了已创建成功的实例。更多说明请参见[Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)和[在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
+最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击`Instances -> 选择Instance -> Connect`查看，Shell Command如下:
+```
+ssh -i <key.pem> <username>@<instance-address>
+```
+
+更多说明请参见[Amazon EC2 的设置](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html)和[在 Linux 实例上管理用户账户](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html)
 
 ### Instances Management 实例管理
 实例(Instance), 即虚拟计算环境。实例的预配置模板，也称为亚马逊系统映像(AMI)，其中包含服务器需要的程序包(包括操作系统和其他软件)。实例CPU、内存、存储和网络容量的多种配置，也称为实例类型。
