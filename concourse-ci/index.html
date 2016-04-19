@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: OpenCV | Watersrong Blog</title>
+  <title>Concourse CI 介绍 | Watersrong Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Waterstrong&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Watersrong Blog">
-<meta property="og:url" content="http://waterstrong.me/blog/tags/OpenCV/index.html">
+  <meta name="description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concourse CI 介绍">
+<meta property="og:url" content="http://waterstrong.me/blog/concourse-ci/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="Waterstrong&apos;s Blog">
+<meta property="og:description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
+<meta property="og:updated_time" content="2016-04-19T05:40:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Watersrong Blog">
-<meta name="twitter:description" content="Waterstrong&apos;s Blog">
+<meta name="twitter:title" content="Concourse CI 介绍">
+<meta name="twitter:description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -43,9 +44,9 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
-          isTag: true,
+          isTag: false,
           isCategory: false,
           open_in_new: false
       }
@@ -239,58 +240,227 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-concourse-ci" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2011" class="archive-year">2011</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/blog/directshow-graphics/" class="archive-article-date">
-      <time datetime="2011-12-27T16:00:00.000Z" itemprop="datePublished">12-28</time>
+    <div class="article-meta">
+      <a href="/blog/concourse-ci/" class="article-date">
+      <time datetime="2016-04-19T05:02:02.000Z" itemprop="datePublished">2016-04-19</time>
 </a>
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Concourse CI 介绍
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/blog/categories/Graphics/">Graphics</a>
+    <a class="article-category-link" href="/blog/categories/DevOps/">DevOps</a>
     </div>
 
 
-          
+        
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/DirectX/">DirectX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/OpenCV/">OpenCV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/图形图像/">图形图像</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CI-CD/">CI/CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Concourse/">Concourse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/GoCD/">GoCD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Jenkins/">Jenkins</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tool/">Tool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Travis-CI/">Travis CI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/持续部署/">持续部署</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/持续集成/">持续集成</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的<a href="https://www.thoughtworks.com/radar/tools/concourse-ci" target="_blank" rel="external">ThoughtWorks Tech Radar</a>？</p>
+<h3 id="What-is-Concourse"><a href="#What-is-Concourse" class="headerlink" title="What is Concourse?"></a>What is Concourse?</h3><ul>
+<li><p>Concourse is a CI/CD tool that treats build pipelines and artifacts as first-class citizens</p>
+</li>
+<li><p>Keeping all configuration in declarative files that can be checked into version control</p>
+</li>
+</ul>
+<h3 id="Why-Concourse"><a href="#Why-Concourse" class="headerlink" title="Why Concourse?"></a>Why Concourse?</h3><ul>
+<li>Requires a CI/CD Tool</li>
+<li>Concourse vs Jenkins/Travis CI/GoCD</li>
+</ul>
+<h4 id="vs-Jenkins"><a href="#vs-Jenkins" class="headerlink" title="vs. Jenkins"></a>vs. Jenkins</h4><h4 id="vs-Travis-CI"><a href="#vs-Travis-CI" class="headerlink" title="vs. Travis CI"></a>vs. Travis CI</h4><h4 id="vs-GoCD"><a href="#vs-GoCD" class="headerlink" title="vs. GoCD"></a>vs. GoCD</h4><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><h3 id="Impact"><a href="#Impact" class="headerlink" title="Impact"></a>Impact</h3><p>Bringing some interesting new ideas</p>
+<ul>
+<li>Pluggable Resource Interface</li>
+<li>Running builds in Containers Natively</li>
+<li>Zero Snowflake-able Configuration</li>
+<li>Submitting builds from the local file system up to run in CI</li>
+</ul>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/blog/concourse-ci/">Concourse CI 介绍</a></p>
+        <p><span>文章作者:</span><a href="/blog/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016年04月19日 - 13时02分</p>
+        <p><span>最后更新:</span>2016年04月19日 - 13时40分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/blog/concourse-ci/" title="Concourse CI 介绍">http://waterstrong.me/blog/concourse-ci/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/concourse-ci/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/blog/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/blog/aws-ec2-vpn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AWS EC2搭建VPN服务器</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Concourse"><span class="toc-number">1.</span> <span class="toc-text">What is Concourse?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-Concourse"><span class="toc-number">2.</span> <span class="toc-text">Why Concourse?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-Jenkins"><span class="toc-number">2.1.</span> <span class="toc-text">vs. Jenkins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-Travis-CI"><span class="toc-number">2.2.</span> <span class="toc-text">vs. Travis CI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-GoCD"><span class="toc-number">2.3.</span> <span class="toc-text">vs. GoCD</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concepts"><span class="toc-number">3.</span> <span class="toc-text">Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Impact"><span class="toc-number">4.</span> <span class="toc-text">Impact</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="concourse-ci/" data-title="Concourse CI 介绍" data-url="http://waterstrong.me/blog/blog/concourse-ci/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"waterstrong"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
 
     
 
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/" title="回到首页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/blog/aws-ec2-vpn/" title="下一篇: AWS EC2搭建VPN服务器">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/concourse-ci/">Concourse CI 介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/aws-ec2-vpn/">AWS EC2搭建VPN服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/aws-ec2-basic/">AWS EC2入门篇</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/aspect-oriented-programming/">AOP面向切面编程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/transactional-mechanism-protocol/">事务处理机制与协议</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mysql-case-sensitive-linux/">MySQL在Linux下默认区分大小写</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/code-your-ioc/">如何实现一个简单的IoC容器</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/mybatis-in-practice/">MyBatis入门与实践</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/directshow-graphics/">DirectShow获取摄像头图像</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/cpp-singleton/">C++单例模式实现</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
@@ -378,17 +548,6 @@ ga('send', 'pageview');
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
