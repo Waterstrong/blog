@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://waterstrong.me/blog/"/>
-  <updated>2016-04-19T05:40:26.000Z</updated>
+  <updated>2016-04-20T15:49:06.000Z</updated>
   <id>http://waterstrong.me/blog/</id>
   
   <author>
@@ -14,6 +14,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JBoss的一些功能Tips</title>
+    <link href="http://waterstrong.me/blog/jboss-tips/"/>
+    <id>http://waterstrong.me/blog/jboss-tips/</id>
+    <published>2016-04-20T14:23:50.000Z</published>
+    <updated>2016-04-20T15:49:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考:&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;Tip1-IP-域名黑白名单&quot;&gt;&lt;a href=&quot;#Tip1-IP-域名黑白名单&quot; class=&quot;headerlink&quot; title=&quot;Tip1: IP/域名黑白名单&quot;&gt;&lt;/a&gt;Tip1: IP/域名黑白名单&lt;/h2&gt;&lt;p&gt;针对JBoss EAP5，为了实现Web容器级别的IP/域名黑白名单，需要到JBoss的server.xml文件中配置相应Valve规则并重启JBoss后生效。&lt;/p&gt;
+&lt;p&gt;在文件&lt;code&gt;jboss-as/server/&amp;lt;instance_name&amp;gt;/deploy/jbossweb.sar/server.xml&lt;/code&gt;中的&lt;code&gt;&amp;lt;Host&amp;gt;&amp;lt;/Host&amp;gt;&lt;/code&gt;内添加如下配置:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        .....&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Valve className=&amp;apos;org.apache.catalina.valves.RemoteAddrValve&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        allow=&amp;apos;192.168.[0-1].*, *.testing.com&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        deny=&amp;apos;127.0.0.1&amp;apos;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;其中&lt;code&gt;allow&lt;/code&gt;表明允许的IP地址正则表达式，&lt;code&gt;deny&lt;/code&gt;表明拒绝的IP地址正则表达式，特别注意的是逗号(&lt;code&gt;,&lt;/code&gt;)会被解析成&lt;code&gt;或&lt;/code&gt;，因此IP Regex中一定不要包含&lt;code&gt;逗号&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当然，除了可以设置服务器级别&lt;code&gt;server-level&lt;/code&gt;，也可以设置应用层级别&lt;code&gt;application-level&lt;/code&gt;，更多关于Web Server的配置可参见&lt;a href=&quot;http://www.datadisk.co.uk/html_docs/java_app/jboss5/jboss5_web_server.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Configuring the Web Server&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;另外补充一下Valve的相关解释:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Valves are similar to filters, they can intercept any incoming and outgoing request. Valves are managed by the Engine, they access incoming/outgoing requests before they are handled by the servlet and JSP processing logic. Logically they can also be applied on a virtual host or web application basis.&lt;br&gt;Valves can add the following functionality:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Access logging&lt;/li&gt;
+&lt;li&gt;Single sign-on for all Web applications&lt;/li&gt;
+&lt;li&gt;Request filtering/blocking by IP address and or hostname&lt;/li&gt;
+&lt;li&gt;Dumping of incoming/outgoing request headers for debugging purposes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Valves are nested components in the component model, they use the &lt;valve&gt; XML element in the server.xml file, they can be placed in the &lt;engine&gt;, &lt;host&gt; or &lt;context&gt; containers. The Java programming interface org.apache.catalina.Valve is used and well documented.&lt;/context&gt;&lt;/host&gt;&lt;/engine&gt;&lt;/valve&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;想了解更多其他内容及详细解释请参见&lt;a href=&quot;http://www.datadisk.co.uk/html_docs/java_app/tomcat6/tomcat6_advanced.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Advanced Tomcat Features&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;Tip2-自动清除work目录&quot;&gt;&lt;a href=&quot;#Tip2-自动清除work目录&quot; class=&quot;headerlink&quot; title=&quot;Tip2: 自动清除work目录&quot;&gt;&lt;/a&gt;Tip2: 自动清除work目录&lt;/h2&gt;&lt;p&gt;针对JBoss EAP5:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The work directory:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Directory where compiled JSP .java and .class files reside&lt;/li&gt;
+&lt;li&gt;Also contains cached TLDs&lt;/li&gt;
+&lt;li&gt;Very useful for debugging problems in JSPs&lt;br&gt;Java ServerPages (.jsp files) are automatically compiled into Java Servlets (.java file) and then into Java byte-code (.class files) by Tomcat (the embedded servlet engine running within JBoss AS).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;JBoss中的work目录是工作目录，即把jsp转换为class文件的工作目录, 其工作原理是当浏览器访问某个jsp页面时，JBoss会在work目录里把这个jsp页面转换成.java文件，然后编译为.class文件，最后容器通过ClassLoader类把这个.class类装载入内存，进行响应客户端的工作。&lt;/p&gt;
+&lt;p&gt;通常情况下会定时检查容器内的jsp文件，读取每个文件的属性，当发现某个jsp文件发生改变时(文件的最后修改时间与上次检查时不相同)，容器会重新转换、编译这个jsp文件, 但是检查是定时的不是实时的，因此jsp文件修改后需要几分钟的时间来等修改过的jsp生效。为了即刻生效，通常的做法是重启JBoss之前或在修改jsp页面后立即清除work目录里的文件。&lt;/p&gt;
+&lt;p&gt;一般情况下, 当停止JBoss服务时对work目录进行一次清理, 最简单快速的做法就是在JBoss相应的目录下配置自动清理选项:&lt;br&gt;修改文件&lt;code&gt;jboss-as/server/&amp;lt;instance_name&amp;gt;/deployers/jbossweb.deployer/META-INF/war-deployers-jboss-beans.xml&lt;/code&gt;中的:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!--Flag to delete the Work Dir on Context Destroy --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;property name=&amp;quot;deleteWorkDirOnContextDestroy&amp;quot;&amp;gt;false&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;为&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!--Flag to delete the Work Dir on Context Destroy --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;property name=&amp;quot;deleteWorkDirOnContextDestroy&amp;quot;&amp;gt;true&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+</content>
+    
+    <summary type="html">
+    
+      JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 将列出一些Tips供使用参考。
+    
+    </summary>
+    
+      <category term="Web Container" scheme="http://waterstrong.me/blog/categories/Web-Container/"/>
+    
+    
+      <category term="Web容器" scheme="http://waterstrong.me/blog/tags/Web%E5%AE%B9%E5%99%A8/"/>
+    
+      <category term="JBoss" scheme="http://waterstrong.me/blog/tags/JBoss/"/>
+    
+      <category term="EJB" scheme="http://waterstrong.me/blog/tags/EJB/"/>
+    
+      <category term="Servlet" scheme="http://waterstrong.me/blog/tags/Servlet/"/>
+    
+      <category term="JSP" scheme="http://waterstrong.me/blog/tags/JSP/"/>
+    
+  </entry>
   
   <entry>
     <title>Concourse CI 介绍</title>
@@ -647,11 +710,11 @@
       <category term="Graphics" scheme="http://waterstrong.me/blog/categories/Graphics/"/>
     
     
+      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
+    
       <category term="图形图像" scheme="http://waterstrong.me/blog/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
     
       <category term="DirectX" scheme="http://waterstrong.me/blog/tags/DirectX/"/>
-    
-      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
     
       <category term="OpenCV" scheme="http://waterstrong.me/blog/tags/OpenCV/"/>
     
@@ -685,9 +748,9 @@
       <category term="Design Pattern" scheme="http://waterstrong.me/blog/categories/Design-Pattern/"/>
     
     
-      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
-    
       <category term="设计模式" scheme="http://waterstrong.me/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="C++" scheme="http://waterstrong.me/blog/tags/C/"/>
     
       <category term="Singleton" scheme="http://waterstrong.me/blog/tags/Singleton/"/>
     
