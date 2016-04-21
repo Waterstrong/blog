@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://waterstrong.me/blog//404.html</loc>
+    
+    <lastmod>2016-04-21T13:07:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://waterstrong.me/blog/blog/jboss-tips/</loc>
     
     <lastmod>2016-04-20T15:49:06.000Z</lastmod>
@@ -86,14 +93,14 @@
   </url>
   
   <url>
-    <loc>http://waterstrong.me/blog/categories/index.html</loc>
+    <loc>http://waterstrong.me/blog/archives/index.html</loc>
     
     <lastmod>2016-04-16T15:29:30.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://waterstrong.me/blog/archives/index.html</loc>
+    <loc>http://waterstrong.me/blog/categories/index.html</loc>
     
     <lastmod>2016-04-16T15:29:30.000Z</lastmod>
     
@@ -110,13 +117,6 @@
     <loc>http://waterstrong.me/blog/blog/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-03-29T15:47:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://waterstrong.me/blog//404.html</loc>
-    
-    <lastmod>2016-03-26T03:45:15.000Z</lastmod>
     
   </url>
   
