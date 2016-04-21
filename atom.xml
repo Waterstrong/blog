@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://waterstrong.me/blog/"/>
-  <updated>2016-04-20T15:49:06.000Z</updated>
+  <updated>2016-04-21T13:46:27.000Z</updated>
   <id>http://waterstrong.me/blog/</id>
   
   <author>
@@ -16,11 +16,33 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>JBoss的一些功能Tips</title>
+    <title>分布式事务处理实践</title>
+    <link href="http://waterstrong.me/blog/distributed-transaction/"/>
+    <id>http://waterstrong.me/blog/distributed-transaction/</id>
+    <published>2016-04-20T15:52:41.000Z</published>
+    <updated>2016-04-21T13:46:27.000Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Transaction" scheme="http://waterstrong.me/blog/categories/Transaction/"/>
+    
+    
+      <category term="Java" scheme="http://waterstrong.me/blog/tags/Java/"/>
+    
+      <category term="分布式事务" scheme="http://waterstrong.me/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JBoss Tips in Practice</title>
     <link href="http://waterstrong.me/blog/jboss-tips/"/>
     <id>http://waterstrong.me/blog/jboss-tips/</id>
     <published>2016-04-20T14:23:50.000Z</published>
-    <updated>2016-04-20T15:49:06.000Z</updated>
+    <updated>2016-04-21T13:48:15.000Z</updated>
     
     <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考:&lt;/p&gt;
 &lt;hr&gt;

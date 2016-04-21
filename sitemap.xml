@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://waterstrong.me/blog//404.html</loc>
+    <loc>http://waterstrong.me/blog/blog/jboss-tips/</loc>
     
-    <lastmod>2016-04-21T13:07:27.000Z</lastmod>
+    <lastmod>2016-04-21T13:48:15.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://waterstrong.me/blog/blog/jboss-tips/</loc>
+    <loc>http://waterstrong.me/blog/blog/distributed-transaction/</loc>
     
-    <lastmod>2016-04-20T15:49:06.000Z</lastmod>
+    <lastmod>2016-04-21T13:46:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://waterstrong.me/blog//404.html</loc>
+    
+    <lastmod>2016-04-21T13:07:27.000Z</lastmod>
     
   </url>
   

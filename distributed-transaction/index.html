@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MyBatis入门与实践 | Watersrong Blog</title>
+  <title>分布式事务处理实践 | Watersrong Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。">
+  <meta name="description" content="Waterstrong&apos;s Blog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis入门与实践">
-<meta property="og:url" content="http://waterstrong.me/blog/mybatis-in-practice/index.html">
+<meta property="og:title" content="分布式事务处理实践">
+<meta property="og:url" content="http://waterstrong.me/blog/distributed-transaction/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。">
-<meta property="og:updated_time" content="2016-04-17T09:12:26.000Z">
+<meta property="og:description" content="Waterstrong&apos;s Blog">
+<meta property="og:updated_time" content="2016-04-21T13:46:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis入门与实践">
-<meta name="twitter:description" content="MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。">
+<meta name="twitter:title" content="分布式事务处理实践">
+<meta name="twitter:description" content="Waterstrong&apos;s Blog">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -240,11 +240,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-mybatis-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-distributed-transaction" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/blog/mybatis-in-practice/" class="article-date">
-      <time datetime="2015-10-12T04:52:44.000Z" itemprop="datePublished">2015-10-12</time>
+      <a href="/blog/distributed-transaction/" class="article-date">
+      <time datetime="2016-04-20T15:52:41.000Z" itemprop="datePublished">2016-04-20</time>
 </a>
     </div>
   
@@ -257,7 +257,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MyBatis入门与实践
+      分布式事务处理实践
     </h1>
   
 
@@ -266,13 +266,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/blog/categories/Database/">Database</a>
+    <a class="article-category-link" href="/blog/categories/Transaction/">Transaction</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/动态SQL/">动态SQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/持久层框架/">持久层框架</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/数据库/">数据库</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/分布式事务/">分布式事务</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -282,16 +282,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="What-is-MyBatis"><a href="#What-is-MyBatis" class="headerlink" title="What is MyBatis?"></a>What is MyBatis?</h3><blockquote>
-<ol>
-<li>MyBatis is a first class persistence framework with support for custom SQL, stored procedures and advanced mappings.</li>
-<li>MyBatis eliminates almost all of the JDBC code and manual setting of parameters and retrieval of results.</li>
-<li>MyBatis can use simple XML or Annotations for configuration and map primitives, Map interfaces and Java POJOs (Plain Old Java Objects) to database records.</li>
-</ol>
-</blockquote>
-<p><a href="http://www.mybatis.org/mybatis-3/" target="_blank" rel="external">MyBatis 3 Introduction</a></p>
-<p>还没有时间去总结，不过相对来说不是太难，理论可以错过，但实践部分一定不能错过，之前写过一个Demo: <a href="https://github.com/Waterstrong/demo-mybatis" target="_blank" rel="external">Demo-Mybatis</a></p>
-
+        
       
     </div>
     
@@ -299,13 +290,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/blog/mybatis-in-practice/">MyBatis入门与实践</a></p>
+        <p><span>本文标题:</span><a href="/blog/distributed-transaction/">分布式事务处理实践</a></p>
         <p><span>文章作者:</span><a href="/blog/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2015年10月12日 - 12时52分</p>
-        <p><span>最后更新:</span>2016年04月17日 - 17时12分</p>
+        <p><span>发布时间:</span>2016年04月20日 - 23时52分</p>
+        <p><span>最后更新:</span>2016年04月21日 - 21时46分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/blog/mybatis-in-practice/" title="MyBatis入门与实践">http://waterstrong.me/blog/mybatis-in-practice/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/mybatis-in-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/blog/distributed-transaction/" title="分布式事务处理实践">http://waterstrong.me/blog/distributed-transaction/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://waterstrong.me/blog/distributed-transaction/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/blog/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -318,18 +309,9 @@
 
 <nav id="article-nav">
   
-    <a href="/blog/code-your-ioc/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          如何实现一个简单的IoC容器
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/directshow-graphics/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">DirectShow获取摄像头图像</div>
+    <a href="/blog/jboss-tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JBoss Tips in Practice</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -340,7 +322,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-MyBatis"><span class="toc-number">1.</span> <span class="toc-text">What is MyBatis?</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -402,7 +384,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="mybatis-in-practice/" data-title="MyBatis入门与实践" data-url="http://waterstrong.me/blog/mybatis-in-practice/"></div>
+    <div class="ds-thread" data-thread-key="distributed-transaction/" data-title="分布式事务处理实践" data-url="http://waterstrong.me/blog/distributed-transaction/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -425,13 +407,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/blog/code-your-ioc/" title="上一篇: 如何实现一个简单的IoC容器">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/blog/" title="回到首页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/blog/directshow-graphics/" title="下一篇: DirectShow获取摄像头图像">
+            <a href="/blog/jboss-tips/" title="下一篇: JBoss Tips in Practice">
                 <i class="fa fa-angle-right"></i>
             </a>
         
