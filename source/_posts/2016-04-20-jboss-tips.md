@@ -1,5 +1,5 @@
 ---
-title: JBoss的一些功能Tips
+title: JBoss Tips in Practice
 date: 2016-04-20 22:23:50
 category: Web Container
 tags: [Web容器, JBoss, EJB, Servlet, JSP]
