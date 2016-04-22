@@ -732,11 +732,11 @@
       <category term="Graphics" scheme="http://blog.waterstrong.me/categories/Graphics/"/>
     
     
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
+    
       <category term="图形图像" scheme="http://blog.waterstrong.me/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
     
       <category term="DirectX" scheme="http://blog.waterstrong.me/tags/DirectX/"/>
-    
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="OpenCV" scheme="http://blog.waterstrong.me/tags/OpenCV/"/>
     
@@ -770,9 +770,9 @@
       <category term="Design Pattern" scheme="http://blog.waterstrong.me/categories/Design-Pattern/"/>
     
     
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
       <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="Singleton" scheme="http://blog.waterstrong.me/tags/Singleton/"/>
     
