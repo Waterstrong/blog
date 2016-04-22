@@ -62,7 +62,7 @@ plugins:
     google_analytics: UA-75679138-1 # enter the tracking ID for your Google Analytics
     google_site_verification: pFW527fHrjfI0si2w4NQ0w3cTw12AvvuohAu1PUfqKA # enter Google site verification code
     baidu_analytics: # 0eebfc18021c9d6853ca20f45d03d4a1 # enter Baidu Analytics hash key
-    baidu_site_verification: # c167b9feb4f0b208b712c79629c188e4 # enter Baidu site verification code
+    baidu_site_verification: # 9122feae2de1ae23df6a837a7c898ef1 # enter Baidu site verification code
 
 # Miscellaneous
 miscellaneous:
