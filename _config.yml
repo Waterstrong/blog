@@ -14,8 +14,8 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 ## or else set url as 'http://yoursite.com' and root as '/'
 ## https://hexo.io/docs/configuration.html#URL
-url: http://waterstrong.me/blog
-root: /blog/
+url: http://blog.waterstrong.me
+root: /
 permalink: :title/
 permalink_defaults:
 
