@@ -1,5 +1,6 @@
 ---
 title: "C++单例模式实现"
+date: 2011-12-28 21:23:50
 category: Design Pattern
 tags: [设计模式, C++, Singleton]
 ---

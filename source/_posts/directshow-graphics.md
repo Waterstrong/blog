@@ -1,5 +1,6 @@
 ---
 title: "DirectShow获取摄像头图像"
+date: 2011-12-28 22:22:50
 category: Graphics
 tags: [图形图像, DirectX, C++, OpenCV]
 ---
