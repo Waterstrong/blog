@@ -11,21 +11,21 @@
 <meta property="og:url" content="http://blog.waterstrong.me/aws-ec2-vpn/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/linux_pptpd_started.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/mac_system_network.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/mac_new_vpn.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/mac_vpn_options.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/mac_vpn_connected.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/6s_vpn_setting.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/6s_new_vpn.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/6s_vpn_connected.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/6s_vpn_detail.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/6s_test_vpn.png">
-<meta property="og:updated_time" content="2016-04-23T00:14:38.000Z">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/linux_pptpd_started.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_system_network.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_new_vpn.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_vpn_options.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_vpn_connected.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_setting.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_new_vpn.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_connected.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_detail.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_test_vpn.png">
+<meta property="og:updated_time" content="2016-04-23T13:02:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWS EC2搭建VPN服务器">
 <meta name="twitter:description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
-<meta name="twitter:image" content="http://blog.waterstrong.me/../images/aws-ec2-vpn/linux_pptpd_started.png">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/linux_pptpd_started.png">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -345,21 +345,21 @@
 <p>(可选)如果端口没有开启则开启相关端口:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp –dport 1723 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p tcp –dport 47 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p UDP --dport 53 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p gre -j ACCEPT</span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
 <h3 id="Step7-启动PPTP服务"><a href="#Step7-启动PPTP服务" class="headerlink" title="Step7 - 启动PPTP服务"></a>Step7 - 启动PPTP服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig pptpd on  # 设置开机启动VPN服务</span><br><span class="line">service pptpd restart  # 重启VPN服务, 当然可以用stop/start来停止/启动服务</span><br><span class="line">service pptpd status  # 查看VPN服务当前运行状态</span><br></pre></td></tr></table></figure>
-<p>可以看到服务已经启动:<br><img src="../images/aws-ec2-vpn/linux_pptpd_started.png" alt=""></p>
+<p>可以看到服务已经启动:<br><img src="/assets/aws-ec2-vpn/linux_pptpd_started.png" alt=""></p>
 <p>针对Ubuntu，即使运行start命令，但查看status还是显示<code>pptpd is not running</code>，可以编辑<code>/etc/init.d/pptpd</code>文件，搜索<code>status</code>找到该行<code>status_of_proc &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</code>，并添加<code>-p</code>参数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_of_proc -p &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</span><br></pre></td></tr></table></figure>
 <p>针对VPN日志，在CentOS中，VPN服务器默认会写日志到<code>/var/log/messages</code>中; 在Ubuntu中，VPN服务器默认会写日志到<code>/var/log/syslog</code>中。</p>
 <p>以上步骤完成配置正确后，可以利用自己的终端设备连接到VPN上网了。</p>
-<h3 id="Step8-使用VPN服务"><a href="#Step8-使用VPN服务" class="headerlink" title="Step8 - 使用VPN服务"></a>Step8 - 使用VPN服务</h3><h4 id="在Mac-OS-X上配置VPN"><a href="#在Mac-OS-X上配置VPN" class="headerlink" title="在Mac OS X上配置VPN"></a>在Mac OS X上配置VPN</h4><p>System Preferences(系统设置) -&gt; Network(网络):<br><img src="../images/aws-ec2-vpn/mac_system_network.png" alt=""></p>
-<p>选择左下角的<code>+</code>号添加VPN，选择PPTP类型，点击create创建:<br><img src="../images/aws-ec2-vpn/mac_new_vpn.png" alt=""></p>
-<p>Advanced(高级) -&gt; Options(选项) -&gt; 勾选Session Options中的所有项 -&gt; OK保存:<br><img src="../images/aws-ec2-vpn/mac_vpn_options.png" alt=""></p>
-<p>填写VPN相关服务器地址、用户名、密码等信息 -&gt; 点击Apply应用所有修改 -&gt; 点击connect连接VPN服务:<br><img src="../images/aws-ec2-vpn/mac_vpn_connected.png" alt=""></p>
+<h3 id="Step8-使用VPN服务"><a href="#Step8-使用VPN服务" class="headerlink" title="Step8 - 使用VPN服务"></a>Step8 - 使用VPN服务</h3><h4 id="在Mac-OS-X上配置VPN"><a href="#在Mac-OS-X上配置VPN" class="headerlink" title="在Mac OS X上配置VPN"></a>在Mac OS X上配置VPN</h4><p>System Preferences(系统设置) -&gt; Network(网络):<br><img src="/assets/aws-ec2-vpn/mac_system_network.png" alt=""></p>
+<p>选择左下角的<code>+</code>号添加VPN，选择PPTP类型，点击create创建:<br><img src="/assets/aws-ec2-vpn/mac_new_vpn.png" alt=""></p>
+<p>Advanced(高级) -&gt; Options(选项) -&gt; 勾选Session Options中的所有项 -&gt; OK保存:<br><img src="/assets/aws-ec2-vpn/mac_vpn_options.png" alt=""></p>
+<p>填写VPN相关服务器地址、用户名、密码等信息 -&gt; 点击Apply应用所有修改 -&gt; 点击connect连接VPN服务:<br><img src="/assets/aws-ec2-vpn/mac_vpn_connected.png" alt=""></p>
 <p>其中Server Address绑定了子域名<code>aws.vpn.xxx</code>，在需要更改服务主机时只需要重定位DNS即可，Client终端配置不需要更改，当然要做负载时也很方便，同时也利用记忆。</p>
-<h4 id="在iPhone-6s上配置VPN"><a href="#在iPhone-6s上配置VPN" class="headerlink" title="在iPhone 6s上配置VPN"></a>在iPhone 6s上配置VPN</h4><p>首先进入Settings设置，选择VPN项（也可以借助第三方软件，如AnyConnect）:<br><img src="../images/aws-ec2-vpn/6s_vpn_setting.png" alt=""></p>
-<p>选择PPTP类型，填写服务器地址、用户名、密码等，然后保存:<br><img src="../images/aws-ec2-vpn/6s_new_vpn.png" alt=""></p>
-<p>点击connect连接VPN服务:<br><img src="../images/aws-ec2-vpn/6s_vpn_connected.png" alt=""></p>
-<p>进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:<br><img src="../images/aws-ec2-vpn/6s_vpn_detail.png" alt=""></p>
-<p>测试访问Google，在手机浏览器输入<code>www.google.com</code>，使用4G数据流量，连接正常，速度没有明显差异:<br><img src="../images/aws-ec2-vpn/6s_test_vpn.png" alt=""></p>
+<h4 id="在iPhone-6s上配置VPN"><a href="#在iPhone-6s上配置VPN" class="headerlink" title="在iPhone 6s上配置VPN"></a>在iPhone 6s上配置VPN</h4><p>首先进入Settings设置，选择VPN项（也可以借助第三方软件，如AnyConnect）:<br><img src="/assets/aws-ec2-vpn/6s_vpn_setting.png" alt=""></p>
+<p>选择PPTP类型，填写服务器地址、用户名、密码等，然后保存:<br><img src="/assets/aws-ec2-vpn/6s_new_vpn.png" alt=""></p>
+<p>点击connect连接VPN服务:<br><img src="/assets/aws-ec2-vpn/6s_vpn_connected.png" alt=""></p>
+<p>进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:<br><img src="/assets/aws-ec2-vpn/6s_vpn_detail.png" alt=""></p>
+<p>测试访问Google，在手机浏览器输入<code>www.google.com</code>，使用4G数据流量，连接正常，速度没有明显差异:<br><img src="/assets/aws-ec2-vpn/6s_test_vpn.png" alt=""></p>
 <p>当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~</p>
 
       
@@ -372,7 +372,7 @@
         <p><span>本文标题:</span><a href="/aws-ec2-vpn/">AWS EC2搭建VPN服务器</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016年04月13日 - 23时30分</p>
-        <p><span>最后更新:</span>2016年04月23日 - 08时14分</p>
+        <p><span>最后更新:</span>2016年04月23日 - 21时02分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/aws-ec2-vpn/" title="AWS EC2搭建VPN服务器">http://blog.waterstrong.me/aws-ec2-vpn/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/aws-ec2-vpn/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

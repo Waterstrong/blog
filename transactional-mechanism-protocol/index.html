@@ -11,13 +11,13 @@
 <meta property="og:url" content="http://blog.waterstrong.me/transactional-mechanism-protocol/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/transactional-mp/XA_standard_interface.png">
-<meta property="og:image" content="http://blog.waterstrong.me/../images/transactional-mp/XA_two_phase_commit.png">
-<meta property="og:updated_time" content="2016-04-23T00:14:38.000Z">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/transactional-mp/XA_standard_interface.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/transactional-mp/XA_two_phase_commit.png">
+<meta property="og:updated_time" content="2016-04-23T13:02:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务处理机制与协议">
 <meta name="twitter:description" content="事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。">
-<meta name="twitter:image" content="http://blog.waterstrong.me/../images/transactional-mp/XA_standard_interface.png">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/transactional-mp/XA_standard_interface.png">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -361,10 +361,10 @@
 </ol>
 </blockquote>
 <p>可以看到第4步更新数据库时由于某种外键或唯一键约束导致数据库更新失败，这时需要回滚数据库操作以及消息提交，而如何保证Database和JMS之间能够正确工作是首要问题。同理，针对多个数据库或多个消息队列(Queue)/主题(Topic)，Transaction是如何协调多资源的呢？</p>
-<h3 id="XA事务多资源协调"><a href="#XA事务多资源协调" class="headerlink" title="XA事务多资源协调"></a>XA事务多资源协调</h3><h4 id="X-Open-XA规范接口"><a href="#X-Open-XA规范接口" class="headerlink" title="X/Open XA规范接口"></a>X/Open XA规范接口</h4><p>XA协议采用两阶段提交方式来管理分布式事务，XA接口提供资源管理器(RM)与事务管理器(TM)之间进行通信的标准接口。下图来自网络，大致描述了RM和TM的关系以及XA工作范畴，资源管理器管理着多个资源，事务管理器与资源管理器通过XA进行双向通信。<br><img src="../images/transactional-mp/XA_standard_interface.png" alt=""></p>
+<h3 id="XA事务多资源协调"><a href="#XA事务多资源协调" class="headerlink" title="XA事务多资源协调"></a>XA事务多资源协调</h3><h4 id="X-Open-XA规范接口"><a href="#X-Open-XA规范接口" class="headerlink" title="X/Open XA规范接口"></a>X/Open XA规范接口</h4><p>XA协议采用两阶段提交方式来管理分布式事务，XA接口提供资源管理器(RM)与事务管理器(TM)之间进行通信的标准接口。下图来自网络，大致描述了RM和TM的关系以及XA工作范畴，资源管理器管理着多个资源，事务管理器与资源管理器通过XA进行双向通信。<br><img src="/assets/transactional-mp/XA_standard_interface.png" alt=""></p>
 <p>XA事务实现原理主要是针对每一个XA资源给全局事务和本地事务分配一个xid，每一个XA资源都被加入的XA的管理器中，通过某个方法来决定XA资源已经被加入到事务中并且已经准备就绪，最后统一提交，也就是所谓的两阶段提交。</p>
 <h4 id="XA两阶段提交协议"><a href="#XA两阶段提交协议" class="headerlink" title="XA两阶段提交协议"></a>XA两阶段提交协议</h4><p>两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段提交协议包含了两个阶段：准备阶段(Prepare)和提交阶段(Commit)。准备阶段需要检查资源的状态(READY, READ_ONLY, NOT_READY)，当且仅当所有资源都是READY状态，准备阶段完成，否则进行Rollback操作。下图来自网络，大致描述了2PC的工作流程。</p>
-<p><img src="../images/transactional-mp/XA_two_phase_commit.png" alt=""></p>
+<p><img src="/assets/transactional-mp/XA_two_phase_commit.png" alt=""></p>
 <p>TM可以向RM查询事务的状态，RM必须要返回一系列事务的XID，表明事务是prepared状态，还是已经commit的状态。TM会把XID,已完成的RM等这样的事务信息保存起来的，只有当全部的RM提交或者回滚完后，才能丢弃这些事务的信息。<strong>XA事务都假定了TM和RM都是有牢靠的存储，所以也保证了TM重启后可以从日志里恢复还未处理完的事务。</strong></p>
 <p>TM/RM初始化和XA两阶段提交伪代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// TM/RM Init 伪代码</span><br><span class="line">TransactionManager() &#123;</span><br><span class="line">    xaResourceManager = new XAResourceManager(gtrid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool enlistResource(xaResource) &#123;</span><br><span class="line">    xaResourceHolder = findXAResourceHolder(xaResource);</span><br><span class="line">    xaResourceHolderState = new XAResourceHolderState(xaResourceHolder);</span><br><span class="line">    xaResourceHolderState.setTransactionTimeoutDate(timeout);</span><br><span class="line">    xaResourceManager.enlist(xaResourceHolderState);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">////////////////////////////////</span><br><span class="line">// XA 2PC 伪代码</span><br><span class="line">List&lt;XAResourceHolderState&gt; interestedResources;</span><br><span class="line">try &#123;</span><br><span class="line">    interestedResources = preparer.prepare(this); //Get resources and check their states</span><br><span class="line">&#125; catch(RollbackException ex) &#123;</span><br><span class="line">    rollbackPrepareFailure(ex); // If one of the resources is not ready</span><br><span class="line">&#125;</span><br><span class="line">committer.commit(this, interestedResources); // All resources are ready and commit all at once</span><br><span class="line">…… // Other code goes here</span><br><span class="line"></span><br><span class="line">////////////////////////////////</span><br><span class="line">// 备注:</span><br><span class="line">// preparer.prepare(this) is to get the resources and check their states</span><br><span class="line">// should call resource manager: transaction.getResourceManager().getAllResources();</span><br></pre></td></tr></table></figure></p>
 <hr>
@@ -397,7 +397,7 @@
         <p><span>本文标题:</span><a href="/transactional-mechanism-protocol/">事务处理机制与协议</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016年02月04日 - 19时11分</p>
-        <p><span>最后更新:</span>2016年04月23日 - 08时14分</p>
+        <p><span>最后更新:</span>2016年04月23日 - 21时02分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/transactional-mechanism-protocol/" title="事务处理机制与协议">http://blog.waterstrong.me/transactional-mechanism-protocol/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/transactional-mechanism-protocol/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
