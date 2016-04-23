@@ -42,7 +42,7 @@
     <link href="http://blog.waterstrong.me/jboss-tips/"/>
     <id>http://blog.waterstrong.me/jboss-tips/</id>
     <published>2016-04-20T14:23:50.000Z</published>
-    <updated>2016-04-23T00:14:38.000Z</updated>
+    <updated>2016-04-23T04:17:30.000Z</updated>
     
     <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考:&lt;/p&gt;
 &lt;hr&gt;
@@ -459,6 +459,8 @@
       <category term="Transaction" scheme="http://blog.waterstrong.me/categories/Transaction/"/>
     
     
+      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
       <category term="事务" scheme="http://blog.waterstrong.me/tags/%E4%BA%8B%E5%8A%A1/"/>
@@ -466,8 +468,6 @@
       <category term="ACID特性" scheme="http://blog.waterstrong.me/tags/ACID%E7%89%B9%E6%80%A7/"/>
     
       <category term="XA协议" scheme="http://blog.waterstrong.me/tags/XA%E5%8D%8F%E8%AE%AE/"/>
-    
-      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     
       <category term="锁机制" scheme="http://blog.waterstrong.me/tags/%E9%94%81%E6%9C%BA%E5%88%B6/"/>
     
@@ -556,8 +556,6 @@
       <category term="AOP" scheme="http://blog.waterstrong.me/categories/AOP/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="反射机制" scheme="http://blog.waterstrong.me/tags/%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"/>
@@ -565,6 +563,8 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -683,13 +683,13 @@
       <category term="Database" scheme="http://blog.waterstrong.me/categories/Database/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
       <category term="持久层框架" scheme="http://blog.waterstrong.me/tags/%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/"/>
     
       <category term="动态SQL" scheme="http://blog.waterstrong.me/tags/%E5%8A%A8%E6%80%81SQL/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
@@ -697,8 +697,8 @@
     <title>DirectShow获取摄像头图像</title>
     <link href="http://blog.waterstrong.me/directshow-graphics/"/>
     <id>http://blog.waterstrong.me/directshow-graphics/</id>
-    <published>2011-12-27T16:00:00.000Z</published>
-    <updated>2016-04-23T00:14:38.000Z</updated>
+    <published>2011-12-28T14:22:50.000Z</published>
+    <updated>2016-04-23T04:19:50.000Z</updated>
     
     <content type="html">&lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
 &lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
@@ -746,8 +746,8 @@
     <title>C++单例模式实现</title>
     <link href="http://blog.waterstrong.me/cpp-singleton/"/>
     <id>http://blog.waterstrong.me/cpp-singleton/</id>
-    <published>2011-12-27T16:00:00.000Z</published>
-    <updated>2016-04-23T00:14:38.000Z</updated>
+    <published>2011-12-28T13:23:50.000Z</published>
+    <updated>2016-04-23T04:18:59.000Z</updated>
     
     <content type="html">&lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
