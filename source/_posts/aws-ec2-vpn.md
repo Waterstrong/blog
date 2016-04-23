@@ -180,7 +180,7 @@ service pptpd restart  # 重启VPN服务, 当然可以用stop/start来停止/启
 service pptpd status  # 查看VPN服务当前运行状态
 ```
 可以看到服务已经启动:
-![](../images/aws-ec2-vpn/linux_pptpd_started.png)
+![](/assets/aws-ec2-vpn/linux_pptpd_started.png)
 
 针对Ubuntu，即使运行start命令，但查看status还是显示`pptpd is not running`，可以编辑`/etc/init.d/pptpd`文件，搜索`status`找到该行`status_of_proc "$PIDFILE" "$DAEMON" "$NAME" && exit 0 || exit $?`，并添加`-p`参数：
 
@@ -197,34 +197,34 @@ status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME" && exit 0 || exit $?
 #### 在Mac OS X上配置VPN
 
 System Preferences(系统设置) -> Network(网络):
-![](../images/aws-ec2-vpn/mac_system_network.png)
+![](/assets/aws-ec2-vpn/mac_system_network.png)
 
 选择左下角的`+`号添加VPN，选择PPTP类型，点击create创建:
-![](../images/aws-ec2-vpn/mac_new_vpn.png)
+![](/assets/aws-ec2-vpn/mac_new_vpn.png)
 
 Advanced(高级) -> Options(选项) -> 勾选Session Options中的所有项 -> OK保存:
-![](../images/aws-ec2-vpn/mac_vpn_options.png)
+![](/assets/aws-ec2-vpn/mac_vpn_options.png)
 
 填写VPN相关服务器地址、用户名、密码等信息 -> 点击Apply应用所有修改 -> 点击connect连接VPN服务:
-![](../images/aws-ec2-vpn/mac_vpn_connected.png)
+![](/assets/aws-ec2-vpn/mac_vpn_connected.png)
 
 其中Server Address绑定了子域名`aws.vpn.xxx`，在需要更改服务主机时只需要重定位DNS即可，Client终端配置不需要更改，当然要做负载时也很方便，同时也利用记忆。
 
 #### 在iPhone 6s上配置VPN
 
 首先进入Settings设置，选择VPN项（也可以借助第三方软件，如AnyConnect）:
-![](../images/aws-ec2-vpn/6s_vpn_setting.png)
+![](/assets/aws-ec2-vpn/6s_vpn_setting.png)
 
 选择PPTP类型，填写服务器地址、用户名、密码等，然后保存:
-![](../images/aws-ec2-vpn/6s_new_vpn.png)
+![](/assets/aws-ec2-vpn/6s_new_vpn.png)
 
 点击connect连接VPN服务:
-![](../images/aws-ec2-vpn/6s_vpn_connected.png)
+![](/assets/aws-ec2-vpn/6s_vpn_connected.png)
 
 进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:
-![](../images/aws-ec2-vpn/6s_vpn_detail.png)
+![](/assets/aws-ec2-vpn/6s_vpn_detail.png)
 
 测试访问Google，在手机浏览器输入`www.google.com`，使用4G数据流量，连接正常，速度没有明显差异:
-![](../images/aws-ec2-vpn/6s_test_vpn.png)
+![](/assets/aws-ec2-vpn/6s_test_vpn.png)
 
 当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~

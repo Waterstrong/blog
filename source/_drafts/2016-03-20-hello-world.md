@@ -12,4 +12,4 @@ tags: [Tech, Life]
 
 <!-- more -->
 
-![Hello Nature](../images/hello-world/nature.jpg)
+![Hello Nature](/assets/hello-world/nature.jpg)

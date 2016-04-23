@@ -31,26 +31,26 @@ Internet上其他类型的服务包括平台即服务(Platform as a Service, Paa
 
 ### 注册并创建EC2实例
 若没有帐号可进入[AWS主页](http://aws.amazon.com/)选择`Create an AWS Account`注册:
-![](../images/aws-ec2-basic/aws_homepage.png)
+![](/assets/aws-ec2-basic/aws_homepage.png)
 
 大概需要填写用户名密码,联系人信息,信用卡信息等，信用卡会被扣掉1美元:
-![](../images/aws-ec2-basic/register_in_process.png)
+![](/assets/aws-ec2-basic/register_in_process.png)
 
 然后进入AWS控制台选择EC2:
-![](../images/aws-ec2-basic/aws_overview.png)
+![](/assets/aws-ec2-basic/aws_overview.png)
 
 为了选择最近的地区，可以在[CloudPing](http://www.cloudping.info/)上测试一下Ping速度，选择最快的Singapore:
-![](../images/aws-ec2-basic/choose_location_area.png)
-![](../images/aws-ec2-basic/cloud_ping.png)
+![](/assets/aws-ec2-basic/choose_location_area.png)
+![](/assets/aws-ec2-basic/cloud_ping.png)
 
 点击`Launch Instance`创建一个实例，可以选择`Community AMIs`进行筛选，也可能直接选择Amazon的Linux AMI，据说是速度和性能都进行过优化:
-![](../images/aws-ec2-basic/launch_choose_ami.png)
+![](/assets/aws-ec2-basic/launch_choose_ami.png)
 
 一定只选择标记为`Free tier eligible`的免费类型，否则运行一段时间就等着哭吧:
-![](../images/aws-ec2-basic/launch_choose_instance_type.png)
+![](/assets/aws-ec2-basic/launch_choose_instance_type.png)
 
 根据步骤和提示一步步完成即可，最后启动会选择Key Pair。当系统提示提供密钥时，选择Choose an existing key pair，然后选择已创建的密钥对。另外，也可以新建密钥对，选择Create a new key pair，输入密钥对的名称，然后选择Download Key Pair。这是保存私有密钥文件的唯一机会，因此务必单击进行下载，将私有密钥文件保存在安全位置。当启动实例时，需要提供密钥对的名称，当每次连接到实例时，需要提供相应的私有密钥。
-![](../images/aws-ec2-basic/launch_select_key_pair.png)
+![](/assets/aws-ec2-basic/launch_select_key_pair.png)
 
 最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击`Instances -> 选择Instance -> Connect`查看，Shell Command如下:
 ```
@@ -63,13 +63,13 @@ ssh -i <key.pem> <username>@<instance-address>
 实例(Instance), 即虚拟计算环境。实例的预配置模板，也称为亚马逊系统映像(AMI)，其中包含服务器需要的程序包(包括操作系统和其他软件)。实例CPU、内存、存储和网络容量的多种配置，也称为实例类型。
 
 在`Instances`栏中可以对实例进行Reboot, Stop, Start, Terminate(永久删除)以及其他的网络,安全,卷等设置。
-![](../images/aws-ec2-basic/instances.png)
+![](/assets/aws-ec2-basic/instances.png)
 
 ### Resource & Tags 资源 & 标签
 Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分资源包括映像、实例、卷和快照，在创建某个资源时，该资源会被分配一个唯一资源 ID。可以定义某个值标记某些资源，来帮助组织和识别这些资源，即Tags。
 
 标签(Tag)为了`方便管理实例、映像以及其他Amazon EC2资源`，可通过标签的形式为每个资源分配元数据(Meta Data)。`标签可按各种标准(例如用途、所有者或环境)对AWS资源进行分类`，每个标签都包含定义的一个键和一个可选值，例如下图所示：
-![](../images/aws-ec2-basic/tag_example.png)
+![](/assets/aws-ec2-basic/tag_example.png)
 
 ### Volumes 卷
 卷是一种数据块级存储设备，可以连接到单个EC2实例，可以像使用其他物理硬盘一样使用它。使用Amazon Elastic Block Store(Amazon EBS)的数据的持久性存储卷，也称为Amazon EBS卷，提供了三种卷类型：通用型SSD、Provisioned IOPS和磁介质，各卷类型特点可参见: [Amazon EBS 卷类型](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
@@ -77,13 +77,13 @@ Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分�
 除了EBS，还有提供临时性块级存储[实例存储](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/InstanceStorage.html)和存储Internet数据的Amazon Simple Storage Service ([Amazon S3](http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/AmazonS3.html))
 
 卷存储的架构如下图所示:
-![](../images/aws-ec2-basic/architecture_storage.png)
+![](/assets/aws-ec2-basic/architecture_storage.png)
 
 可以选择`elastic block store -> Volumes -> Create Volume`创建一个新卷:
-![](../images/aws-ec2-basic/create_volume.png)
+![](/assets/aws-ec2-basic/create_volume.png)
 
 选择Volumes中的一个条目，通过`Actions或右键 -> Attach Volume`连接到某个Instance上:
-![](../images/aws-ec2-basic/attach_volume.png)
+![](/assets/aws-ec2-basic/attach_volume.png)
 
 在Instance上通过以下命令实现Mount(挂载)创建的卷:
 
@@ -111,15 +111,15 @@ sudo umount /dev/xvdf
 可以使用安全组来控制实例的访问权限，这些安全组类似于一个传入网络防火墙，可以指定允许访问实例的协议、端口和源IP范围。可以创建多个安全组，并给每个安全组指定不同的规则，然后可以给每个实例分配一个或多个安全组，通过这些规则规则确定允许哪些流量可访问实例。
 
 Security Group安全组架构如图所示:
-![](../images/aws-ec2-basic/architecture_security_group.png)
+![](/assets/aws-ec2-basic/architecture_security_group.png)
 
 创建新的安全组，选择`Network & Security -> Security Groups -> Create Security Group`进行创建:
-![](../images/aws-ec2-basic/create_security_group.png)
+![](/assets/aws-ec2-basic/create_security_group.png)
 
 上图显示下拉列表中，可以根据需要选择如SSH,TCP,UDP等，也可以选择Customer Rule来自定义端口号等，还可指定来源IP范围。
 
 选择Security Groups中一个条目，通过`Actions或右键 -> Edit inbound rules或Edit outbound rules`来添加流量流入和流出限制规则:
-![](../images/aws-ec2-basic/edit_inbound_rules.png)
+![](/assets/aws-ec2-basic/edit_inbound_rules.png)
 
 可以根据实际需要添加规则，如果对安全性没有需求，可以不设置防火墙限制(但不推荐)，可直接选择`type`为`All traffic`，选择`source`为`Anywhere`，这样就允许所有类型和源的流量流入。
 
@@ -128,7 +128,7 @@ Security Group安全组架构如图所示:
 Amazon EC2使用公有密钥密码术加密和解密登录信息。公有密钥密码术使用公有密钥加密某个数据(如一个密码)，然后收件人可以使用私有密钥解密数据，公有和私有密钥被称为密钥对。AWS存储公有密钥，个人在安全位置存储私有密钥。如果经常使用SSH那就比较清楚了。
 
 选择`Network & Security -> Key Pairs -> Import Key Pair`可以导入本机的公钥，当然也可以创建Key Pair:
-![](../images/aws-ec2-basic/create_key_pair.png)
+![](/assets/aws-ec2-basic/create_key_pair.png)
 
 
 ### Placement Groups 置放群组
@@ -138,10 +138,10 @@ Amazon EC2使用公有密钥密码术加密和解密登录信息。公有密钥�
 弹性IP地址是专为动态云计算设计的静态IP地址。`实例在重启后会自动重新分配一个与原实例不同的公有IP地址`，如果应用程序需要一个静态IP地址，可以使用弹性IP地址关联到实例，并且在实例发生故障的情况下能够将该地址映射到另一实例，并能够将 DNS主机名用于所有其他节点间通信，从而屏蔽实例故障。
 
 如下图所示选择`Network & Security -> Elastic IPs -> Allocate New Address`分配一个新的EIP:
-![](../images/aws-ec2-basic/new_elastic_ip.png)
+![](/assets/aws-ec2-basic/new_elastic_ip.png)
 
 选择Elastic IPs中一个条目，通过`Actions或右键 -> Associate Address`输入需要关联的Instance:
-![](../images/aws-ec2-basic/associate_elastic_ip.png)
+![](/assets/aws-ec2-basic/associate_elastic_ip.png)
 
 此时可以通过EIP访问关联到的Instance了。
 
