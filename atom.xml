@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-04-21T16:19:15.000Z</updated>
+  <updated>2016-04-23T00:14:38.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/distributed-transaction/"/>
     <id>http://blog.waterstrong.me/distributed-transaction/</id>
     <published>2016-04-20T15:52:41.000Z</published>
-    <updated>2016-04-21T16:19:15.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html"></content>
     
@@ -42,7 +42,7 @@
     <link href="http://blog.waterstrong.me/jboss-tips/"/>
     <id>http://blog.waterstrong.me/jboss-tips/</id>
     <published>2016-04-20T14:23:50.000Z</published>
-    <updated>2016-04-21T13:48:15.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考:&lt;/p&gt;
 &lt;hr&gt;
@@ -105,7 +105,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-04-19T05:40:26.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;What-is-Concourse&quot;&gt;&lt;a href=&quot;#What-is-Concourse&quot; class=&quot;headerlink&quot; title=&quot;What is Concourse?&quot;&gt;&lt;/a&gt;What is Concourse?&lt;/h3&gt;&lt;ul&gt;
@@ -159,7 +159,7 @@
     <link href="http://blog.waterstrong.me/aws-ec2-vpn/"/>
     <id>http://blog.waterstrong.me/aws-ec2-vpn/</id>
     <published>2016-04-13T15:30:52.000Z</published>
-    <updated>2016-04-17T04:09:36.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。&lt;/p&gt;
 &lt;p&gt;而且自己搭建VPN有诸多好处:&lt;/p&gt;
@@ -263,7 +263,7 @@
     <link href="http://blog.waterstrong.me/aws-ec2-basic/"/>
     <id>http://blog.waterstrong.me/aws-ec2-basic/</id>
     <published>2016-04-11T04:00:08.000Z</published>
-    <updated>2016-04-19T05:11:06.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h4 id=&quot;什么是Amazon-EC2&quot;&gt;&lt;a href=&quot;#什么是Amazon-EC2&quot; class=&quot;headerlink&quot; title=&quot;什么是Amazon EC2&quot;&gt;&lt;/a&gt;什么是Amazon EC2&lt;/h4&gt;&lt;blockquote&gt;
 &lt;p&gt;Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) cloud.&lt;/p&gt;
@@ -345,7 +345,7 @@
     <link href="http://blog.waterstrong.me/transactional-mechanism-protocol/"/>
     <id>http://blog.waterstrong.me/transactional-mechanism-protocol/</id>
     <published>2016-02-04T11:11:03.000Z</published>
-    <updated>2016-04-19T13:50:51.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;事务定义及其特性&quot;&gt;&lt;a href=&quot;#事务定义及其特性&quot; class=&quot;headerlink&quot; title=&quot;事务定义及其特性&quot;&gt;&lt;/a&gt;事务定义及其特性&lt;/h2&gt;&lt;h3 id=&quot;什么是事务？&quot;&gt;&lt;a href=&quot;#什么是事务？&quot; class=&quot;headerlink&quot; title=&quot;什么是事务？&quot;&gt;&lt;/a&gt;什么是事务？&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.&lt;/p&gt;
@@ -480,7 +480,7 @@
     <link href="http://blog.waterstrong.me/aspect-oriented-programming/"/>
     <id>http://blog.waterstrong.me/aspect-oriented-programming/</id>
     <published>2016-01-20T05:45:32.000Z</published>
-    <updated>2016-04-19T13:50:05.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;What-is-AOP&quot;&gt;&lt;a href=&quot;#What-is-AOP&quot; class=&quot;headerlink&quot; title=&quot;What is AOP ?&quot;&gt;&lt;/a&gt;What is AOP ?&lt;/h2&gt;&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。&lt;/p&gt;
 &lt;p&gt;AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态角度考虑程序结构，从横向上区分出类，AOP是从动态角度考虑程序运行过程，从纵向上向对象中加入特定的代码，加上时间维度，AOP使得OOP从二维变成三维，由平面变成立体。常常通过AOP来处理一些具有横切性质的系统性服务，如&lt;a href=&quot;/blog/transactional-mechanism-protocol&quot;&gt;事务处理&lt;/a&gt;、安全检查、缓存、对象池管理等。&lt;/p&gt;
@@ -575,7 +575,7 @@
     <link href="http://blog.waterstrong.me/mysql-case-sensitive-linux/"/>
     <id>http://blog.waterstrong.me/mysql-case-sensitive-linux/</id>
     <published>2015-12-20T14:28:42.000Z</published>
-    <updated>2016-03-29T15:47:25.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -629,7 +629,7 @@
     <link href="http://blog.waterstrong.me/code-your-ioc/"/>
     <id>http://blog.waterstrong.me/code-your-ioc/</id>
     <published>2015-12-20T12:41:09.000Z</published>
-    <updated>2016-04-17T09:30:09.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h3 id=&quot;Let’s-Code-a-IoC-Container&quot;&gt;&lt;a href=&quot;#Let’s-Code-a-IoC-Container&quot; class=&quot;headerlink&quot; title=&quot;Let’s Code a IoC Container&quot;&gt;&lt;/a&gt;Let’s Code a IoC Container&lt;/h3&gt;&lt;p&gt;How to define a bean ?&lt;br&gt;How to store data collection ?&lt;br&gt;How to load component and bean ?&lt;br&gt;How to define a annotation ?&lt;br&gt;How to handle the annotation ?&lt;br&gt;How to create an Object ?&lt;br&gt;How to invoke a Method ?&lt;br&gt;How to initialize the container ?&lt;/p&gt;
 &lt;p&gt;之前自己写了一个小的IoC Demo: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;IoC Demo&lt;/a&gt;&lt;/p&gt;
@@ -661,7 +661,7 @@
     <link href="http://blog.waterstrong.me/mybatis-in-practice/"/>
     <id>http://blog.waterstrong.me/mybatis-in-practice/</id>
     <published>2015-10-12T04:52:44.000Z</published>
-    <updated>2016-04-17T09:12:26.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;What-is-MyBatis&quot;&gt;&lt;a href=&quot;#What-is-MyBatis&quot; class=&quot;headerlink&quot; title=&quot;What is MyBatis?&quot;&gt;&lt;/a&gt;What is MyBatis?&lt;/h3&gt;&lt;blockquote&gt;
 &lt;ol&gt;
@@ -698,7 +698,7 @@
     <link href="http://blog.waterstrong.me/directshow-graphics/"/>
     <id>http://blog.waterstrong.me/directshow-graphics/</id>
     <published>2011-12-27T16:00:00.000Z</published>
-    <updated>2016-03-29T15:50:03.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
 &lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
@@ -747,7 +747,7 @@
     <link href="http://blog.waterstrong.me/cpp-singleton/"/>
     <id>http://blog.waterstrong.me/cpp-singleton/</id>
     <published>2011-12-27T16:00:00.000Z</published>
-    <updated>2016-04-17T10:35:51.000Z</updated>
+    <updated>2016-04-23T00:14:38.000Z</updated>
     
     <content type="html">&lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
