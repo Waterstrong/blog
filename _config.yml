@@ -71,5 +71,5 @@ theme: spfk
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Waterstrong/blog.git
+  repo: git@github.com:Waterstrong/stronger.git
   branch: gh-pages

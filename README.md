@@ -1,6 +1,6 @@
 ## Blog of Waterstrong
 
-Blog: <http://waterstrong.me/blog>
+Blog: <http://blog.waterstrong.me>
 
 ## Installation
 
@@ -64,4 +64,4 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 
 
 ----
-[Waterstrong's Blog Page](http://waterstrong.me/blog) is maintained by [Waterstrong](https://github.com/waterstrong). Powered by [Hexo](https://hexo.io/).
+[Waterstrong's Blog Page](http://blog.waterstrong.me) is maintained by [Waterstrong](https://github.com/waterstrong). Powered by [Hexo](https://hexo.io/).
