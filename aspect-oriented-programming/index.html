@@ -13,7 +13,7 @@
 <meta property="og:description" content="AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/aop/aop_diagram.jpg">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/aop/proxy_dp.png">
-<meta property="og:updated_time" content="2016-04-23T13:02:08.000Z">
+<meta property="og:updated_time" content="2016-04-24T02:04:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AOP面向切面编程">
 <meta name="twitter:description" content="AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。">
@@ -286,7 +286,7 @@
       
           
         <h2 id="What-is-AOP"><a href="#What-is-AOP" class="headerlink" title="What is AOP ?"></a>What is AOP ?</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。</p>
-<p>AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态角度考虑程序结构，从横向上区分出类，AOP是从动态角度考虑程序运行过程，从纵向上向对象中加入特定的代码，加上时间维度，AOP使得OOP从二维变成三维，由平面变成立体。常常通过AOP来处理一些具有横切性质的系统性服务，如<a href="/blog/transactional-mechanism-protocol">事务处理</a>、安全检查、缓存、对象池管理等。</p>
+<p>AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态角度考虑程序结构，从横向上区分出类，AOP是从动态角度考虑程序运行过程，从纵向上向对象中加入特定的代码，加上时间维度，AOP使得OOP从二维变成三维，由平面变成立体。常常通过AOP来处理一些具有横切性质的系统性服务，如<a href="/transactional-mechanism-protocol">事务处理</a>、安全检查、缓存、对象池管理等。</p>
 <p>通常做法，是在运行时动态地将代码切入到类的指定方法、指定位置上，而切入到指定类指定方法的代码片段称为切面，而切入到哪些类、哪些方法则叫切入点，采用AOP可以把几个类共有的代码抽取到一个切片中，等到需要时再切入对象中去，从而改变其原有的行为。接下来将详解AOP中的几个核心概念。</p>
 <h3 id="AOP相关概念"><a href="#AOP相关概念" class="headerlink" title="AOP相关概念"></a>AOP相关概念</h3><h4 id="Aspect（切面-方面）"><a href="#Aspect（切面-方面）" class="headerlink" title="Aspect（切面/方面）"></a>Aspect（切面/方面）</h4><p>需要切入到指定类指定方法的代码片段称为切面，包含定义的额外功能的某个模块，相当于OOP中定义的类，但代表的更多是对象间横向的关系，如日志切面、权限切面、事务切面等。</p>
 <h4 id="Joinpoint（连接点）"><a href="#Joinpoint（连接点）" class="headerlink" title="Joinpoint（连接点）"></a>Joinpoint（连接点）</h4><p>程序执行过程中精确执行点，如类中的方法调用、异常抛出等。</p>
@@ -359,7 +359,7 @@
         <p><span>本文标题:</span><a href="/aspect-oriented-programming/">AOP面向切面编程</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016年01月20日 - 13时45分</p>
-        <p><span>最后更新:</span>2016年04月23日 - 21时02分</p>
+        <p><span>最后更新:</span>2016年04月24日 - 10时04分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/aspect-oriented-programming/" title="AOP面向切面编程">http://blog.waterstrong.me/aspect-oriented-programming/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/aspect-oriented-programming/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -13,7 +13,7 @@
 <meta property="og:description" content="事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/transactional-mp/XA_standard_interface.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/transactional-mp/XA_two_phase_commit.png">
-<meta property="og:updated_time" content="2016-04-23T13:02:08.000Z">
+<meta property="og:updated_time" content="2016-04-24T02:04:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事务处理机制与协议">
 <meta name="twitter:description" content="事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。">
@@ -327,7 +327,7 @@
 <hr>
 <h2 id="声明式事务（Declarative-Transaction）"><a href="#声明式事务（Declarative-Transaction）" class="headerlink" title="声明式事务（Declarative Transaction）"></a>声明式事务（Declarative Transaction）</h2><h3 id="基本介绍-2"><a href="#基本介绍-2" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。</p>
 <h3 id="声明式事务-模型"><a href="#声明式事务-模型" class="headerlink" title="声明式事务 模型"></a>声明式事务 模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Transaction</span><br><span class="line">void doSomething() &#123;</span><br><span class="line">    process1();</span><br><span class="line">    process2();</span><br><span class="line">    ……</span><br><span class="line">    repository.save();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是<a href="/blog/aspect-oriented-programming">AOP(面向切面编程)</a>的方式进行方法的拦截。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object intercept(proxy, method, args) &#123;</span><br><span class="line">    trans.begin();</span><br><span class="line">    try &#123;</span><br><span class="line">    	method.invoke(target, args);</span><br><span class="line">    	trans.commit();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	trans.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是<a href="/aspect-oriented-programming">AOP(面向切面编程)</a>的方式进行方法的拦截。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object intercept(proxy, method, args) &#123;</span><br><span class="line">    trans.begin();</span><br><span class="line">    try &#123;</span><br><span class="line">    	method.invoke(target, args);</span><br><span class="line">    	trans.commit();</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	trans.rollback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>以上所有的事务实现方式都主要集中在单一数据库情况，那么对于多数据库协调或者混合数据源情形，如数据库加消息队列等，又如何保证事务正确有效地执行呢？答案是分布式事务，也称全局事务来管理了。</p>
 <hr>
 <h2 id="全局-分布式事务（Global-Distributed-Transaction）"><a href="#全局-分布式事务（Global-Distributed-Transaction）" class="headerlink" title="全局/分布式事务（Global/Distributed Transaction）"></a>全局/分布式事务（Global/Distributed Transaction）</h2><h3 id="基本介绍-3"><a href="#基本介绍-3" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>全局/分布式事务(Global/Distributed Transaction)也称XA事务，主要处理跨越多个数据库或进程，多资源协调的情形（例如：访问多个数据库，或数据库加消息队列，又或是多个消息队列等）。其中核心概念包括:</p>
@@ -397,7 +397,7 @@
         <p><span>本文标题:</span><a href="/transactional-mechanism-protocol/">事务处理机制与协议</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016年02月04日 - 19时11分</p>
-        <p><span>最后更新:</span>2016年04月23日 - 21时02分</p>
+        <p><span>最后更新:</span>2016年04月24日 - 10时04分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/transactional-mechanism-protocol/" title="事务处理机制与协议">http://blog.waterstrong.me/transactional-mechanism-protocol/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/transactional-mechanism-protocol/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -2526,7 +2526,10 @@ color
   visibility: hidden;
 }
 .article img {
-  max-width: 550px;
+  max-width: 100%;
+}
+.article .fancy-ctn.fancybox {
+  max-width: 55%;
 }
 @-webkit-keyframes cd-bounce-1 {
   0% {
