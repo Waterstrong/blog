@@ -15,7 +15,7 @@ description: 主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协
 2. 速度有保障，可以选择最快地区的AWS EC2进行搭建;
 3. 自己的帐号自己管理，流量也自己控制，安全有保障。
 
-AWS EC2已经在另一篇Blog中有相关介绍，有兴趣可以参见[AWS EC2入门篇](/blog/aws-ec2-basic)。
+AWS EC2已经在另一篇Blog中有相关介绍，有兴趣可以参见[AWS EC2入门篇](/aws-ec2-basic)。
 
 VPN: Virtual Private Network, 虚拟专用网络，是一种远程访问技术，主要功能是在公用网络上建立专用网络，进行加密通讯，支持跨平台。
 PPTP: Point to Point Tunneling Protocol, 点对点隧道协议，是PPP协议的基础上的增强型安全协议，支持多协议VPN，默认端口号1723。利于PPTP可以快速搭建自己的VPN，并且在很多的移动设备上也支持PPTP，同时PPTP速度也较快，资源消耗也小。
