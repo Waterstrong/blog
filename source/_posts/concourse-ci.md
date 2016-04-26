@@ -1,8 +1,8 @@
 ---
 title: Concourse CI 介绍
 date: 2016-04-19 13:02:02
-category: DevOps
-tags: [CI/CD, 持续集成, 持续部署, Concourse, Jenkins, Travis CI, GoCD, Tool]
+category: Tools
+tags: [DevOps, CI/CD, Concourse, Jenkins, TravisCI, GoCD]
 description: 目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?
 ---
 

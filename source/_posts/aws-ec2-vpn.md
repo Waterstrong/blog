@@ -1,8 +1,8 @@
 ---
 title: AWS EC2搭建VPN服务器
 date: 2016-04-13 23:30:52
-category: DevOps
-tags: [AWS, EC2, VPN, PPTP, Linux, CentOS, RedHat, Ubuntu]
+category: Platforms
+tags: [DevOps, AWS EC2, VPN, PPTP, Linux, CentOS, RedHat, Ubuntu]
 description: 主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。
 ---
 

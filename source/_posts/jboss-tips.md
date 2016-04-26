@@ -1,8 +1,8 @@
 ---
 title: JBoss Tips in Practice
 date: 2016-04-20 22:23:50
-category: Web Container
-tags: [Web容器, JBoss, EJB, Servlet, JSP]
+category: Frameworks
+tags: [Java, Web容器, JBoss, EJB, Servlet, JSP]
 description: JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 将列出一些Tips供使用参考。
 ---
 

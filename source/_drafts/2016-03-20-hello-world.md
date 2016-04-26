@@ -13,3 +13,16 @@ tags: [Tech, Life]
 <!-- more -->
 
 ![Hello Nature](/assets/hello-world/nature.jpg)
+
+Categories:
+
+- Techniques
+- Platforms
+- Tools
+- Frameworks
+- Languages
+- Architectures
+- Design Patterns
+- Libraries
+
+Which category should database be assigned to?

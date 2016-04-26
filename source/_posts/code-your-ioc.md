@@ -1,8 +1,8 @@
 ---
 title: 如何实现一个简单的IoC容器
 date: 2015-12-20 20:41:09
-category: Design Pattern
-tags: [控制反转, 依赖倒置, 依赖注入, SOLID原则, Java]
+category: Design Patterns
+tags: [控制反转, IoC, 依赖倒置, 依赖注入, SOLID原则, Java]
 description: IoC容器是依赖注入的框架，用来映射依赖，管理对象创建和生存周期（DI框架）。通过学习IoC可以简单实现一个IoC容器，同时加深对IoC的理解。
 ---
 

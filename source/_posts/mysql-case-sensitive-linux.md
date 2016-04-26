@@ -1,7 +1,7 @@
 ---
 title: MySQL在Linux下默认区分大小写
 date: 2015-12-20 22:28:42
-category: Database
+category: Techniques
 tags: [数据库, MySQL, Linux, Hibernate, JPA]
 ---
 

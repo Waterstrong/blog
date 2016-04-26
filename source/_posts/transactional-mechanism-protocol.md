@@ -1,8 +1,8 @@
 ---
 title: 事务处理机制与协议
 date: 2016-02-04 19:11:03
-category: Transaction
-tags: [事务, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行版本控制]
+category: Techniques
+tags: [Transaction, 数据库, ACID特性, XA协议, 分布式事务, 锁机制, 行版本控制]
 description: 事务(Transaction)作为一个整体，其中的若干处理要么都做，要么都不做。主要涉及事务的定义及特性、本地事务、编程式事务、声明式事务、分布式事务、XA事务问题与优化策略等。
 ---
 

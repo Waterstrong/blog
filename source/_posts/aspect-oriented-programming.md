@@ -1,8 +1,8 @@
 ---
 title: AOP面向切面编程
 date: 2016-01-20 13:45:32
-category: AOP
-tags: [面向切面编程, 反射机制, 代理模式, Proxy, Java, CGLib]
+category: Design Patterns
+tags: [面向切面编程, AOP, 反射机制, 代理模式, Proxy, Java, CGLib]
 description: AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。
 ---
 
