@@ -26,8 +26,18 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 
 ### What is Concourse?
 
-- Concourse is a CI/CD tool that treats build pipelines and artifacts as first-class citizens
-- Keeping all configuration in declarative files that can be checked into version control
+> Concourse is a `CI/CD tool` that treats `build pipelines and artifacts as first-class citizens`.
+> It enables builds that `run in containers`, has a `clean, usable UI and discourages snowflake` build servers.
+> It aims to provide an `expressive system` with as `few distinct moving parts` as possible.
+
+ConcourseCI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens，可以译为第一类公民。
+
+> **First-class Citizens:** In programming language design, a first-class citizen (also type, object, entity, or value) in a given programming language is an entity which supports all the operations generally available to other entities. These operations typically include being passed as an argument, returned from a function, and assigned to a variable.
+
+ConcourseCI本身就与容器结合，构建在容器中运行，隔离各个环境，避免不同环境之间相互污染情况发生。
+
+表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，ConcourseCI采用YAML文件配置Pipeline，并且通过版本控制管理起来，移植和恢复都很容易。
+
 
 ### Why Concourse?
 - Requires a CI/CD Tool
@@ -51,3 +61,7 @@ Bringing some interesting new ideas
 - Running builds in Containers Natively
 - Zero Snowflake-able Configuration
 - Submitting builds from the local file system up to run in CI
+
+[1] https://concourse.ci
+[2]
+[3] https://en.wikipedia.org/wiki/First-class_citizen
