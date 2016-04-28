@@ -8,7 +8,7 @@ description: 目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和
 
 目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April '16的[ThoughtWorks Tech Radar](https://www.thoughtworks.com/radar/tools/concourse-ci)？
 
-### 快速回顾CI/CD
+### Advantage of CI/CD
 首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下工具才能发挥作用，并且解决项目开发中的痛点问题。
 
 #### Continuous Integration
@@ -39,7 +39,7 @@ ConcourseCI本身就与容器结合，构建在容器中运行，隔离各个环
 表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，ConcourseCI采用YAML文件配置Pipeline，并且通过版本控制管理起来，移植和恢复都很容易。
 
 
-### Why Concourse?
+### Why is Concourse?
 - Requires a CI/CD Tool
 - Concourse vs Jenkins/Travis CI/GoCD
 
@@ -52,15 +52,20 @@ ConcourseCI本身就与容器结合，构建在容器中运行，隔离各个环
 #### vs. GoCD
 
 
-### Concepts
+### Concourse Concepts
 
+### Concourse Architecture
 
-### Impact
+### Concourse Impacts
 Bringing some interesting new ideas
 - Pluggable Resource Interface
 - Running builds in Containers Natively
 - Zero Snowflake-able Configuration
 - Submitting builds from the local file system up to run in CI
+
+### Using Concourse
+
+----
 
 [1] https://concourse.ci
 [2]
