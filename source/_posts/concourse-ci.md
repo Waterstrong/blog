@@ -55,8 +55,19 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 ----
 
 ### Why is Concourse?
-- Requires a CI/CD Tool
-- Concourse vs Jenkins/Travis CI/GoCD
+为什么会出现Concourse呢？它能带来什么新思路呢？相比目前已有的CI/CD工具有什么区别呢？
+
+- Requires a CI/CD Tool, 首先当然是提供CI/CD的基本功能，需要一款CI/CD工具来解决项目开发中的一系列问题。
+- Concourse vs GoCD/Jenkins/Travis CI，除此之外，还需要弥补目前CI/CD工具的一些不足，并加入一些新元素。
+
+#### vs. GoCD
+![](/assets/concourse-ci/gocd_pipelines.png)
+
+GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。
+
+除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -> Stages -> jobs -> tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。
+
+更多关于GoCD的说明请参见[More about GoCD](https://www.go.cd/)
 
 #### vs. Jenkins
 
@@ -64,10 +75,9 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 #### vs. Travis CI
 
 
-#### vs. GoCD
-
 
 ### Concourse Concepts
+End Goal: To provide an expressive system with as few distinct moving parts as possible
 
 ### Concourse Architecture
 
@@ -83,5 +93,6 @@ Bringing some interesting new ideas
 ----
 
 [1] https://concourse.ci
-[2]
-[3] https://en.wikipedia.org/wiki/First-class_citizen
+[2] https://en.wikipedia.org/wiki/First-class_citizen
+[3] https://www.go.cd/
+[4] https://jenkins.io/
