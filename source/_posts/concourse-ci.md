@@ -69,17 +69,24 @@ GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为�
 
 更多关于GoCD的说明请参见[More about GoCD](https://www.go.cd/)
 
+----
+
 #### vs. Jenkins
 
+----
 
 #### vs. Travis CI
 
-
+----
 
 ### Concourse Concepts
 End Goal: To provide an expressive system with as few distinct moving parts as possible
 
+----
+
 ### Concourse Architecture
+
+----
 
 ### Concourse Impacts
 Bringing some interesting new ideas
@@ -87,12 +94,15 @@ Bringing some interesting new ideas
 - Running builds in Containers Natively
 - Zero Snowflake-able Configuration
 - Submitting builds from the local file system up to run in CI
+- [Cloud Foundry](https://www.cloudfoundry.org/): Run on diff architectures, diff platforms, against varying underlying IaaSs
+
+----
 
 ### Using Concourse
 
 ----
 
 [1] https://concourse.ci
-[2] https://en.wikipedia.org/wiki/First-class_citizen
-[3] https://www.go.cd/
-[4] https://jenkins.io/
+[2] https://www.go.cd/
+[3] https://jenkins.io/
+[4] https://en.wikipedia.org/wiki/First-class_citizen
