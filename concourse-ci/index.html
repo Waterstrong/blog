@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/standard_pipeline_demo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/config_yml_demo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/gocd_pipelines.png">
-<meta property="og:updated_time" content="2016-05-02T14:30:39.000Z">
+<meta property="og:updated_time" content="2016-05-02T14:36:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Concourse CI 介绍">
 <meta name="twitter:description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
@@ -296,10 +296,10 @@
 <li>Believable Progress，可信的进度。如果直接部署到线上环境中，项目进展以及完成度相对于开发人员自己声称已经完成要更加的有可信度。</li>
 <li>User Feedback，用户反馈。众所周知，项目开发中最大的风险就是开发的软件不被用户接受，这样的软件是没有太大的用处和意义的，尽早和更加频繁地交付给用户并且快速获得用户反馈来获取有价值的内容，从而保证了开发的软件是被用户接受的。</li>
 </ol>
-<p>有关CI/CD的更多详细解释可以参见Martin Fowler博客文章<a href="http://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="external">ContinuousDelivery</a>。</p>
+<p>有关CI/CD的更多详细解释可以参见Martin Fowler博客文章<a href="http://martinfowler.com/bliki/ContinuousDelivery.html" target="_blank" rel="external">Continuous Delivery</a>。</p>
 <hr>
 <h3 id="What-is-Concourse"><a href="#What-is-Concourse" class="headerlink" title="What is Concourse?"></a>What is Concourse?</h3><blockquote>
-<p>Concourse is a <code>CI/CD tool</code> that treats <code>build pipelines and artifacts as first-class citizens</code>.<br>It enables builds that <code>run in containers</code>, has a <code>clean, usable UI and discourages snowflake</code> build servers.<br>It aims to provide an <code>expressive system</code> with as <code>few distinct moving parts</code> as possible.</p>
+<p><a href="https://concourse.ci" target="_blank" rel="external">Concourse</a> is a <code>CI/CD tool</code> that treats <code>build pipelines and artifacts as first-class citizens</code>.<br>It enables builds that <code>run in containers</code>, has a <code>clean, usable UI and discourages snowflake</code> build servers.<br>It aims to provide an <code>expressive system</code> with as <code>few distinct moving parts</code> as possible.</p>
 </blockquote>
 <p>先感受一下Concourse的界面，这是Concourse项目本身的Pipelines:<br><img src="/assets/concourse-ci/concourse_pipeline.png" alt=""></p>
 <p><strong>Concourse CI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens(可译作: 第一类公民)。</strong></p>
@@ -317,13 +317,15 @@
 <li>Requires a CI/CD Tool, 首先当然是提供CI/CD的基本功能，需要一款CI/CD工具来解决项目开发中的一系列问题。</li>
 <li>Concourse vs GoCD/Jenkins/Travis CI，除此之外，还需要弥补目前CI/CD工具的一些不足，并加入一些新元素。</li>
 </ul>
-<h4 id="vs-GoCD"><a href="#vs-GoCD" class="headerlink" title="vs. GoCD"></a>vs. <a href="https://www.go.cd/" target="_blank" rel="external">GoCD</a></h4><p><img src="/assets/concourse-ci/gocd_pipelines.png" alt=""></p>
-<p>GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。</p>
+<h4 id="vs-GoCD"><a href="#vs-GoCD" class="headerlink" title="vs. GoCD"></a>vs. GoCD</h4><p><img src="/assets/concourse-ci/gocd_pipelines.png" alt=""></p>
+<p><a href="https://www.go.cd/" target="_blank" rel="external">GoCD</a>属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。</p>
 <p>除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -&gt; Stages -&gt; jobs -&gt; tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。</p>
 <p>而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。</p>
 <hr>
-<h4 id="vs-Jenkins"><a href="#vs-Jenkins" class="headerlink" title="vs. Jenkins"></a>vs. Jenkins</h4><hr>
-<h4 id="vs-Travis-CI"><a href="#vs-Travis-CI" class="headerlink" title="vs. Travis CI"></a>vs. Travis CI</h4><hr>
+<h4 id="vs-Jenkins"><a href="#vs-Jenkins" class="headerlink" title="vs. Jenkins"></a>vs. Jenkins</h4><p><a href="https://jenkins.io/" target="_blank" rel="external">Jenkins</a></p>
+<hr>
+<h4 id="vs-Travis-CI"><a href="#vs-Travis-CI" class="headerlink" title="vs. Travis CI"></a>vs. Travis CI</h4><p><a href="https://travis-ci.com/" target="_blank" rel="external">Travis CI</a></p>
+<hr>
 <h3 id="Concourse-Concepts"><a href="#Concourse-Concepts" class="headerlink" title="Concourse Concepts"></a>Concourse Concepts</h3><p>End Goal: To provide an expressive system with as few distinct moving parts as possible</p>
 <hr>
 <h3 id="Concourse-Architecture"><a href="#Concourse-Architecture" class="headerlink" title="Concourse Architecture"></a>Concourse Architecture</h3><hr>
@@ -337,7 +339,7 @@
 </ul>
 <hr>
 <h3 id="Using-Concourse"><a href="#Using-Concourse" class="headerlink" title="Using Concourse"></a>Using Concourse</h3><hr>
-<p>[1] <a href="https://concourse.ci" target="_blank" rel="external">https://concourse.ci</a><br>[2] <a href="https://www.go.cd/" target="_blank" rel="external">https://www.go.cd/</a><br>[3] <a href="https://jenkins.io/" target="_blank" rel="external">https://jenkins.io/</a><br>[4] <a href="https://en.wikipedia.org/wiki/First-class_citizen" target="_blank" rel="external">https://en.wikipedia.org/wiki/First-class_citizen</a></p>
+<p>[1] <a href="https://concourse.ci" target="_blank" rel="external">https://concourse.ci</a><br>[2] <a href="https://www.go.cd/" target="_blank" rel="external">https://www.go.cd/</a><br>[3] <a href="https://jenkins.io/" target="_blank" rel="external">https://jenkins.io/</a><br>[4] <a href="https://travis-ci.com/" target="_blank" rel="external">https://travis-ci.com/</a><br>[5] <a href="https://en.wikipedia.org/wiki/First-class_citizen" target="_blank" rel="external">https://en.wikipedia.org/wiki/First-class_citizen</a></p>
 
       
     </div>
@@ -349,7 +351,7 @@
         <p><span>本文标题:</span><a href="/concourse-ci/">Concourse CI 介绍</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-04-19 13:02</p>
-        <!--<p><span>最后更新:</span>2016-05-02 22:30</p>-->
+        <!--<p><span>最后更新:</span>2016-05-02 22:36</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/concourse-ci/" title="Concourse CI 介绍">http://blog.waterstrong.me/concourse-ci/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/concourse-ci/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
