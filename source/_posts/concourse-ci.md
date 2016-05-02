@@ -22,13 +22,13 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 2. Believable Progress，可信的进度。如果直接部署到线上环境中，项目进展以及完成度相对于开发人员自己声称已经完成要更加的有可信度。
 3. User Feedback，用户反馈。众所周知，项目开发中最大的风险就是开发的软件不被用户接受，这样的软件是没有太大的用处和意义的，尽早和更加频繁地交付给用户并且快速获得用户反馈来获取有价值的内容，从而保证了开发的软件是被用户接受的。
 
-有关CI/CD的更多详细解释可以参见Martin Fowler博客文章[ContinuousDelivery](http://martinfowler.com/bliki/ContinuousDelivery.html)。
+有关CI/CD的更多详细解释可以参见Martin Fowler博客文章[Continuous Delivery](http://martinfowler.com/bliki/ContinuousDelivery.html)。
 
 ----
 
 ### What is Concourse?
 
-> Concourse is a `CI/CD tool` that treats `build pipelines and artifacts as first-class citizens`.
+> [Concourse](https://concourse.ci) is a `CI/CD tool` that treats `build pipelines and artifacts as first-class citizens`.
 > It enables builds that `run in containers`, has a `clean, usable UI and discourages snowflake` build servers.
 > It aims to provide an `expressive system` with as `few distinct moving parts` as possible.
 
@@ -51,7 +51,6 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 对Jobs简单的YML配置示例:
 ![](/assets/concourse-ci/config_yml_demo.png)
 
-
 ----
 
 ### Why is Concourse?
@@ -63,21 +62,21 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 #### vs. GoCD
 ![](/assets/concourse-ci/gocd_pipelines.png)
 
-GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。
+[GoCD](https://www.go.cd/)属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。
 
 除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -> Stages -> jobs -> tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。
 
 而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。
 
-更多关于GoCD的说明请参见[More about GoCD](https://www.go.cd/)
-
 ----
 
 #### vs. Jenkins
+[Jenkins](https://jenkins.io/)
 
 ----
 
 #### vs. Travis CI
+[Travis CI](https://travis-ci.com/)
 
 ----
 
@@ -107,4 +106,5 @@ Bringing some interesting new ideas
 [1] https://concourse.ci
 [2] https://www.go.cd/
 [3] https://jenkins.io/
-[4] https://en.wikipedia.org/wiki/First-class_citizen
+[4] https://travis-ci.com/
+[5] https://en.wikipedia.org/wiki/First-class_citizen
