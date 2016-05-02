@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/standard_pipeline_demo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/config_yml_demo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/concourse-ci/gocd_pipelines.png">
-<meta property="og:updated_time" content="2016-05-02T14:15:07.000Z">
+<meta property="og:updated_time" content="2016-05-02T14:28:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Concourse CI 介绍">
 <meta name="twitter:description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
@@ -320,6 +320,7 @@
 <h4 id="vs-GoCD"><a href="#vs-GoCD" class="headerlink" title="vs. GoCD"></a>vs. GoCD</h4><p><img src="/assets/concourse-ci/gocd_pipelines.png" alt=""></p>
 <p>GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。</p>
 <p>除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -&gt; Stages -&gt; jobs -&gt; tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。</p>
+<p>而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。</p>
 <p>更多关于GoCD的说明请参见<a href="https://www.go.cd/" target="_blank" rel="external">More about GoCD</a></p>
 <hr>
 <h4 id="vs-Jenkins"><a href="#vs-Jenkins" class="headerlink" title="vs. Jenkins"></a>vs. Jenkins</h4><hr>
@@ -349,7 +350,7 @@
         <p><span>本文标题:</span><a href="/concourse-ci/">Concourse CI 介绍</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-04-19 13:02</p>
-        <!--<p><span>最后更新:</span>2016-05-02 22:15</p>-->
+        <!--<p><span>最后更新:</span>2016-05-02 22:28</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/concourse-ci/" title="Concourse CI 介绍">http://blog.waterstrong.me/concourse-ci/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/concourse-ci/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

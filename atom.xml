@@ -85,7 +85,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-05-02T14:15:07.000Z</updated>
+    <updated>2016-05-02T14:28:13.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
@@ -120,6 +120,7 @@
 &lt;h4 id=&quot;vs-GoCD&quot;&gt;&lt;a href=&quot;#vs-GoCD&quot; class=&quot;headerlink&quot; title=&quot;vs. GoCD&quot;&gt;&lt;/a&gt;vs. GoCD&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/gocd_pipelines.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;GoCD属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。&lt;/p&gt;
 &lt;p&gt;除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -&amp;gt; Stages -&amp;gt; jobs -&amp;gt; tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。&lt;/p&gt;
+&lt;p&gt;而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。&lt;/p&gt;
 &lt;p&gt;更多关于GoCD的说明请参见&lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;More about GoCD&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h4 id=&quot;vs-Jenkins&quot;&gt;&lt;a href=&quot;#vs-Jenkins&quot; class=&quot;headerlink&quot; title=&quot;vs. Jenkins&quot;&gt;&lt;/a&gt;vs. Jenkins&lt;/h4&gt;&lt;hr&gt;
@@ -565,8 +566,6 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
@@ -576,6 +575,8 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -655,6 +656,8 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="控制反转" scheme="http://blog.waterstrong.me/tags/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/"/>
     
       <category term="IoC" scheme="http://blog.waterstrong.me/tags/IoC/"/>
@@ -664,8 +667,6 @@
       <category term="依赖注入" scheme="http://blog.waterstrong.me/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://blog.waterstrong.me/tags/SOLID%E5%8E%9F%E5%88%99/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
@@ -747,11 +748,11 @@
       <category term="Libraries" scheme="http://blog.waterstrong.me/categories/Libraries/"/>
     
     
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
       <category term="图形图像" scheme="http://blog.waterstrong.me/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
     
       <category term="DirectX" scheme="http://blog.waterstrong.me/tags/DirectX/"/>
+    
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="OpenCV" scheme="http://blog.waterstrong.me/tags/OpenCV/"/>
     
@@ -785,9 +786,9 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
       <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
+    
+      <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Singleton" scheme="http://blog.waterstrong.me/tags/Singleton/"/>
     
