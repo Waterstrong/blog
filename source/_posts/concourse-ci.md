@@ -8,8 +8,8 @@ description: 目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和
 
 目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April '16的[ThoughtWorks Tech Radar](https://www.thoughtworks.com/radar/tools/concourse-ci)？
 
-### Advantage of CI/CD
-首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下工具才能发挥作用，并且解决项目开发中的痛点问题。
+### Advantages of CI/CD
+首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。
 
 #### Continuous Integration
 Continuous Integration(持续集成). Integrating, building, and testing code within the development environment.
@@ -18,11 +18,13 @@ Continuous Integration(持续集成). Integrating, building, and testing code wi
 Continuous Delivery(持续交付). A software development discipline, build software that can be released to production at any time.
 
 #### CI/CD的好处
-1. Reduced Deployment Risk，降低部署风险，快速提交小部分修改进行部署和集成，从而降低了出现错误的概率，即使出现错误也能快速定位问题并修复。
-2. Believable Progress，可信的进度，如果直接部署到线上环境中，项目进展以及完成度相对于开发人员自己声称已经完成要更加地有可信度。
-3. User Feedback，用户反馈，众所周知，项目开发中最大的风险就是开发的软件不被用户接受，这样的软件是没有太大的用处和意义的，迟早和更加频繁地交付给用户并且快速获得用户反馈来获取有价值的内容。
+1. Reduced Deployment Risk，降低部署风险。快速提交小部分修改进行部署和集成，从而降低了出现错误的概率，即使出现错误也能快速定位问题并修复。
+2. Believable Progress，可信的进度。如果直接部署到线上环境中，项目进展以及完成度相对于开发人员自己声称已经完成要更加的有可信度。
+3. User Feedback，用户反馈。众所周知，项目开发中最大的风险就是开发的软件不被用户接受，这样的软件是没有太大的用处和意义的，尽早和更加频繁地交付给用户并且快速获得用户反馈来获取有价值的内容，从而保证了开发的软件是被用户接受的。
 
 有关CI/CD的更多详细解释可以参见Martin Fowler博客文章[ContinuousDelivery](http://martinfowler.com/bliki/ContinuousDelivery.html)。
+
+----
 
 ### What is Concourse?
 
@@ -30,14 +32,17 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 > It enables builds that `run in containers`, has a `clean, usable UI and discourages snowflake` build servers.
 > It aims to provide an `expressive system` with as `few distinct moving parts` as possible.
 
-ConcourseCI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens，可以译为第一类公民。
+**Concourse CI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens(可译作: 第一类公民)。**
 
 > **First-class Citizens:** In programming language design, a first-class citizen (also type, object, entity, or value) in a given programming language is an entity which supports all the operations generally available to other entities. These operations typically include being passed as an argument, returned from a function, and assigned to a variable.
 
-ConcourseCI本身就与容器结合，构建在容器中运行，隔离各个环境，避免不同环境之间相互污染情况发生。
+*第一类公民：* 即支持其他实体所有操作的实体，比如能够在运行时被构造，能够作为参数或返回值直接被其它实体消费或生成。举个例子，在C语言中，function就不是第一类公民，而在Javascript中function是第一类公民。其中，实体是指各种各样的数据类型和值，比如对象、类、函数、字面量等。
 
-表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，ConcourseCI采用YAML文件配置Pipeline，并且通过版本控制管理起来，移植和恢复都很容易。
+**Concourse CI本身就与容器结合，Build构建在容器中运行，隔离各个环境，避免不同环境之间相互污染情况发生。**
 
+**表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，Concourse CI采用YAML文件配置Pipeline，并且通过版本控制管理起来，很容易地实现移植和恢复。**
+
+----
 
 ### Why is Concourse?
 - Requires a CI/CD Tool
