@@ -565,6 +565,8 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
@@ -574,8 +576,6 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -655,8 +655,6 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="控制反转" scheme="http://blog.waterstrong.me/tags/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/"/>
     
       <category term="IoC" scheme="http://blog.waterstrong.me/tags/IoC/"/>
@@ -666,6 +664,8 @@
       <category term="依赖注入" scheme="http://blog.waterstrong.me/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://blog.waterstrong.me/tags/SOLID%E5%8E%9F%E5%88%99/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
