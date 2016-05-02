@@ -32,15 +32,25 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 > It enables builds that `run in containers`, has a `clean, usable UI and discourages snowflake` build servers.
 > It aims to provide an `expressive system` with as `few distinct moving parts` as possible.
 
+先感受一下Concourse的界面，这是Concourse项目本身的Pipelines:
+![](/assets/concourse-ci/concourse_pipeline.png)
+
 **Concourse CI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens(可译作: 第一类公民)。**
 
 > **First-class Citizens:** In programming language design, a first-class citizen (also type, object, entity, or value) in a given programming language is an entity which supports all the operations generally available to other entities. These operations typically include being passed as an argument, returned from a function, and assigned to a variable.
 
-*第一类公民：* 即支持其他实体所有操作的实体，比如能够在运行时被构造，能够作为参数或返回值直接被其它实体消费或生成。举个例子，在C语言中，function就不是第一类公民，而在Javascript中function是第一类公民。其中，实体是指各种各样的数据类型和值，比如对象、类、函数、字面量等。
+*第一类公民：* 即支持其他实体所有操作的实体，比如能够在运行时被动态创建，能够作为参数或返回值直接被其他实体消费或生成。举个例子，在C语言中，function就不是第一类公民，而在Javascript中function是第一类公民。其中，实体是指各种各样的数据类型和值，比如对象、类、函数、字面量等。
 
 **Concourse CI本身就与容器结合，Build构建在容器中运行，隔离各个环境，避免不同环境之间相互污染情况发生。**
 
 **表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，Concourse CI采用YAML文件配置Pipeline，并且通过版本控制管理起来，很容易地实现移植和恢复。**
+
+下图中展示了一个标准的Pipeline示例，其中的黑色框元素代表资源(Resources)，彩色框元素代表Jobs，会有不同的颜色代表Build的状态，流线代表了依赖和执行顺序，如Integration需要前面所有的Jobs执行成功并且提供相关Resources才能正确触发并执行。
+![](/assets/concourse-ci/standard_pipeline_demo.png)
+
+对Jobs简单的YML配置示例:
+![](/assets/concourse-ci/config_yml_demo.png)
+
 
 ----
 
