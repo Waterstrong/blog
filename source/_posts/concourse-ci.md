@@ -68,12 +68,23 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 
 而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。
 
-----
-
 #### vs. Jenkins
-[Jenkins](https://jenkins.io/)
+![](/assets/concourse-ci/jenkins_dashboard.png)
+![](/assets/concourse-ci/jenkins_plugins.png)
 
-----
+[Jenkins](https://jenkins.io/)作为使用最广泛，用户量最大的CI工具，必定有其可取之处，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得很出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完成满足条件的。
+
+*但Jenkins也有其缺点，比如：*
+- 在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；
+- 另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；
+- Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；
+- 此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，难免会造成一些插件问题导致Build环境被污染。
+
+**针对Jenkins的一些问题，Concourse进行了一些改进，比如：**
+- Snowflakes的情况就采用统一配置YML文件来解决，各Task各工程自己维护，有重复的内容通过提取文件多处引用即可；
+- 通过VCS将这样配置文件进行版本控制管理，在恢复或移植时更加方便，虽然Jenkins和GoCD也有XML配置文件，但通常用于备份，一般的做法也不会进行版本控制，更不会直接去修改文件来实现Pipeline配置；
+- Concourse对于每个Job只定义有效的输入，即哪个Job在什么情况下输出的什么的资源是可以触发当前Job的，即使复杂的Pipeline顺序出现时，配置也很方便，每个Job只关心自己的有效输入，局部优化达到了全局优化，不会造成混乱的感觉；
+- 特别指出的是Concourse的每一个Job构建都在独立的Container中Build，对其他的环境没有影响。
 
 #### vs. Travis CI
 [Travis CI](https://travis-ci.com/)
