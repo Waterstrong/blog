@@ -85,7 +85,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-05-02T14:36:44.000Z</updated>
+    <updated>2016-05-04T05:26:34.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
@@ -121,10 +121,25 @@
 &lt;p&gt;&lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GoCD&lt;/a&gt;属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。&lt;/p&gt;
 &lt;p&gt;除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -&amp;gt; Stages -&amp;gt; jobs -&amp;gt; tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。&lt;/p&gt;
 &lt;p&gt;而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h4 id=&quot;vs-Jenkins&quot;&gt;&lt;a href=&quot;#vs-Jenkins&quot; class=&quot;headerlink&quot; title=&quot;vs. Jenkins&quot;&gt;&lt;/a&gt;vs. Jenkins&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h4 id=&quot;vs-Travis-CI&quot;&gt;&lt;a href=&quot;#vs-Travis-CI&quot; class=&quot;headerlink&quot; title=&quot;vs. Travis CI&quot;&gt;&lt;/a&gt;vs. Travis CI&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;vs-Jenkins&quot;&gt;&lt;a href=&quot;#vs-Jenkins&quot; class=&quot;headerlink&quot; title=&quot;vs. Jenkins&quot;&gt;&lt;/a&gt;vs. Jenkins&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/jenkins_dashboard.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/jenkins_plugins.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins&lt;/a&gt;作为使用最广泛，用户量最大的CI工具，必定有其可取之处，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得很出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完成满足条件的。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;但Jenkins也有其缺点，比如：&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；&lt;/li&gt;
+&lt;li&gt;另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；&lt;/li&gt;
+&lt;li&gt;Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；&lt;/li&gt;
+&lt;li&gt;此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，难免会造成一些插件问题导致Build环境被污染。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;针对Jenkins的一些问题，Concourse进行了一些改进，比如：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Snowflakes的情况就采用统一配置YML文件来解决，各Task各工程自己维护，有重复的内容通过提取文件多处引用即可；&lt;/li&gt;
+&lt;li&gt;通过VCS将这样配置文件进行版本控制管理，在恢复或移植时更加方便，虽然Jenkins和GoCD也有XML配置文件，但通常用于备份，一般的做法也不会进行版本控制，更不会直接去修改文件来实现Pipeline配置；&lt;/li&gt;
+&lt;li&gt;Concourse对于每个Job只定义有效的输入，即哪个Job在什么情况下输出的什么的资源是可以触发当前Job的，即使复杂的Pipeline顺序出现时，配置也很方便，每个Job只关心自己的有效输入，局部优化达到了全局优化，不会造成混乱的感觉；&lt;/li&gt;
+&lt;li&gt;特别指出的是Concourse的每一个Job构建都在独立的Container中Build，对其他的环境没有影响。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;vs-Travis-CI&quot;&gt;&lt;a href=&quot;#vs-Travis-CI&quot; class=&quot;headerlink&quot; title=&quot;vs. Travis CI&quot;&gt;&lt;/a&gt;vs. Travis CI&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/travis_ci_dashboard.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI&lt;/a&gt;其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与Github集成度很好，支持PR。&lt;/p&gt;
+&lt;p&gt;但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。&lt;/p&gt;
+&lt;p&gt;总体说来，对于公司的项目，更倾向于选择GoCD或Jenkins这样的产品，个人的开源项目倒是可以通过Travis CI快速搭建来感受一下。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&quot;Concourse-Concepts&quot;&gt;&lt;a href=&quot;#Concourse-Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Concepts&quot;&gt;&lt;/a&gt;Concourse Concepts&lt;/h3&gt;&lt;p&gt;End Goal: To provide an expressive system with as few distinct moving parts as possible&lt;/p&gt;
 &lt;hr&gt;
@@ -567,6 +582,8 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
@@ -576,8 +593,6 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -657,8 +672,6 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="控制反转" scheme="http://blog.waterstrong.me/tags/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/"/>
     
       <category term="IoC" scheme="http://blog.waterstrong.me/tags/IoC/"/>
@@ -668,6 +681,8 @@
       <category term="依赖注入" scheme="http://blog.waterstrong.me/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://blog.waterstrong.me/tags/SOLID%E5%8E%9F%E5%88%99/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
@@ -749,11 +764,11 @@
       <category term="Libraries" scheme="http://blog.waterstrong.me/categories/Libraries/"/>
     
     
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
       <category term="图形图像" scheme="http://blog.waterstrong.me/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
     
       <category term="DirectX" scheme="http://blog.waterstrong.me/tags/DirectX/"/>
+    
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="OpenCV" scheme="http://blog.waterstrong.me/tags/OpenCV/"/>
     
@@ -787,9 +802,9 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
       <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
+    
+      <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Singleton" scheme="http://blog.waterstrong.me/tags/Singleton/"/>
     
