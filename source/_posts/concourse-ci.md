@@ -97,16 +97,30 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 ----
 
 ### Concourse Concepts
-End Goal: To provide an expressive system with as few distinct moving parts as possible
+Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可以对任何的Pipeline进行建模，从简单的unit->integration->deploy->ship到复杂的多基础设施, fanning out/in等。
+
+1. Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如Github上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见[Customer Resource Types](http://concourse.ci/resource-types.html)
+![](/assets/concourse-ci/concourse_resources.png)
+
+2. Jobs: Job是某个有计划有条件的工作任务，描述了一些依赖资源或手动触发的行为，当提交了代码就触发Build，或Unit Test通过后触发了Intg Test等。
+
+3. Tasks: Task就是在隔离环境中依赖于资源的某个脚本执行，如build, test等，Job其实封装了Task，Job更侧重于描述什么情况下发生，而Task重点描述发生什么。
 
 ----
 
 ### Concourse Architecture
 
+ATC: web UI & build scheduler, 相当于Concourse的心脏，PostgreSQL ,  locking
+
+TSA: worker registration & forwarding
+
+Workers: container runtime & cache management
+
 ----
 
 ### Concourse Impacts
 Bringing some interesting new ideas
+
 - Pluggable Resource Interface
 - Running builds in Containers Natively
 - Zero Snowflake-able Configuration
@@ -120,7 +134,11 @@ Bringing some interesting new ideas
 ----
 
 [1] https://concourse.ci
+
 [2] https://www.go.cd/
+
 [3] https://jenkins.io/
+
 [4] https://travis-ci.com/
+
 [5] https://en.wikipedia.org/wiki/First-class_citizen
