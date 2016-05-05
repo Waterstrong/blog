@@ -131,6 +131,83 @@ Bringing some interesting new ideas
 
 ### Using Concourse
 
+使用Concourse不会过多作介绍，后续会有专门针对如何使用Concourse的详细教程，本博客中只简单介绍一下流程:
+
+#### Step1. Install and Setup
+通常安装和运行Concourse有三种方式，任选一种方式尝试安装并启动：
+
+- Local VM with Vagrant
+- Standalone Binaries
+- Clusters with BOSH
+
+首先我们在本地采用最快捷的Vagrant方式安装，运行以下命令：
+
+```
+vagrant init concourse/lite  # creates ./Vagrantfile
+vagrant up  # downloads the box and spins up the VM
+```
+
+然后Concourse服务已经开始运行了，通过[192.168.100.4:8080](http://192.168.100.4:8080)地址进行访问。
+![](/assets/concourse-ci/no_pipeline.png)
+
+如果提示需要更新升级，可以尝试运行以下命令：
+
+```
+vagrant box update --box concourse/lite # gets the newest Vagrant box
+vagrant destroy                         # remove the old Vagrant box
+vagrant up                              # re-create the machine with the newer box
+```
+
+但针对线上环境，不推荐Vagrant方式安装，Vagrant用于学习目的，快速掌握Concourse工作方式还是不错的选择，如果针对线上产品的项目，可以尝试采用后两种方式安装，更多安装介绍请参见[Concourse Installing](http://concourse.ci/installing.html)。
+
+当安装Concourse完成后，还需要在本地下载[the Fly CLI](http://concourse.ci/fly-cli.html). 也可以访问Concourse主界面，然后点击Fly CLI链接进入下载页。
+
+针对Linux和Mac OS X系统，首先需要给下载的FLY CLI文件添加执行权限，然后安装到系统并添加到$PATH中：
+
+```
+chmod +x fly
+install fly /usr/local/bin/fly
+```
+
+#### Step2. Using *.yml to describe pipeline
+
+
+#### Step3. Push to Concourse
+
+如果使用的是Vagrant安装方式，我们可以尝试登录到本地VirutalBox中：
+
+```
+fly -t lite login -c http://192.168.100.4:8080
+```
+当前已经保存了名为`lite`的目标，会在以后的多个命令行中使用，`-t`代表目标名(Target Name)。
+
+当准备好`hello.yml`后，可以通过以下命令设置Pipelilne：
+
+```
+fly -t lite set-pipeline -p hello-world -c hello.yml
+```
+
+然后刷新Concourse主页面，可以看到已经设置好一个简单的Hello World的Pipeline了。
+![pic]()
+
+该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：
+
+```
+fly -t lite unpause-pipeline -p hello-world
+```
+
+也可以通过命令查看当前Pipeline的配置：
+
+```
+fly -t lite get-pipeline -p hello-world
+```
+
+该Pipeline非常简单，只有单一的`Job`，整个计划中只有一个`Task`，可以看到`Task`执行成功后的快照：
+
+[pic]()
+
+更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[Github的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
+
 ----
 
 [1] https://concourse.ci
@@ -142,3 +219,5 @@ Bringing some interesting new ideas
 [4] https://travis-ci.com/
 
 [5] https://en.wikipedia.org/wiki/First-class_citizen
+
+[6] https://github.com/starkandwayne/concourse-tutorial
