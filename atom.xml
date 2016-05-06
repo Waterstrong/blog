@@ -85,7 +85,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-05-04T05:26:34.000Z</updated>
+    <updated>2016-05-06T12:31:42.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
@@ -141,9 +141,20 @@
 &lt;p&gt;但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。&lt;/p&gt;
 &lt;p&gt;总体说来，对于公司的项目，更倾向于选择GoCD或Jenkins这样的产品，个人的开源项目倒是可以通过Travis CI快速搭建来感受一下。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h3 id=&quot;Concourse-Concepts&quot;&gt;&lt;a href=&quot;#Concourse-Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Concepts&quot;&gt;&lt;/a&gt;Concourse Concepts&lt;/h3&gt;&lt;p&gt;End Goal: To provide an expressive system with as few distinct moving parts as possible&lt;/p&gt;
+&lt;h3 id=&quot;Concourse-Concepts&quot;&gt;&lt;a href=&quot;#Concourse-Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Concepts&quot;&gt;&lt;/a&gt;Concourse Concepts&lt;/h3&gt;&lt;p&gt;Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可以对任何的Pipeline进行建模，从简单的unit-&amp;gt;integration-&amp;gt;deploy-&amp;gt;ship到复杂的多基础设施, fanning out/in等。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如Github上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见&lt;a href=&quot;http://concourse.ci/resource-types.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Customer Resource Types&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/concourse_resources.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Jobs: Job是某个有计划有条件的工作任务，描述了一些依赖资源或手动触发的行为，当提交了代码就触发Build，或Unit Test通过后触发了Intg Test等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Tasks: Task就是在隔离环境中依赖于资源的某个脚本执行，如build, test等，Job其实封装了Task，Job更侧重于描述什么情况下发生，而Task重点描述发生什么。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 &lt;hr&gt;
-&lt;h3 id=&quot;Concourse-Architecture&quot;&gt;&lt;a href=&quot;#Concourse-Architecture&quot; class=&quot;headerlink&quot; title=&quot;Concourse Architecture&quot;&gt;&lt;/a&gt;Concourse Architecture&lt;/h3&gt;&lt;hr&gt;
+&lt;h3 id=&quot;Concourse-Architecture&quot;&gt;&lt;a href=&quot;#Concourse-Architecture&quot; class=&quot;headerlink&quot; title=&quot;Concourse Architecture&quot;&gt;&lt;/a&gt;Concourse Architecture&lt;/h3&gt;&lt;p&gt;ATC: web UI &amp;amp; build scheduler, 相当于Concourse的心脏，PostgreSQL ,  locking&lt;/p&gt;
+&lt;p&gt;TSA: worker registration &amp;amp; forwarding&lt;/p&gt;
+&lt;p&gt;Workers: container runtime &amp;amp; cache management&lt;/p&gt;
+&lt;hr&gt;
 &lt;h3 id=&quot;Concourse-Impacts&quot;&gt;&lt;a href=&quot;#Concourse-Impacts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Impacts&quot;&gt;&lt;/a&gt;Concourse Impacts&lt;/h3&gt;&lt;p&gt;Bringing some interesting new ideas&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Pluggable Resource Interface&lt;/li&gt;
@@ -153,8 +164,45 @@
 &lt;li&gt;&lt;a href=&quot;https://www.cloudfoundry.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cloud Foundry&lt;/a&gt;: Run on diff architectures, diff platforms, against varying underlying IaaSs&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h3 id=&quot;Using-Concourse&quot;&gt;&lt;a href=&quot;#Using-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Using Concourse&quot;&gt;&lt;/a&gt;Using Concourse&lt;/h3&gt;&lt;hr&gt;
-&lt;p&gt;[1] &lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://concourse.ci&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.go.cd/&lt;/a&gt;&lt;br&gt;[3] &lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jenkins.io/&lt;/a&gt;&lt;br&gt;[4] &lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://travis-ci.com/&lt;/a&gt;&lt;br&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/First-class_citizen&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/wiki/First-class_citizen&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Using-Concourse&quot;&gt;&lt;a href=&quot;#Using-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Using Concourse&quot;&gt;&lt;/a&gt;Using Concourse&lt;/h3&gt;&lt;p&gt;使用Concourse不会过多作介绍，后续会有专门针对如何使用Concourse的详细教程，本博客中只简单介绍一下流程:&lt;/p&gt;
+&lt;h4 id=&quot;Step1-Install-and-Setup&quot;&gt;&lt;a href=&quot;#Step1-Install-and-Setup&quot; class=&quot;headerlink&quot; title=&quot;Step1. Install and Setup&quot;&gt;&lt;/a&gt;Step1. Install and Setup&lt;/h4&gt;&lt;p&gt;通常安装和运行Concourse有三种方式，任选一种方式尝试安装并启动：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Local VM with Vagrant&lt;/li&gt;
+&lt;li&gt;Standalone Binaries&lt;/li&gt;
+&lt;li&gt;Clusters with BOSH&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先我们在本地采用最快捷的Vagrant方式安装，运行以下命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vagrant init concourse/lite  # creates ./Vagrantfile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant up  # downloads the box and spins up the VM&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后Concourse服务已经开始运行了，通过&lt;a href=&quot;http://192.168.100.4:8080&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;192.168.100.4:8080&lt;/a&gt;地址进行访问。&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/no_pipeline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果提示需要更新升级，可以尝试运行以下命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vagrant box update --box concourse/lite # gets the newest Vagrant box&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant destroy                         # remove the old Vagrant box&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant up                              # re-create the machine with the newer box&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;但针对线上环境，不推荐Vagrant方式安装，Vagrant用于学习目的，快速掌握Concourse工作方式还是不错的选择，如果针对线上产品的项目，可以尝试采用后两种方式安装，更多安装介绍请参见&lt;a href=&quot;http://concourse.ci/installing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse Installing&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;当安装Concourse完成后，还需要在本地下载&lt;a href=&quot;http://concourse.ci/fly-cli.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;the Fly CLI&lt;/a&gt;. 也可以访问Concourse主界面，然后点击Fly CLI链接进入下载页。&lt;/p&gt;
+&lt;p&gt;针对Linux和Mac OS X系统，首先需要给下载的FLY CLI文件添加执行权限，然后安装到系统并添加到$PATH中：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chmod +x fly&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;install fly /usr/local/bin/fly&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;Step2-Using-yml-to-describe-pipeline&quot;&gt;&lt;a href=&quot;#Step2-Using-yml-to-describe-pipeline&quot; class=&quot;headerlink&quot; title=&quot;Step2. Using *.yml to describe pipeline&quot;&gt;&lt;/a&gt;Step2. Using *.yml to describe pipeline&lt;/h4&gt;&lt;p&gt;为了创建一个Pipeline，首先在创建名为&lt;code&gt;hello.yml&lt;/code&gt;的文件，并写入以下内容:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jobs:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- name: hello-world&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  plan:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - task: say-hello&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    config:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      platform: linux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      image_resource:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        type: docker-image&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        source: &amp;#123;repository: ubuntu&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      run:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        path: echo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        args: [&amp;quot;Hello, world!&amp;quot;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;Step3-Push-to-Concourse&quot;&gt;&lt;a href=&quot;#Step3-Push-to-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Step3. Push to Concourse&quot;&gt;&lt;/a&gt;Step3. Push to Concourse&lt;/h4&gt;&lt;p&gt;如果使用的是Vagrant安装方式，我们可以尝试登录到本地VirutalBox中：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite login -c http://192.168.100.4:8080&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当前已经保存了名为&lt;code&gt;lite&lt;/code&gt;的目标，会在以后的多个命令行中使用，&lt;code&gt;-t&lt;/code&gt;代表目标名(Target Name)。&lt;/p&gt;
+&lt;p&gt;当准备好&lt;code&gt;hello.yml&lt;/code&gt;后，可以通过以下命令设置Pipelilne：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite set-pipeline -p hello-world -c hello.yml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后刷新Concourse主页面，可以看到已经设置好一个简单的Hello World的Pipeline了。&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/hello_demo_pipeline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite unpause-pipeline -p hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也可以通过命令查看当前Pipeline的配置：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite get-pipeline -p hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;该Pipeline非常简单，只有单一的&lt;code&gt;Job&lt;/code&gt;，整个计划中只有一个&lt;code&gt;Task&lt;/code&gt;，可以看到&lt;code&gt;Task&lt;/code&gt;执行过程的快照：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/hello_run_build.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;更多示例教程可以参见&lt;a href=&quot;http://concourse.ci/tutorials.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse官网Demo&lt;/a&gt;或&lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github的Concourse教程&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;Concourse-Assess&quot;&gt;&lt;a href=&quot;#Concourse-Assess&quot; class=&quot;headerlink&quot; title=&quot;Concourse Assess&quot;&gt;&lt;/a&gt;Concourse Assess&lt;/h2&gt;&lt;p&gt;虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Concerns 1: 与其他CI/CD以GUI进行配置的方式不同，虽然Build和Pipeline的UI可视化效果很不错，但在配置上采用了YML文件，且需要使用FLY命令行的方式进行交互，因此要求记住一些规则、关键字和相关命令，这样势必增加了学习成本。&lt;/li&gt;
+&lt;li&gt;Concerns 2: 因为Concourse作为新产品新工具，稳定性、易用行、扩展性等各方面还有待市场和用户的大量验证，当然，如果Concourse确实能够带来更多方便和更多新思路，并且解决了用户的真正痛点问题，那么，相信其未来一定是非常光明的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;至于目前选择用哪款工具，其实需要根据团队和项目的情况来平衡选择的，有兴趣喜欢尝鲜的同学倒是可以折腾下，还是很有意思的。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;[1] &lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://concourse.ci&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.go.cd/&lt;/a&gt;&lt;br&gt;[3] &lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jenkins.io/&lt;/a&gt;&lt;br&gt;[4] &lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://travis-ci.com/&lt;/a&gt;&lt;br&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/First-class_citizen&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/wiki/First-class_citizen&lt;/a&gt;&lt;br&gt;[6] &lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/starkandwayne/concourse-tutorial&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -582,8 +630,6 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
@@ -593,6 +639,8 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -672,6 +720,8 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="控制反转" scheme="http://blog.waterstrong.me/tags/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/"/>
     
       <category term="IoC" scheme="http://blog.waterstrong.me/tags/IoC/"/>
@@ -681,8 +731,6 @@
       <category term="依赖注入" scheme="http://blog.waterstrong.me/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://blog.waterstrong.me/tags/SOLID%E5%8E%9F%E5%88%99/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
@@ -764,11 +812,11 @@
       <category term="Libraries" scheme="http://blog.waterstrong.me/categories/Libraries/"/>
     
     
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
+    
       <category term="图形图像" scheme="http://blog.waterstrong.me/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
     
       <category term="DirectX" scheme="http://blog.waterstrong.me/tags/DirectX/"/>
-    
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="OpenCV" scheme="http://blog.waterstrong.me/tags/OpenCV/"/>
     
@@ -802,9 +850,9 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
       <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
     
       <category term="Singleton" scheme="http://blog.waterstrong.me/tags/Singleton/"/>
     
