@@ -170,6 +170,22 @@ install fly /usr/local/bin/fly
 ```
 
 #### Step2. Using *.yml to describe pipeline
+为了创建一个Pipeline，首先在创建名为`hello.yml`的文件，并写入以下内容:
+
+```
+jobs:
+- name: hello-world
+  plan:
+  - task: say-hello
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      run:
+        path: echo
+        args: ["Hello, world!"]
+```
 
 
 #### Step3. Push to Concourse
