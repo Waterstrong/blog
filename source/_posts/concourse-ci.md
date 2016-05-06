@@ -224,6 +224,14 @@ fly -t lite get-pipeline -p hello-world
 
 更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[Github的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
 
+## Concourse Assess
+虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:
+
+- Concerns 1: 与其他CI/CD以GUI进行配置的方式不同，虽然Build和Pipeline的UI可视化效果很不错，但在配置上采用了YML文件，且需要使用FLY命令行的方式进行交互，因此要求记住一些规则、关键字和相关命令，这样势必增加了学习成本。
+- Concerns 2: 因为Concourse作为新产品新工具，稳定性、易用行、扩展性等各方面还有待市场和用户的大量验证，当然，如果Concourse确实能够带来更多方便和更多新思路，并且解决了用户的真正痛点问题，那么，相信其未来一定是非常光明的。
+
+至于目前选择用哪款工具，其实需要根据团队和项目的情况来平衡选择的，有兴趣喜欢尝鲜的同学倒是可以折腾下，还是很有意思的。
+
 ----
 
 [1] https://concourse.ci
