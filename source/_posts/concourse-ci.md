@@ -188,7 +188,7 @@ fly -t lite set-pipeline -p hello-world -c hello.yml
 ```
 
 然后刷新Concourse主页面，可以看到已经设置好一个简单的Hello World的Pipeline了。
-![pic]()
+![](/assets/concourse-ci/hello_demo_pipeline.png)
 
 该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：
 
@@ -202,22 +202,17 @@ fly -t lite unpause-pipeline -p hello-world
 fly -t lite get-pipeline -p hello-world
 ```
 
-该Pipeline非常简单，只有单一的`Job`，整个计划中只有一个`Task`，可以看到`Task`执行成功后的快照：
+该Pipeline非常简单，只有单一的`Job`，整个计划中只有一个`Task`，可以看到`Task`执行过程的快照：
 
-[pic]()
+![](/assets/concourse-ci/hello_run_build.png)
 
 更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[Github的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
 
 ----
 
 [1] https://concourse.ci
-
 [2] https://www.go.cd/
-
 [3] https://jenkins.io/
-
 [4] https://travis-ci.com/
-
 [5] https://en.wikipedia.org/wiki/First-class_citizen
-
 [6] https://github.com/starkandwayne/concourse-tutorial
