@@ -119,13 +119,15 @@ Workers: container runtime & cache management
 ----
 
 ### Concourse Impacts
-Bringing some interesting new ideas
+之所以要介绍Concourse，是因为Concourse带了一些新思路和想法，提供了另一个看待CI/CD的视角。
 
-- Pluggable Resource Interface
-- Running builds in Containers Natively
-- Zero Snowflake-able Configuration
-- Submitting builds from the local file system up to run in CI
-- [Cloud Foundry](https://www.cloudfoundry.org/): Run on diff architectures, diff platforms, against varying underlying IaaSs
+- Pluggable Resource Interface: 把操作对象看待资源，提供对资源访问的可接口，达到松耦合的目的
+- Running builds in Containers Natively: 本身就支持在容器中运行构建，隔离不同环境
+- Zero Snowflake-able Configuration: 没有雪花式的配置，可以重用相同的配置，通过版本控制管理，快速恢复和移植
+- Submitting builds from the local file system up to run in CI: 通过本地配置文件提交构建到CI中运行，每个项目单独管理Build，降低维护成本
+- [Cloud Foundry](https://www.cloudfoundry.org/): Run on diff architectures, diff platforms, against varying underlying IaaSs: Cloud Foundry是一款PaaS平台即服务产品，为了解决Cloud Foundry的CI/CD问题才开发出Concourse，些类项目需要运行在不同的架构，不同的平台以及不同的基础设施中，因此Pipeline会相当复杂，而Concourse在配置这样复杂的Pipeline的时候表现得更加令人满意。
+
+总得来说，Concourse带来了新的思路，并且与当下流行的Container技术结合，同样在支持PaaS项目的CI/CD时显得略胜一筹。
 
 ----
 
@@ -187,6 +189,7 @@ jobs:
         args: ["Hello, world!"]
 ```
 
+关于定义Pipeline的更多内容可参见[Pipelines](http://concourse.ci/pipelines.html)。
 
 #### Step3. Push to Concourse
 
@@ -224,7 +227,7 @@ fly -t lite get-pipeline -p hello-world
 
 更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[Github的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
 
-## Concourse Assess
+### Concourse Assess
 虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:
 
 - Concerns 1: 与其他CI/CD以GUI进行配置的方式不同，虽然Build和Pipeline的UI可视化效果很不错，但在配置上采用了YML文件，且需要使用FLY命令行的方式进行交互，因此要求记住一些规则、关键字和相关命令，这样势必增加了学习成本。
