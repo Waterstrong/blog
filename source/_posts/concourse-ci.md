@@ -109,12 +109,18 @@ Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可
 ----
 
 ### Concourse Architecture
+Concourse架构属于一种简单的分布式系统，其三大核心部件分别为: `ATC`, `TSA`和`Workers`，接下来将分别进行介绍。
 
-ATC: web UI & build scheduler, 相当于Concourse的心脏，PostgreSQL ,  locking
+#### ATC: web UI & build scheduler
+ATC主要用于运行Web UI和API以及所有Pipeline构建计划的，属于Concourse的心脏，占据了极其重要的位置。采用PostgreSQL数据库存储Pipeline数据和构建日志。
 
-TSA: worker registration & forwarding
+多个ATCs可以作为一个集群运行，各个ATC都共享一个数据库，ATC通过加锁机制在集群之间同步与传输数据。
 
-Workers: container runtime & cache management
+ATC默认监听8080端口，通常与`TSA`一起处于负载均衡(Load Balancer)之后，为了实现正常拦截([Intercept](http://concourse.ci/fly-intercept.html))构建(Build)的功能，需要确保Load Balancer被正确配置到了TCP或SSL转发，而非HTTP或HTTPS。
+
+#### TSA: worker registration & forwarding
+
+#### Workers: container runtime & cache management
 
 ----
 
