@@ -119,6 +119,12 @@ ATC主要用于运行Web UI和API以及所有Pipeline构建计划的，属于Con
 ATC默认监听8080端口，通常与`TSA`一起处于负载均衡(Load Balancer)之后，为了实现正常拦截([Intercept](http://concourse.ci/fly-intercept.html))构建(Build)的功能，需要确保Load Balancer被正确配置到了TCP或SSL转发，而非HTTP或HTTPS。
 
 #### TSA: worker registration & forwarding
+TSA是`ATC`定制的SSH服务器，仅用于安全地注册`Workers`，仅支持两个命令`register-worker`和`forward-worker`。
+
+- register-worker命令用于为ATC直接注册在同一私有网络中运行的worker。
+- forward-worker命令用于通过TSA反向隧道worker的地址，然后为ATC注册转发连接。这样只要workers能够连接到TSA，就可以运行在任意网络且安全地实现注册功能，ATC也就可以安全地连接到worker，该方式把worker与外界环境进行隔离，只有通过授权后才能访问，从而提高了其安全性。
+
+TSA默认监听2222端口，通常与ATC协同工作运行在Load Balancer的之后。
 
 #### Workers: container runtime & cache management
 
