@@ -72,7 +72,7 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 ![](/assets/concourse-ci/jenkins_dashboard.png)
 ![](/assets/concourse-ci/jenkins_plugins.png)
 
-[Jenkins](https://jenkins.io/)作为使用最广泛，用户量最大的CI工具，必定有其可取之处，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得很出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完成满足条件的。
+[Jenkins](https://jenkins.io/)作为使用最广泛，用户量最大的CI工具，必定有其可取之处，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得很出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。
 
 *但Jenkins也有其缺点，比如：*
 - 在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；
@@ -87,7 +87,7 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 - 特别指出的是Concourse的每一个Job构建都在独立的Container中Build，对其他的环境没有影响。
 
 #### vs. Travis CI
-![](/assets/concourse-ci/travis_ci_dashboard.png)
+
 [Travis CI](https://travis-ci.com/)其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与Github集成度很好，支持PR。
 
 但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。
@@ -111,7 +111,7 @@ Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可
 ### Concourse Architecture
 Concourse架构属于一种简单的分布式系统，其三大核心部件分别为: `ATC`, `TSA`和`Workers`，接下来将分别进行介绍。
 
-![picture]()
+![](/assets/concourse-ci/architecture.png)
 
 #### ATC: web UI & build scheduler
 ATC主要用于运行Web UI和API以及所有Pipeline构建计划的，属于Concourse的心脏，占据了极其重要的位置。采用PostgreSQL数据库存储Pipeline数据和构建日志。
