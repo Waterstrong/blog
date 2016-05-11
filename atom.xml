@@ -85,7 +85,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-05-09T12:29:18.000Z</updated>
+    <updated>2016-05-11T13:44:14.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
@@ -247,7 +247,7 @@
     <link href="http://blog.waterstrong.me/aws-ec2-vpn/"/>
     <id>http://blog.waterstrong.me/aws-ec2-vpn/</id>
     <published>2016-04-13T15:30:52.000Z</published>
-    <updated>2016-04-26T15:19:22.000Z</updated>
+    <updated>2016-05-11T13:44:14.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。&lt;/p&gt;
 &lt;p&gt;而且自己搭建VPN有诸多好处:&lt;/p&gt;
@@ -351,7 +351,7 @@
     <link href="http://blog.waterstrong.me/aws-ec2-basic/"/>
     <id>http://blog.waterstrong.me/aws-ec2-basic/</id>
     <published>2016-04-11T04:00:08.000Z</published>
-    <updated>2016-04-26T15:18:20.000Z</updated>
+    <updated>2016-05-11T13:44:14.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h4 id=&quot;什么是Amazon-EC2&quot;&gt;&lt;a href=&quot;#什么是Amazon-EC2&quot; class=&quot;headerlink&quot; title=&quot;什么是Amazon EC2&quot;&gt;&lt;/a&gt;什么是Amazon EC2&lt;/h4&gt;&lt;blockquote&gt;
 &lt;p&gt;Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) cloud.&lt;/p&gt;
@@ -547,8 +547,6 @@
       <category term="Techniques" scheme="http://blog.waterstrong.me/categories/Techniques/"/>
     
     
-      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
-    
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
       <category term="Transaction" scheme="http://blog.waterstrong.me/tags/Transaction/"/>
@@ -556,6 +554,8 @@
       <category term="ACID特性" scheme="http://blog.waterstrong.me/tags/ACID%E7%89%B9%E6%80%A7/"/>
     
       <category term="XA协议" scheme="http://blog.waterstrong.me/tags/XA%E5%8D%8F%E8%AE%AE/"/>
+    
+      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     
       <category term="锁机制" scheme="http://blog.waterstrong.me/tags/%E9%94%81%E6%9C%BA%E5%88%B6/"/>
     
@@ -644,6 +644,8 @@
       <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
     
     
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
+    
       <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
     
       <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
@@ -653,8 +655,6 @@
       <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
@@ -775,8 +775,6 @@
       <category term="Frameworks" scheme="http://blog.waterstrong.me/categories/Frameworks/"/>
     
     
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
       <category term="MyBatis" scheme="http://blog.waterstrong.me/tags/MyBatis/"/>
     
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
@@ -784,6 +782,8 @@
       <category term="持久层框架" scheme="http://blog.waterstrong.me/tags/%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/"/>
     
       <category term="动态SQL" scheme="http://blog.waterstrong.me/tags/%E5%8A%A8%E6%80%81SQL/"/>
+    
+      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   

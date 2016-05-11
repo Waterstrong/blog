@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
+    
+    <lastmod>2016-05-11T13:44:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
+    
+    <lastmod>2016-05-11T13:44:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/concourse-ci/</loc>
     
-    <lastmod>2016-05-09T12:29:18.000Z</lastmod>
+    <lastmod>2016-05-11T13:44:14.000Z</lastmod>
     
   </url>
   
@@ -30,14 +44,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
+    <loc>http://blog.waterstrong.me/code-your-ioc/</loc>
     
     <lastmod>2016-04-26T15:22:37.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/code-your-ioc/</loc>
+    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
     
     <lastmod>2016-04-26T15:22:37.000Z</lastmod>
     
@@ -65,20 +79,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
-    
-    <lastmod>2016-04-26T15:19:22.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
-    
-    <lastmod>2016-04-26T15:18:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
@@ -93,13 +93,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/archives/index.html</loc>
-    
-    <lastmod>2016-04-23T00:14:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/categories/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
@@ -107,7 +100,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/archives/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
@@ -115,6 +108,13 @@
   
   <url>
     <loc>http://blog.waterstrong.me/mofunshow/index.html</loc>
+    
+    <lastmod>2016-04-23T00:14:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/tags/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
