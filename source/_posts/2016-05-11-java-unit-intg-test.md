@@ -1,15 +1,20 @@
 ---
-title: Java Unit & Integration Test in Spring Boot
+title: Java单元和集成测试配置
 date: 2016-05-11 21:47:36
-category:
-tags:
-description:
-published: false
+category: Frameworks
+tags: [Java, Spring Boot, Gradle, IntelliJ, Unit Test, Integration Test]
+description: 基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式。
 ---
 
-基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test有多种方式，介绍两种:
+基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式，介绍两种:
 
-1. Method One
+### 方法一: use another source set
+
+假设在IntelliJ中创建好如下Tree结构:
+![](/assets/java-unit-intg-test/java_project_tree.png)
+
+Add into the source sets
+
 ```
 sourceSets {
     main {
@@ -25,6 +30,7 @@ sourceSets {
     }
 }
 ```
+Add into the idea intelliJ
 
 ```
 idea {
@@ -33,6 +39,8 @@ idea {
     }
 }
 ```
+
+Apply the dependencies for integration test
 
 ```
 dependencies {
@@ -47,16 +55,21 @@ dependencies {
 }
 ```
 
+Create the integrationTest task
+
 ```
 task integrationTest(type: Test) {
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
-check.dependsOn integrationTest
+build.dependsOn integrationTest
 ```
 
-2. Method Two
+### 方法二: use the same source set as test
+
+Add into the source sets
+
 ```
 sourceSets {
     main {
@@ -70,11 +83,15 @@ sourceSets {
 }
 ```
 
+Exclude the test classes
+
 ```
 test {
     exclude '**/*Test.class'
 }
 ```
+
+Add the dependencies for test
 
 ```
 dependencies {
@@ -84,6 +101,8 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 ```
+
+Create the unitTest and integrationTest tasks
 
 ```
 task unitTest(type: Test) {
@@ -98,7 +117,7 @@ check.dependsOn unitTest
 check.dependsOn integrationTest
 ```
 
-### 实现
+### 集成测试实现Demo
 
 ``` ApplicationIntegrationTest.java
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -136,8 +155,7 @@ public class XXXControllerIntegrationTest extends ApplicationIntegrationTest {
 }
 ```
 
-
-Unit test
+### 单元测试实现Demo
 
 ``` DefaultXxxServiceTest.java
 public class DefaultXxxServiceTest {
