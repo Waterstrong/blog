@@ -113,11 +113,11 @@ task integrationTest(type: Test) {
     include '**/intg/*IntegrationTest.class'
 }
 
-check.dependsOn unitTest
-check.dependsOn integrationTest
+build.dependsOn unitTest
+build.dependsOn integrationTest
 ```
 
-### 集成测试实现Demo
+### 集成测试实现DEMO
 
 ``` ApplicationIntegrationTest.java
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -155,7 +155,9 @@ public class XXXControllerIntegrationTest extends ApplicationIntegrationTest {
 }
 ```
 
-### 单元测试实现Demo
+### 单元测试实现DEMO
+
+单元测试采用JUnit和Mockito测试框架实现.
 
 ``` DefaultXxxServiceTest.java
 public class DefaultXxxServiceTest {
@@ -182,3 +184,12 @@ public class DefaultXxxServiceTest {
     }
 }
 ```
+
+### Run unit test
+`./gradlew unitTest`, it depends on `build` task.
+
+### Run integration test
+`./gradlew integrationTest` or `./gradlew iT`, it depends on `build` task.
+
+### Run build exclude integration test
+`./gradlew build -x integrationTest` or `./gradlew build -x iT`
