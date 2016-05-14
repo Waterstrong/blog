@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/java-unit-intg-test/</loc>
+    
+    <lastmod>2016-05-14T14:47:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
+    
+    <lastmod>2016-05-11T13:44:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
     
     <lastmod>2016-05-11T13:44:14.000Z</lastmod>
@@ -10,13 +24,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
-    
-    <lastmod>2016-05-11T13:44:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
     
     <lastmod>2016-05-11T13:44:14.000Z</lastmod>
     
@@ -86,6 +93,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/archives/index.html</loc>
+    
+    <lastmod>2016-04-23T00:14:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/about/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
@@ -94,13 +108,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/categories/index.html</loc>
-    
-    <lastmod>2016-04-23T00:14:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/archives/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
