@@ -8,10 +8,10 @@ description: 基于Spring Boot搭建一个Java工程，通过Gradle进行构建�
 
 基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式，介绍两种:
 
-### 方法一: use another source set
-
 假设在IntelliJ中创建好如下Tree结构:
 ![](/assets/java-unit-intg-test/java_project_tree.png)
+
+### 方法一: use another source set
 
 Add into the source sets
 
@@ -77,8 +77,8 @@ sourceSets {
         resources.srcDirs = ['src/main/resources']
     }
     test {
-        java.srcDirs = ['src/test/unit/java', 'src/test/intg/java']
-        resources.srcDirs = ['src/test/unit/resources', 'src/test/intg/resources']
+        java.srcDirs = ['src/test/java', 'src/integrationTest/java']
+        resources.srcDirs = ['src/test/resources', 'src/integrationTest/resources']
     }
 }
 ```
@@ -87,7 +87,7 @@ Exclude the test classes
 
 ```
 test {
-    exclude '**/*Test.class'
+    exclude '**/*IntegrationTest.class'
 }
 ```
 
@@ -102,18 +102,13 @@ dependencies {
 }
 ```
 
-Create the unitTest and integrationTest tasks
+Create the integrationTest tasks
 
 ```
-task unitTest(type: Test) {
-    include '**/unit/*Test.class'
-}
-
 task integrationTest(type: Test) {
-    include '**/intg/*IntegrationTest.class'
+    include '**/*IntegrationTest.class'
 }
 
-build.dependsOn unitTest
 build.dependsOn integrationTest
 ```
 
@@ -186,7 +181,7 @@ public class DefaultXxxServiceTest {
 ```
 
 ### Run unit test
-`./gradlew unitTest`, it depends on `build` task.
+`./gradlew test`, it depends on `build` task.
 
 ### Run integration test
 `./gradlew integrationTest` or `./gradlew iT`, it depends on `build` task.
