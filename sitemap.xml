@@ -4,7 +4,7 @@
   <url>
     <loc>http://blog.waterstrong.me/java-unit-intg-test/</loc>
     
-    <lastmod>2016-05-15T02:20:36.000Z</lastmod>
+    <lastmod>2016-05-15T02:34:55.000Z</lastmod>
     
   </url>
   
@@ -51,13 +51,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
-    
-    <lastmod>2016-04-26T15:22:37.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/code-your-ioc/</loc>
     
     <lastmod>2016-04-26T15:22:37.000Z</lastmod>
@@ -65,14 +58,21 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mybatis-in-practice/</loc>
+    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
+    
+    <lastmod>2016-04-26T15:22:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/jboss-tips/</loc>
     
     <lastmod>2016-04-26T15:20:20.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/jboss-tips/</loc>
+    <loc>http://blog.waterstrong.me/mybatis-in-practice/</loc>
     
     <lastmod>2016-04-26T15:20:20.000Z</lastmod>
     
@@ -86,7 +86,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me//404.html</loc>
+    <loc>http://blog.waterstrong.me/mofunshow/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
@@ -100,14 +100,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/categories/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/archives/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mofunshow/index.html</loc>
+    <loc>http://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
