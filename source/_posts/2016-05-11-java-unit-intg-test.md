@@ -55,9 +55,11 @@ dependencies {
 }
 ```
 
-Create the integrationTest task
+Create the unit and integrationTest tasks
 
 ```
+task unitTest(dependsOn: test)
+
 task integrationTest(type: Test) {
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
@@ -102,9 +104,11 @@ dependencies {
 }
 ```
 
-Create the integrationTest tasks
+Create the unit and integrationTest tasks
 
 ```
+task unitTest(dependsOn: test)
+
 task integrationTest(type: Test) {
     include '**/*IntegrationTest.class'
 }
