@@ -62,9 +62,16 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 
+# Feed RSS
+feed:
+    type: atom
+    path: atom.xml
+    limit: 10
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
+#theme: tranquilpeak
 theme: spfk
 
 # Deployment
