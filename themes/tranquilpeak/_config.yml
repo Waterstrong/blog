@@ -48,22 +48,22 @@ sidebar:
             url: /all-archives
             icon: archive
         search:
-            title: global.search
+            title: Search
             url: /#search
             icon: search
             # `st-search-show-outputs` classes are used to open swiftype search window
             class: st-search-show-outputs
         about:
-            title: global.about
+            title: About
             url: /#about
             icon: question
     author_links:
          github:
-             title: global.github
+             title: Github
              url: https://github.com/waterstrong
              icon: github
          wechat:
-             title: global.wechat
+             title: Wechat
              url: /
              icon: wechat
         # stack_overflow:
@@ -108,16 +108,16 @@ sidebar:
 #     class: st-search-show-outputs
 header:
     right_link:
-        url: /#about
-        icon:
-        class:
+        url: /#search
+        icon: search
+        class: st-search-show-outputs
 
 
 # Author
 # Your biography and your job is editable in each languages files in `languages` folder
 author:
-    email:
-    location:
+    email: sqlin@thoughtworks.com
+    location: Chengdu, China
     # Your profile picture located in folder `source/_images/` (development)
     # or in `source/assets/images/` (production)
     # or you can use an external url
@@ -170,9 +170,9 @@ tag_pagination: true
 # You can't use Disqus and Duoshuo together
 # then fill the right shortname
 # Your Disqus shortname
-disqus_shortname:
+disqus_shortname: waterstrongblog
 # Your Duoshuo shortname
-duoshuo_shortname:
+duoshuo_shortname:  # waterstrong
 # Your Google analystics web property ID : UA-XXXXX-X
 google_analytics_id: UA-75679138-1
 # Your Baidu analystics web property ID : 9505a5af654a2478f93fd6c0ae4f687d
