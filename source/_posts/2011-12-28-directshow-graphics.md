@@ -12,7 +12,6 @@ tags: [图形图像, DirectX, C++, OpenCV]
 2、将strmbasd+&+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。
 
 3、将DShow文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\sample\C++下。
-
 <!-- more -->
 
 4、Visual Studio中包含文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Include和D:\Program Files\Microsoft DirectX SDK (August 2009)\Samples\C++\DirectShow\BaseClasses。
