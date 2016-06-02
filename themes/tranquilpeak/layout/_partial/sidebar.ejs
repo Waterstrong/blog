@@ -25,7 +25,9 @@
                 <% if (url_for(theme.sidebar[i][n].url).indexOf(config.url) < 0 && url_for(theme.sidebar[i][n].url).indexOf(':') >= 0) { %>
                     <a class="sidebar-button-link <% if (theme.sidebar[i][n].class) { %> <%= theme.sidebar[i][n].class %> <% } %>"
                         href="<%- url_for(theme.sidebar[i][n].url) %>"
-                        <% if( __(theme.sidebar[i][n].title) != "Home") { %> target="_blank"<% } %>
+                        <% if( __(theme.sidebar[i][n].title) != "Home" && __(theme.sidebar[i][n].title) != "主页" ) { %>
+                            target="_blank"
+                        <% } %>
                     >
                 <% } else { %>
                     <a  class="sidebar-button-link <% if (theme.sidebar[i][n].class) { %><%= theme.sidebar[i][n].class %><% } %>"
