@@ -7,7 +7,7 @@ title: Watersrong Blog
 subtitle: Enjoy this moment!
 description: Waterstrong's Blog
 author: Waterstrong
-language: zh-cn
+language: en
 timezone:
 
 # URL
@@ -71,8 +71,8 @@ feed:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-#theme: tranquilpeak
-theme: spfk
+theme: tranquilpeak
+#theme: spfk
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

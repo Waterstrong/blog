@@ -33,59 +33,63 @@ sidebar:
     menu:
         home:
             title: global.home
-            url: /
+            url: http://waterstrong.me
             icon: home
         categories:
-            title: Categories
+            title: global.categories
             url: /all-categories
             icon: bookmark
         tags:
-            title: Tags
+            title: global.tags
             url: /all-tags
             icon: tags
         archives:
-            title: Archives
+            title: global.archives
             url: /all-archives
             icon: archive
         search:
-            title: Search
+            title: global.search
             url: /#search
             icon: search
             # `st-search-show-outputs` classes are used to open swiftype search window
             class: st-search-show-outputs
         about:
-            title: About
+            title: global.about
             url: /#about
             icon: question
     author_links:
          github:
-             title: Github
+             title: global.github
              url: https://github.com/waterstrong
              icon: github
          wechat:
-             title: Wechat
-             url: /
+             title: global.wechat
+             url: /assets/images/qrcode.png
              icon: wechat
+         weibo:
+             title: global.weibo
+             url: http://weibo.com/waterstrong
+             icon: weibo
         # stack_overflow:
         #     title: global.stack_overflow
         #     url: http://stackoverflow.com/users
         #     icon: stack-overflow
-        # twitter:
-        #     title: global.twitter
-        #     url: https://twitter.com/
-        #     icon: twitter
-        # facebook:
-        #     title: global.facebook
-        #     url: https://facebook.com/
-        #     icon: facebook
+#         twitter:
+#             title: global.twitter
+#             url: https://twitter.com/shuiqianglin
+#             icon: twitter
+         facebook:
+             title: global.facebook
+             url: https://www.facebook.com/linshuiqiang
+             icon: facebook
         # google_plus:
         #     title: global.google_plus
         #     url: https://plus.google.com/
         #     icon: google-plus
-        # linked_in:
-        #     title: global.linkedin
-        #     url: https://www.linkedin.com/profile/
-        #     icon: linkedin
+         linked_in:
+             title: global.linkedin
+             url: https://www.linkedin.com/in/shuiqiang-lin-191a0a112
+             icon: linkedin
          mail:
              title: global.mail
              url: mailto:sqlin@thoughtworks.com
@@ -122,9 +126,9 @@ author:
     # or in `source/assets/images/` (production)
     # or you can use an external url
     # Overwritten by your gravatar image if `gravatar_email` is filled
-    picture:
+    picture: head.jpg
     # Your Twitter username without the @. E.g : `tranquilpeak`
-    twitter:
+    twitter: shuiqianglin
     # Your google plus profile id. E.g : `+Tranquilpeak` or `123812884128439`
     google_plus:
 
@@ -157,7 +161,7 @@ auto_thumbnail_image: true
 # and use relative url : `your-image.png`
 cover_image: cover.jpg
 # Your favicon located in folder `source/_images/` (development) or in `source/assets/images/` (production)
-favicon: head.jpg
+favicon: favicon.jpg
 # Display an image gallery at the end of a post which have photos variables (false: disabled, true: enabled)
 image_gallery: true
 # Pagination behavior of archive, category and tag pages (false: pagination disabled, true: pagination enabled)

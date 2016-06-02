@@ -11,6 +11,8 @@ global:
     search: "Search"
     about: "About"
     github: "GitHub"
+    wechat: "Wechat"
+    weibo: "Weibo"
     stack_overflow: "Stack Overflow"
     twitter: "Twitter"
     facebook: "Facebook"
