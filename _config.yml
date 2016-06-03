@@ -68,6 +68,12 @@ feed:
     path: atom.xml
     limit: 10
 
+# Global keywords for search engines
+keywords:
+- Waterstrong
+- Shuiqiang
+- ThoughtWorks
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
