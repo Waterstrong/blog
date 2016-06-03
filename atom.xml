@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-05-15T02:34:55.000Z</updated>
+  <updated>2016-06-01T15:30:51.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://blog.waterstrong.me/java-unit-intg-test/"/>
     <id>http://blog.waterstrong.me/java-unit-intg-test/</id>
     <published>2016-05-11T13:47:36.000Z</published>
-    <updated>2016-05-15T02:34:55.000Z</updated>
+    <updated>2016-06-01T15:30:51.000Z</updated>
     
-    <content type="html">&lt;p&gt;基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在&lt;code&gt;build.gradle&lt;/code&gt;中配置Integration Test和Unit Test有多种方式，介绍两种:&lt;/p&gt;
+    <content type="html">&lt;p&gt;基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在&lt;code&gt;build.gradle&lt;/code&gt;中配置Integration Test和Unit Test有多种方式。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;接下来分别介绍两种方式:&lt;/p&gt;
 &lt;p&gt;假设在IntelliJ中创建好如下Tree结构:&lt;br&gt;&lt;img src=&quot;/assets/java-unit-intg-test/java_project_tree.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;方法一-use-another-source-set&quot;&gt;&lt;a href=&quot;#方法一-use-another-source-set&quot; class=&quot;headerlink&quot; title=&quot;方法一: use another source set&quot;&gt;&lt;/a&gt;方法一: use another source set&lt;/h3&gt;&lt;p&gt;Add into the source sets&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sourceSets &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    main &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        java.srcDirs = [&amp;apos;src/main/java&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        resources.srcDirs = [&amp;apos;src/main/resources&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    test &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        java.srcDirs = [&amp;apos;src/test/java&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        resources.srcDirs = [&amp;apos;src/test/resources&amp;apos;, &amp;apos;src/integrationTest/resources&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    integrationTest &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        java.srcDirs = [&amp;apos;src/integrationTest/java&amp;apos;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -77,9 +78,9 @@
     <link href="http://blog.waterstrong.me/jboss-tips/"/>
     <id>http://blog.waterstrong.me/jboss-tips/</id>
     <published>2016-04-20T14:23:50.000Z</published>
-    <updated>2016-04-26T15:20:20.000Z</updated>
+    <updated>2016-06-01T15:30:14.000Z</updated>
     
-    <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考:&lt;/p&gt;
+    <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;Tip1-IP-域名黑白名单&quot;&gt;&lt;a href=&quot;#Tip1-IP-域名黑白名单&quot; class=&quot;headerlink&quot; title=&quot;Tip1: IP/域名黑白名单&quot;&gt;&lt;/a&gt;Tip1: IP/域名黑白名单&lt;/h2&gt;&lt;p&gt;针对JBoss EAP5，为了实现Web容器级别的IP/域名黑白名单，需要到JBoss的server.xml文件中配置相应Valve规则并重启JBoss后生效。&lt;/p&gt;
 &lt;p&gt;在文件&lt;code&gt;jboss-as/server/&amp;lt;instance_name&amp;gt;/deploy/jbossweb.sar/server.xml&lt;/code&gt;中的&lt;code&gt;&amp;lt;Host&amp;gt;&amp;lt;/Host&amp;gt;&lt;/code&gt;内添加如下配置:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        .....&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Valve className=&amp;apos;org.apache.catalina.valves.RemoteAddrValve&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        allow=&amp;apos;192.168.[0-1].*, *.testing.com&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        deny=&amp;apos;127.0.0.1&amp;apos;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -142,9 +143,10 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-05-11T13:44:14.000Z</updated>
+    <updated>2016-06-01T15:28:10.000Z</updated>
     
-    <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
 &lt;h4 id=&quot;Continuous-Integration&quot;&gt;&lt;a href=&quot;#Continuous-Integration&quot; class=&quot;headerlink&quot; title=&quot;Continuous Integration&quot;&gt;&lt;/a&gt;Continuous Integration&lt;/h4&gt;&lt;p&gt;Continuous Integration(持续集成). Integrating, building, and testing code within the development environment.&lt;/p&gt;
 &lt;h4 id=&quot;Continuous-Delivery&quot;&gt;&lt;a href=&quot;#Continuous-Delivery&quot; class=&quot;headerlink&quot; title=&quot;Continuous Delivery&quot;&gt;&lt;/a&gt;Continuous Delivery&lt;/h4&gt;&lt;p&gt;Continuous Delivery(持续交付). A software development discipline, build software that can be released to production at any time.&lt;/p&gt;
@@ -273,8 +275,7 @@
 &lt;/ul&gt;
 &lt;p&gt;至于目前选择用哪款工具，其实需要根据团队和项目的情况来平衡选择的，有兴趣喜欢尝鲜的同学倒是可以折腾下，还是很有意思的。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;[1] &lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://concourse.ci&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.go.cd/&lt;/a&gt;&lt;br&gt;[3] &lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jenkins.io/&lt;/a&gt;&lt;br&gt;[4] &lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://travis-ci.com/&lt;/a&gt;&lt;br&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/First-class_citizen&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/wiki/First-class_citizen&lt;/a&gt;&lt;br&gt;[6] &lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/starkandwayne/concourse-tutorial&lt;/a&gt;&lt;/p&gt;
-</content>
+&lt;p&gt;[1] &lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://concourse.ci&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.go.cd/&lt;/a&gt;&lt;br&gt;[3] &lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jenkins.io/&lt;/a&gt;&lt;br&gt;[4] &lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://travis-ci.com/&lt;/a&gt;&lt;br&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/First-class_citizen&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/wiki/First-class_citizen&lt;/a&gt;&lt;br&gt;[6] &lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/starkandwayne/concourse-tutorial&lt;/a&gt;&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -304,9 +305,10 @@
     <link href="http://blog.waterstrong.me/aws-ec2-vpn/"/>
     <id>http://blog.waterstrong.me/aws-ec2-vpn/</id>
     <published>2016-04-13T15:30:52.000Z</published>
-    <updated>2016-05-11T13:44:14.000Z</updated>
+    <updated>2016-06-01T15:27:35.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。&lt;/p&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。&lt;/p&gt;
 &lt;p&gt;而且自己搭建VPN有诸多好处:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;暂时免费，只要不超出AWS免费流量和时间限制;&lt;/li&gt;
@@ -373,8 +375,7 @@
 &lt;p&gt;点击connect连接VPN服务:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_vpn_connected.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_vpn_detail.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;测试访问Google，在手机浏览器输入&lt;code&gt;www.google.com&lt;/code&gt;，使用4G数据流量，连接正常，速度没有明显差异:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_test_vpn.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~&lt;/p&gt;
-</content>
+&lt;p&gt;当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -408,9 +409,10 @@
     <link href="http://blog.waterstrong.me/aws-ec2-basic/"/>
     <id>http://blog.waterstrong.me/aws-ec2-basic/</id>
     <published>2016-04-11T04:00:08.000Z</published>
-    <updated>2016-05-11T13:44:14.000Z</updated>
+    <updated>2016-06-01T15:23:25.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h4 id=&quot;什么是Amazon-EC2&quot;&gt;&lt;a href=&quot;#什么是Amazon-EC2&quot; class=&quot;headerlink&quot; title=&quot;什么是Amazon EC2&quot;&gt;&lt;/a&gt;什么是Amazon EC2&lt;/h4&gt;&lt;blockquote&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h4 id=&quot;什么是Amazon-EC2&quot;&gt;&lt;a href=&quot;#什么是Amazon-EC2&quot; class=&quot;headerlink&quot; title=&quot;什么是Amazon EC2&quot;&gt;&lt;/a&gt;什么是Amazon EC2&lt;/h4&gt;&lt;blockquote&gt;
 &lt;p&gt;Amazon Elastic Compute Cloud (Amazon EC2) provides scalable computing capacity in the Amazon Web Services (AWS) cloud.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，通俗地讲，就是提供多种类型的虚拟机。EC2也是整个AWS最核心的组成部分，AWS中有许多的服务需要依赖它。在EC2环境中，虚拟机被称为实例，实例的镜像被称为AMI(Amazon Machine Image)。使用AWS EC2有如下优势：&lt;/p&gt;
@@ -461,8 +463,7 @@
 &lt;h3 id=&quot;Network-Interfaces-网络接口&quot;&gt;&lt;a href=&quot;#Network-Interfaces-网络接口&quot; class=&quot;headerlink&quot; title=&quot;Network Interfaces 网络接口&quot;&gt;&lt;/a&gt;Network Interfaces 网络接口&lt;/h3&gt;&lt;p&gt;您可以创建的虚拟网络，这些网络与其余 AWS 云在逻辑上隔离，并且您可以选择连接到您自己的网络，也称为Virtual Private Cloud(VPC)。&lt;/p&gt;
 &lt;h3 id=&quot;Load-Banlancers-负载均衡&quot;&gt;&lt;a href=&quot;#Load-Banlancers-负载均衡&quot; class=&quot;headerlink&quot; title=&quot;Load Banlancers 负载均衡&quot;&gt;&lt;/a&gt;Load Banlancers 负载均衡&lt;/h3&gt;&lt;p&gt;可以跨越多个Amazon EC2实例自动分配应用程序的传入流量。&lt;/p&gt;
 &lt;h3 id=&quot;Auto-Scaling&quot;&gt;&lt;a href=&quot;#Auto-Scaling&quot; class=&quot;headerlink&quot; title=&quot;Auto Scaling&quot;&gt;&lt;/a&gt;Auto Scaling&lt;/h3&gt;&lt;p&gt;根据定义的条件自动扩展Amazon EC2容量。&lt;/p&gt;
-&lt;h3 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h3&gt;&lt;p&gt;[1] &lt;a href=&quot;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Amazon EC2 User Guide for Linux Instances&lt;/a&gt;&lt;/p&gt;
-</content>
+&lt;h3 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h3&gt;&lt;p&gt;[1] &lt;a href=&quot;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Amazon EC2 User Guide for Linux Instances&lt;/a&gt;&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -490,9 +491,10 @@
     <link href="http://blog.waterstrong.me/transactional-mechanism-protocol/"/>
     <id>http://blog.waterstrong.me/transactional-mechanism-protocol/</id>
     <published>2016-02-04T11:11:03.000Z</published>
-    <updated>2016-04-26T15:27:17.000Z</updated>
+    <updated>2016-06-01T15:23:25.000Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;事务定义及其特性&quot;&gt;&lt;a href=&quot;#事务定义及其特性&quot; class=&quot;headerlink&quot; title=&quot;事务定义及其特性&quot;&gt;&lt;/a&gt;事务定义及其特性&lt;/h2&gt;&lt;h3 id=&quot;什么是事务？&quot;&gt;&lt;a href=&quot;#什么是事务？&quot; class=&quot;headerlink&quot; title=&quot;什么是事务？&quot;&gt;&lt;/a&gt;什么是事务？&lt;/h3&gt;&lt;blockquote&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h2 id=&quot;事务定义及其特性&quot;&gt;&lt;a href=&quot;#事务定义及其特性&quot; class=&quot;headerlink&quot; title=&quot;事务定义及其特性&quot;&gt;&lt;/a&gt;事务定义及其特性&lt;/h2&gt;&lt;h3 id=&quot;什么是事务？&quot;&gt;&lt;a href=&quot;#什么是事务？&quot; class=&quot;headerlink&quot; title=&quot;什么是事务？&quot;&gt;&lt;/a&gt;什么是事务？&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;A transaction is a unit of work that you want to treat as “a whole”. It has to either happen in full, or not at all.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;直接地讲，就是事务是一个整体，其中的若干处理要么都做，要么都不做。接下来我们就详细地聊聊事务。&lt;/p&gt;
@@ -606,13 +608,13 @@
     
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
+      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
       <category term="Transaction" scheme="http://blog.waterstrong.me/tags/Transaction/"/>
     
       <category term="ACID特性" scheme="http://blog.waterstrong.me/tags/ACID%E7%89%B9%E6%80%A7/"/>
     
       <category term="XA协议" scheme="http://blog.waterstrong.me/tags/XA%E5%8D%8F%E8%AE%AE/"/>
-    
-      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     
       <category term="锁机制" scheme="http://blog.waterstrong.me/tags/%E9%94%81%E6%9C%BA%E5%88%B6/"/>
     
@@ -625,9 +627,10 @@
     <link href="http://blog.waterstrong.me/aspect-oriented-programming/"/>
     <id>http://blog.waterstrong.me/aspect-oriented-programming/</id>
     <published>2016-01-20T05:45:32.000Z</published>
-    <updated>2016-04-26T15:22:37.000Z</updated>
+    <updated>2016-06-01T15:23:25.000Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;What-is-AOP&quot;&gt;&lt;a href=&quot;#What-is-AOP&quot; class=&quot;headerlink&quot; title=&quot;What is AOP ?&quot;&gt;&lt;/a&gt;What is AOP ?&lt;/h2&gt;&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。&lt;/p&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h2 id=&quot;What-is-AOP&quot;&gt;&lt;a href=&quot;#What-is-AOP&quot; class=&quot;headerlink&quot; title=&quot;What is AOP ?&quot;&gt;&lt;/a&gt;What is AOP ?&lt;/h2&gt;&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。&lt;/p&gt;
 &lt;p&gt;AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态角度考虑程序结构，从横向上区分出类，AOP是从动态角度考虑程序运行过程，从纵向上向对象中加入特定的代码，加上时间维度，AOP使得OOP从二维变成三维，由平面变成立体。常常通过AOP来处理一些具有横切性质的系统性服务，如&lt;a href=&quot;/transactional-mechanism-protocol&quot;&gt;事务处理&lt;/a&gt;、安全检查、缓存、对象池管理等。&lt;/p&gt;
 &lt;p&gt;通常做法，是在运行时动态地将代码切入到类的指定方法、指定位置上，而切入到指定类指定方法的代码片段称为切面，而切入到哪些类、哪些方法则叫切入点，采用AOP可以把几个类共有的代码抽取到一个切片中，等到需要时再切入对象中去，从而改变其原有的行为。接下来将详解AOP中的几个核心概念。&lt;/p&gt;
 &lt;h3 id=&quot;AOP相关概念&quot;&gt;&lt;a href=&quot;#AOP相关概念&quot; class=&quot;headerlink&quot; title=&quot;AOP相关概念&quot;&gt;&lt;/a&gt;AOP相关概念&lt;/h3&gt;&lt;h4 id=&quot;Aspect（切面-方面）&quot;&gt;&lt;a href=&quot;#Aspect（切面-方面）&quot; class=&quot;headerlink&quot; title=&quot;Aspect（切面/方面）&quot;&gt;&lt;/a&gt;Aspect（切面/方面）&lt;/h4&gt;&lt;p&gt;需要切入到指定类指定方法的代码片段称为切面，包含定义的额外功能的某个模块，相当于OOP中定义的类，但代表的更多是对象间横向的关系，如日志切面、权限切面、事务切面等。&lt;/p&gt;
@@ -689,8 +692,7 @@
 &lt;h3 id=&quot;CGLib代理&quot;&gt;&lt;a href=&quot;#CGLib代理&quot; class=&quot;headerlink&quot; title=&quot;CGLib代理&quot;&gt;&lt;/a&gt;CGLib代理&lt;/h3&gt;&lt;p&gt;CGLIB方式，使用继承实现：&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 主要了解以下几个类, 代码在相应的库中都可以找到, 此处不再赘述&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MethodInterceptor // 方法拦截类, 定义的代理类需要实现该接口以调用intercept方法添加Advice&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Enhancer // 增强类, 继承至AbstractClassGenerator, 主要用于生成目标类的子类&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MethodProxy // 生成的子类, 可以在intercept中通过调用proxy.invokeSuper()来调用目标对象的实际方法&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;特别注意: CGLib代理基于接口和非final类代理，不能代理static方法。&lt;/p&gt;
-&lt;p&gt;之前有用Java实现过简单的IoC和AOP，有兴趣可以参见工程: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;summarine&lt;/a&gt;。&lt;/p&gt;
-</content>
+&lt;p&gt;之前有用Java实现过简单的IoC和AOP，有兴趣可以参见工程: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;summarine&lt;/a&gt;。&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -722,10 +724,9 @@
     <link href="http://blog.waterstrong.me/mysql-case-sensitive-linux/"/>
     <id>http://blog.waterstrong.me/mysql-case-sensitive-linux/</id>
     <published>2015-12-20T14:28:42.000Z</published>
-    <updated>2016-04-26T15:33:29.000Z</updated>
+    <updated>2016-06-01T15:28:55.000Z</updated>
     
-    <content type="html">&lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+    <content type="html">&lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;默认大小写敏感&quot;&gt;&lt;a href=&quot;#默认大小写敏感&quot; class=&quot;headerlink&quot; title=&quot;默认大小写敏感&quot;&gt;&lt;/a&gt;默认大小写敏感&lt;/h4&gt;&lt;p&gt;MySQL数据库名、表名、别名在Linux下默认区分大小写，root登录通过命令查看其配置：&lt;br&gt;mysql&amp;gt; show variables like ‘lower%’;&lt;br&gt;+————————+——-+&lt;br&gt;| Variable_name          | Value |&lt;br&gt;+————————+——-+&lt;br&gt;| lower_case_file_system | OFF   |&lt;br&gt;| lower_case_table_names | 0     |&lt;br&gt;+————————+——-+&lt;/p&gt;
 &lt;h4 id=&quot;变量名和值解释&quot;&gt;&lt;a href=&quot;#变量名和值解释&quot; class=&quot;headerlink&quot; title=&quot;变量名和值解释&quot;&gt;&lt;/a&gt;变量名和值解释&lt;/h4&gt;&lt;p&gt;lower_case_file_system为只读属性，显示出系统的文件系统是否大小写敏感，OFF表示大小写敏感，ON表示大小写不敏感。&lt;br&gt;lower_case_table_names默认为0，表示大小写敏感；设置1表示大小写不敏感，创建的表/数据库以小写形式存放在磁盘上，对于sql语句转换为小写操作；设置2表示创建的表/数据库依据语句上格式存放，但查找都是转换为小写进行。&lt;/p&gt;
 &lt;p&gt;lower_case_file_system解释可参见&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_file_system&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/a&gt;说明：&lt;/p&gt;
@@ -752,7 +753,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;/p&gt;
+      &lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;br&gt;
     
     </summary>
     
@@ -776,11 +777,12 @@
     <link href="http://blog.waterstrong.me/code-your-ioc/"/>
     <id>http://blog.waterstrong.me/code-your-ioc/</id>
     <published>2015-12-20T12:41:09.000Z</published>
-    <updated>2016-04-26T15:22:37.000Z</updated>
+    <updated>2016-06-01T15:23:25.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;h3 id=&quot;Let’s-Code-a-IoC-Container&quot;&gt;&lt;a href=&quot;#Let’s-Code-a-IoC-Container&quot; class=&quot;headerlink&quot; title=&quot;Let’s Code a IoC Container&quot;&gt;&lt;/a&gt;Let’s Code a IoC Container&lt;/h3&gt;&lt;p&gt;How to define a bean ?&lt;br&gt;How to store data collection ?&lt;br&gt;How to load component and bean ?&lt;br&gt;How to define a annotation ?&lt;br&gt;How to handle the annotation ?&lt;br&gt;How to create an Object ?&lt;br&gt;How to invoke a Method ?&lt;br&gt;How to initialize the container ?&lt;/p&gt;
-&lt;p&gt;之前自己写了一个小的IoC Demo: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;IoC Demo&lt;/a&gt;&lt;/p&gt;
-</content>
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;IoC容器是依赖注入的框架，用来映射依赖，管理对象创建和生存周期（DI框架）。通过学习IoC可以简单实现一个IoC容器，同时加深对IoC的理解。&lt;/p&gt;
+&lt;h3 id=&quot;Let’s-Code-a-IoC-Container&quot;&gt;&lt;a href=&quot;#Let’s-Code-a-IoC-Container&quot; class=&quot;headerlink&quot; title=&quot;Let’s Code a IoC Container&quot;&gt;&lt;/a&gt;Let’s Code a IoC Container&lt;/h3&gt;&lt;p&gt;How to define a bean ?&lt;br&gt;How to store data collection ?&lt;br&gt;How to load component and bean ?&lt;br&gt;How to define a annotation ?&lt;br&gt;How to handle the annotation ?&lt;br&gt;How to create an Object ?&lt;br&gt;How to invoke a Method ?&lt;br&gt;How to initialize the container ?&lt;/p&gt;
+&lt;p&gt;之前自己写了一个小的IoC Demo: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;IoC Demo&lt;/a&gt;&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -810,9 +812,10 @@
     <link href="http://blog.waterstrong.me/mybatis-in-practice/"/>
     <id>http://blog.waterstrong.me/mybatis-in-practice/</id>
     <published>2015-10-12T04:52:44.000Z</published>
-    <updated>2016-04-26T15:20:20.000Z</updated>
+    <updated>2016-06-01T15:23:25.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;What-is-MyBatis&quot;&gt;&lt;a href=&quot;#What-is-MyBatis&quot; class=&quot;headerlink&quot; title=&quot;What is MyBatis?&quot;&gt;&lt;/a&gt;What is MyBatis?&lt;/h3&gt;&lt;blockquote&gt;
+    <content type="html">&lt;!-- excerpt --&gt;&lt;/p&gt;
+&lt;h3 id=&quot;What-is-MyBatis&quot;&gt;&lt;a href=&quot;#What-is-MyBatis&quot; class=&quot;headerlink&quot; title=&quot;What is MyBatis?&quot;&gt;&lt;/a&gt;What is MyBatis?&lt;/h3&gt;&lt;blockquote&gt;
 &lt;ol&gt;
 &lt;li&gt;MyBatis is a first class persistence framework with support for custom SQL, stored procedures and advanced mappings.&lt;/li&gt;
 &lt;li&gt;MyBatis eliminates almost all of the JDBC code and manual setting of parameters and retrieval of results.&lt;/li&gt;
@@ -820,8 +823,7 @@
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.mybatis.org/mybatis-3/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MyBatis 3 Introduction&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;还没有时间去总结，不过相对来说不是太难，理论可以错过，但实践部分一定不能错过，之前写过一个Demo: &lt;a href=&quot;https://github.com/Waterstrong/demo-mybatis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Demo-Mybatis&lt;/a&gt;&lt;/p&gt;
-</content>
+&lt;p&gt;还没有时间去总结，不过相对来说不是太难，理论可以错过，但实践部分一定不能错过，之前写过一个Demo: &lt;a href=&quot;https://github.com/Waterstrong/demo-mybatis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Demo-Mybatis&lt;/a&gt;&lt;/p&gt;</content>
     
     <summary type="html">
     
@@ -841,91 +843,6 @@
       <category term="动态SQL" scheme="http://blog.waterstrong.me/tags/%E5%8A%A8%E6%80%81SQL/"/>
     
       <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DirectShow获取摄像头图像</title>
-    <link href="http://blog.waterstrong.me/directshow-graphics/"/>
-    <id>http://blog.waterstrong.me/directshow-graphics/</id>
-    <published>2011-12-28T14:22:50.000Z</published>
-    <updated>2016-04-26T15:33:29.000Z</updated>
-    
-    <content type="html">&lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
-&lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
-&lt;p&gt;3、将DShow文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\sample\C++下。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;4、Visual Studio中包含文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Include和D:\Program Files\Microsoft DirectX SDK (August 2009)\Samples\C++\DirectShow\BaseClasses。&lt;/p&gt;
-&lt;p&gt;5、添加库文件D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86到最顶端。&lt;/p&gt;
-&lt;p&gt;6、添加strmbase.lib strmbasd.lib到lib链接器中。&lt;/p&gt;
-&lt;p&gt;7、将ARFrameGrabber文件夹中的ARFrameGrabber.h 和 ARFrameGrabber.cpp 拷贝到到自己工程中（自己修改一下，加了些逻辑判断），再添加进来。测试一下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include&amp;lt;iostream&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;highgui.h&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;ARFrameGrabber.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;Windows.h&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;using namespace std;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int _tmain(int argc, _TCHAR* argv[])  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static ARFrameGrabber frameGrabber;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    IplImage ds_frame;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    int stride;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    BYTE* myBuffer;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    frameGrabber.Init(0, true); //设置支持directshow的设备编号，从0开始  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    frameGrabber.SetFlippedImage(true); //图像是否翻转  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    IplImage* frame=NULL;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    cvNamedWindow(&amp;quot;test&amp;quot;,0);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while (true)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frame = NULL;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frameGrabber.GrabByteFrame(); //获取一帧  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        while(!myBuffer)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            UINT nRet=MessageBox(0,&amp;quot;警告：\n\n摄像头正被其他程序占用，请关闭可能使用摄像头的程序后重试！&amp;quot;,&amp;quot;启动出错&amp;quot;,MB_RETRYCANCEL|MB_ICONEXCLAMATION);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if(nRet==IDRETRY)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                frameGrabber.GrabByteFrame(); //获取一帧  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                myBuffer = frameGrabber.GetByteBuffer(); //得到图像的缓冲  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            else  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                cvDestroyAllWindows();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                exit(0);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        int width = frameGrabber.GetWidth();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        int height = frameGrabber.GetHeight();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        stride  = (width * sizeof( RGBTRIPLE ) + 3) &amp;amp; -4;//图像每行所占的字节数，4的倍数，对齐  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvInitImageHeader( &amp;amp;ds_frame, cvSize(width, height), 8, 3,IPL_ORIGIN_BL, 4 ); //创建IplImage  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ds_frame.widthStep = stride;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvSetData( &amp;amp;ds_frame, myBuffer, stride ); //copy数据  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        frame = &amp;amp;ds_frame;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cvShowImage(&amp;quot;test&amp;quot;,frame);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (cvWaitKey(3)==27)  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            break;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    cvDestroyAllWindows();  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;hr&gt;
-&lt;h4 id=&quot;遇到问题一：&quot;&gt;&lt;a href=&quot;#遇到问题一：&quot; class=&quot;headerlink&quot; title=&quot;遇到问题一：&quot;&gt;&lt;/a&gt;遇到问题一：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;如果报错: &amp;quot;dxtrans.h&amp;quot;: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在qedit.h 中添加如下&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtCompositor_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtAlphaSetter_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtJpeg_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtKey_INTERFACE_DEFINED__&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;再修改qedit.h 中引用 dxtrans.h 的部分，要求注释掉&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;oaidl.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;ocidl.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//#include &amp;quot;dxtrans.h&amp;quot;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;quot;amstream.h&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;hr&gt;
-&lt;h4 id=&quot;遇到问题二：&quot;&gt;&lt;a href=&quot;#遇到问题二：&quot; class=&quot;headerlink&quot; title=&quot;遇到问题二：&quot;&gt;&lt;/a&gt;遇到问题二：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//#include &amp;lt;qedit.h&amp;gt; 出现问题，或者找不到了什么基类可以直接用下面方式  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtCompositor_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtAlphaSetter_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtJpeg_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#define __IDxtKey_INTERFACE_DEFINED__   &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;qedit.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;注：以上除DXSDK_Aug09.exe安装文件外(553MB)，其他都可在资源《&lt;a href=&quot;http://download.csdn.net/download/waterstrong/3981334&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;配置DX_Aug09_DShow获取摄像头图像&lt;/a&gt;》中下载。&lt;/em&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot;&gt;&lt;a href=&quot;#在Windows下配置DirectX-Aug09-DShow获取摄像头图像&quot; class=&quot;headerlink&quot; title=&quot;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&quot;&gt;&lt;/a&gt;在Windows下配置DirectX Aug09 DShow获取摄像头图像:&lt;/h4&gt;&lt;p&gt;1、首先带例子安装DXSDK_Aug09.exe，可在&lt;a href=&quot;http://msdn.microsoft.com/directx/&quot;&gt;官网&lt;/a&gt;下载&lt;a href=&quot;http://download.microsoft.com/download/4/C/F/4CFED5F5-B11C-4159-9ADC-E133B7E42E5C/DXSDK_Aug09.exe&quot;&gt;DirectX August 2009&lt;/a&gt;。假设安装路径为：D:\Program Files\Microsoft DirectX SDK (August 2009)。&lt;/p&gt;
-&lt;p&gt;2、将strmbasd+&amp;amp;+strmbase文件夹中的两个dll文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86下(64位机到x64下)。&lt;/p&gt;
-&lt;p&gt;3、将DShow文件拷到D:\Program Files\Microsoft DirectX SDK (August 2009)\sample\C++下。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Libraries" scheme="http://blog.waterstrong.me/categories/Libraries/"/>
-    
-    
-      <category term="图形图像" scheme="http://blog.waterstrong.me/tags/%E5%9B%BE%E5%BD%A2%E5%9B%BE%E5%83%8F/"/>
-    
-      <category term="DirectX" scheme="http://blog.waterstrong.me/tags/DirectX/"/>
-    
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
-      <category term="OpenCV" scheme="http://blog.waterstrong.me/tags/OpenCV/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++单例模式实现</title>
-    <link href="http://blog.waterstrong.me/cpp-singleton/"/>
-    <id>http://blog.waterstrong.me/cpp-singleton/</id>
-    <published>2011-12-28T13:23:50.000Z</published>
-    <updated>2016-04-26T15:19:22.000Z</updated>
-    
-    <content type="html">&lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;using namespace std;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;class Singleton&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;private:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static Singleton* sin;//如果定义为static Singleton sin;在C++里这句话相当于有对象产生，还调用了构造函数，而此时此刻的Singleton 还没有创造出来，所以调用里就会有无法解析的外部符号的编译错误&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton() //阻止创建实例&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;con&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static Singleton* GetInstance()//返回实例，要么返回指针，要么返回引用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;ins&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static void Destroy()//应该显式释放sin，如果不显式释放，或者直接在析构函数里delete，当然在外部显式访问析构函数访问没问题，但是在delete sin时会再次调用析构函数，这样将造成不断地循环调用析构函数，这是非常可怕的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;destroy&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(sin)//显式释放&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            delete sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sin = NULL;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ~Singleton()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;descon&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Singleton* Singleton::sin = new Singleton();//全局初始化, 必须new出来，在编译时就初始化了，如果出现派生的情况也只会有一个惟一的实例，而且构造函数声明为private后，派生类也没法写出构造函数，要注意的一点就是如果只有一个文件就可以直接写在后面，如果有.h和.cpp两个文件，那初始化应该写在.cpp文件中，否则可能会重定义错误。如果初始化为null,下次用时再判断并new的话必须要加双重锁定，消耗比较大，所以就采用这种方式了，不过这种消耗只有第一次才会出现，以后都不会new，但每次都要判断是否为null,也是很不爽的事。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int _tmain(int argc, _TCHAR* argv[])&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton* sin1 = Singleton::GetInstance();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton* sin2 = Singleton::GetInstance();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (sin1 == sin2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;the same&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        cout&amp;lt;&amp;lt;&amp;quot;not the same&amp;quot;&amp;lt;&amp;lt;endl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Singleton::Destroy();//一定要显式调用释放sin，可能还有其方法，但暂时还没有想到，最好能隐式释放，毕竟让客户端负责释放是不太明智的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    system(&amp;quot;pause&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;补充：&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;process.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#include &amp;lt;Windows.h&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HANDLE mutex = CreateMutex(NULL,FALSE,NULL); //创建互斥量&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;WaitForSingleObject(mutex,INFINITE);//等待互斥量&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;//……互斥代码&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ReleaseMutex(mutex);//释放权限，让下一个线程可以进入&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CloseHandle(mutex);//关闭创建的mutex句柄&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mutex = NULL;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;双重锁定，当然要先创建互斥量并初始化，最后要清除。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;static Singleton* GetInstance()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if(!sin)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        WaitForSingleObject(mutex,INFINITE);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if (!sin)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sin = new Singleton();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ReleaseMutex(mutex);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sin = new Singleton();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return sin;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
-    
-    
-      <category term="C++" scheme="http://blog.waterstrong.me/tags/C/"/>
-    
-      <category term="设计模式" scheme="http://blog.waterstrong.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="Singleton" scheme="http://blog.waterstrong.me/tags/Singleton/"/>
     
   </entry>
   
