@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
+    
+    <lastmod>2016-06-04T01:05:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/java-unit-intg-test/</loc>
     
     <lastmod>2016-06-01T15:30:51.000Z</lastmod>
@@ -23,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
+    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-06-01T15:28:55.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
     
     <lastmod>2016-06-01T15:28:55.000Z</lastmod>
     
@@ -51,14 +58,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
-    
-    <lastmod>2016-06-01T15:23:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
+    <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
     
     <lastmod>2016-06-01T15:23:25.000Z</lastmod>
     
@@ -72,6 +72,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/aspect-oriented-programming/</loc>
+    
+    <lastmod>2016-06-01T15:23:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/code-your-ioc/</loc>
     
     <lastmod>2016-06-01T15:23:25.000Z</lastmod>
@@ -79,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
+    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
     
     <lastmod>2016-06-01T15:23:25.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-01T14:39:33.000Z</lastmod>
     
@@ -100,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-01T14:39:33.000Z</lastmod>
     
@@ -128,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/about/index.html</loc>
+    <loc>http://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me//404.html</loc>
+    <loc>http://blog.waterstrong.me/about/index.html</loc>
     
     <lastmod>2016-04-23T00:14:38.000Z</lastmod>
     
