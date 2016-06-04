@@ -43,10 +43,10 @@ sidebar:
             title: global.tags
             url: /all-tags
             icon: tags
-        archives:
-            title: global.archives
-            url: /all-archives
-            icon: archive
+#        archives:
+#            title: global.archives
+#            url: /all-archives
+#            icon: archive
         search:
             title: global.search
             url: /#search
@@ -94,11 +94,19 @@ sidebar:
              title: global.mail
              url: mailto:sqlin@thoughtworks.com
              icon: envelope-o
-    rss:
+    other_links:
         rss:
             title: global.rss
             url: /atom.xml
             icon: rss
+#        sitemap:
+#            title: global.sitemap
+#            url: /sitemap.xml
+#            icon: sitemap
+        blogroll:
+            title: global.blogroll
+            url: /blogroll
+            icon: link
 
 
 # Header configuration
@@ -184,7 +192,7 @@ baidu_analytics_id: 0eebfc18021c9d6853ca20f45d03d4a1
 # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
 gravatar_email:
 # Your swiftype install key
-swiftype_install_key:
+swiftype_install_key: kWrco8T5WiVvGAF--sSf
 # Your Facebook user ids used to connect your blog with your facebook user accounts (Facebook Insights). Separate ids with comma. e.g : 9830047,1003342
 fb_admin_ids:
 # Your Facebook app id used to connect your blog with your facebook app account (Facebook Insights). E.g : 9841307
