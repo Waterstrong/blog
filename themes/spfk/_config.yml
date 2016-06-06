@@ -103,7 +103,9 @@ excerpt_link: more #修改more>>的文字
 
 # 是否显示边栏中的搜索框（仅样式，未添加搜索功能）
 # Search Box in left column
-search_box: false
+search_box: true
+# Your swiftype install key
+swiftype_install_key: kWrco8T5WiVvGAF--sSf
 
 # 是否开启主页及加载头像时的动画效果
 # Animation in Homepage and Loading avatar
