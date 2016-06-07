@@ -22,7 +22,7 @@ favicon: /img/favicon.png
 ## Sitemap 安装对应插件 hexo-generator-sitemap
 ## https://github.com/hexojs/hexo-generator-feed
 subnav:
-  email: "mailto:sqlin@thoughtworks.com"
+  mail: "mailto:sqlin@thoughtworks.com"
   github: "http://github.com/waterstrong"
   wechat: "img/qrcode.png"
 #  QQ: "#"
