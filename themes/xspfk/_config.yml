@@ -172,7 +172,7 @@ visit_counter:
   page_visit: 本页阅读量
 
 # A标签提示
-TipTitle: true
+tip_title: true
 
 # Loading
 # Loading: true
