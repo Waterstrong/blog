@@ -72,9 +72,9 @@ youyan:
 ## "on: true": 自动随机显示这5张图片
 ## "on: false": 自定义显示图片设置background_image: 5
 background:
-  on: true
+  on: false
   background_sum: 13
-  background_image: 1 # if "on: false", the background img is the one
+  background_image: 4 # if "on: false", the background img is the one
 
 highlight_style:
   #on: true
