@@ -74,7 +74,7 @@ youyan:
 background:
   on: false
   background_sum: 13
-  background_image: 4 # if "on: false", the background img is the one
+  background_image: 0 # if "on: false", the background img is the one
 
 highlight_style:
   #on: true
