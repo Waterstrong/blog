@@ -91,7 +91,7 @@ blockquote_style:
   # 自定义文章「引用部分」的样式
 
 # 左边栏宽度 px
-left_col_width: 300
+left_col_width: 291
 
 # 目录中标题不换行
 # Keep TOC title on the same line | 
