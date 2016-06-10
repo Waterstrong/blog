@@ -66,8 +66,8 @@ $line-numbers
       white-space: pre
       margin: 2px
       display: inline-block
-    a.fancy-ctn.fancybox::before
-      display: none
+    a.fancy-ctn.fancybox:hover
+      cursor: zoom-in
     //a::before
     //  padding-right: 6px
     //  content: "\f0c1"
@@ -91,17 +91,11 @@ $line-numbers
     color: #4d4d4d
     padding: 0.2em 0
     font-weight: 700
-  h3:hover
-    content: " > "
   h4
-    margin: 0.5em auto
-    color: #fff
-    background: #5A5A5A
-    border: 1px dashed #020202
-    padding: 0.2em 0.6em
-    font-weight: normal
-    -webkit-border-radius: 6px
-    border-radius: 6px
+    margin: 0.4em auto
+    color: #4d4d4d
+    padding: 0.2em 0
+    font-weight: 700
   h5
     margin: 0.5em auto
     color: #fff
@@ -124,7 +118,8 @@ $line-numbers
     margin: 26px 0
   ul
     margin-bottom: 10px
-
+    list-style: disc
+    margin-left: 26px
   ol
     li
       list-style: decimal
