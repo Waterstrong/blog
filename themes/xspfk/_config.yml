@@ -22,18 +22,18 @@ favicon: /img/favicon.png
 ## Sitemap 安装对应插件 hexo-generator-sitemap
 ## https://github.com/hexojs/hexo-generator-feed
 subnav:
-  mail: "mailto:sqlin@thoughtworks.com"
-  github: "http://github.com/waterstrong"
-  wechat: "img/qrcode.png"
+  Email: "mailto:sqlin@thoughtworks.com"
+  Github: "http://github.com/waterstrong"
+  Wechat: "img/qrcode.png"
 #  QQ: "#"
-  weibo: "http://weibo.com/waterstrong"
-  stackOverflow: "http://stackoverflow.com/users/6448085/waterstrong"
-#  Zhihu: "zhihu"
-#  Douban: "#"
+  Weibo: "http://weibo.com/waterstrong"
 #  Twitter: "https://twitter.com/shuiqianglin"
-  facebook: "https://www.facebook.com/linshuiqiang"
-  linkedin: "https://cn.linkedin.com/in/shuiqiang-lin-191a0a112"
-  rss: /atom.xml
+  Facebook: "https://www.facebook.com/linshuiqiang"
+  StackOverflow: "http://stackoverflow.com/users/6448085/waterstrong"
+  #  Zhihu: "zhihu"
+  #  Douban: "#"
+  LinkedIn: "https://cn.linkedin.com/in/shuiqiang-lin-191a0a112"
+  RSS: /atom.xml
   # Google: "#"
   # PayPal: "#"
   # Instagram: "#"
