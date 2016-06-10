@@ -76,19 +76,17 @@ background:
   background_sum: 13
   background_image: 0 # if "on: false", the background img is the one
 
+# Set inline_code to style highlight text, 通过 inline_code 切换内置文本高亮样式
+# Chose a highlight theme for code block, 通过 code_block 切换内置代码高亮配色主题
 highlight_style:
   #on: true
   inline_code: 1  # Value: 0 - 9 可选
-  code_block: 1  # Value: 0 - 4 
-  # Set inline_code to style highlight text
-  # Chose a highlight theme for code block
-  # 通过 inline_code 切换内置文本高亮样式
-  # 通过 code_block 切换内置代码高亮配色主题
+  code_block: 1  # Value: 0 - 4
 
+# 自定义文章「引用部分」的样式
 blockquote_style:
-  #on: true
-  blockquote: 1  # Value: 0 - 7 可选
-  # 自定义文章「引用部分」的样式
+  on: false
+  blockquote: 0  # Value: 0 - 7 可选, 0 is default style
 
 # 左边栏宽度 px
 left_col_width: 291
