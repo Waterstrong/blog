@@ -25,14 +25,11 @@ $line-numbers
   pre, code
     font-family: font-mono
   blockquote
-    background-color: #555
-    padding: 10px 15px
+    padding: 0 15px
     word-break: break-word
-    margin: 10px 0px
-    border-left: 4px solid #2f2f2f
-    border-top: 1px dashed #000
-    border-right: 1px dashed #000
-    border-bottom: 1px dashed #000
+    margin: 10px 0
+    font-style: italic
+    border-left: 3px solid #5d686f
     -webkit-box-sizing: border-box
     -moz-box-sizing: border-box
     box-sizing: border-box
@@ -64,9 +61,6 @@ $line-numbers
       white-space: pre
     a
       color: #349ef3
-      //border: dashed 1px #000
-      //border-radius: 5px
-      //background-color: #2F2E2E
       padding: auto
       word-wrap: break-word
       white-space: pre
@@ -86,23 +80,17 @@ $line-numbers
   h2
     font-size: 1.3em
     margin-top: 20px
-    font-weight: 300
     padding-bottom: 5px
     margin: .5em auto
     font-weight: 700
-    color: #999
+    color: #4d4d4d
     padding-bottom: 5px
-    text-align: center
-  h2::after,h2::before
-    content: " —— "
+    text-align: left
   h3
     margin: 0.5em auto
-    color: #fff
-    background: rgba(0, 0, 0, 0.27)
-    border: 1px dashed #020202
-    padding: 0.2em 0.6em
-    font-weight: normal
-    border-radius: 6px
+    color: #4d4d4d
+    padding: 0.2em 0
+    font-weight: 700
   h3:hover
     content: " > "
   h4
@@ -138,8 +126,8 @@ $line-numbers
     margin: 10px 0
   ul
     li:before
-      content: "\f05d"
-      font: normal normal normal 14px/1 FontAwesome
+      content: "\f111"
+      font: normal normal normal 12px/1 FontAwesome
       display: inline-block
       margin: 0 10px
       line-height: 28px
@@ -147,18 +135,15 @@ $line-numbers
         li
           margin-left: 20px
         li:before
-          content: "\f05d"
-          font: normal normal normal 14px/1 FontAwesome
+          content: "\f111"
+          font: normal normal normal 12px/1 FontAwesome
           display: inline-block
           margin: 0 10px
           line-height: 28px
   ol
     li
       list-style: decimal
-      margin: 0 10px
-
-  li:hover
-    background-color: #2E2E2E
+      margin: 4px 26px
 
   .highlight::before
     content: attr(data-lang) " code"
