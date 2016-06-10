@@ -1,4 +1,4 @@
-@import url(http://luuman.github.io/font-awesome/css/font-awesome.min.css);
+@import url("font-awesome.min.css");
 /*CSS源代码*/
 body {
     background: #CFCFCF;
@@ -11,7 +11,7 @@ a{
     height: 100px;
     margin: 0 auto;
     -webkit-filter: url("#goo");
-    filter: url("../share.html#goo");
+    /*filter: url("../share.html#goo");*/
     position: relative;
 }
 #share .share-button,#share .share-toggle-button {
@@ -60,7 +60,7 @@ a{
     color: #FFF;
     font: normal normal normal 36px/1 FontAwesome;
 }
-.bdshare-button-style0-24 a:{
+.bdshare-button-style0-24 a {
     color: #333;
     opacity: 1;
     filter: alpha(opacity=80)

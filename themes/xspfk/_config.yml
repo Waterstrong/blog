@@ -27,7 +27,7 @@ subnav:
   wechat: "img/qrcode.png"
 #  QQ: "#"
   weibo: "http://weibo.com/waterstrong"
-#  StackOverflow: "#"
+  stackOverflow: "http://stackoverflow.com/users/6448085/waterstrong"
 #  Zhihu: "zhihu"
 #  Douban: "#"
 #  Twitter: "https://twitter.com/shuiqianglin"
