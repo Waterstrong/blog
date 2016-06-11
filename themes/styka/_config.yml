@@ -155,11 +155,11 @@ baidushare: true
 
 # 百度、谷歌站长验证。填写 HTML 标签 content
 # Site Verification for Google and Baidu. HTML label content.
-google_site: 3uYD_HHAdzktaAWksT5naJ9iaR3GD25DNI77eRoqYlI
+#google_site: 3uYD_HHAdzktaAWksT5naJ9iaR3GD25DNI77eRoqYlI
 baidu_site: 9122feae2de1ae23df6a837a7c898ef1
 
 # Fill in Google Analytics tracking ID, #e.g. UA-XXXXX-X
-google_analytics: UA-75679138-1
+#google_analytics: UA-75679138-1
 baidu_analytics: 0eebfc18021c9d6853ca20f45d03d4a1 # enter Baidu Analytics hash key
 
 # 不蒜子网站计数设置
