@@ -1,8 +1,8 @@
 
-code-bgc = #002B36
+code-bgc = #f7f8f8
 code-tag = #F92672
 code-attr = #A6E22E
-code-word = #FFFFFF
+code-word = #5d686f
 code-value = #E6DB74
 code-number = #9E90FF
 code-keyword = #66D9EF
@@ -18,7 +18,7 @@ $code-block
   line-height: font-size * line-height
 
 $line-numbers
-  color: #999
+  color: #666
 
 .article-entry
   pre, code
@@ -111,18 +111,18 @@ $line-numbers
       list-style: decimal
       margin: 4px 26px
 
-  .highlight::before
-    content: attr(data-lang) " code"
-    display: block
-    background-color: #0083A0
-    margin: 0 -16px 16px -16px
-    padding: 8px 16px
-    color: #EFEFEF
-    font-family: Lato,"Microsoft YaHei",sans-serif
-    font-size: 1.1rem
-    text-shadow: none
-    border-bottom: dashed 1px #000
-    text-transform:capitalize
+  //.highlight::before
+  //  content: attr(data-lang) " code"
+  //  display: block
+  //  background-color: #0083A0
+  //  margin: 0 -16px 16px -16px
+  //  padding: 8px 16px
+  //  color: #EFEFEF
+  //  font-family: Lato,"Microsoft YaHei",sans-serif
+  //  font-size: 1.1rem
+  //  text-shadow: none
+  //  border-bottom: dashed 1px #000
+  //  text-transform:capitalize
   .highlight
     @extend $code-block
     border-radius: 4px
@@ -130,12 +130,12 @@ $line-numbers
     pre
       border: none
       margin: 0
-      padding: 0
+      padding: 0 0 0 15px
     table
-      margin: 20px 0
+      margin: 10px 0
       width: auto
       color: #FFF
-      thead 
+      thead
         tr
           background: #2D2D2D
         tr:hover
@@ -156,7 +156,8 @@ $line-numbers
     .gutter pre
       @extend $line-numbers
       text-align: right
-      padding-right: 20px
+      padding: 0 15px 0 5px
+      border-right: 1px solid #E6E6E6
       .line
         text-shadow: none
     .line
