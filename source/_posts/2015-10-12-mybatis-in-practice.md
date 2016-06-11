@@ -3,11 +3,10 @@ title: MyBatis入门与实践
 date: 2015-10-12 12:52:44
 category: Frameworks
 tags: [MyBatis, 数据库, 持久层框架, 动态SQL, Java]
-description: 'MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。'
 ---
 
 MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。
-<!-- excerpt -->
+<!-- more -->
 
 ### What is MyBatis?
 

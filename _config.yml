@@ -77,8 +77,7 @@ keywords:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: tranquilpeak
-#theme: spfk
+theme: xspfk
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

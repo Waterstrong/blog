@@ -6,10 +6,7 @@ tags: [Java, Spring Boot, Gradle, IntelliJ, Unit Test, Integration Test]
 description: 基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式。
 ---
 
-基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式。
-<!-- more -->
-
-接下来分别介绍两种方式:
+基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在`build.gradle`中配置Integration Test和Unit Test有多种方式。接下来分别介绍两种方式:
 
 假设在IntelliJ中创建好如下Tree结构:
 ![](/assets/java-unit-intg-test/java_project_tree.png)
@@ -25,11 +22,11 @@ sourceSets {
         resources.srcDirs = ['src/main/resources']
     }
     test {
-        java.srcDirs = ['src/test/java']
-        resources.srcDirs = ['src/test/resources', 'src/integrationTest/resources']
+        java.srcDirs = ['src/test/unit/java']
+        resources.srcDirs = ['src/test/unit/resources', 'src/test/intg/resources']
     }
     integrationTest {
-        java.srcDirs = ['src/integrationTest/java']
+        java.srcDirs = ['src/test/intg/java']
     }
 }
 ```
@@ -82,13 +79,13 @@ sourceSets {
         resources.srcDirs = ['src/main/resources']
     }
     test {
-        java.srcDirs = ['src/test/java', 'src/integrationTest/java']
-        resources.srcDirs = ['src/test/resources', 'src/integrationTest/resources']
+        java.srcDirs = ['src/test/unit/java', 'src/test/intg/java']
+        resources.srcDirs = ['src/test/unit/resources', 'src/test/intg/resources']
     }
 }
 ```
 
-Exclude the test classes
+Exclude the test classes `*IntegrationTest.class`
 
 ```
 test {
