@@ -229,25 +229,32 @@
   }
   table{
     width:100%;
-    border: 1px solid #dedede;
+    line-height: 40px;
+    //border: 1px solid #dedede;
     margin: 10px 0;
-    color: #FFF;
+    color: #5d686f;
     border-collapse:collapse;
     tr,td{
       height: 100%;
     }
     thead{
       tr {
-        background: #2D2D2D;
+        border-bottom: 2px solid gray;
+        th {
+          font-weight: 700;
+        }
       }
     }
     tbody{
       tr:hover{
-        background: #151414;
+        background: #dedede;
       }
     }
+    tr:nth-child(2n) {
+      background: #f7f8f8;
+    }
     td,th{
-      border: 1px solid #020202;
+      border: none;
       padding: 0 10px;
     }
   }
