@@ -79,6 +79,20 @@
         width: auto;
         overflow: hidden;
     }
+    .left-col-pulled {
+        -webkit-transform: translate3d(- left-col-width, 0, 0)
+        -moz-transform: translate3d(- left-col-width, 0, 0)
+        -ms-transform: translate3d(- left-col-width, 0, 0)
+        -o-transform: translate3d(- left-col-width, 0, 0)
+        transform: translate3d(- left-col-width, 0, 0);
+    }
+    .mid-col-pulled {
+        -webkit-transform: translate3d(- left-col-width/2, 0, 0);
+        -moz-transform: translate3d(- left-col-width/2, 0, 0);
+        -ms-transform: translate3d(- left-col-width/2, 0, 0);
+        -o-transform: translate3d(- left-col-width/2, 0, 0);
+        transform: translate3d(- left-col-width/2, 0, 0);
+    }
 
     @media screen and (max-width:1040px) {
         
