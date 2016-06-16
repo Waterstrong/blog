@@ -34,7 +34,7 @@
         }
 
         // Define position of the thumbnail image
-        if (!post.excerpt && !post.link) {
+        if (!(post.description || post.excerpt) && !post.link) {
             thumbnailImagePosition = "bottom";
         } else if (thumbnailImageUrl !== null) {
             if (post.thumbnailImagePosition && post.thumbnailImagePosition.length)  {
@@ -43,7 +43,7 @@
         }
 
         // Generate and insert table of contents in post content
-        if (!post.excerpt && (/<!--(\s*)[t|T][o|O][c|C](\s*)-->/).test(postContent)) {
+        if (!(post.description || post.excerpt) && (/<!--(\s*)[t|T][o|O][c|C](\s*)-->/).test(postContent)) {
             if (__('post.toc_title')) {
                 tableOfContents = '<h1 id=\"table-of-contents\">' + __('post.toc') + '</h1>';
             } else {
@@ -75,9 +75,14 @@
                 </div>
                 <% thumbnailImageUrl = null; %>
             <% } %>
-            <% if (post.excerpt || post.link) { %>
+            <% if (post.description || post.excerpt || post.link) { %>
                 <div class="postShorten-excerpt" itemprop="articleBody">
-                    <%- post.excerpt %>
+                    <% if (post.description){ %>
+                        <%- post.description %> </br>
+                    <% } else { %>
+                        <%- post.excerpt %>
+                    <% } %>
+
                     <% if (post.link && _('post.go_to_website')) { %>
                         <a href="<%- url_for(post.link) %>" target="new" class="postShorten-excerpt_link link">
                             <%= __('post.go_to_website') %>
