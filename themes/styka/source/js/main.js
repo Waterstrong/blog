@@ -6,14 +6,14 @@ require([], function (){
             mobile.init();
             isMobileInit = true;
         });
-    }
+    };
     var isPCInit = false;
     var loadPC = function(){
         require(['/js/pc.js'], function(pc){
             pc.init();
             isPCInit = true;
         });
-    }
+    };
 
     var browser={
         versions:function(){
@@ -32,7 +32,7 @@ require([], function (){
             weixin: u.indexOf('MicroMessenger') == -1 //是否为微信浏览器
             };
         }()
-    }
+    };
 
     $(window).bind("resize", function(){
         if(isMobileInit && isPCInit){

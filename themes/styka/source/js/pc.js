@@ -25,7 +25,7 @@ define([], function(){
             tags[i].className = "";
             tags.eq(i).addClass("color"+num);
         }
-    }
+    };
 
     var slide = function(idx){
         // 修复IE10+切换无效的bug
@@ -43,7 +43,7 @@ define([], function(){
         $wrap[0].style.cssText = transform.join('');
         $(".icon-wrap").addClass("hide");
         $(".icon-wrap").eq(idx).removeClass("hide");
-    }
+    };
 
     var bind = function(){
         var switchBtn = $("#myonoffswitch");
@@ -95,7 +95,7 @@ define([], function(){
             slide(idx);
             Tips.hide();
         });
-    }
+    };
 
     
 

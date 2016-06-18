@@ -28,6 +28,8 @@
             this.$midColSelector = $("#post-mid-col");
             this.$navBtnSelector = $("#post-nav-button");
             this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
         };
 
         SidebarNav.prototype = {
@@ -40,6 +42,8 @@
             showSidebar: function () {
                 var self = this;
                 self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$tocTitleSelector.removeClass(self.leftColPulled);
+                self.$tocButtonSelector.removeClass(self.leftColPulled);
                 self.$midColSelector.removeClass(self.midColPulled);
                 self.$navBtnSelector.removeClass(self.midColPulled);
                 self.$scrollSelector.removeClass(self.midColPulled);
@@ -47,6 +51,8 @@
             hideSidebar: function () {
                 var self = this;
                 self.$leftColSelector.addClass(self.leftColPulled);
+                self.$tocTitleSelector.addClass(self.leftColPulled);
+                self.$tocButtonSelector.addClass(self.leftColPulled);
                 self.$midColSelector.addClass(self.midColPulled);
                 self.$navBtnSelector.addClass(self.midColPulled);
                 self.$scrollSelector.addClass(self.midColPulled);

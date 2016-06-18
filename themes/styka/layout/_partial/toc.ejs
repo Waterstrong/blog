@@ -1,8 +1,8 @@
-<div id="toc" class="toc-article <% if(is_post()) { %> left-col-pulled <% } %>">
+<div id="toc" class="toc-article <% if(theme.hide_sidebar) { %> left-col-pulled <% } %>">
     <strong class="toc-title">文章目录</strong>
     <%- toc(post.content) %>
 </div>
-<input type="button" id="tocButton" class="<% if(is_post()) { %> left-col-pulled <% } %>"
+<input type="button" id="tocButton" class="<% if(theme.hide_sidebar) { %> left-col-pulled <% } %>"
        value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
 
 <%- js('/js/require-jquery.min.js') %>
