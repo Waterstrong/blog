@@ -5,7 +5,6 @@
          id="<% if(is_post()) { %>post-left-col<% } %>">
     <%- partial('_partial/left-col', null, {cache: !config.relative_link}) %>
     </div>
-    <%- partial('_partial/col-nav-button') %>
     <div class="mid-col <% if(is_post() && theme.hide_sidebar) { %>mid-col-pulled<% } %>"
          id="<% if(is_post()) { %>post-mid-col<% } %>">
       <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
