@@ -1,32 +1,17 @@
 <% if (is_post()){ %>
-<div class="scroll <% if(theme.hide_sidebar) { %>mid-col-pulled<% } %>" id="post-nav-button">
-    <% if (false){ %>
-    <a href="<%- url_for(post.prev.path) %>" title="上一篇: <%= post.prev.title %>">
-        <i class="fa fa-angle-left"></i>
-    </a>
-    <% } else { %>
-    <a href="/" title="回到首页"><i class="fa fa-home"></i></a>
-    <% } %>
-    <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-    <% if (false){ %>
-    <a href="<%- url_for(post.next.path) %>" title="下一篇: <%= post.next.title %>">
-        <i class="fa fa-angle-right"></i>
-    </a>
-    <% } else { %>
-    <a href="/" title="回到首页"><i class="fa fa-home"></i></a>
-    <% } %>
+<div class="scroll <% if(theme.hide_sidebar) { %>left-col-pulled<% } %>" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
-<%- list_posts({amount: 999}) %>
 
 <script>
     (function ($) {
         var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#post-nav-button > a:nth-child(2)");
+            this.$sidebarNavBtn = $("#switch-sidebar");
             this.leftColPulled = "left-col-pulled";
             this.midColPulled = "mid-col-pulled";
             this.$leftColSelector = $("#post-left-col");
             this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#post-nav-button");
+            this.$navBtnSelector = $("#col-nav-button");
             this.$scrollSelector = $("#scroll");
             this.$tocTitleSelector = $("#toc");
             this.$tocButtonSelector = $("#tocButton");
@@ -45,7 +30,7 @@
                 self.$tocTitleSelector.removeClass(self.leftColPulled);
                 self.$tocButtonSelector.removeClass(self.leftColPulled);
                 self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
                 self.$scrollSelector.removeClass(self.midColPulled);
             },
             hideSidebar: function () {
@@ -54,7 +39,7 @@
                 self.$tocTitleSelector.addClass(self.leftColPulled);
                 self.$tocButtonSelector.addClass(self.leftColPulled);
                 self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
                 self.$scrollSelector.addClass(self.midColPulled);
             },
             isSidebarShown: function () {
