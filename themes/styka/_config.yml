@@ -94,6 +94,9 @@ left_col_width: 291
 # 在阅读模式下默认隐藏左边栏
 hide_sidebar: true
 
+# 初始状态时是否显示目录
+init_show_toc: false
+
 # 目录中标题不换行
 # Keep TOC title on the same line | 
 toc_nowrap: false

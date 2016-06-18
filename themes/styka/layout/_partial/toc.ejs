@@ -1,9 +1,10 @@
-<div id="toc" class="toc-article <% if(theme.hide_sidebar) { %> left-col-pulled <% } %>">
+<div id="toc" class="<% if (!theme.init_show_toc) { %>hide<% } %> toc-article <% if(theme.hide_sidebar) { %> left-col-pulled <% } %>">
     <strong class="toc-title">文章目录</strong>
     <%- toc(post.content) %>
 </div>
 <input type="button" id="tocButton" class="<% if(theme.hide_sidebar) { %> left-col-pulled <% } %>"
-       value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+       value="<% if (theme.init_show_toc) { %>隐藏目录<% } else { %>显示目录<% } %>"
+       title="点击按钮隐藏或者显示文章目录">
 
 <%- js('/js/require-jquery.min.js') %>
 <script>
@@ -22,7 +23,7 @@
             $("#tocButton").attr("value", valueShow);
             $("#toc").slideUp(350);
         }
-    })
+    });
     if ($(".toc").length < 1) {
         $("#toc, #tocButton").hide();
     }
