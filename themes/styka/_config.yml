@@ -91,6 +91,9 @@ blockquote_style:
 # 左边栏宽度 px
 left_col_width: 291
 
+# 在阅读模式下默认隐藏左边栏
+hide_sidebar: true
+
 # 目录中标题不换行
 # Keep TOC title on the same line | 
 toc_nowrap: false

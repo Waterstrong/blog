@@ -1,5 +1,5 @@
 <% if (is_post()){ %>
-    <div class="scroll mid-col-pulled" id="post-nav-button">
+    <div class="scroll" id="post-nav-button">
         <% if (post.prev){ %>
             <a href="<%- url_for(post.prev.path) %>" title="上一篇: <%= post.prev.title %>">
                 <i class="fa fa-angle-left"></i>
