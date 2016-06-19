@@ -1,5 +1,5 @@
 <% if (is_post()){ %>
-<div class="scroll <% if(theme.hide_sidebar) { %>left-col-pulled<% } %>" id="col-nav-button">
+<div class="scroll <% if(!theme.init_show_col) { %>left-col-pulled<% } %> col-pulled-smooth" id="col-nav-button">
     <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 

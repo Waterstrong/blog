@@ -93,6 +93,12 @@
         -o-transform: translate3d(- left-col-width/2, 0, 0);
         transform: translate3d(- left-col-width/2, 0, 0);
     }
+    .col-pulled-smooth {
+        -webkit-transition: -webkit-transform .35s ease-in-out;
+        transition: -webkit-transform .35s ease-in-out;
+        -webkit-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+    }
 
     @media screen and (max-width:1040px) {
         
@@ -796,10 +802,18 @@
             //color: rgba(64, 148, 199, .7); // #4094c7
         }
         &:hover {
-            background: rgba(147, 181, 224, .3) !important; 
+            background: rgba(147, 181, 224, .3);
             .fa {
                 color: white;
             }
+        }
+    }
+}
+
+#switch-sidebar {
+    &:hover {
+        .fa {
+            color: rgba(153, 153, 153, .8);
         }
     }
 }
