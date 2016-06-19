@@ -27,20 +27,24 @@
             showSidebar: function () {
                 var self = this;
                 self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$tocTitleSelector.removeClass(self.leftColPulled);
-                self.$tocButtonSelector.removeClass(self.leftColPulled);
                 self.$midColSelector.removeClass(self.midColPulled);
                 self.$navBtnSelector.removeClass(self.leftColPulled);
                 self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
             },
             hideSidebar: function () {
                 var self = this;
                 self.$leftColSelector.addClass(self.leftColPulled);
-                self.$tocTitleSelector.addClass(self.leftColPulled);
-                self.$tocButtonSelector.addClass(self.leftColPulled);
                 self.$midColSelector.addClass(self.midColPulled);
                 self.$navBtnSelector.addClass(self.leftColPulled);
                 self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
             },
             isSidebarShown: function () {
                 var self = this;

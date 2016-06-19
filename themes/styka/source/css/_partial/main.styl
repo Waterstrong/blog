@@ -92,12 +92,24 @@
         -ms-transform: translate3d(- left-col-width/2, 0, 0);
         -o-transform: translate3d(- left-col-width/2, 0, 0);
         transform: translate3d(- left-col-width/2, 0, 0);
+        #toc, #tocButton {
+            left: -500px;
+            display: none;
+        }
     }
-    .col-pulled-smooth {
+    .col-pulled-smooth, .toc-pulled-smooth {
         -webkit-transition: -webkit-transform .35s ease-in-out;
+        -moz-transition: -webkit-transform .35s ease-in-out;
+        -o-transition: -webkit-transform .35s ease-in-out;
         transition: -webkit-transform .35s ease-in-out;
         -webkit-font-smoothing: antialiased;
         font-smoothing: antialiased;
+    }
+    .toc-pulled-smooth {
+        transition-duration: .2s;
+        -webkit-transition-duration: .2s;
+        -moz-transition-duration: .2s;
+        -o-transition-duration: .2s;
     }
 
     @media screen and (max-width:1040px) {
