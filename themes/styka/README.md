@@ -1,14 +1,18 @@
-　　** SPFK Hexo 主题：**用了yilia主题一段时间，感觉还有很多可以提高的地方，就查阅资料，对其进行粗类的修改，但是，有其实还有很多不完善的地方，欢迎大家前捧场。
-没想到，这么多人喜欢黑色版本的，建议不是每个人都喜欢我的这些功能，所以准备个基础版本，插件可以看教程自行安装。
+# hexo-theme-styka
+A gorgeous and elegant theme for Hexo. http://blog.waterstrong.me
+
+** STYKA Hexo主题：之前用了一段时间的spfk主题，黑色主题加页面效果很酷炫的，作为一名程序猿更钟情于黑色的，但对于阅读者来说黑色并不是太友好，然后尝试用了tranquilpeak主题，白色主题简洁清爽，然后尝试着把两者结合一下，各取其长，粗略改了一下，还有很多不完善的地方，大家可以提Issue，当然能直接提Pull Request更好了。**
+
+#### 版本更新
+v0.1 2016-06-20
 
 
-注意：使用本主题请仔细查看[SPFK Hexo使用介绍](http://luuman.github.io/categories/Hexo/)，没有使用过Hexo的同学可以看看[GitHub Hexo搭建](http://luuman.github.io/categories/Hexo/)，另外还有一个我自己搭建时，插件的安装教程[Hexo插件安装](http://luuman.github.io/categories/Hexo/)
+#### Get Started
+1. 确保本机安装Hexo环境，可以参考[https://hexo.io/](https://hexo.io/)
+2. 下载hexo-theme-styka主题到theme目录下并更名为styka，同时修改主目录下_config.yml中的theme配置
+3. 修改styka目录下的_config.yml配置
 
 
-正如前辈们所说，我们使用博客的目的是分享经验，总结自己，督促自己不断提升。如果你有不喜欢，不断的改进吧。只要你玩的开心！（请不要再这浪费太多精力，去丰富你的博客内容吧，骚年！）
-
-声明：由于博主一直使用，关于Blog的迁移，小伙伴可以自行参考Blog的内容，进行编辑。
-
-![luuman-ipad-iphone](https://raw.githubusercontent.com/luuman/luuman.github.io/master/resoures/luuman-ipad-iphone.jpg)
-![iPhone6](https://raw.githubusercontent.com/luuman/luuman.github.io/master/resoures/iPhone6-mockup.jpg)
+----
+**特此声明：**_本主题在yilia和spfk主题基础上进行的修改，同时参考了tranquilpeak主题的部分内容。_
 
