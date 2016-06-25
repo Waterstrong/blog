@@ -46,6 +46,7 @@
           open_in_new: false
       }
   </script>
+  <script data-main="/js/app.js" src="/js/require-jquery.min.js"></script>
 </head>
 <body>
   <div id="container">
@@ -371,15 +372,14 @@
   
 </article>
 
-    <div id="toc" class="toc-article hide left-col-pulled toc-pulled-smooth">
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Alert"><span class="toc-number">1.</span> <span class="toc-text">Alert</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Block-Quote"><span class="toc-number">2.</span> <span class="toc-text">Block Quote</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code-Block"><span class="toc-number">3.</span> <span class="toc-text">Code Block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rewrite-s-rules-for-wordpress-pretty-url"><span class="toc-number">4.</span> <span class="toc-text">rewrite`s rules for wordpress pretty url</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gist"><span class="toc-number">5.</span> <span class="toc-text">Gist</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image"><span class="toc-number">6.</span> <span class="toc-text">Image</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#jsFiddle"><span class="toc-number">7.</span> <span class="toc-text">jsFiddle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pull-Quote"><span class="toc-number">8.</span> <span class="toc-text">Pull Quote</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Highlight-text"><span class="toc-number">9.</span> <span class="toc-text">Highlight text</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tabbed-code-block"><span class="toc-number">10.</span> <span class="toc-text">Tabbed code block</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="显示目录"
+       value="隐藏目录"
        title="点击按钮隐藏或者显示文章目录">
 
-<script src="/js/require-jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -483,8 +483,7 @@
 </footer>
 
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
     <script>
         $(document).ready(function() {

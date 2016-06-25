@@ -66,6 +66,7 @@
           open_in_new: false
       }
   </script>
+  <script data-main="/js/app.js" src="/js/require-jquery.min.js"></script>
 </head>
 <body>
   <div id="container">
@@ -405,15 +406,14 @@
   
 </article>
 
-    <div id="toc" class="toc-article hide left-col-pulled toc-pulled-smooth">
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">1.</span> <span class="toc-text">基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是Amazon-EC2"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Amazon EC2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相关概念和名词解释"><span class="toc-number">1.2.</span> <span class="toc-text">相关概念和名词解释</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注册并创建EC2实例"><span class="toc-number">2.</span> <span class="toc-text">注册并创建EC2实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instances-Management-实例管理"><span class="toc-number">3.</span> <span class="toc-text">Instances Management 实例管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-amp-Tags-资源-amp-标签"><span class="toc-number">4.</span> <span class="toc-text">Resource & Tags 资源 & 标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Volumes-卷"><span class="toc-number">5.</span> <span class="toc-text">Volumes 卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Snapshots-快照"><span class="toc-number">6.</span> <span class="toc-text">Snapshots 快照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Groups-安全组"><span class="toc-number">7.</span> <span class="toc-text">Security Groups 安全组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Pairs-密钥对"><span class="toc-number">8.</span> <span class="toc-text">Key Pairs 密钥对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Placement-Groups-置放群组"><span class="toc-number">9.</span> <span class="toc-text">Placement Groups 置放群组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elastic-IPs-弹性IP"><span class="toc-number">10.</span> <span class="toc-text">Elastic IPs 弹性IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Network-Interfaces-网络接口"><span class="toc-number">11.</span> <span class="toc-text">Network Interfaces 网络接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Load-Banlancers-负载均衡"><span class="toc-number">12.</span> <span class="toc-text">Load Banlancers 负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Auto-Scaling"><span class="toc-number">13.</span> <span class="toc-text">Auto Scaling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">14.</span> <span class="toc-text">参考资料</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="显示目录"
+       value="隐藏目录"
        title="点击按钮隐藏或者显示文章目录">
 
-<script src="/js/require-jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -517,8 +517,7 @@
 </footer>
 
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
     <script>
         $(document).ready(function() {

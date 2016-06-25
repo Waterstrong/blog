@@ -46,6 +46,7 @@
           open_in_new: false
       }
   </script>
+  <script data-main="/js/app.js" src="/js/require-jquery.min.js"></script>
 </head>
 <body>
   <div id="container">
@@ -361,15 +362,14 @@
   
 </article>
 
-    <div id="toc" class="toc-article hide left-col-pulled toc-pulled-smooth">
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tabbed-code-block"><span class="toc-number">1.</span> <span class="toc-text">Tabbed code block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bash"><span class="toc-number">2.</span> <span class="toc-text">Bash</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Coffeescript"><span class="toc-number">3.</span> <span class="toc-text">Coffeescript</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C"><span class="toc-number">4.</span> <span class="toc-text">C++</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CShparp"><span class="toc-number">5.</span> <span class="toc-text">CShparp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS"><span class="toc-number">6.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DIFF"><span class="toc-number">7.</span> <span class="toc-text">DIFF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP"><span class="toc-number">8.</span> <span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#INI"><span class="toc-number">9.</span> <span class="toc-text">INI</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java"><span class="toc-number">10.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript"><span class="toc-number">11.</span> <span class="toc-text">JavaScript</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">12.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Makefile"><span class="toc-number">13.</span> <span class="toc-text">Makefile</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown"><span class="toc-number">14.</span> <span class="toc-text">Markdown</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx"><span class="toc-number">15.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Objective-C"><span class="toc-number">16.</span> <span class="toc-text">Objective-C</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Perl"><span class="toc-number">17.</span> <span class="toc-text">Perl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP"><span class="toc-number">18.</span> <span class="toc-text">PHP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python"><span class="toc-number">19.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ruby"><span class="toc-number">20.</span> <span class="toc-text">Ruby</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL"><span class="toc-number">21.</span> <span class="toc-text">SQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML"><span class="toc-number">22.</span> <span class="toc-text">HTML</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Puppet"><span class="toc-number">23.</span> <span class="toc-text">Puppet</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less"><span class="toc-number">24.</span> <span class="toc-text">Less</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SCSS"><span class="toc-number">25.</span> <span class="toc-text">SCSS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Stylus"><span class="toc-number">26.</span> <span class="toc-text">Stylus</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go"><span class="toc-number">27.</span> <span class="toc-text">Go</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Swift"><span class="toc-number">28.</span> <span class="toc-text">Swift</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="显示目录"
+       value="隐藏目录"
        title="点击按钮隐藏或者显示文章目录">
 
-<script src="/js/require-jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -473,8 +473,7 @@
 </footer>
 
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
     <script>
         $(document).ready(function() {

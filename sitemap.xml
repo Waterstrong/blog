@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/tmp-Image-gallery-showcase/</loc>
+    <loc>http://blog.waterstrong.me/tmp-link-post/</loc>
     
     <lastmod>2016-06-13T15:11:46.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/tmp-link-post/</loc>
+    <loc>http://blog.waterstrong.me/tmp-Image-gallery-showcase/</loc>
     
     <lastmod>2016-06-13T15:11:46.000Z</lastmod>
     
@@ -114,6 +114,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -122,13 +129,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -149,14 +149,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

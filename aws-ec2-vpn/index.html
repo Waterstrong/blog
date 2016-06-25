@@ -57,6 +57,7 @@
           open_in_new: false
       }
   </script>
+  <script data-main="/js/app.js" src="/js/require-jquery.min.js"></script>
 </head>
 <body>
   <div id="container">
@@ -412,15 +413,14 @@
   
 </article>
 
-    <div id="toc" class="toc-article hide left-col-pulled toc-pulled-smooth">
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step1-安装PPTP"><span class="toc-number">2.</span> <span class="toc-text">Step1 - 安装PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step2-配置PPTP"><span class="toc-number">3.</span> <span class="toc-text">Step2 - 配置PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step3-添加DNS解析"><span class="toc-number">4.</span> <span class="toc-text">Step3 - 添加DNS解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step4-添加VPN用户"><span class="toc-number">5.</span> <span class="toc-text">Step4 - 添加VPN用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step5-开启IPv4转发"><span class="toc-number">6.</span> <span class="toc-text">Step5 - 开启IPv4转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step6-创建NAT规则"><span class="toc-number">7.</span> <span class="toc-text">Step6 - 创建NAT规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step7-启动PPTP服务"><span class="toc-number">8.</span> <span class="toc-text">Step7 - 启动PPTP服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step8-使用VPN服务"><span class="toc-number">9.</span> <span class="toc-text">Step8 - 使用VPN服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在Mac-OS-X上配置VPN"><span class="toc-number">9.1.</span> <span class="toc-text">在Mac OS X上配置VPN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在iPhone-6s上配置VPN"><span class="toc-number">9.2.</span> <span class="toc-text">在iPhone 6s上配置VPN</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="显示目录"
+       value="隐藏目录"
        title="点击按钮隐藏或者显示文章目录">
 
-<script src="/js/require-jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -524,8 +524,7 @@
 </footer>
 
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
     <script>
         $(document).ready(function() {

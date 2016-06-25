@@ -58,6 +58,7 @@
           open_in_new: false
       }
   </script>
+  <script data-main="/js/app.js" src="/js/require-jquery.min.js"></script>
 </head>
 <body>
   <div id="container">
@@ -475,15 +476,14 @@
   
 </article>
 
-    <div id="toc" class="toc-article hide left-col-pulled toc-pulled-smooth">
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
     <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantages-of-CI-CD"><span class="toc-number">1.</span> <span class="toc-text">Advantages of CI/CD</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Continuous-Integration"><span class="toc-number">1.1.</span> <span class="toc-text">Continuous Integration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Continuous-Delivery"><span class="toc-number">1.2.</span> <span class="toc-text">Continuous Delivery</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CI-CD的好处"><span class="toc-number">1.3.</span> <span class="toc-text">CI/CD的好处</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Concourse"><span class="toc-number">2.</span> <span class="toc-text">What is Concourse?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-is-Concourse"><span class="toc-number">3.</span> <span class="toc-text">Why is Concourse?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-GoCD"><span class="toc-number">3.1.</span> <span class="toc-text">vs. GoCD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-Jenkins"><span class="toc-number">3.2.</span> <span class="toc-text">vs. Jenkins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vs-Travis-CI"><span class="toc-number">3.3.</span> <span class="toc-text">vs. Travis CI</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concourse-Concepts"><span class="toc-number">4.</span> <span class="toc-text">Concourse Concepts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concourse-Architecture"><span class="toc-number">5.</span> <span class="toc-text">Concourse Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ATC-web-UI-amp-build-scheduler"><span class="toc-number">5.1.</span> <span class="toc-text">ATC: web UI & build scheduler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TSA-worker-registration-amp-forwarding"><span class="toc-number">5.2.</span> <span class="toc-text">TSA: worker registration & forwarding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Workers-container-runtime-amp-cache-management"><span class="toc-number">5.3.</span> <span class="toc-text">Workers: container runtime & cache management</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concourse-Impacts"><span class="toc-number">6.</span> <span class="toc-text">Concourse Impacts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-Concourse"><span class="toc-number">7.</span> <span class="toc-text">Using Concourse</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step1-Install-and-Setup"><span class="toc-number">7.1.</span> <span class="toc-text">Step1. Install and Setup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step2-Using-yml-to-describe-pipeline"><span class="toc-number">7.2.</span> <span class="toc-text">Step2. Using *.yml to describe pipeline</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Step3-Push-to-Concourse"><span class="toc-number">7.3.</span> <span class="toc-text">Step3. Push to Concourse</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concourse-Assess"><span class="toc-number">8.</span> <span class="toc-text">Concourse Assess</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="显示目录"
+       value="隐藏目录"
        title="点击按钮隐藏或者显示文章目录">
 
-<script src="/js/require-jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -587,8 +587,7 @@
 </footer>
 
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 
     <script>
         $(document).ready(function() {
