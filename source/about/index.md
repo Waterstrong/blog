@@ -1,5 +1,5 @@
 ---
-title: Hi Mate, Glad to Meet You!
+title: Hi ^_^ Glad to Meet U
 ---
 
 > I'm Waterstrong! The man who has made up his mind to win will never say "Impossible"!
