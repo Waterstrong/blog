@@ -348,6 +348,17 @@ a {
   #container .mid-col {
     left: 0;
   }
+  #container .left-col-pulled,
+  #container .mid-col-pulled {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
   #container #header .header-nav {
     position: relative;
   }
@@ -2373,6 +2384,10 @@ a {
 #col-nav-button {
   top: 5px;
   bottom: auto;
+}
+#home-nav-button {
+  right: -40px;
+  bottom: 82px;
 }
 .post-list {
   display: none;
