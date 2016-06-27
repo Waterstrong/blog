@@ -368,7 +368,7 @@ a {
     padding-top: 7px;
     height: 39px;
     width: 100%;
-    background-color: #444;
+    background-color: rgba(68,68,68,0.8);
     color: #fff;
   }
   #container .overlay .slider-trigger {
