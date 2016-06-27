@@ -622,6 +622,9 @@ a {
   #container .scroll a {
     background-color: rgba(63,63,63,0);
   }
+  #container .scroll a:hover .fa {
+    color: rgba(147,181,224,0.8);
+  }
   #container .hide-labels {
     position: fixed;
     left: 42px;
