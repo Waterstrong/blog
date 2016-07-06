@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ansible入门与实践 | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible入门与实践">
+<meta property="og:url" content="http://blog.waterstrong.me/ansible-in-practice/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。">
+<meta property="og:updated_time" content="2016-07-06T05:22:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible入门与实践">
+<meta name="twitter:description" content="Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/archives">Archives</a></li>
+                        
+                            <li><a href="/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 10px;">Ansible</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 10px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Concourse/" style="font-size: 10px;">Concourse</a> <a href="/tags/DevOps/" style="font-size: 17.5px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IntelliJ/" style="font-size: 10px;">IntelliJ</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 10px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/archives">Archives</a></li>
+                
+                    <li><a href="/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-ansible-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/ansible-in-practice/" class="article-date">
+      <time datetime="2016-06-26T11:56:40.000Z" itemprop="datePublished">2016-06-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ansible入门与实践
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动化/">自动化</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="什么是Ansible"><a href="#什么是Ansible" class="headerlink" title="什么是Ansible?"></a>什么是Ansible?</h2><p>Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。其主要目标就是变得更加简单易使用，同时也考虑到安全和可靠性等。</p>
+<h2 id="为什么要使用Ansible"><a href="#为什么要使用Ansible" class="headerlink" title="为什么要使用Ansible?"></a>为什么要使用Ansible?</h2><h3 id="存在的问题及解决方案"><a href="#存在的问题及解决方案" class="headerlink" title="存在的问题及解决方案"></a>存在的问题及解决方案</h3><p>当需要对系统配置进行管理、维护以及部署时通常采用文档方式或Shell脚本。对于上百上千台机器集群进行管理时文档已经不适用，而Shell方式对维护人员要求较高，而且容易出错。总得来说传统方式会存在以下几个方面的问题：</p>
+<ul>
+<li>机器数量庞大，难于手动管理</li>
+<li>大量的重复运维工作，浪费人力</li>
+<li>复杂的系统，难于避免出错</li>
+<li>不可跨平台，难以复用和维护</li>
+</ul>
+<p>因此需要一个统一的管理工具，而且相对来说简单易用，而且能够支持跨平台，高可读性易于维护，高重用性提升效率，总之能够快速有效地完成自动化运维工作。而Ansible是众多自动化工具中较为出色的一款。</p>
+<h3 id="自动化配置管理工具对比"><a href="#自动化配置管理工具对比" class="headerlink" title="自动化配置管理工具对比"></a>自动化配置管理工具对比</h3><table>
+<thead>
+<tr>
+<th>Tools</th>
+<th style="text-align:center">DSL</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ANSIBLE</td>
+<td style="text-align:center">YAML</td>
+<td style="text-align:left">Python，可维护性较高，架构简单，Windows平台支持有限</td>
+</tr>
+<tr>
+<td>SALTSTACK</td>
+<td style="text-align:center">SLS，支持YAML</td>
+<td style="text-align:left">Python，简单快速灵活，Windows平台支持有限，大规模多功能支持欠缺</td>
+</tr>
+<tr>
+<td>PUPPET</td>
+<td style="text-align:center">Ruby</td>
+<td style="text-align:left">Ruby，成熟度高，学习曲线较陡</td>
+</tr>
+<tr>
+<td>CHEF</td>
+<td style="text-align:center">Ruby</td>
+<td style="text-align:left">Ruby，成熟度高，学习曲线较陡</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Ansible基本概念"><a href="#Ansible基本概念" class="headerlink" title="Ansible基本概念"></a>Ansible基本概念</h2><h3 id="Ansible-CLI"><a href="#Ansible-CLI" class="headerlink" title="Ansible CLI"></a>Ansible CLI</h3><p>Ansible CLI 包含以下几个常用的指令：<code>ansible</code>, <code>ansible-playbook</code>, <code>ansible-doc</code>以及<code>ansible-galaxy</code>。</p>
+<p>特别注意在使用命令行时会遇到当在<code>known_hosts</code>中新加入fingerprint时会弹出确认信息的问题，如果想要禁用确认，可以配置<code>/usr/local/etc/ansible/ansible.cfg</code>或<code>~/.ansible.cfg</code>并写入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[defaults]</span><br><span class="line">host_key_checking = False</span><br></pre></td></tr></table></figure></p>
+<p>或者直接在命令行中执行export命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export ANSIBLE_HOST_KEY_CHECKING=False</span><br></pre></td></tr></table></figure></p>
+<p>可以阅读更多关于<a href="http://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking" target="_blank" rel="external">Host Key Checking</a>的介绍。接下来分别介绍一下CLI的常用指令：</p>
+<h4 id="ansible"><a href="#ansible" class="headerlink" title="$ ansible"></a>$ ansible</h4><p>ansible基本指令，用于ansible基本的操作，属于指令核心部分，其主要用于执行<a href="http://docs.ansible.com/ansible/intro_adhoc.html" target="_blank" rel="external">Ad-Hoc</a>命令，即单条命令。默认命令后需要跟主机和选项部分，默认不指定模块时，使用的是command模块。</p>
+<p>以下为一些例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># ping all nodes</span><br><span class="line">$ ansible all -m ping</span><br><span class="line"></span><br><span class="line"># as bruce</span><br><span class="line">$ ansible all -m ping -u bruce</span><br><span class="line"># as bruce, sudoing to root</span><br><span class="line">$ ansible all -m ping -u bruce --sudo</span><br><span class="line"># as bruce, sudoing to batman</span><br><span class="line">$ ansible all -m ping -u bruce --sudo --sudo-user batman</span><br><span class="line"></span><br><span class="line"># With latest version of ansible `sudo` is deprecated so use become</span><br><span class="line"># as bruce, sudoing to root</span><br><span class="line">$ ansible all -m ping -u bruce -b</span><br><span class="line"># as bruce, sudoing to batman</span><br><span class="line">$ ansible all -m ping -u bruce -b --become-user batman</span><br><span class="line"></span><br><span class="line"># run a live command on all nodes</span><br><span class="line">$ ansible all -a &quot;/bin/echo hello&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="ansible-playbook"><a href="#ansible-playbook" class="headerlink" title="$ ansible-playbook"></a>$ ansible-playbook</h4><p>ansible执行Playbook的命令，该指令使用最为频繁。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i inventory setup_server.yml</span><br></pre></td></tr></table></figure></p>
+<h4 id="ansible-doc"><a href="#ansible-doc" class="headerlink" title="$ ansible-doc"></a>$ ansible-doc</h4><p>该指令用于查看模块信息，常用参数有<code>-l</code>和<code>-s</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 列出所有已安装的模块</span><br><span class="line">$ ansible-doc -l</span><br><span class="line"></span><br><span class="line"># 查看具体某模块，如command</span><br><span class="line">$ ansible-doc -s command</span><br></pre></td></tr></table></figure></p>
+<h4 id="ansible-galaxy"><a href="#ansible-galaxy" class="headerlink" title="$ ansible-galaxy"></a>$ ansible-galaxy</h4><p>用于生成ansible最佳实践目录的命令，通常用于下载已经写好的roles，可以到<a href="https://galaxy.ansible.com/" target="_blank" rel="external">Ansible Galaxy</a>上搜索Roles，如<code>geerlingguy.jenkins</code>，然后安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<h3 id="Inventory"><a href="#Inventory" class="headerlink" title="Inventory"></a>Inventory</h3><p>Inventory文件用来指定受控资源列表，也就是主机列表，可同时操作属于一个组的多台主机，组和主机之间的关系通过inventory文件配置。可以设置Hosts，指定Groups以及Groups中的Variables和Groups中的Groups。</p>
+<h4 id="Hosts-and-Groups"><a href="#Hosts-and-Groups" class="headerlink" title="Hosts and Groups"></a>Hosts and Groups</h4><p>一个名为<code>hosts</code>的inventory文件例子，包括Hosts和Groups:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mail.example.com</span><br><span class="line"></span><br><span class="line">[webservers]</span><br><span class="line">foo.example.com</span><br><span class="line">bar.example.com</span><br><span class="line"></span><br><span class="line">[dbservers]</span><br><span class="line">one.example.com</span><br><span class="line">two.example.com</span><br><span class="line">three.example.com</span><br></pre></td></tr></table></figure></p>
+<h5 id="Host-Variables"><a href="#Host-Variables" class="headerlink" title="Host Variables"></a>Host Variables</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[atlanta]</span><br><span class="line">host1 http_port=80 maxRequestsPerChild=808</span><br><span class="line">host2 http_port=303 maxRequestsPerChild=909</span><br></pre></td></tr></table></figure>
+<h5 id="Group-Variables"><a href="#Group-Variables" class="headerlink" title="Group Variables"></a>Group Variables</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[atlanta]</span><br><span class="line">host1</span><br><span class="line">host2</span><br><span class="line"></span><br><span class="line">[atlanta:vars]</span><br><span class="line">ntp_server=ntp.atlanta.example.com</span><br><span class="line">proxy=proxy.atlanta.example.com</span><br></pre></td></tr></table></figure>
+<h5 id="Groups-of-Groups-and-Group-Variables"><a href="#Groups-of-Groups-and-Group-Variables" class="headerlink" title="Groups of Groups, and Group Variables"></a>Groups of Groups, and Group Variables</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[atlanta]</span><br><span class="line">host1</span><br><span class="line">host2</span><br><span class="line"></span><br><span class="line">[raleigh]</span><br><span class="line">host2</span><br><span class="line">host3</span><br><span class="line"></span><br><span class="line">[southeast:children]</span><br><span class="line">atlanta</span><br><span class="line">raleigh</span><br><span class="line"></span><br><span class="line">[southeast:vars]</span><br><span class="line">some_server=foo.southeast.example.com</span><br><span class="line">halon_system_timeout=30</span><br><span class="line">self_destruct_countdown=60</span><br><span class="line">escape_pods=2</span><br><span class="line"></span><br><span class="line">[usa:children]</span><br><span class="line">southeast</span><br><span class="line">northeast</span><br><span class="line">southwest</span><br><span class="line">northwest</span><br></pre></td></tr></table></figure>
+<p>另外，可以查阅一些可用的Inventory参数<a href="http://docs.ansible.com/ansible/intro_inventory.html#list-of-behavioral-inventory-parameters" target="_blank" rel="external">List of Behavioral Inventory Parameters</a>。</p>
+<h3 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h3><p>Module是Ansible中实际执行的命令，是具体任务的执行单元，可以理解为与系统中命令一一对应的模块. 如apt-get对应apt，wget对应get_url，分为Core Modules和Custom Modules。常用模块有：<code>ping</code>, <code>setup</code>, <code>file</code>, <code>command</code>, <code>shell</code>, <code>apt</code>以及<code>service</code>等。</p>
+<h4 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h4><p>测试主机是否连通，Ping Module是Ansible的一个核心Modules之一，经常用来测试服务是否能连通，以及验证配置是否正确。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts all -m ping</span><br></pre></td></tr></table></figure></p>
+<h4 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h4><p>Ansible有一些预定义的变量，定义了服务器的很多状态信息，可以使用setup动态获取，存储到本地的fact文件中供playbook调用。</p>
+<h4 id="file"><a href="#file" class="headerlink" title="file"></a>file</h4><p>主要用于远程主机上的文件操作的Module。</p>
+<h4 id="command"><a href="#command" class="headerlink" title="command"></a>command</h4><p>运行指定命令的Module。</p>
+<h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>运行shell脚本，比如可直接在受控资源上执行的命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell: ps -ef | grep jenkins</span><br></pre></td></tr></table></figure></p>
+<h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><p>用于安装软件的Module，即包管理器来管理软件包，对应于apt-get。</p>
+<h4 id="service"><a href="#service" class="headerlink" title="service"></a>service</h4><p>用于管理服务的Module</p>
+<h3 id="Ansible与YAML"><a href="#Ansible与YAML" class="headerlink" title="Ansible与YAML"></a>Ansible与YAML</h3><p>YAML是一种非常简单的数据描述语言，清晰易懂，利于阅读。YAML对缩进非常敏感，其中的基本数据类型有两种: Lists and Dictionaries。</p>
+<p>Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用YAML需要注意的是：在Ansible中使用<code>“”</code>来引用变量时，必须加引号，如：<code>with_items: &quot;&quot;</code>。</p>
+<p>若有兴趣可阅读更多关于<a href="http://docs.ansible.com/ansible/YAMLSyntax.html" target="_blank" rel="external">YAML Syntax</a>的介绍。</p>
+<h3 id="Playbooks-Roles-amp-Tasks"><a href="#Playbooks-Roles-amp-Tasks" class="headerlink" title="Playbooks, Roles &amp; Tasks"></a>Playbooks, Roles &amp; Tasks</h3><p>在Ansible中，最终被执行的自动化脚本叫做Playbooks，每个Playbook可能包含有多个Plays，每个Play可能包含有多个Tasks，每个Task是Ansible的最小执行单元，它都会利用相应的Module来执行对应的任务： <code>playbooks -&gt; plays -&gt; tasks -&gt; modules -&gt; variables</code>。</p>
+<p>如果一个Playbook需要执行很多task，Playbook会变得非常庞大，而且其中的代码非常难以复用。通常Playbooks中会使用多个Roles来完成整个自动化任务，Role是Ansible代码复用的基本单位，它能够完整地实现一个独立任务。Role中会包含很多Tasks，每个Task是Ansible的最小执行单元。</p>
+<h2 id="如何使用Ansible"><a href="#如何使用Ansible" class="headerlink" title="如何使用Ansible?"></a>如何使用Ansible?</h2><p>可以移步笔者的<a href="https://github.com/waterstrong/ansible-workshop" target="_blank" rel="external">Ansible Workshop Step by Step</a>来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：</p>
+<ul>
+<li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md" target="_blank" rel="external">Step 1. Set up the environment</a></li>
+<li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md" target="_blank" rel="external">Step 2. Inventory Practice</a></li>
+<li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP3.md" target="_blank" rel="external">Step 3. Playbooks, Roles and Tasks Practice</a></li>
+<li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP4.md" target="_blank" rel="external">Step 4. Install Apache2 Server Practice</a></li>
+<li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP5.md" target="_blank" rel="external">Step 5. Ansible Galaxy Practice</a></li>
+</ul>
+<p>以上内容就是对Ansible的入门部分和简单应用实践。</p>
+<hr>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="http://docs.ansible.com/ansible/" target="_blank" rel="external">Ansible官方文档</a></li>
+<li><a href="https://www.gitbook.com/book/yaowenjie/ansible-workshop/details" target="_blank" rel="external">Ansible Workshop</a></li>
+<li><a href="https://github.com/richardzone/ansible-training-workshop" target="_blank" rel="external">Ansible Training Workshop</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/ansible-in-practice/">Ansible入门与实践</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-06-26 19:56</p>
+        <!--<p><span>最后更新:</span>2016-07-06 13:22</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/ansible-in-practice/" title="Ansible入门与实践">http://blog.waterstrong.me/ansible-in-practice/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/ansible-in-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/java-unit-intg-test/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java单元和集成测试配置</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Ansible"><span class="toc-number">1.</span> <span class="toc-text">什么是Ansible?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用Ansible"><span class="toc-number">2.</span> <span class="toc-text">为什么要使用Ansible?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#存在的问题及解决方案"><span class="toc-number">2.1.</span> <span class="toc-text">存在的问题及解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动化配置管理工具对比"><span class="toc-number">2.2.</span> <span class="toc-text">自动化配置管理工具对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ansible基本概念"><span class="toc-number">3.</span> <span class="toc-text">Ansible基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ansible-CLI"><span class="toc-number">3.1.</span> <span class="toc-text">Ansible CLI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ansible"><span class="toc-number">3.1.1.</span> <span class="toc-text">$ ansible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ansible-playbook"><span class="toc-number">3.1.2.</span> <span class="toc-text">$ ansible-playbook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ansible-doc"><span class="toc-number">3.1.3.</span> <span class="toc-text">$ ansible-doc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ansible-galaxy"><span class="toc-number">3.1.4.</span> <span class="toc-text">$ ansible-galaxy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inventory"><span class="toc-number">3.2.</span> <span class="toc-text">Inventory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hosts-and-Groups"><span class="toc-number">3.2.1.</span> <span class="toc-text">Hosts and Groups</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Host-Variables"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">Host Variables</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Group-Variables"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">Group Variables</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Groups-of-Groups-and-Group-Variables"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">Groups of Groups, and Group Variables</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Modules"><span class="toc-number">3.3.</span> <span class="toc-text">Modules</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ping"><span class="toc-number">3.3.1.</span> <span class="toc-text">ping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setup"><span class="toc-number">3.3.2.</span> <span class="toc-text">setup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#file"><span class="toc-number">3.3.3.</span> <span class="toc-text">file</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#command"><span class="toc-number">3.3.4.</span> <span class="toc-text">command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shell"><span class="toc-number">3.3.5.</span> <span class="toc-text">shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apt"><span class="toc-number">3.3.6.</span> <span class="toc-text">apt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#service"><span class="toc-number">3.3.7.</span> <span class="toc-text">service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ansible与YAML"><span class="toc-number">3.4.</span> <span class="toc-text">Ansible与YAML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Playbooks-Roles-amp-Tasks"><span class="toc-number">3.5.</span> <span class="toc-text">Playbooks, Roles & Tasks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用Ansible"><span class="toc-number">4.</span> <span class="toc-text">如何使用Ansible?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">4.1.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'waterstrongblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >Site Visited: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">Page Visited: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 0;
+            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+        })
+    </script>
+
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("search").onclick = function(){
+        search();
+      }
+    };
+    function search(){
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
+    }
+  </script>
+
+
+
+
+
+
+
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
+
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        }
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script language="text/javascript">
+        $(function() {
+            $("a[title]").each(function() {
+                var a = $(this);
+                var title = a.attr('title');
+                if (title == undefined || title == "") return;
+                a.data('title', title).removeAttr('title').hover(
+
+                        function() {
+                            var offset = a.offset();
+                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                                top: offset.top - a.outerHeight() - 15,
+                                left: offset.left + a.outerWidth()/2 + 1
+                            }).fadeIn(function() {
+                                var pop = $(this);
+                                setTimeout(function() {
+                                    pop.remove();
+                                }, pop.text().length * 800);
+                            });
+                        }, function() {
+                            $("#anchortitlecontainer").remove();
+                        });
+            });
+        });
+    </script>
+
+
+  </div>
+</body>
+</html>

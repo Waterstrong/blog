@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-06-11T13:30:06.000Z</updated>
+  <updated>2016-07-06T05:22:30.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,117 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ansible入门与实践</title>
+    <link href="http://blog.waterstrong.me/ansible-in-practice/"/>
+    <id>http://blog.waterstrong.me/ansible-in-practice/</id>
+    <published>2016-06-26T11:56:40.000Z</published>
+    <updated>2016-07-06T05:22:30.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;什么是Ansible&quot;&gt;&lt;a href=&quot;#什么是Ansible&quot; class=&quot;headerlink&quot; title=&quot;什么是Ansible?&quot;&gt;&lt;/a&gt;什么是Ansible?&lt;/h2&gt;&lt;p&gt;Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。其主要目标就是变得更加简单易使用，同时也考虑到安全和可靠性等。&lt;/p&gt;
+&lt;h2 id=&quot;为什么要使用Ansible&quot;&gt;&lt;a href=&quot;#为什么要使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用Ansible?&quot;&gt;&lt;/a&gt;为什么要使用Ansible?&lt;/h2&gt;&lt;h3 id=&quot;存在的问题及解决方案&quot;&gt;&lt;a href=&quot;#存在的问题及解决方案&quot; class=&quot;headerlink&quot; title=&quot;存在的问题及解决方案&quot;&gt;&lt;/a&gt;存在的问题及解决方案&lt;/h3&gt;&lt;p&gt;当需要对系统配置进行管理、维护以及部署时通常采用文档方式或Shell脚本。对于上百上千台机器集群进行管理时文档已经不适用，而Shell方式对维护人员要求较高，而且容易出错。总得来说传统方式会存在以下几个方面的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;机器数量庞大，难于手动管理&lt;/li&gt;
+&lt;li&gt;大量的重复运维工作，浪费人力&lt;/li&gt;
+&lt;li&gt;复杂的系统，难于避免出错&lt;/li&gt;
+&lt;li&gt;不可跨平台，难以复用和维护&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此需要一个统一的管理工具，而且相对来说简单易用，而且能够支持跨平台，高可读性易于维护，高重用性提升效率，总之能够快速有效地完成自动化运维工作。而Ansible是众多自动化工具中较为出色的一款。&lt;/p&gt;
+&lt;h3 id=&quot;自动化配置管理工具对比&quot;&gt;&lt;a href=&quot;#自动化配置管理工具对比&quot; class=&quot;headerlink&quot; title=&quot;自动化配置管理工具对比&quot;&gt;&lt;/a&gt;自动化配置管理工具对比&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tools&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;DSL&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ANSIBLE&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;YAML&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Python，可维护性较高，架构简单，Windows平台支持有限&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SALTSTACK&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;SLS，支持YAML&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Python，简单快速灵活，Windows平台支持有限，大规模多功能支持欠缺&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PUPPET&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Ruby&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Ruby，成熟度高，学习曲线较陡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CHEF&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Ruby&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;Ruby，成熟度高，学习曲线较陡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;Ansible基本概念&quot;&gt;&lt;a href=&quot;#Ansible基本概念&quot; class=&quot;headerlink&quot; title=&quot;Ansible基本概念&quot;&gt;&lt;/a&gt;Ansible基本概念&lt;/h2&gt;&lt;h3 id=&quot;Ansible-CLI&quot;&gt;&lt;a href=&quot;#Ansible-CLI&quot; class=&quot;headerlink&quot; title=&quot;Ansible CLI&quot;&gt;&lt;/a&gt;Ansible CLI&lt;/h3&gt;&lt;p&gt;Ansible CLI 包含以下几个常用的指令：&lt;code&gt;ansible&lt;/code&gt;, &lt;code&gt;ansible-playbook&lt;/code&gt;, &lt;code&gt;ansible-doc&lt;/code&gt;以及&lt;code&gt;ansible-galaxy&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;特别注意在使用命令行时会遇到当在&lt;code&gt;known_hosts&lt;/code&gt;中新加入fingerprint时会弹出确认信息的问题，如果想要禁用确认，可以配置&lt;code&gt;/usr/local/etc/ansible/ansible.cfg&lt;/code&gt;或&lt;code&gt;~/.ansible.cfg&lt;/code&gt;并写入以下内容：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[defaults]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host_key_checking = False&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;或者直接在命令行中执行export命令：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export ANSIBLE_HOST_KEY_CHECKING=False&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以阅读更多关于&lt;a href=&quot;http://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Host Key Checking&lt;/a&gt;的介绍。接下来分别介绍一下CLI的常用指令：&lt;/p&gt;
+&lt;h4 id=&quot;ansible&quot;&gt;&lt;a href=&quot;#ansible&quot; class=&quot;headerlink&quot; title=&quot;$ ansible&quot;&gt;&lt;/a&gt;$ ansible&lt;/h4&gt;&lt;p&gt;ansible基本指令，用于ansible基本的操作，属于指令核心部分，其主要用于执行&lt;a href=&quot;http://docs.ansible.com/ansible/intro_adhoc.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ad-Hoc&lt;/a&gt;命令，即单条命令。默认命令后需要跟主机和选项部分，默认不指定模块时，使用的是command模块。&lt;/p&gt;
+&lt;p&gt;以下为一些例子：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# ping all nodes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# as bruce&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping -u bruce&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# as bruce, sudoing to root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping -u bruce --sudo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# as bruce, sudoing to batman&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping -u bruce --sudo --sudo-user batman&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# With latest version of ansible `sudo` is deprecated so use become&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# as bruce, sudoing to root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping -u bruce -b&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# as bruce, sudoing to batman&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -m ping -u bruce -b --become-user batman&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# run a live command on all nodes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible all -a &amp;quot;/bin/echo hello&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;ansible-playbook&quot;&gt;&lt;a href=&quot;#ansible-playbook&quot; class=&quot;headerlink&quot; title=&quot;$ ansible-playbook&quot;&gt;&lt;/a&gt;$ ansible-playbook&lt;/h4&gt;&lt;p&gt;ansible执行Playbook的命令，该指令使用最为频繁。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-playbook -i inventory setup_server.yml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;ansible-doc&quot;&gt;&lt;a href=&quot;#ansible-doc&quot; class=&quot;headerlink&quot; title=&quot;$ ansible-doc&quot;&gt;&lt;/a&gt;$ ansible-doc&lt;/h4&gt;&lt;p&gt;该指令用于查看模块信息，常用参数有&lt;code&gt;-l&lt;/code&gt;和&lt;code&gt;-s&lt;/code&gt; ：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 列出所有已安装的模块&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible-doc -l&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 查看具体某模块，如command&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ansible-doc -s command&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;ansible-galaxy&quot;&gt;&lt;a href=&quot;#ansible-galaxy&quot; class=&quot;headerlink&quot; title=&quot;$ ansible-galaxy&quot;&gt;&lt;/a&gt;$ ansible-galaxy&lt;/h4&gt;&lt;p&gt;用于生成ansible最佳实践目录的命令，通常用于下载已经写好的roles，可以到&lt;a href=&quot;https://galaxy.ansible.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Galaxy&lt;/a&gt;上搜索Roles，如&lt;code&gt;geerlingguy.jenkins&lt;/code&gt;，然后安装。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-galaxy install geerlingguy.jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Inventory&quot;&gt;&lt;a href=&quot;#Inventory&quot; class=&quot;headerlink&quot; title=&quot;Inventory&quot;&gt;&lt;/a&gt;Inventory&lt;/h3&gt;&lt;p&gt;Inventory文件用来指定受控资源列表，也就是主机列表，可同时操作属于一个组的多台主机，组和主机之间的关系通过inventory文件配置。可以设置Hosts，指定Groups以及Groups中的Variables和Groups中的Groups。&lt;/p&gt;
+&lt;h4 id=&quot;Hosts-and-Groups&quot;&gt;&lt;a href=&quot;#Hosts-and-Groups&quot; class=&quot;headerlink&quot; title=&quot;Hosts and Groups&quot;&gt;&lt;/a&gt;Hosts and Groups&lt;/h4&gt;&lt;p&gt;一个名为&lt;code&gt;hosts&lt;/code&gt;的inventory文件例子，包括Hosts和Groups:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mail.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[webservers]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bar.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[dbservers]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;one.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;two.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;three.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h5 id=&quot;Host-Variables&quot;&gt;&lt;a href=&quot;#Host-Variables&quot; class=&quot;headerlink&quot; title=&quot;Host Variables&quot;&gt;&lt;/a&gt;Host Variables&lt;/h5&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[atlanta]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host1 http_port=80 maxRequestsPerChild=808&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host2 http_port=303 maxRequestsPerChild=909&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;Group-Variables&quot;&gt;&lt;a href=&quot;#Group-Variables&quot; class=&quot;headerlink&quot; title=&quot;Group Variables&quot;&gt;&lt;/a&gt;Group Variables&lt;/h5&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[atlanta]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[atlanta:vars]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ntp_server=ntp.atlanta.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;proxy=proxy.atlanta.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;Groups-of-Groups-and-Group-Variables&quot;&gt;&lt;a href=&quot;#Groups-of-Groups-and-Group-Variables&quot; class=&quot;headerlink&quot; title=&quot;Groups of Groups, and Group Variables&quot;&gt;&lt;/a&gt;Groups of Groups, and Group Variables&lt;/h5&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[atlanta]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[raleigh]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;host3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[southeast:children]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;atlanta&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;raleigh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[southeast:vars]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;some_server=foo.southeast.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;halon_system_timeout=30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;self_destruct_countdown=60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;escape_pods=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[usa:children]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;southeast&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;northeast&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;southwest&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;northwest&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;另外，可以查阅一些可用的Inventory参数&lt;a href=&quot;http://docs.ansible.com/ansible/intro_inventory.html#list-of-behavioral-inventory-parameters&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;List of Behavioral Inventory Parameters&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;Modules&quot;&gt;&lt;a href=&quot;#Modules&quot; class=&quot;headerlink&quot; title=&quot;Modules&quot;&gt;&lt;/a&gt;Modules&lt;/h3&gt;&lt;p&gt;Module是Ansible中实际执行的命令，是具体任务的执行单元，可以理解为与系统中命令一一对应的模块. 如apt-get对应apt，wget对应get_url，分为Core Modules和Custom Modules。常用模块有：&lt;code&gt;ping&lt;/code&gt;, &lt;code&gt;setup&lt;/code&gt;, &lt;code&gt;file&lt;/code&gt;, &lt;code&gt;command&lt;/code&gt;, &lt;code&gt;shell&lt;/code&gt;, &lt;code&gt;apt&lt;/code&gt;以及&lt;code&gt;service&lt;/code&gt;等。&lt;/p&gt;
+&lt;h4 id=&quot;ping&quot;&gt;&lt;a href=&quot;#ping&quot; class=&quot;headerlink&quot; title=&quot;ping&quot;&gt;&lt;/a&gt;ping&lt;/h4&gt;&lt;p&gt;测试主机是否连通，Ping Module是Ansible的一个核心Modules之一，经常用来测试服务是否能连通，以及验证配置是否正确。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible -i hosts all -m ping&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;setup&quot;&gt;&lt;a href=&quot;#setup&quot; class=&quot;headerlink&quot; title=&quot;setup&quot;&gt;&lt;/a&gt;setup&lt;/h4&gt;&lt;p&gt;Ansible有一些预定义的变量，定义了服务器的很多状态信息，可以使用setup动态获取，存储到本地的fact文件中供playbook调用。&lt;/p&gt;
+&lt;h4 id=&quot;file&quot;&gt;&lt;a href=&quot;#file&quot; class=&quot;headerlink&quot; title=&quot;file&quot;&gt;&lt;/a&gt;file&lt;/h4&gt;&lt;p&gt;主要用于远程主机上的文件操作的Module。&lt;/p&gt;
+&lt;h4 id=&quot;command&quot;&gt;&lt;a href=&quot;#command&quot; class=&quot;headerlink&quot; title=&quot;command&quot;&gt;&lt;/a&gt;command&lt;/h4&gt;&lt;p&gt;运行指定命令的Module。&lt;/p&gt;
+&lt;h4 id=&quot;shell&quot;&gt;&lt;a href=&quot;#shell&quot; class=&quot;headerlink&quot; title=&quot;shell&quot;&gt;&lt;/a&gt;shell&lt;/h4&gt;&lt;p&gt;运行shell脚本，比如可直接在受控资源上执行的命令:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;shell: ps -ef | grep jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;apt&quot;&gt;&lt;a href=&quot;#apt&quot; class=&quot;headerlink&quot; title=&quot;apt&quot;&gt;&lt;/a&gt;apt&lt;/h4&gt;&lt;p&gt;用于安装软件的Module，即包管理器来管理软件包，对应于apt-get。&lt;/p&gt;
+&lt;h4 id=&quot;service&quot;&gt;&lt;a href=&quot;#service&quot; class=&quot;headerlink&quot; title=&quot;service&quot;&gt;&lt;/a&gt;service&lt;/h4&gt;&lt;p&gt;用于管理服务的Module&lt;/p&gt;
+&lt;h3 id=&quot;Ansible与YAML&quot;&gt;&lt;a href=&quot;#Ansible与YAML&quot; class=&quot;headerlink&quot; title=&quot;Ansible与YAML&quot;&gt;&lt;/a&gt;Ansible与YAML&lt;/h3&gt;&lt;p&gt;YAML是一种非常简单的数据描述语言，清晰易懂，利于阅读。YAML对缩进非常敏感，其中的基本数据类型有两种: Lists and Dictionaries。&lt;/p&gt;
+&lt;p&gt;Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用YAML需要注意的是：在Ansible中使用&lt;code&gt;“”&lt;/code&gt;来引用变量时，必须加引号，如：&lt;code&gt;with_items: &amp;quot;&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;若有兴趣可阅读更多关于&lt;a href=&quot;http://docs.ansible.com/ansible/YAMLSyntax.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;YAML Syntax&lt;/a&gt;的介绍。&lt;/p&gt;
+&lt;h3 id=&quot;Playbooks-Roles-amp-Tasks&quot;&gt;&lt;a href=&quot;#Playbooks-Roles-amp-Tasks&quot; class=&quot;headerlink&quot; title=&quot;Playbooks, Roles &amp;amp; Tasks&quot;&gt;&lt;/a&gt;Playbooks, Roles &amp;amp; Tasks&lt;/h3&gt;&lt;p&gt;在Ansible中，最终被执行的自动化脚本叫做Playbooks，每个Playbook可能包含有多个Plays，每个Play可能包含有多个Tasks，每个Task是Ansible的最小执行单元，它都会利用相应的Module来执行对应的任务： &lt;code&gt;playbooks -&amp;gt; plays -&amp;gt; tasks -&amp;gt; modules -&amp;gt; variables&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果一个Playbook需要执行很多task，Playbook会变得非常庞大，而且其中的代码非常难以复用。通常Playbooks中会使用多个Roles来完成整个自动化任务，Role是Ansible代码复用的基本单位，它能够完整地实现一个独立任务。Role中会包含很多Tasks，每个Task是Ansible的最小执行单元。&lt;/p&gt;
+&lt;h2 id=&quot;如何使用Ansible&quot;&gt;&lt;a href=&quot;#如何使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;如何使用Ansible?&quot;&gt;&lt;/a&gt;如何使用Ansible?&lt;/h2&gt;&lt;p&gt;可以移步笔者的&lt;a href=&quot;https://github.com/waterstrong/ansible-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop Step by Step&lt;/a&gt;来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 1. Set up the environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 2. Inventory Practice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP3.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 3. Playbooks, Roles and Tasks Practice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP4.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 4. Install Apache2 Server Practice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP5.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 5. Ansible Galaxy Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上内容就是对Ansible的入门部分和简单应用实践。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible官方文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.gitbook.com/book/yaowenjie/ansible-workshop/details&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/richardzone/ansible-training-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Training Workshop&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+    
+    
+      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="Ansible" scheme="http://blog.waterstrong.me/tags/Ansible/"/>
+    
+      <category term="脚本" scheme="http://blog.waterstrong.me/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+      <category term="自动化" scheme="http://blog.waterstrong.me/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>Java单元和集成测试配置</title>
@@ -802,46 +913,6 @@
       <category term="依赖注入" scheme="http://blog.waterstrong.me/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
       <category term="SOLID原则" scheme="http://blog.waterstrong.me/tags/SOLID%E5%8E%9F%E5%88%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MyBatis入门与实践</title>
-    <link href="http://blog.waterstrong.me/mybatis-in-practice/"/>
-    <id>http://blog.waterstrong.me/mybatis-in-practice/</id>
-    <published>2015-10-12T04:52:44.000Z</published>
-    <updated>2016-06-11T13:29:32.000Z</updated>
-    
-    <content type="html">&lt;p&gt;MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;What-is-MyBatis&quot;&gt;&lt;a href=&quot;#What-is-MyBatis&quot; class=&quot;headerlink&quot; title=&quot;What is MyBatis?&quot;&gt;&lt;/a&gt;What is MyBatis?&lt;/h3&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;MyBatis is a first class persistence framework with support for custom SQL, stored procedures and advanced mappings.&lt;/li&gt;
-&lt;li&gt;MyBatis eliminates almost all of the JDBC code and manual setting of parameters and retrieval of results.&lt;/li&gt;
-&lt;li&gt;MyBatis can use simple XML or Annotations for configuration and map primitives, Map interfaces and Java POJOs (Plain Old Java Objects) to database records.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.mybatis.org/mybatis-3/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MyBatis 3 Introduction&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;还没有时间去总结，不过相对来说不是太难，理论可以错过，但实践部分一定不能错过，之前写过一个Demo: &lt;a href=&quot;https://github.com/Waterstrong/demo-mybatis&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Demo-Mybatis&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;MyBatis是支持定制化SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。MyBatis可以对配置和原生Map使用简单的XML或注解，将接口和Java的POJOs(Plain Old Java Objects,普通的Java对象)映射成数据库中的记录。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Frameworks" scheme="http://blog.waterstrong.me/categories/Frameworks/"/>
-    
-    
-      <category term="MyBatis" scheme="http://blog.waterstrong.me/tags/MyBatis/"/>
-    
-      <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="持久层框架" scheme="http://blog.waterstrong.me/tags/%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/"/>
-    
-      <category term="动态SQL" scheme="http://blog.waterstrong.me/tags/%E5%8A%A8%E6%80%81SQL/"/>
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
     
   </entry>
   
