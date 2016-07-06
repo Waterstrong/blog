@@ -11,13 +11,13 @@
 <meta property="og:url" content="http://blog.waterstrong.me/ansible-practice/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
-<meta property="og:image" content="http://blog.waterstrong.me/page-demo.png">
-<meta property="og:image" content="http://blog.waterstrong.me/jenkins.png">
-<meta property="og:updated_time" content="2016-07-06T15:01:52.000Z">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/ansible-practice/page-demo.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/ansible-practice/jenkins.png">
+<meta property="og:updated_time" content="2016-07-06T15:25:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible实践篇">
 <meta name="twitter:description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
-<meta name="twitter:image" content="http://blog.waterstrong.me/page-demo.png">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/ansible-practice/page-demo.png">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -253,7 +253,7 @@
   
     <div class="article-meta">
       <a href="/ansible-practice/" class="article-date">
-      <time datetime="2016-07-06T14:15:39.000Z" itemprop="datePublished">2016-07-06</time>
+      <time datetime="2016-07-03T13:15:39.000Z" itemprop="datePublished">2016-07-03</time>
 </a>
     </div>
   
@@ -333,7 +333,7 @@
 <p>当前目录树结构为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── inventory</span><br><span class="line">├── roles</span><br><span class="line">│   ├── git_clone_file</span><br><span class="line">│   │   └── tasks</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   ├── install_tools</span><br><span class="line">│   │   ├── tasks</span><br><span class="line">│   │   │   └── main.yml</span><br><span class="line">│   │   └── vars</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   └── start_apache2</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── main.yml</span><br><span class="line">└── setup_server.yml</span><br></pre></td></tr></table></figure></p>
 <h4 id="运行playbook并测试服务器"><a href="#运行playbook并测试服务器" class="headerlink" title="运行playbook并测试服务器"></a>运行playbook并测试服务器</h4><p>在目录<code>ansible-workshop</code>目录下运行命令测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i inventory setup_server.yml</span><br></pre></td></tr></table></figure></p>
 <p>成功执行完成后可访问<a href="http://192.168.33.100/page" target="_blank" rel="external">http://192.168.33.100/page</a>和<a href="http://192.168.33.101/page" target="_blank" rel="external">http://192.168.33.101/page</a>测试是否部署页面成功。</p>
-<p><img src="page-demo.png" alt=""></p>
+<p><img src="/assets/ansible-practice/page-demo.png" alt=""></p>
 <hr>
 <h2 id="Step-5-Ansible-Galaxy-Practice"><a href="#Step-5-Ansible-Galaxy-Practice" class="headerlink" title="Step 5. Ansible Galaxy Practice"></a>Step 5. Ansible Galaxy Practice</h2><p>通过Ansible Galaxy快速安装Jenkins。在<a href="https://galaxy.ansible.com/list#/roles" target="_blank" rel="external">Ansible Galaxy</a>上搜索找到Jenkins对应的Role，比如选择<a href="https://galaxy.ansible.com/geerlingguy/jenkins/" target="_blank" rel="external">geerlingguy.jenkins</a>。</p>
 <h4 id="下载Jenkins的role到本地"><a href="#下载Jenkins的role到本地" class="headerlink" title="下载Jenkins的role到本地"></a>下载Jenkins的role到本地</h4><p>首先下载role到本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
@@ -343,7 +343,7 @@
 <p>其中的role为之前安装的文件路径。</p>
 <h4 id="运行命令执行安装"><a href="#运行命令执行安装" class="headerlink" title="运行命令执行安装"></a>运行命令执行安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i inventory setup_jenkins.yml</span><br></pre></td></tr></table></figure>
 <p>可能会花较长的时间，请耐心等待。安装成功后可以访问Jenkins Home页面<a href="http://192.168.33.100:8080" target="_blank" rel="external">http://192.168.33.100:8080</a>或Jenkins CLI页面<a href="http://192.168.33.100:8080/cli" target="_blank" rel="external">http://192.168.33.100:8080/cli</a>，然后可以开始使用Jenkins了。<br>用户名: <code>admin</code>   密码: <code>admin</code></p>
-<p><img src="jenkins.png" alt=""></p>
+<p><img src="/assets/ansible-practice/jenkins.png" alt=""></p>
 <h4 id="Workshop结束语"><a href="#Workshop结束语" class="headerlink" title="Workshop结束语"></a>Workshop结束语</h4><p>Thanks everyone! You can halt your virtual machines and destroy them to reduce your computer resoures.<br>Make sure your are in <code>ansible-workshop</code> directory and execute the below commands:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd vagrant</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br><span class="line"></span><br><span class="line">cd ../vagrant2</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>References</p>
@@ -369,8 +369,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/ansible-practice/">Ansible实践篇</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-07-06 22:15</p>
-        <!--<p><span>最后更新:</span>2016-07-06 23:01</p>-->
+        <p><span>发布时间:</span>2016-07-03 21:15</p>
+        <!--<p><span>最后更新:</span>2016-07-06 23:25</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/ansible-practice/" title="Ansible实践篇">http://blog.waterstrong.me/ansible-practice/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/ansible-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
