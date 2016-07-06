@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/ansible-basic/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。">
-<meta property="og:updated_time" content="2016-07-06T15:06:07.000Z">
+<meta property="og:updated_time" content="2016-07-06T15:09:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible基础篇">
 <meta name="twitter:description" content="Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。">
@@ -356,7 +356,7 @@
 <p>若有兴趣可阅读更多关于<a href="http://docs.ansible.com/ansible/YAMLSyntax.html" target="_blank" rel="external">YAML Syntax</a>的介绍。</p>
 <h3 id="Playbooks-Roles-amp-Tasks"><a href="#Playbooks-Roles-amp-Tasks" class="headerlink" title="Playbooks, Roles &amp; Tasks"></a>Playbooks, Roles &amp; Tasks</h3><p>在Ansible中，最终被执行的自动化脚本叫做Playbooks，每个Playbook可能包含有多个Plays，每个Play可能包含有多个Tasks，每个Task是Ansible的最小执行单元，它都会利用相应的Module来执行对应的任务： <code>playbooks -&gt; plays -&gt; tasks -&gt; modules -&gt; variables</code>。</p>
 <p>如果一个Playbook需要执行很多task，Playbook会变得非常庞大，而且其中的代码非常难以复用。通常Playbooks中会使用多个Roles来完成整个自动化任务，Role是Ansible代码复用的基本单位，它能够完整地实现一个独立任务。Role中会包含很多Tasks，每个Task是Ansible的最小执行单元。</p>
-<h2 id="如何使用Ansible"><a href="#如何使用Ansible" class="headerlink" title="如何使用Ansible?"></a>如何使用Ansible?</h2><p>可以移步笔者的Github<a href="https://github.com/waterstrong/ansible-workshop" target="_blank" rel="external">Ansible Workshop Step by Step</a>或下一篇博客<a href="/ansible-practice">Ansible实践篇</a>来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：</p>
+<h2 id="如何使用Ansible"><a href="#如何使用Ansible" class="headerlink" title="如何使用Ansible?"></a>如何使用Ansible?</h2><p>可以移步笔者的Github<a href="https://github.com/waterstrong/ansible-workshop" target="_blank" rel="external">Ansible Workshop Step by Step</a>或另一篇博客<a href="/ansible-practice">Ansible实践篇</a>来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：</p>
 <ul>
 <li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md" target="_blank" rel="external">Step 1. Set up the environment</a></li>
 <li><a href="https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md" target="_blank" rel="external">Step 2. Inventory Practice</a></li>
@@ -382,7 +382,7 @@
         <p><span>本文标题:</span><a href="/ansible-basic/">Ansible基础篇</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-06-26 19:56</p>
-        <!--<p><span>最后更新:</span>2016-07-06 23:06</p>-->
+        <!--<p><span>最后更新:</span>2016-07-06 23:09</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/ansible-basic/" title="Ansible基础篇">http://blog.waterstrong.me/ansible-basic/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/ansible-basic/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -118,7 +118,7 @@
     <link href="http://blog.waterstrong.me/ansible-basic/"/>
     <id>http://blog.waterstrong.me/ansible-basic/</id>
     <published>2016-06-26T11:56:40.000Z</published>
-    <updated>2016-07-06T15:06:07.000Z</updated>
+    <updated>2016-07-06T15:09:35.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;什么是Ansible&quot;&gt;&lt;a href=&quot;#什么是Ansible&quot; class=&quot;headerlink&quot; title=&quot;什么是Ansible?&quot;&gt;&lt;/a&gt;什么是Ansible?&lt;/h2&gt;&lt;p&gt;Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。其主要目标就是变得更加简单易使用，同时也考虑到安全和可靠性等。&lt;/p&gt;
 &lt;h2 id=&quot;为什么要使用Ansible&quot;&gt;&lt;a href=&quot;#为什么要使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用Ansible?&quot;&gt;&lt;/a&gt;为什么要使用Ansible?&lt;/h2&gt;&lt;h3 id=&quot;存在的问题及解决方案&quot;&gt;&lt;a href=&quot;#存在的问题及解决方案&quot; class=&quot;headerlink&quot; title=&quot;存在的问题及解决方案&quot;&gt;&lt;/a&gt;存在的问题及解决方案&lt;/h3&gt;&lt;p&gt;当需要对系统配置进行管理、维护以及部署时通常采用文档方式或Shell脚本。对于上百上千台机器集群进行管理时文档已经不适用，而Shell方式对维护人员要求较高，而且容易出错。总得来说传统方式会存在以下几个方面的问题：&lt;/p&gt;
@@ -188,7 +188,7 @@
 &lt;p&gt;若有兴趣可阅读更多关于&lt;a href=&quot;http://docs.ansible.com/ansible/YAMLSyntax.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;YAML Syntax&lt;/a&gt;的介绍。&lt;/p&gt;
 &lt;h3 id=&quot;Playbooks-Roles-amp-Tasks&quot;&gt;&lt;a href=&quot;#Playbooks-Roles-amp-Tasks&quot; class=&quot;headerlink&quot; title=&quot;Playbooks, Roles &amp;amp; Tasks&quot;&gt;&lt;/a&gt;Playbooks, Roles &amp;amp; Tasks&lt;/h3&gt;&lt;p&gt;在Ansible中，最终被执行的自动化脚本叫做Playbooks，每个Playbook可能包含有多个Plays，每个Play可能包含有多个Tasks，每个Task是Ansible的最小执行单元，它都会利用相应的Module来执行对应的任务： &lt;code&gt;playbooks -&amp;gt; plays -&amp;gt; tasks -&amp;gt; modules -&amp;gt; variables&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;如果一个Playbook需要执行很多task，Playbook会变得非常庞大，而且其中的代码非常难以复用。通常Playbooks中会使用多个Roles来完成整个自动化任务，Role是Ansible代码复用的基本单位，它能够完整地实现一个独立任务。Role中会包含很多Tasks，每个Task是Ansible的最小执行单元。&lt;/p&gt;
-&lt;h2 id=&quot;如何使用Ansible&quot;&gt;&lt;a href=&quot;#如何使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;如何使用Ansible?&quot;&gt;&lt;/a&gt;如何使用Ansible?&lt;/h2&gt;&lt;p&gt;可以移步笔者的Github&lt;a href=&quot;https://github.com/waterstrong/ansible-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop Step by Step&lt;/a&gt;或下一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：&lt;/p&gt;
+&lt;h2 id=&quot;如何使用Ansible&quot;&gt;&lt;a href=&quot;#如何使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;如何使用Ansible?&quot;&gt;&lt;/a&gt;如何使用Ansible?&lt;/h2&gt;&lt;p&gt;可以移步笔者的Github&lt;a href=&quot;https://github.com/waterstrong/ansible-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop Step by Step&lt;/a&gt;或另一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 1. Set up the environment&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 2. Inventory Practice&lt;/a&gt;&lt;/li&gt;
