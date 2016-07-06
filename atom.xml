@@ -118,7 +118,7 @@
     <link href="http://blog.waterstrong.me/ansible-basic/"/>
     <id>http://blog.waterstrong.me/ansible-basic/</id>
     <published>2016-06-26T11:56:40.000Z</published>
-    <updated>2016-07-06T15:09:35.000Z</updated>
+    <updated>2016-07-06T15:11:52.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;什么是Ansible&quot;&gt;&lt;a href=&quot;#什么是Ansible&quot; class=&quot;headerlink&quot; title=&quot;什么是Ansible?&quot;&gt;&lt;/a&gt;什么是Ansible?&lt;/h2&gt;&lt;p&gt;Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。其主要目标就是变得更加简单易使用，同时也考虑到安全和可靠性等。&lt;/p&gt;
 &lt;h2 id=&quot;为什么要使用Ansible&quot;&gt;&lt;a href=&quot;#为什么要使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用Ansible?&quot;&gt;&lt;/a&gt;为什么要使用Ansible?&lt;/h2&gt;&lt;h3 id=&quot;存在的问题及解决方案&quot;&gt;&lt;a href=&quot;#存在的问题及解决方案&quot; class=&quot;headerlink&quot; title=&quot;存在的问题及解决方案&quot;&gt;&lt;/a&gt;存在的问题及解决方案&lt;/h3&gt;&lt;p&gt;当需要对系统配置进行管理、维护以及部署时通常采用文档方式或Shell脚本。对于上百上千台机器集群进行管理时文档已经不适用，而Shell方式对维护人员要求较高，而且容易出错。总得来说传统方式会存在以下几个方面的问题：&lt;/p&gt;
@@ -196,7 +196,7 @@
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP4.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 4. Install Apache2 Server Practice&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP5.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 5. Ansible Galaxy Practice&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;以上内容就是对Ansible的入门部分和简单应用实践。&lt;/p&gt;
+&lt;p&gt;以上内容就是对Ansible的基础介绍和入门部分，更多内容可参阅&lt;a href=&quot;https://www.ansible.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方网站&lt;/a&gt;。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible官方文档&lt;/a&gt;&lt;/li&gt;
