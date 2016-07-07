@@ -1,5 +1,5 @@
 ---
-title: Ansible入门与实践
+title: Ansible基础篇
 date: 2016-06-26 19:56:40
 category: Tools
 tags: [DevOps, Ansible, 脚本, 自动化]
@@ -205,7 +205,7 @@ Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用Y
 
 ## 如何使用Ansible?
 
-可以移步笔者的[Ansible Workshop Step by Step](https://github.com/waterstrong/ansible-workshop)来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：
+可以移步笔者的Github[Ansible Workshop Step by Step](https://github.com/waterstrong/ansible-workshop)或另一篇博客[Ansible实践篇](/ansible-practice)来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：
 
 * [Step 1. Set up the environment](https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md)
 * [Step 2. Inventory Practice](https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md)
@@ -214,7 +214,7 @@ Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用Y
 * [Step 5. Ansible Galaxy Practice](https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP5.md)
 
 
-以上内容就是对Ansible的入门部分和简单应用实践。
+以上内容就是对Ansible的基础介绍和入门部分，更多内容可参阅[官方网站](https://www.ansible.com/)。
 
 ----
 
