@@ -79,6 +79,7 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 - 另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；
 - Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；
 - 此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，难免会造成一些插件问题导致Build环境被污染。
+- 针对Jenkins 2.0的Jenkinsfile，可以将pipeline定义为代码形式，即Pipeline As Code，也方便了很多，算是优点，不过也是其缺点，最大的问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改。
 
 **针对Jenkins的一些问题，Concourse进行了一些改进，比如：**
 - Snowflakes的情况就采用统一配置YML文件来解决，各Task各工程自己维护，有重复的内容通过提取文件多处引用即可；
