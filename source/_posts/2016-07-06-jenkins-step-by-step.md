@@ -10,7 +10,7 @@ published: false
 ## Jenkins Introduction
 Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。
 
-![](jenkins-by-step/pipeline-flow.png)
+![](jenkins-step-by-step/pipeline_flow.png)
 
 ## Jenkins Installation
 
