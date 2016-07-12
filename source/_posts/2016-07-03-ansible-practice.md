@@ -155,7 +155,7 @@ cd ..
 ```
 
 #### 配置Inventory加入新Host2
-创建名为'hosts'的文件，配置虚拟机的Host和Group：
+创建名为`hosts`的文件，配置虚拟机的Host和Group：
 ```
 [ubuntu]
 192.168.33.100 ansible_ssh_user=vagrant ansible_ssh_private_key_file=vagrant/.vagrant/machines/default/virtualbox/private_key
@@ -311,7 +311,7 @@ packages:
 当前目录树结构为：
 ```
 .
-├── inventory
+├── hosts
 ├── roles
 │   ├── git_clone_file
 │   │   └── tasks
@@ -330,7 +330,7 @@ packages:
 #### 运行playbook并测试服务器
 在目录`ansible-workshop`目录下运行命令测试：
 ```
-ansible-playbook -i inventory setup_server.yml
+ansible-playbook -i hosts setup_server.yml
 ```
 
 成功执行完成后可访问[http://192.168.33.100/page](http://192.168.33.100/page)和[http://192.168.33.101/page](http://192.168.33.101/page)测试是否部署页面成功。
@@ -378,7 +378,7 @@ ansible-galaxy install geerlingguy.jenkins
 
 #### 运行命令执行安装
 ```
-ansible-playbook -i inventory setup_jenkins.yml
+ansible-playbook -i hosts setup_jenkins.yml
 ```
 
 可能会花较长的时间，请耐心等待。安装成功后可以访问Jenkins Home页面[http://192.168.33.100:8080](http://192.168.33.100:8080)或Jenkins CLI页面[http://192.168.33.100:8080/cli](http://192.168.33.100:8080/cli)，然后可以开始使用Jenkins了。
