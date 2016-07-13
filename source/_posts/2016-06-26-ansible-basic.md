@@ -193,7 +193,7 @@ shell: ps -ef | grep jenkins
 ### Ansible与YAML
 YAML是一种非常简单的数据描述语言，清晰易懂，利于阅读。YAML对缩进非常敏感，其中的基本数据类型有两种: Lists and Dictionaries。
 
-Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用YAML需要注意的是：在Ansible中使用`“”`来引用变量时，必须加引号，如：`with_items: "{{ packages }}"`。
+Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用YAML需要注意的是：在Ansible中使用`""`来引用变量时，必须加引号，如：`with_items: "{{ packages }}"`。
 
 若有兴趣可阅读更多关于[YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html)的介绍。
 
