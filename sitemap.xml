@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.waterstrong.me/ansible-practice/</loc>
+    <loc>http://blog.waterstrong.me/jenkins-step-by-step/</loc>
     
-    <lastmod>2016-07-06T15:25:58.000Z</lastmod>
+    <lastmod>2016-07-13T07:33:34.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.waterstrong.me/ansible-basic/</loc>
     
-    <lastmod>2016-07-06T15:11:52.000Z</lastmod>
+    <lastmod>2016-07-13T07:33:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/ansible-practice/</loc>
+    
+    <lastmod>2016-07-12T14:42:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
+    
+    <lastmod>2016-07-11T05:14:01.000Z</lastmod>
     
   </url>
   
@@ -44,13 +58,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
-    
-    <lastmod>2016-06-11T13:29:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/mybatis-in-practice/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
@@ -58,14 +65,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
+    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
+    <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
@@ -86,14 +93,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
+    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -107,6 +114,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -114,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -122,13 +136,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

@@ -3,29 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>AWS EC2搭建VPN服务器 | Watersrong Blog</title>
+  <title>Jenkins Step by Step | Watersrong Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
+  <meta name="description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AWS EC2搭建VPN服务器">
-<meta property="og:url" content="http://blog.waterstrong.me/aws-ec2-vpn/index.html">
+<meta property="og:title" content="Jenkins Step by Step">
+<meta property="og:url" content="http://blog.waterstrong.me/jenkins-step-by-step/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/linux_pptpd_started.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_system_network.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_new_vpn.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_vpn_options.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/mac_vpn_connected.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_setting.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_new_vpn.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_connected.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_detail.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_test_vpn.png">
-<meta property="og:updated_time" content="2016-06-11T13:29:32.000Z">
+<meta property="og:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-step-by-step/pipeline_flow.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-step-by-step/download.png">
+<meta property="og:updated_time" content="2016-07-13T07:33:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AWS EC2搭建VPN服务器">
-<meta name="twitter:description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
-<meta name="twitter:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/linux_pptpd_started.png">
+<meta name="twitter:title" content="Jenkins Step by Step">
+<meta name="twitter:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/jenkins-step-by-step/pipeline_flow.png">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -257,11 +249,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-aws-ec2-vpn" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-jenkins-step-by-step" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/aws-ec2-vpn/" class="article-date">
-      <time datetime="2016-04-13T15:30:52.000Z" itemprop="datePublished">2016-04-13</time>
+      <a href="/jenkins-step-by-step/" class="article-date">
+      <time datetime="2016-07-06T13:30:44.000Z" itemprop="datePublished">2016-07-06</time>
 </a>
     </div>
   
@@ -274,7 +266,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      AWS EC2搭建VPN服务器
+      Jenkins Step by Step
     </h1>
   
 
@@ -283,13 +275,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Platforms/">Platforms</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS-EC2/">AWS EC2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PPTP/">PPTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RedHat/">RedHat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI-CD/">CI/CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/">Jenkins</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -299,74 +291,42 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。</p>
-<p>而且自己搭建VPN有诸多好处:</p>
-<ol>
-<li>暂时免费，只要不超出AWS免费流量和时间限制;</li>
-<li>速度有保障，可以选择最快地区的AWS EC2进行搭建;</li>
-<li>自己的帐号自己管理，流量也自己控制，安全有保障。</li>
-</ol>
-<p>AWS EC2已经在另一篇Blog中有相关介绍，有兴趣可以参见<a href="/aws-ec2-basic">AWS EC2入门篇</a>。</p>
-<p>VPN: Virtual Private Network, 虚拟专用网络，是一种远程访问技术，主要功能是在公用网络上建立专用网络，进行加密通讯，支持跨平台。<br>PPTP: Point to Point Tunneling Protocol, 点对点隧道协议，是PPP协议的基础上的增强型安全协议，支持多协议VPN，默认端口号1723。利于PPTP可以快速搭建自己的VPN，并且在很多的移动设备上也支持PPTP，同时PPTP速度也较快，资源消耗也小。</p>
-<p>简单介绍了之后，可以尝试以下步骤在服务器上搭建一个VPN服务。</p>
-<h3 id="Step1-安装PPTP"><a href="#Step1-安装PPTP" class="headerlink" title="Step1 - 安装PPTP"></a>Step1 - 安装PPTP</h3><p><strong>On Ubuntu 14.04 x64:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  # 登录服务器后切换到超级管理员</span><br><span class="line">apt-get update -y  # 更新源</span><br><span class="line">apt-get install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span><br></pre></td></tr></table></figure>
-<p><strong>On CentOS or Red Hat Linux 6.x x64:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  # 登录服务器后切换到超级管理员</span><br><span class="line">yum update -y  # 更新源</span><br><span class="line">yum install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span><br></pre></td></tr></table></figure>
-<p><strong>如果找不到源，返回<code>No package pptpd available</code>，如Amazon AMI Linux，可以采用以下方法解决: </strong></p>
-<ol>
-<li>方法一: 下载rpm包直接安装（推荐）</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 针对EL6.x版本:</span><br><span class="line">wget -c http://poptop.sourceforge.net/yum/stable/packages/pptpd-1.4.0-1.el6.x86_64.rpm</span><br><span class="line"># 针对EL7.x版本:</span><br><span class="line">wget -c http://dl.fedoraproject.org/pub/epel/7/x86_64/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">rpm -ivh pptpd-1.4.0-1.el6.x86_64.rpm  # 安装显示安装进度--install--verbose--hash</span><br></pre></td></tr></table></figure>
-<ol>
-<li>方法二: 需要添加新的源</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum repolist  # 查看yum源列表</span><br><span class="line"></span><br><span class="line"># 只针对EL7版本:</span><br><span class="line">yum localinstall http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm -y</span><br><span class="line"></span><br><span class="line">yum makecache  # 将服务器上的软件包信息下载到本地缓存, 以提高搜索和安装软件的速度</span><br><span class="line">yum repolist  # 可以再次查看新加入的列表</span><br><span class="line">yum install pptpd -y  # 再次执行安装pptpd</span><br><span class="line"></span><br><span class="line"># 可用 yum-config-manager --disable &lt;repoid&gt; 删除源</span><br></pre></td></tr></table></figure>
-<h3 id="Step2-配置PPTP"><a href="#Step2-配置PPTP" class="headerlink" title="Step2 - 配置PPTP"></a>Step2 - 配置PPTP</h3><p>编辑<code>/etc/pptpd.conf</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pptpd.conf</span><br></pre></td></tr></table></figure>
-<p>搜索<code>localip</code>并去掉以下字段前的注释符<code>#</code>，保存并退出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip 192.168.0.1</span><br><span class="line">remoteip 192.168.0.234-238,192.168.0.245</span><br></pre></td></tr></table></figure>
-<p><code>localip</code>表示VPN服务器使用的地址，而<code>remoteip</code>表示分配给VPN客户端的地址范围，当然也可以自定义设置范围。</p>
-<h3 id="Step3-添加DNS解析"><a href="#Step3-添加DNS解析" class="headerlink" title="Step3 - 添加DNS解析"></a>Step3 - 添加DNS解析</h3><p>针对<code>Ubuntu</code>系统，编辑<code>/etc/ppp/pptpd-options</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/pptpd-options</span><br></pre></td></tr></table></figure>
-<p>针对<code>CentOS/RedHat</code>，编辑<code>/etc/ppp/options.pptpd</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/options.pptpd</span><br></pre></td></tr></table></figure>
-<p>在文件中搜索<code>ms-dns</code>，去掉以下字段前的注释符<code>#</code>，并修改为以下值后保存退出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ms-dns 8.8.8.8</span><br><span class="line">ms-dns 8.8.4.4</span><br></pre></td></tr></table></figure>
-<p>以上两条配置指定了使用Google Public DNS服务器。</p>
-<h3 id="Step4-添加VPN用户"><a href="#Step4-添加VPN用户" class="headerlink" title="Step4 - 添加VPN用户"></a>Step4 - 添加VPN用户</h3><p>编辑<code>/etc/ppp/chap-secrets</code>，添加用户名和密码条目，格式为<code>[username] [service] [password] [ip]</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># client	server  	secret		IP addresses</span><br><span class="line">vpnuser01	pptpd   	123456		*</span><br></pre></td></tr></table></figure>
-<p>其中，用户名和密码可自行设置，服务名应为<code>pptpd</code>，IP表明允许登录的ip列表，如果允许所有ip可以设置为<code>*</code>。</p>
-<h3 id="Step5-开启IPv4转发"><a href="#Step5-开启IPv4转发" class="headerlink" title="Step5 - 开启IPv4转发"></a>Step5 - 开启IPv4转发</h3><p>为了支持IP数据包的转发，需要开启IPv4转发功能。<br>编辑<code>/etc/sysctl.conf</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
-<p>搜索并找到以下字段，去掉注释并修改为以下值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
-<p><code>= 1</code>表明开启了服务器内核支持IP数据包转发功能，允许通过PPTP协议在公有IP和私有IPs之间进行数据包转发。</p>
-<p>使得修改生效，需要执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
-<h3 id="Step6-创建NAT规则"><a href="#Step6-创建NAT规则" class="headerlink" title="Step6 - 创建NAT规则"></a>Step6 - 创建NAT规则</h3><p>创建网络地址转换，添加防火墙规则到iptables中，在终端执行以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  # 将所有目标IP包转向eth0接口</span><br><span class="line">service iptables save  # 添加规则后重启会失效，所以需要保存，若不支持，可添加到rc.local文件中开机自动设置</span><br><span class="line"># 也可使用命令 iptables-save</span><br><span class="line"></span><br><span class="line">service iptables restart  # 重启iptables，貌似针对Ubuntu无效(忽略)</span><br></pre></td></tr></table></figure>
-<p>pptpd默认监听1723端口，可以通过以下命令查看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nap | grep pptpd</span><br></pre></td></tr></table></figure>
-<p>(可选)如果端口没有开启则开启相关端口:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp –dport 1723 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p tcp –dport 47 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p UDP --dport 53 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p gre -j ACCEPT</span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
-<h3 id="Step7-启动PPTP服务"><a href="#Step7-启动PPTP服务" class="headerlink" title="Step7 - 启动PPTP服务"></a>Step7 - 启动PPTP服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig pptpd on  # 设置开机启动VPN服务</span><br><span class="line">service pptpd restart  # 重启VPN服务, 当然可以用stop/start来停止/启动服务</span><br><span class="line">service pptpd status  # 查看VPN服务当前运行状态</span><br></pre></td></tr></table></figure>
-<p>可以看到服务已经启动:<br><img src="/assets/aws-ec2-vpn/linux_pptpd_started.png" alt=""></p>
-<p>针对Ubuntu，即使运行start命令，但查看status还是显示<code>pptpd is not running</code>，可以编辑<code>/etc/init.d/pptpd</code>文件，搜索<code>status</code>找到该行<code>status_of_proc &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</code>，并添加<code>-p</code>参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_of_proc -p &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</span><br></pre></td></tr></table></figure>
-<p>针对VPN日志，在CentOS中，VPN服务器默认会写日志到<code>/var/log/messages</code>中; 在Ubuntu中，VPN服务器默认会写日志到<code>/var/log/syslog</code>中。</p>
-<p>以上步骤完成配置正确后，可以利用自己的终端设备连接到VPN上网了。</p>
-<h3 id="Step8-使用VPN服务"><a href="#Step8-使用VPN服务" class="headerlink" title="Step8 - 使用VPN服务"></a>Step8 - 使用VPN服务</h3><h4 id="在Mac-OS-X上配置VPN"><a href="#在Mac-OS-X上配置VPN" class="headerlink" title="在Mac OS X上配置VPN"></a>在Mac OS X上配置VPN</h4><p>System Preferences(系统设置) -&gt; Network(网络):<br><img src="/assets/aws-ec2-vpn/mac_system_network.png" alt=""></p>
-<p>选择左下角的<code>+</code>号添加VPN，选择PPTP类型，点击create创建:<br><img src="/assets/aws-ec2-vpn/mac_new_vpn.png" alt=""></p>
-<p>Advanced(高级) -&gt; Options(选项) -&gt; 勾选Session Options中的所有项 -&gt; OK保存:<br><img src="/assets/aws-ec2-vpn/mac_vpn_options.png" alt=""></p>
-<p>填写VPN相关服务器地址、用户名、密码等信息 -&gt; 点击Apply应用所有修改 -&gt; 点击connect连接VPN服务:<br><img src="/assets/aws-ec2-vpn/mac_vpn_connected.png" alt=""></p>
-<p>其中Server Address绑定了子域名<code>aws.vpn.xxx</code>，在需要更改服务主机时只需要重定位DNS即可，Client终端配置不需要更改，当然要做负载时也很方便，同时也利用记忆。</p>
-<h4 id="在iPhone-6s上配置VPN"><a href="#在iPhone-6s上配置VPN" class="headerlink" title="在iPhone 6s上配置VPN"></a>在iPhone 6s上配置VPN</h4><p>首先进入Settings设置，选择VPN项（也可以借助第三方软件，如AnyConnect）:<br><img src="/assets/aws-ec2-vpn/6s_vpn_setting.png" alt=""></p>
-<p>选择PPTP类型，填写服务器地址、用户名、密码等，然后保存:<br><img src="/assets/aws-ec2-vpn/6s_new_vpn.png" alt=""></p>
-<p>点击connect连接VPN服务:<br><img src="/assets/aws-ec2-vpn/6s_vpn_connected.png" alt=""></p>
-<p>进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:<br><img src="/assets/aws-ec2-vpn/6s_vpn_detail.png" alt=""></p>
-<p>测试访问Google，在手机浏览器输入<code>www.google.com</code>，使用4G数据流量，连接正常，速度没有明显差异:<br><img src="/assets/aws-ec2-vpn/6s_test_vpn.png" alt=""></p>
-<p>当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~</p>
+        <h2 id="Jenkins-Introduction"><a href="#Jenkins-Introduction" class="headerlink" title="Jenkins Introduction"></a>Jenkins Introduction</h2><p>Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。<br>下图摘自官网，展示了持续交付场景下应用示例一般流程。<br><img src="/assets/jenkins-step-by-step/pipeline_flow.png" alt=""></p>
+<h2 id="Jenkins-Installation"><a href="#Jenkins-Installation" class="headerlink" title="Jenkins Installation"></a>Jenkins Installation</h2><p>Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到<a href="https://jenkins.io/" target="_blank" rel="external">Jenkins官网</a>下载需要的版本并安装。<br><img src="/assets/jenkins-step-by-step/download.png" alt=""></p>
+<p>以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。</p>
+<h4 id="War包安装方式"><a href="#War包安装方式" class="headerlink" title="War包安装方式"></a>War包安装方式</h4><p>可以直接下载自带Jetty的<code>*.war</code>包并运行，非常方便，比较推荐使用，Jenkins默认会运行在<code>8080</code>端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war</span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure></p>
+<p>也可以下载最新版本的<a href="http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war" target="_blank" rel="external">jenkins.war</a>。</p>
+<h4 id="Docker镜像方式"><a href="#Docker镜像方式" class="headerlink" title="Docker镜像方式"></a>Docker镜像方式</h4><p>可以直接下载Docker镜像来使用，无需进行安装，但需要有docker环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull jenkinsci/jenkins</span><br><span class="line">docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>/your/home</code>需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅<a href="https://github.com/jenkinsci/docker" target="_blank" rel="external">Github jenkinsci</a>。</p>
+<h4 id="Ansible安装方式"><a href="#Ansible安装方式" class="headerlink" title="Ansible安装方式"></a>Ansible安装方式</h4><p>另外，还可以通过Ansible自动化脚本安装，在另一篇博客<a href="/ansible-practice">Ansible实践篇</a>中也有涉及。首先需要下载jenkins role到本地，假设下载到了<code>/usr/local/etc/ansible/roles/</code>目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<p>然后编写<code>playbook</code>来实现<strong>自动化批量安装</strong>，假设创建一个playbook名为<code>setup_jenkins.yml</code>，其中<code>ci-server</code>是<code>inventory</code>文件中的Group或Host。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: ci-server</span><br><span class="line">  become_method: sudo</span><br><span class="line">  become: yes</span><br><span class="line">  roles:</span><br><span class="line">    - /usr/local/etc/ansible/roles/geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<p>最后运行命令执行安装，稍等片刻后可访问主机的8080端口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i inventory setup_jenkins.yml</span><br></pre></td></tr></table></figure></p>
+<p>如果需要设置Java版本可以修改<code>geerlingguy.java</code>中默认的<code>java_packages</code>。更多说明可以参见<a href="https://github.com/geerlingguy/ansible-role-jenkins" target="_blank" rel="external">ansible-role-jenkins</a>和<a href="https://github.com/geerlingguy/ansible-role-java" target="_blank" rel="external">ansible-role-java</a>。</p>
+<p>除了上述安装方式外，也可根据具体的操作系统进行安装，以下给出常用的操作系统下的安装方式。</p>
+<h4 id="在RedHat-CentOS中安装"><a href="#在RedHat-CentOS中安装" class="headerlink" title="在RedHat/CentOS中安装"></a>在RedHat/CentOS中安装</h4><p>通常有两种安装方式：1. 添加Package Repository后使用yum进行安装和升级；2. 直接下载<code>*.rpm</code>进行安装。</p>
+<p><strong>方式一：添加Package仓库安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo</span><br><span class="line">sudo rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key</span><br><span class="line">yum install jenkins</span><br></pre></td></tr></table></figure></p>
+<p><strong>方式二：下载<code>*.rpm</code>进行安装</strong><br>目前最新版本是<code>2.7.1-1.1.noarch</code>，若需要指定安装版本，可到<a href="http://pkg.jenkins-ci.org/redhat-stable/" target="_blank" rel="external">http://pkg.jenkins-ci.org/redhat-stable/</a>查看并下载安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.1-1.1.noarch.rpm</span><br><span class="line">sudo rpm -ivh jenkins-2.7.1-1.1.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<h4 id="在Ubuntu-Debian中安装"><a href="#在Ubuntu-Debian中安装" class="headerlink" title="在Ubuntu/Debian中安装"></a>在Ubuntu/Debian中安装</h4><p>通常也有两种安装方式：1. 添加Debian Package Repository进行安装和升级；2. 通过直接下载<code>*.deb</code>进行安装。</p>
+<p><strong>方式一：添加Package仓库安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -</span><br><span class="line">deb http://pkg.jenkins.io/debian-stable binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure></p>
+<p><strong>方式二：下载<code>*.deb</code>进行安装</strong><br>目前最新版本是<code>2.7.1_all</code>，也可以到<a href="http://pkg.jenkins-ci.org/debian-stable/" target="_blank" rel="external">http://pkg.jenkins-ci.org/debian-stable/</a>查看并下载指定版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_2.7.1_all.deb</span><br><span class="line">sudo dpkg -i jenkins_2.7.1_all.deb</span><br></pre></td></tr></table></figure></p>
+<h4 id="在Mac或Windows下安装"><a href="#在Mac或Windows下安装" class="headerlink" title="在Mac或Windows下安装"></a>在Mac或Windows下安装</h4><p>对于Mac OS和Windows，直接下载对应安装包根据提示安装即可：<a href="https://jenkins.io/content/thank-you-downloading-os-x-installer/#stable" target="_blank" rel="external">Mac OS安装包</a>、<a href="https://jenkins.io/content/thank-you-downloading-windows-installer/#stable" target="_blank" rel="external">Windows安装包</a>。</p>
+<h2 id="Jenkins-Setup"><a href="#Jenkins-Setup" class="headerlink" title="Jenkins Setup"></a>Jenkins Setup</h2><h4 id="System"><a href="#System" class="headerlink" title="System"></a>System</h4><h4 id="Users"><a href="#Users" class="headerlink" title="Users"></a>Users</h4><h4 id="Email"><a href="#Email" class="headerlink" title="Email"></a>Email</h4><h2 id="Jenkins-Plugins"><a href="#Jenkins-Plugins" class="headerlink" title="Jenkins Plugins"></a>Jenkins Plugins</h2><h2 id="Jenkins-Jobs"><a href="#Jenkins-Jobs" class="headerlink" title="Jenkins Jobs"></a>Jenkins Jobs</h2><h2 id="Jenkins-Pipeline"><a href="#Jenkins-Pipeline" class="headerlink" title="Jenkins Pipeline"></a>Jenkins Pipeline</h2><h2 id="Jenkins-Master-and-Slave"><a href="#Jenkins-Master-and-Slave" class="headerlink" title="Jenkins Master and Slave"></a>Jenkins Master and Slave</h2><h2 id="Pipeline-as-Code"><a href="#Pipeline-as-Code" class="headerlink" title="Pipeline as Code"></a>Pipeline as Code</h2><p>Jenkinsfile</p>
+<p><strong>但Jenkins也有其缺点，比如：</strong></p>
+<ul>
+<li>在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；</li>
+<li>另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；</li>
+<li>Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；</li>
+<li>此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，可能会有造成一些插件问题导致Build环境被污染的风险。</li>
+<li>针对Jenkins 2.0的Jenkinsfile，可以将pipeline定义为代码形式，即Pipeline As Code，也方便了很多，算是优点，不过也是其缺点，最大的问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改。</li>
+</ul>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://jenkins.io/" target="_blank" rel="external">Jenkins Home</a></li>
+<li><a href="http://www.tutorialspoint.com/jenkins/index.htm" target="_blank" rel="external">Jenkins Tutorial</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Step+by+step+guide+to+set+up+master+and+slave+machines" target="_blank" rel="external">Step by step guide to set up master and slave machines</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin" target="_blank" rel="external">Build Pipeline Plugin</a></li>
+</ul>
 
       
     </div>
@@ -375,13 +335,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/aws-ec2-vpn/">AWS EC2搭建VPN服务器</a></p>
+        <p><span>本文标题:</span><a href="/jenkins-step-by-step/">Jenkins Step by Step</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-04-13 23:30</p>
-        <!--<p><span>最后更新:</span>2016-06-11 21:29</p>-->
+        <p><span>发布时间:</span>2016-07-06 21:30</p>
+        <!--<p><span>最后更新:</span>2016-07-13 15:33</p>-->
         <p>
-            <span>原始链接:</span><a class="post-url" href="/aws-ec2-vpn/" title="AWS EC2搭建VPN服务器">http://blog.waterstrong.me/aws-ec2-vpn/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/aws-ec2-vpn/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/jenkins-step-by-step/" title="Jenkins Step by Step">http://blog.waterstrong.me/jenkins-step-by-step/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/jenkins-step-by-step/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -394,18 +354,9 @@
 
 <nav id="article-nav">
   
-    <a href="/concourse-ci/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Concourse CI 介绍
-        
-      </div>
-    </a>
   
-  
-    <a href="/aws-ec2-basic/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AWS EC2入门篇</div>
+    <a href="/ansible-practice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ansible实践篇</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -416,7 +367,7 @@
 
     <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step1-安装PPTP"><span class="toc-number">2.</span> <span class="toc-text">Step1 - 安装PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step2-配置PPTP"><span class="toc-number">3.</span> <span class="toc-text">Step2 - 配置PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step3-添加DNS解析"><span class="toc-number">4.</span> <span class="toc-text">Step3 - 添加DNS解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step4-添加VPN用户"><span class="toc-number">5.</span> <span class="toc-text">Step4 - 添加VPN用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step5-开启IPv4转发"><span class="toc-number">6.</span> <span class="toc-text">Step5 - 开启IPv4转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step6-创建NAT规则"><span class="toc-number">7.</span> <span class="toc-text">Step6 - 创建NAT规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step7-启动PPTP服务"><span class="toc-number">8.</span> <span class="toc-text">Step7 - 启动PPTP服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step8-使用VPN服务"><span class="toc-number">9.</span> <span class="toc-text">Step8 - 使用VPN服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在Mac-OS-X上配置VPN"><span class="toc-number">9.1.</span> <span class="toc-text">在Mac OS X上配置VPN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在iPhone-6s上配置VPN"><span class="toc-number">9.2.</span> <span class="toc-text">在iPhone 6s上配置VPN</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Jenkins Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Installation"><span class="toc-number">2.</span> <span class="toc-text">Jenkins Installation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#War包安装方式"><span class="toc-number">2.0.1.</span> <span class="toc-text">War包安装方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker镜像方式"><span class="toc-number">2.0.2.</span> <span class="toc-text">Docker镜像方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ansible安装方式"><span class="toc-number">2.0.3.</span> <span class="toc-text">Ansible安装方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在RedHat-CentOS中安装"><span class="toc-number">2.0.4.</span> <span class="toc-text">在RedHat/CentOS中安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Ubuntu-Debian中安装"><span class="toc-number">2.0.5.</span> <span class="toc-text">在Ubuntu/Debian中安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Mac或Windows下安装"><span class="toc-number">2.0.6.</span> <span class="toc-text">在Mac或Windows下安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Setup"><span class="toc-number">3.</span> <span class="toc-text">Jenkins Setup</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#System"><span class="toc-number">3.0.1.</span> <span class="toc-text">System</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Users"><span class="toc-number">3.0.2.</span> <span class="toc-text">Users</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Email"><span class="toc-number">3.0.3.</span> <span class="toc-text">Email</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Plugins"><span class="toc-number">4.</span> <span class="toc-text">Jenkins Plugins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Jobs"><span class="toc-number">5.</span> <span class="toc-text">Jenkins Jobs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Pipeline"><span class="toc-number">6.</span> <span class="toc-text">Jenkins Pipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Master-and-Slave"><span class="toc-number">7.</span> <span class="toc-text">Jenkins Master and Slave</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pipeline-as-Code"><span class="toc-number">8.</span> <span class="toc-text">Pipeline as Code</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
        value="隐藏目录"
