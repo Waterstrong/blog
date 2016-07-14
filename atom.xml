@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-07-13T07:33:34.000Z</updated>
+  <updated>2016-07-12T14:42:33.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,68 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Jenkins Step by Step</title>
-    <link href="http://blog.waterstrong.me/jenkins-step-by-step/"/>
-    <id>http://blog.waterstrong.me/jenkins-step-by-step/</id>
-    <published>2016-07-06T13:30:44.000Z</published>
-    <updated>2016-07-13T07:33:34.000Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;Jenkins-Introduction&quot;&gt;&lt;a href=&quot;#Jenkins-Introduction&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Introduction&quot;&gt;&lt;/a&gt;Jenkins Introduction&lt;/h2&gt;&lt;p&gt;Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。&lt;br&gt;下图摘自官网，展示了持续交付场景下应用示例一般流程。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-step-by-step/pipeline_flow.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Jenkins-Installation&quot;&gt;&lt;a href=&quot;#Jenkins-Installation&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Installation&quot;&gt;&lt;/a&gt;Jenkins Installation&lt;/h2&gt;&lt;p&gt;Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins官网&lt;/a&gt;下载需要的版本并安装。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-step-by-step/download.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。&lt;/p&gt;
-&lt;h4 id=&quot;War包安装方式&quot;&gt;&lt;a href=&quot;#War包安装方式&quot; class=&quot;headerlink&quot; title=&quot;War包安装方式&quot;&gt;&lt;/a&gt;War包安装方式&lt;/h4&gt;&lt;p&gt;可以直接下载自带Jetty的&lt;code&gt;*.war&lt;/code&gt;包并运行，非常方便，比较推荐使用，Jenkins默认会运行在&lt;code&gt;8080&lt;/code&gt;端口。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java -jar jenkins.war&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;也可以下载最新版本的&lt;a href=&quot;http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jenkins.war&lt;/a&gt;。&lt;/p&gt;
-&lt;h4 id=&quot;Docker镜像方式&quot;&gt;&lt;a href=&quot;#Docker镜像方式&quot; class=&quot;headerlink&quot; title=&quot;Docker镜像方式&quot;&gt;&lt;/a&gt;Docker镜像方式&lt;/h4&gt;&lt;p&gt;可以直接下载Docker镜像来使用，无需进行安装，但需要有docker环境。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker pull jenkinsci/jenkins&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;其中&lt;code&gt;/your/home&lt;/code&gt;需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅&lt;a href=&quot;https://github.com/jenkinsci/docker&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github jenkinsci&lt;/a&gt;。&lt;/p&gt;
-&lt;h4 id=&quot;Ansible安装方式&quot;&gt;&lt;a href=&quot;#Ansible安装方式&quot; class=&quot;headerlink&quot; title=&quot;Ansible安装方式&quot;&gt;&lt;/a&gt;Ansible安装方式&lt;/h4&gt;&lt;p&gt;另外，还可以通过Ansible自动化脚本安装，在另一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;中也有涉及。首先需要下载jenkins role到本地，假设下载到了&lt;code&gt;/usr/local/etc/ansible/roles/&lt;/code&gt;目录下。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-galaxy install geerlingguy.jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;然后编写&lt;code&gt;playbook&lt;/code&gt;来实现&lt;strong&gt;自动化批量安装&lt;/strong&gt;，假设创建一个playbook名为&lt;code&gt;setup_jenkins.yml&lt;/code&gt;，其中&lt;code&gt;ci-server&lt;/code&gt;是&lt;code&gt;inventory&lt;/code&gt;文件中的Group或Host。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- hosts: ci-server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  become_method: sudo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  become: yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  roles:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    - /usr/local/etc/ansible/roles/geerlingguy.jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;最后运行命令执行安装，稍等片刻后可访问主机的8080端口：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-playbook -i inventory setup_jenkins.yml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;如果需要设置Java版本可以修改&lt;code&gt;geerlingguy.java&lt;/code&gt;中默认的&lt;code&gt;java_packages&lt;/code&gt;。更多说明可以参见&lt;a href=&quot;https://github.com/geerlingguy/ansible-role-jenkins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ansible-role-jenkins&lt;/a&gt;和&lt;a href=&quot;https://github.com/geerlingguy/ansible-role-java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ansible-role-java&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;除了上述安装方式外，也可根据具体的操作系统进行安装，以下给出常用的操作系统下的安装方式。&lt;/p&gt;
-&lt;h4 id=&quot;在RedHat-CentOS中安装&quot;&gt;&lt;a href=&quot;#在RedHat-CentOS中安装&quot; class=&quot;headerlink&quot; title=&quot;在RedHat/CentOS中安装&quot;&gt;&lt;/a&gt;在RedHat/CentOS中安装&lt;/h4&gt;&lt;p&gt;通常有两种安装方式：1. 添加Package Repository后使用yum进行安装和升级；2. 直接下载&lt;code&gt;*.rpm&lt;/code&gt;进行安装。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式一：添加Package仓库安装&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式二：下载&lt;code&gt;*.rpm&lt;/code&gt;进行安装&lt;/strong&gt;&lt;br&gt;目前最新版本是&lt;code&gt;2.7.1-1.1.noarch&lt;/code&gt;，若需要指定安装版本，可到&lt;a href=&quot;http://pkg.jenkins-ci.org/redhat-stable/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://pkg.jenkins-ci.org/redhat-stable/&lt;/a&gt;查看并下载安装。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -O http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.1-1.1.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo rpm -ivh jenkins-2.7.1-1.1.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h4 id=&quot;在Ubuntu-Debian中安装&quot;&gt;&lt;a href=&quot;#在Ubuntu-Debian中安装&quot; class=&quot;headerlink&quot; title=&quot;在Ubuntu/Debian中安装&quot;&gt;&lt;/a&gt;在Ubuntu/Debian中安装&lt;/h4&gt;&lt;p&gt;通常也有两种安装方式：1. 添加Debian Package Repository进行安装和升级；2. 通过直接下载&lt;code&gt;*.deb&lt;/code&gt;进行安装。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式一：添加Package仓库安装&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget -q -O - http://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;deb http://pkg.jenkins.io/debian-stable binary/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get install jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方式二：下载&lt;code&gt;*.deb&lt;/code&gt;进行安装&lt;/strong&gt;&lt;br&gt;目前最新版本是&lt;code&gt;2.7.1_all&lt;/code&gt;，也可以到&lt;a href=&quot;http://pkg.jenkins-ci.org/debian-stable/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://pkg.jenkins-ci.org/debian-stable/&lt;/a&gt;查看并下载指定版本。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -O http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_2.7.1_all.deb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo dpkg -i jenkins_2.7.1_all.deb&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h4 id=&quot;在Mac或Windows下安装&quot;&gt;&lt;a href=&quot;#在Mac或Windows下安装&quot; class=&quot;headerlink&quot; title=&quot;在Mac或Windows下安装&quot;&gt;&lt;/a&gt;在Mac或Windows下安装&lt;/h4&gt;&lt;p&gt;对于Mac OS和Windows，直接下载对应安装包根据提示安装即可：&lt;a href=&quot;https://jenkins.io/content/thank-you-downloading-os-x-installer/#stable&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mac OS安装包&lt;/a&gt;、&lt;a href=&quot;https://jenkins.io/content/thank-you-downloading-windows-installer/#stable&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Windows安装包&lt;/a&gt;。&lt;/p&gt;
-&lt;h2 id=&quot;Jenkins-Setup&quot;&gt;&lt;a href=&quot;#Jenkins-Setup&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Setup&quot;&gt;&lt;/a&gt;Jenkins Setup&lt;/h2&gt;&lt;h4 id=&quot;System&quot;&gt;&lt;a href=&quot;#System&quot; class=&quot;headerlink&quot; title=&quot;System&quot;&gt;&lt;/a&gt;System&lt;/h4&gt;&lt;h4 id=&quot;Users&quot;&gt;&lt;a href=&quot;#Users&quot; class=&quot;headerlink&quot; title=&quot;Users&quot;&gt;&lt;/a&gt;Users&lt;/h4&gt;&lt;h4 id=&quot;Email&quot;&gt;&lt;a href=&quot;#Email&quot; class=&quot;headerlink&quot; title=&quot;Email&quot;&gt;&lt;/a&gt;Email&lt;/h4&gt;&lt;h2 id=&quot;Jenkins-Plugins&quot;&gt;&lt;a href=&quot;#Jenkins-Plugins&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Plugins&quot;&gt;&lt;/a&gt;Jenkins Plugins&lt;/h2&gt;&lt;h2 id=&quot;Jenkins-Jobs&quot;&gt;&lt;a href=&quot;#Jenkins-Jobs&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Jobs&quot;&gt;&lt;/a&gt;Jenkins Jobs&lt;/h2&gt;&lt;h2 id=&quot;Jenkins-Pipeline&quot;&gt;&lt;a href=&quot;#Jenkins-Pipeline&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Pipeline&quot;&gt;&lt;/a&gt;Jenkins Pipeline&lt;/h2&gt;&lt;h2 id=&quot;Jenkins-Master-and-Slave&quot;&gt;&lt;a href=&quot;#Jenkins-Master-and-Slave&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Master and Slave&quot;&gt;&lt;/a&gt;Jenkins Master and Slave&lt;/h2&gt;&lt;h2 id=&quot;Pipeline-as-Code&quot;&gt;&lt;a href=&quot;#Pipeline-as-Code&quot; class=&quot;headerlink&quot; title=&quot;Pipeline as Code&quot;&gt;&lt;/a&gt;Pipeline as Code&lt;/h2&gt;&lt;p&gt;Jenkinsfile&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;但Jenkins也有其缺点，比如：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；&lt;/li&gt;
-&lt;li&gt;另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；&lt;/li&gt;
-&lt;li&gt;Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；&lt;/li&gt;
-&lt;li&gt;此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，可能会有造成一些插件问题导致Build环境被污染的风险。&lt;/li&gt;
-&lt;li&gt;针对Jenkins 2.0的Jenkinsfile，可以将pipeline定义为代码形式，即Pipeline As Code，也方便了很多，算是优点，不过也是其缺点，最大的问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;References&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins Home&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.tutorialspoint.com/jenkins/index.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins Tutorial&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Step+by+step+guide+to+set+up+master+and+slave+machines&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step by step guide to set up master and slave machines&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Build Pipeline Plugin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
-    
-    
-      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
-    
-      <category term="CI/CD" scheme="http://blog.waterstrong.me/tags/CI-CD/"/>
-    
-      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
-    
-  </entry>
   
   <entry>
     <title>Ansible实践篇</title>
@@ -986,6 +924,59 @@
       <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
     
       <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL在Linux下默认区分大小写</title>
+    <link href="http://blog.waterstrong.me/mysql-case-sensitive-linux/"/>
+    <id>http://blog.waterstrong.me/mysql-case-sensitive-linux/</id>
+    <published>2015-12-20T14:28:42.000Z</published>
+    <updated>2016-06-09T04:28:44.000Z</updated>
+    
+    <content type="html">&lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;默认大小写敏感&quot;&gt;&lt;a href=&quot;#默认大小写敏感&quot; class=&quot;headerlink&quot; title=&quot;默认大小写敏感&quot;&gt;&lt;/a&gt;默认大小写敏感&lt;/h4&gt;&lt;p&gt;MySQL数据库名、表名、别名在Linux下默认区分大小写，root登录通过命令查看其配置：&lt;br&gt;mysql&amp;gt; show variables like ‘lower%’;&lt;br&gt;+————————+——-+&lt;br&gt;| Variable_name          | Value |&lt;br&gt;+————————+——-+&lt;br&gt;| lower_case_file_system | OFF   |&lt;br&gt;| lower_case_table_names | 0     |&lt;br&gt;+————————+——-+&lt;/p&gt;
+&lt;h4 id=&quot;变量名和值解释&quot;&gt;&lt;a href=&quot;#变量名和值解释&quot; class=&quot;headerlink&quot; title=&quot;变量名和值解释&quot;&gt;&lt;/a&gt;变量名和值解释&lt;/h4&gt;&lt;p&gt;lower_case_file_system为只读属性，显示出系统的文件系统是否大小写敏感，OFF表示大小写敏感，ON表示大小写不敏感。&lt;br&gt;lower_case_table_names默认为0，表示大小写敏感；设置1表示大小写不敏感，创建的表/数据库以小写形式存放在磁盘上，对于sql语句转换为小写操作；设置2表示创建的表/数据库依据语句上格式存放，但查找都是转换为小写进行。&lt;/p&gt;
+&lt;p&gt;lower_case_file_system解释可参见&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_lower_case_file_system&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/a&gt;说明：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This variable describes the case sensitivity of file names on the file system where the data directory is located. OFF means file names are case sensitive,ON means they are not case sensitive. This variable is read only because it reflects a file system attribute and setting it would have no effect on the file system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;lower_case_table_names解释可参见&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方文档&lt;/a&gt;的说明：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/server-system-variables.html#sysvar_lower_case_table_names&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;lower_case_table_names&lt;/a&gt;, If set to 0, table names are stored as specified and comparisons are case sensitive. If set to 1, table names are stored in lowercase on disk and comparisons are not case sensitive. If set to 2, table names are stored as given but compared in lowercase. This option also applies to database names and table aliases. For additional information, see &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.6/en/identifier-case-sensitivity.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Section 9.2.2&lt;/a&gt;, “Identifier Case Sensitivity”.&lt;/p&gt;
+&lt;p&gt;On Windows the default value is 1. On OS X, the default value is 2.&lt;/p&gt;
+&lt;p&gt;You should &lt;em&gt;not&lt;/em&gt; set &lt;strong&gt;lower_case_table_names&lt;/strong&gt; to 0 if you are running MySQL on a system where the data directory resides on a case-insensitive file system (such as on Windows or OS X). It is an unsupported combination that could result in a hang condition when running an INSERT INTO … SELECT … FROM &lt;strong&gt;tbl_name&lt;/strong&gt; operation with the wrong &lt;strong&gt;tbl_name&lt;/strong&gt; letter case. With MyISAM, accessing table names using different letter cases could cause index corruption.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h4&gt;&lt;p&gt;关于Hibernate/JPA数据库schema自动映射时，对于Linux上MySQL大小写敏感解决方案为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;方案一: 设计时在数据库中命名都采用 小写字母或小写字母+下划线 的方式。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;方案二: 用root登录，修改/etc/mysql/my.cnf, 在[mysqld]下加入一行：lower_case_table_names=1，重启数据库。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;但是特别注意：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;As of MySQL 5.6.27, an error message is printed and the server exits if you attempt to start the server with –lower_case_table_names=0 on a case-insensitive file system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;若需要设置lower_case_table_names = 1时，在重启数据库实例之前就需要将原来的数据库和表转换为小写，否则将找不到数据库名。而数据库名无法直接更名，可以新建一个小写的数据库名，然后rename table到新的数据库，完成表的迁移。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Techniques" scheme="http://blog.waterstrong.me/categories/Techniques/"/>
+    
+    
+      <category term="Linux" scheme="http://blog.waterstrong.me/tags/Linux/"/>
+    
+      <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="MySQL" scheme="http://blog.waterstrong.me/tags/MySQL/"/>
+    
+      <category term="Hibernate" scheme="http://blog.waterstrong.me/tags/Hibernate/"/>
+    
+      <category term="JPA" scheme="http://blog.waterstrong.me/tags/JPA/"/>
     
   </entry>
   
