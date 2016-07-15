@@ -4,7 +4,7 @@ date: 2016-07-06 21:30:44
 category: Tools
 tags: [DevOps, CI/CD, Jenkins]
 description: Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。
-published: true
+published: false
 ---
 
 ## Jenkins Introduction
