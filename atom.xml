@@ -103,11 +103,11 @@
     
       <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
     
-      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
-    
       <category term="Ansible" scheme="http://blog.waterstrong.me/tags/Ansible/"/>
     
       <category term="Workshop" scheme="http://blog.waterstrong.me/tags/Workshop/"/>
+    
+      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
     
       <category term="Apache2" scheme="http://blog.waterstrong.me/tags/Apache2/"/>
     
@@ -497,11 +497,11 @@
     
       <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
     
+      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
+    
       <category term="CI/CD" scheme="http://blog.waterstrong.me/tags/CI-CD/"/>
     
       <category term="Concourse" scheme="http://blog.waterstrong.me/tags/Concourse/"/>
-    
-      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
     
       <category term="TravisCI" scheme="http://blog.waterstrong.me/tags/TravisCI/"/>
     
