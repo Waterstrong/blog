@@ -57,7 +57,7 @@ ansible-galaxy install geerlingguy.jenkins
 ansible-playbook -i inventory setup_jenkins.yml
 ```
 
-如果需要设置Java版本可以修改`geerlingguy.java`中默认的`java_packages`。更多说明可以参见[ansible-role-jenkins](https://github.com/geerlingguy/ansible-role-jenkins)和[ansible-role-java](https://github.com/geerlingguy/ansible-role-java)。
+如果需要设置Java版本可以在安装之前修改`geerlingguy.java`中默认的`java_packages`。更多说明可以参见[ansible-role-jenkins](https://github.com/geerlingguy/ansible-role-jenkins)和[ansible-role-java](https://github.com/geerlingguy/ansible-role-java)。
 
 除了上述安装方式外，也可根据具体的操作系统进行安装，以下给出常用的操作系统下的安装方式。
 
