@@ -100,19 +100,31 @@ sudo dpkg -i jenkins_2.7.1_all.deb
 对于Mac OS和Windows，直接下载对应安装包根据提示安装即可：[Mac OS安装包](https://jenkins.io/content/thank-you-downloading-os-x-installer/#stable)、[Windows安装包](https://jenkins.io/content/thank-you-downloading-windows-installer/#stable)。
 
 ## Jenkins Setup
+当安装完Jenkins 2.13后，访问`http://localhost:8080`默认会进入到登录页面。输入默认用户名`admin`和密码`admin`。
+![](/assets/jenkins-by-step/login.png)
 
-#### System
-#### Users
-#### Email
+登录成功后，Jenkins首先会提示安装推荐插件或自选插件，直接点击`Install suggested plugins`安装默认推荐的插件即可，当然随后也可以在Plugin管理中再选择安装需要的插件。
+![](/assets/jenkins-by-step/customize_jenkins.png)
+![](/assets/jenkins-by-step/suggested_plugins.png)
 
+## Jenkins Jobs
+首先来创建一个Jenkins的Job，
+
+## Jenkins Pipeline
 
 ## Jenkins Plugins
 
 
-## Jenkins Jobs
 
 
-## Jenkins Pipeline
+
+
+
+#### System
+
+#### Users
+
+#### Email
 
 
 ## Jenkins Master and Slave
