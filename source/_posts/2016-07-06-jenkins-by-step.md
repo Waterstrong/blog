@@ -8,7 +8,7 @@ published: true
 ---
 
 ## Jenkins Introduction
-Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。
+Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。
 下图摘自官网，展示了持续交付场景下应用示例一般流程。
 ![](/assets/jenkins-by-step/pipeline_flow.png)
 
@@ -105,20 +105,66 @@ sudo dpkg -i jenkins_2.7.1_all.deb
 
 登录成功后，Jenkins首先会提示安装推荐插件或自选插件，直接点击`Install suggested plugins`安装默认推荐的插件即可，当然随后也可以在Plugin管理中再选择安装需要的插件。
 ![](/assets/jenkins-by-step/customize_jenkins.png)
+
+等待常用的一些插件安装完成后就可以开始创建自己的Job了。
 ![](/assets/jenkins-by-step/suggested_plugins.png)
 
 ## Jenkins Jobs
-首先来创建一个Jenkins的Job，
+Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么样的任务，以及执行后的操作。
+
+#### 创建一个Job
+首先来创建一个Jenkins的Job，点击`create new jobs`或`New Item`来创建一个Job。
+![](/assets/jenkins-by-step/home.png)
+
+然后在`Enter an item name`下输入Job的名称，比如：“melon-build”，并选择`Freestyle project`，最后点击OK保存。
+![](/assets/jenkins-by-step/new_job.png)
+
+#### Source Code Management
+可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为`*/master`。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。
+![](/assets/jenkins-by-step/job_source_code.png)
+
+#### 添加SCM
+
+#### 添加Gradle Tasks
+
+#### Report Code Coverage
+
+#### Checkstyle
+
+
+#### Post jobs
+
+
+#### Manuall
+
+
+#### Deployment
+
+
+#### 自定义脚本
+
+
+#### Node Slave  Tags
+
+
+
 
 ## Jenkins Pipeline
 
+#### 自定义View My View
+
+#### Pipeline View
+
+
+
 ## Jenkins Plugins
 
+#### 常用的插件管理
 
 
 
 
-
+## Management
 
 #### System
 
