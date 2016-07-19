@@ -8,7 +8,7 @@ published: true
 ---
 
 ## Jenkins Introduction
-Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。
+Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。
 下图摘自官网，展示了持续交付场景下应用示例一般流程。
 ![](/assets/jenkins-by-step/pipeline_flow.png)
 
@@ -100,7 +100,7 @@ sudo dpkg -i jenkins_2.7.1_all.deb
 对于Mac OS和Windows，直接下载对应安装包根据提示安装即可：[Mac OS安装包](https://jenkins.io/content/thank-you-downloading-os-x-installer/#stable)、[Windows安装包](https://jenkins.io/content/thank-you-downloading-windows-installer/#stable)。
 
 ## Jenkins Setup
-当安装完Jenkins 2.13后，访问`http://localhost:8080`默认会进入到登录页面。输入默认用户名`admin`和密码`admin`。
+当安装完Jenkins 2.x后，访问`http://localhost:8080`默认会进入到登录页面。输入默认用户名`admin`和密码`admin`。
 ![](/assets/jenkins-by-step/login.png)
 
 登录成功后，Jenkins首先会提示安装推荐插件或自选插件，直接点击`Install suggested plugins`安装默认推荐的插件即可，当然随后也可以在Plugin管理中再选择安装需要的插件。
@@ -119,34 +119,41 @@ Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么
 然后在`Enter an item name`下输入Job的名称，比如：“melon-build”，并选择`Freestyle project`，最后点击OK保存。
 ![](/assets/jenkins-by-step/new_job.png)
 
-#### Source Code Management
-可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为`*/master`。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。
+#### Source Code Management 源代码管理
+可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为`*/master`。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。
 ![](/assets/jenkins-by-step/job_source_code.png)
 
-#### 添加SCM
+#### Build Triggers 构建触发器
+构建触发条件Jenkins提供了5种方式，根据项目需要可以设置不同的触发方式，通常采用`Poll SCM`方式，通过设置Schedule来控制触发条件，Schedule采用的是基于**Cron**语法，但Jenkins对其进行了略微调整，比如设置`H/5 * * * *`表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号![](/assets/jenkins-by-step/help.png)按钮来获得更多帮助信息，或参考[Cron Wiki](https://en.wikipedia.org/wiki/Cron)和[Quartz 2.x Docs](http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html)。
+![](/assets/jenkins-by-step/job_trigger.png)
 
-#### 添加Gradle Tasks
+#### Build 构建和任务
+假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具[Gradle](https://gradle.org/)，选择`Use Gradle Wrapper`，添加项目执行的Tasks即可。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。
+![](/assets/jenkins-by-step/job_build.png)
+
+当然，除了Gradle外还可以选择Maven、Ant等方式。当然，如果有一些复杂的自动化工作也可以选择Shell脚本完成，根据项目需要定义。
+![](/assets/jenkins-by-step/add_build_step.png)
+
+#### Post-build Actions 构建后置行为
+Post-build Actions定义了在完成当前Job的所有Tasks后接下来需要执行的一系列操作的关系。比如设置在正常完成当前Job后，进一步获取测试报告和Artifacts，发送Email通知，或者并行/串行地触发后续的一个或多个Jobs。执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来。
+![](/assets/jenkins-by-step/job_post_action.png)
+
+Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：
+![](/assets/jenkins-by-step/add_post_action.png)
+
+其中`Build other projects`表示将自动触发后续Job，`Build other projects(manual step)`表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个`Trigger parameterized build on other projects`选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。
+
+至此，针对Job的设置完成，可以点击Save保存了。
 
 #### Report Code Coverage
 
 #### Checkstyle
 
 
-#### Post jobs
-
-
-#### Manuall
-
-
 #### Deployment
 
 
-#### 自定义脚本
-
-
 #### Node Slave  Tags
-
-
 
 
 ## Jenkins Pipeline
