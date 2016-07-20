@@ -124,77 +124,75 @@ Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么
 ![](/assets/jenkins-by-step/job_source_code.png)
 
 #### Build Triggers 构建触发器
-构建触发条件Jenkins提供了5种方式，根据项目需要可以设置不同的触发方式，通常采用`Poll SCM`方式，通过设置Schedule来控制触发条件，Schedule采用的是基于**Cron**语法，但Jenkins对其进行了略微调整，比如设置`H/5 * * * *`表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号![](/assets/jenkins-by-step/help.png)按钮来获得更多帮助信息，或参考[Cron Wiki](https://en.wikipedia.org/wiki/Cron)和[Quartz 2.x Docs](http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html)。
+构建触发条件Jenkins提供了多种方式，根据项目需要可以设置不同的触发方式，通常采用`Poll SCM`方式，通过设置Schedule来控制触发条件，Schedule采用的是基于**Cron**语法，但Jenkins对其进行了略微调整，比如设置`H/5 * * * *`表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号![](/assets/jenkins-by-step/help.png)按钮来获得更多帮助信息，或参考[Cron Wiki](https://en.wikipedia.org/wiki/Cron)和[CronTrigger Tutorial](http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html)。
 ![](/assets/jenkins-by-step/job_trigger.png)
 
 #### Build 构建和任务
-假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具[Gradle](https://gradle.org/)，选择`Use Gradle Wrapper`，添加项目执行的Tasks即可。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。
+假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具[Gradle](https://gradle.org/)，选择`Use Gradle Wrapper`，添加项目执行的Tasks即可，图中示例最终将执行`gradlew clean build`操作。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。
 ![](/assets/jenkins-by-step/job_build.png)
 
 当然，除了Gradle外还可以选择Maven、Ant等方式。当然，如果有一些复杂的自动化工作也可以选择Shell脚本完成，根据项目需要定义。
 ![](/assets/jenkins-by-step/add_build_step.png)
 
 #### Post-build Actions 构建后置行为
-Post-build Actions定义了在完成当前Job的所有Tasks后接下来需要执行的一系列操作的关系。比如设置在正常完成当前Job后，进一步获取测试报告和Artifacts，发送Email通知，或者并行/串行地触发后续的一个或多个Jobs。执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来。
-![](/assets/jenkins-by-step/job_post_action.png)
-
-Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：
+Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或并行/串行地触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：
 ![](/assets/jenkins-by-step/add_post_action.png)
 
-其中`Build other projects`表示将自动触发后续Job，`Build other projects(manual step)`表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个`Trigger parameterized build on other projects`选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。
+其中`Build other projects`表示将自动触发后续Job，`Build other projects(manual step)`表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个`Trigger parameterized build on other projects`选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。Jenkins也提供了Deployment相关的插件，总之，Jenkins的插件生态系统管理得很好，需要的功能都可以通过Plugins实现。
 
-至此，针对Job的设置完成，可以点击Save保存了。
+下图中定义`melon-build`完成后并行地执行`integration-test`、`acceptance-test`和`sonar`，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。
+![](/assets/jenkins-by-step/job_post_action.png)
 
-#### Report Code Coverage
+至此，针对第一个melon-build的Job设置完成，可以点击`Save`或`Apply`保存了。
 
-#### Checkstyle
+#### Custom Workspace 自定义工作区
+另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页`General`->`Advanced`->`Use custom workspace`，然后填写`Directory`，比如填写为`jobs/melon-build/workspace/`。
+![](/assets/jenkins-by-step/custom_workspace.png)
 
+#### Test Report 测试报告
+另外，针对测试报告，若基于Jacoco，可直接选择`Record JaCoCo coverage report`，当build完成后可自动生成报告。也可以尝试配置`Publish JUnit test result report`中的`Test report XMLs`。
+![](/assets/jenkins-by-step/jacoco_report.png)
 
-#### Deployment
+#### Deployment 部署
+部署有多种方式，可以通过`Build`中执行部署脚本，或者在`Post-build actions`中选择相应的Step，比如针对War包部署可以选择`Deploy war/ear to a container`。
+![](/assets/jenkins-by-step/deploy_tomcat.png)
 
+## Jenkins View
+Jenkins提供了多种视图，如Pipeline View、List View、My View等，目的是为了更好地归类和展示所关注的信息，通常会创建Pipeline View来增强Pipeline可视化效果。首先在Jenkins主页点击Dashboad标题栏最右边的`+`号，然后输入View Name并选择`Build Pipeline View`。
+![](/assets/jenkins-by-step/new_view.png)
 
-#### Node Slave  Tags
+然后配置Pipeline View，特别注意需要在Layout中选择Initial Job，并且该Job已经配置好Downstream Jobs，然后设定显示的Builds数量和刷新频率等。
+![](/assets/jenkins-by-step/config_pipeline_view.png)
 
+配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow。
+![](/assets/jenkins-by-step/pipeline_view.png)
 
-## Jenkins Pipeline
+## Manage Jenkins 管理
 
-#### 自定义View My View
+##### Jenkins Plugins 插件管理
+Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过`Manage Jenkins`->`Manage Plugins`进入到插件管理页面，可以执行安装、升级、删除插件等操作。
+![](/assets/jenkins-by-step/plugins_manager.png)
 
-#### Pipeline View
+以下补充罗列一些常用的插件：
+- [Gradle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Git plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Github plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [SSH plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Pipeline plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Deployment plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [JaCoCo plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Authorize Project plugin](https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin)
+- [Checkstyle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin)
 
+#### Manage Nodes 管理节点
+I will talk about Master and Slave later.
 
-
-## Jenkins Plugins
-
-#### 常用的插件管理
-
-
-
-
-## Management
-
-#### System
-
-#### Users
-
-#### Email
-
-
-## Jenkins Master and Slave
-
+#### 其他配置管理
+Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择`Manage Jenkins`进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，这里就不再一一列举了。
+![](/assets/jenkins-by-step/manage_jenkins.png)
 
 ## Pipeline as Code
-
-Jenkinsfile
-
-**但Jenkins也有其缺点，比如：**
-- 在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；
-- 另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；
-- Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；
-- 此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，可能会有造成一些插件问题导致Build环境被污染的风险。
-- 针对Jenkins 2.0的Jenkinsfile，可以将pipeline定义为代码形式，即Pipeline As Code，也方便了很多，算是优点，不过也是其缺点，最大的问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改。
-
-
+Jenkins 2.x推出了`Jenkinsfile`来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。
 
 ----
 References
