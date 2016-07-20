@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Jenkins Step by Step | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins Step by Step">
+<meta property="og:url" content="http://blog.waterstrong.me/jenkins-by-step/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_flow.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/download.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/login.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/customize_jenkins.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/suggested_plugins.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/home.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/new_job.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_source_code.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/help.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_trigger.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_build.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/add_build_step.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/add_post_action.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_post_action.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/custom_workspace.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/jacoco_report.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/deploy_tomcat.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/new_view.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/config_pipeline_view.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/plugins_manager.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/manage_jenkins.png">
+<meta property="og:updated_time" content="2016-07-20T06:05:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins Step by Step">
+<meta name="twitter:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_flow.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/archives">Archives</a></li>
+                        
+                            <li><a href="/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 12.5px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Concourse/" style="font-size: 10px;">Concourse</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IntelliJ/" style="font-size: 10px;">IntelliJ</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Java/" style="font-size: 17.5px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 10px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/archives">Archives</a></li>
+                
+                    <li><a href="/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-jenkins-by-step" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/jenkins-by-step/" class="article-date">
+      <time datetime="2016-07-06T13:30:44.000Z" itemprop="datePublished">2016-07-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Jenkins Step by Step
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI-CD/">CI/CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/">Jenkins</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Jenkins-Introduction"><a href="#Jenkins-Introduction" class="headerlink" title="Jenkins Introduction"></a>Jenkins Introduction</h2><p>Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。<br>下图摘自官网，展示了持续交付场景下应用示例一般流程。<br><img src="/assets/jenkins-by-step/pipeline_flow.png" alt=""></p>
+<h2 id="Jenkins-Installation"><a href="#Jenkins-Installation" class="headerlink" title="Jenkins Installation"></a>Jenkins Installation</h2><p>Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到<a href="https://jenkins.io/" target="_blank" rel="external">Jenkins官网</a>下载需要的版本并安装。<br><img src="/assets/jenkins-by-step/download.png" alt=""></p>
+<p>以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。</p>
+<h4 id="War包安装方式"><a href="#War包安装方式" class="headerlink" title="War包安装方式"></a>War包安装方式</h4><p>可以直接下载自带Jetty的<code>*.war</code>包并运行，非常方便，比较推荐使用，Jenkins默认会运行在<code>8080</code>端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war</span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure></p>
+<p>也可以下载最新版本的<a href="http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war" target="_blank" rel="external">jenkins.war</a>。</p>
+<h4 id="Docker镜像方式"><a href="#Docker镜像方式" class="headerlink" title="Docker镜像方式"></a>Docker镜像方式</h4><p>可以直接下载Docker镜像来使用，无需进行安装，但需要有docker环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull jenkinsci/jenkins</span><br><span class="line">docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>/your/home</code>需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅<a href="https://github.com/jenkinsci/docker" target="_blank" rel="external">Github jenkinsci</a>。</p>
+<h4 id="Ansible安装方式"><a href="#Ansible安装方式" class="headerlink" title="Ansible安装方式"></a>Ansible安装方式</h4><p>另外，还可以通过Ansible自动化脚本安装，在另一篇博客<a href="/ansible-practice">Ansible实践篇</a>中也有涉及。首先需要下载jenkins role到本地，假设下载到了<code>/usr/local/etc/ansible/roles/</code>目录下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<p>然后编写<code>playbook</code>来实现<strong>自动化批量安装</strong>，假设创建一个playbook名为<code>setup_jenkins.yml</code>，其中<code>ci-server</code>是<code>inventory</code>文件中的Group或Host。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: ci-server</span><br><span class="line">  become_method: sudo</span><br><span class="line">  become: yes</span><br><span class="line">  roles:</span><br><span class="line">    - /usr/local/etc/ansible/roles/geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<p>最后运行命令执行安装，稍等片刻后可访问主机的8080端口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i inventory setup_jenkins.yml</span><br></pre></td></tr></table></figure></p>
+<p>如果需要设置Java版本可以在安装之前修改<code>geerlingguy.java</code>中默认的<code>java_packages</code>。更多说明可以参见<a href="https://github.com/geerlingguy/ansible-role-jenkins" target="_blank" rel="external">ansible-role-jenkins</a>和<a href="https://github.com/geerlingguy/ansible-role-java" target="_blank" rel="external">ansible-role-java</a>。</p>
+<p>除了上述安装方式外，也可根据具体的操作系统进行安装，以下给出常用的操作系统下的安装方式。</p>
+<h4 id="在RedHat-CentOS中安装"><a href="#在RedHat-CentOS中安装" class="headerlink" title="在RedHat/CentOS中安装"></a>在RedHat/CentOS中安装</h4><p>通常有两种安装方式：1. 添加Package Repository后使用yum进行安装和升级；2. 直接下载<code>*.rpm</code>进行安装。</p>
+<p><strong>方式一：添加Package仓库安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo</span><br><span class="line">sudo rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key</span><br><span class="line">yum install jenkins</span><br></pre></td></tr></table></figure></p>
+<p><strong>方式二：下载<code>*.rpm</code>进行安装</strong><br>目前最新版本是<code>2.7.1-1.1.noarch</code>，若需要指定安装版本，可到<a href="http://pkg.jenkins-ci.org/redhat-stable/" target="_blank" rel="external">http://pkg.jenkins-ci.org/redhat-stable/</a>查看并下载安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.1-1.1.noarch.rpm</span><br><span class="line">sudo rpm -ivh jenkins-2.7.1-1.1.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<h4 id="在Ubuntu-Debian中安装"><a href="#在Ubuntu-Debian中安装" class="headerlink" title="在Ubuntu/Debian中安装"></a>在Ubuntu/Debian中安装</h4><p>通常也有两种安装方式：1. 添加Debian Package Repository进行安装和升级；2. 通过直接下载<code>*.deb</code>进行安装。</p>
+<p><strong>方式一：添加Package仓库安装</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -</span><br><span class="line">deb http://pkg.jenkins.io/debian-stable binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure></p>
+<p><strong>方式二：下载<code>*.deb</code>进行安装</strong><br>目前最新版本是<code>2.7.1_all</code>，也可以到<a href="http://pkg.jenkins-ci.org/debian-stable/" target="_blank" rel="external">http://pkg.jenkins-ci.org/debian-stable/</a>查看并下载指定版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_2.7.1_all.deb</span><br><span class="line">sudo dpkg -i jenkins_2.7.1_all.deb</span><br></pre></td></tr></table></figure></p>
+<h4 id="在Mac或Windows下安装"><a href="#在Mac或Windows下安装" class="headerlink" title="在Mac或Windows下安装"></a>在Mac或Windows下安装</h4><p>对于Mac OS和Windows，直接下载对应安装包根据提示安装即可：<a href="https://jenkins.io/content/thank-you-downloading-os-x-installer/#stable" target="_blank" rel="external">Mac OS安装包</a>、<a href="https://jenkins.io/content/thank-you-downloading-windows-installer/#stable" target="_blank" rel="external">Windows安装包</a>。</p>
+<h2 id="Jenkins-Setup"><a href="#Jenkins-Setup" class="headerlink" title="Jenkins Setup"></a>Jenkins Setup</h2><p>当安装完Jenkins 2.x后，访问<code>http://localhost:8080</code>默认会进入到登录页面。输入默认用户名<code>admin</code>和密码<code>admin</code>。<br><img src="/assets/jenkins-by-step/login.png" alt=""></p>
+<p>登录成功后，Jenkins首先会提示安装推荐插件或自选插件，直接点击<code>Install suggested plugins</code>安装默认推荐的插件即可，当然随后也可以在Plugin管理中再选择安装需要的插件。<br><img src="/assets/jenkins-by-step/customize_jenkins.png" alt=""></p>
+<p>等待常用的一些插件安装完成后就可以开始创建自己的Job了。<br><img src="/assets/jenkins-by-step/suggested_plugins.png" alt=""></p>
+<h2 id="Jenkins-Jobs"><a href="#Jenkins-Jobs" class="headerlink" title="Jenkins Jobs"></a>Jenkins Jobs</h2><p>Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么样的任务，以及执行后的操作。</p>
+<h4 id="创建一个Job"><a href="#创建一个Job" class="headerlink" title="创建一个Job"></a>创建一个Job</h4><p>首先来创建一个Jenkins的Job，点击<code>create new jobs</code>或<code>New Item</code>来创建一个Job。<br><img src="/assets/jenkins-by-step/home.png" alt=""></p>
+<p>然后在<code>Enter an item name</code>下输入Job的名称，比如：“melon-build”，并选择<code>Freestyle project</code>，最后点击OK保存。<br><img src="/assets/jenkins-by-step/new_job.png" alt=""></p>
+<h4 id="Source-Code-Management-源代码管理"><a href="#Source-Code-Management-源代码管理" class="headerlink" title="Source Code Management 源代码管理"></a>Source Code Management 源代码管理</h4><p>可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为<code>*/master</code>。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。<br><img src="/assets/jenkins-by-step/job_source_code.png" alt=""></p>
+<h4 id="Build-Triggers-构建触发器"><a href="#Build-Triggers-构建触发器" class="headerlink" title="Build Triggers 构建触发器"></a>Build Triggers 构建触发器</h4><p>构建触发条件Jenkins提供了多种方式，根据项目需要可以设置不同的触发方式，通常采用<code>Poll SCM</code>方式，通过设置Schedule来控制触发条件，Schedule采用的是基于<strong>Cron</strong>语法，但Jenkins对其进行了略微调整，比如设置<code>H/5 * * * *</code>表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号<img src="/assets/jenkins-by-step/help.png" alt="">按钮来获得更多帮助信息，或参考<a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="external">Cron Wiki</a>和<a href="http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html" target="_blank" rel="external">CronTrigger Tutorial</a>。<br><img src="/assets/jenkins-by-step/job_trigger.png" alt=""></p>
+<h4 id="Build-构建和任务"><a href="#Build-构建和任务" class="headerlink" title="Build 构建和任务"></a>Build 构建和任务</h4><p>假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具<a href="https://gradle.org/" target="_blank" rel="external">Gradle</a>，选择<code>Use Gradle Wrapper</code>，添加项目执行的Tasks即可，图中示例最终将执行<code>gradlew clean build</code>操作。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。<br><img src="/assets/jenkins-by-step/job_build.png" alt=""></p>
+<p>当然，除了Gradle外还可以选择Maven、Ant等方式。当然，如果有一些复杂的自动化工作也可以选择Shell脚本完成，根据项目需要定义。<br><img src="/assets/jenkins-by-step/add_build_step.png" alt=""></p>
+<h4 id="Post-build-Actions-构建后置行为"><a href="#Post-build-Actions-构建后置行为" class="headerlink" title="Post-build Actions 构建后置行为"></a>Post-build Actions 构建后置行为</h4><p>Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或并行/串行地触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：<br><img src="/assets/jenkins-by-step/add_post_action.png" alt=""></p>
+<p>其中<code>Build other projects</code>表示将自动触发后续Job，<code>Build other projects(manual step)</code>表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个<code>Trigger parameterized build on other projects</code>选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。Jenkins也提供了Deployment相关的插件，总之，Jenkins的插件生态系统管理得很好，需要的功能都可以通过Plugins实现。</p>
+<p>下图中定义<code>melon-build</code>完成后并行地执行<code>integration-test</code>、<code>acceptance-test</code>和<code>sonar</code>，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。<br><img src="/assets/jenkins-by-step/job_post_action.png" alt=""></p>
+<p>至此，针对第一个melon-build的Job设置完成，可以点击<code>Save</code>或<code>Apply</code>保存了。</p>
+<h4 id="Custom-Workspace-自定义工作区"><a href="#Custom-Workspace-自定义工作区" class="headerlink" title="Custom Workspace 自定义工作区"></a>Custom Workspace 自定义工作区</h4><p>另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页<code>General</code>-&gt;<code>Advanced</code>-&gt;<code>Use custom workspace</code>，然后填写<code>Directory</code>，比如填写为<code>jobs/melon-build/workspace/</code>。<br><img src="/assets/jenkins-by-step/custom_workspace.png" alt=""></p>
+<h4 id="Test-Report-测试报告"><a href="#Test-Report-测试报告" class="headerlink" title="Test Report 测试报告"></a>Test Report 测试报告</h4><p>另外，针对测试报告，若基于Jacoco，可直接选择<code>Record JaCoCo coverage report</code>，当build完成后可自动生成报告。也可以尝试配置<code>Publish JUnit test result report</code>中的<code>Test report XMLs</code>。<br><img src="/assets/jenkins-by-step/jacoco_report.png" alt=""></p>
+<h4 id="Deployment-部署"><a href="#Deployment-部署" class="headerlink" title="Deployment 部署"></a>Deployment 部署</h4><p>部署有多种方式，可以通过<code>Build</code>中执行部署脚本，或者在<code>Post-build actions</code>中选择相应的Step，比如针对War包部署可以选择<code>Deploy war/ear to a container</code>。<br><img src="/assets/jenkins-by-step/deploy_tomcat.png" alt=""></p>
+<h2 id="Jenkins-View"><a href="#Jenkins-View" class="headerlink" title="Jenkins View"></a>Jenkins View</h2><p>Jenkins提供了多种视图，如Pipeline View、List View、My View等，目的是为了更好地归类和展示所关注的信息，通常会创建Pipeline View来增强Pipeline可视化效果。首先在Jenkins主页点击Dashboad标题栏最右边的<code>+</code>号，然后输入View Name并选择<code>Build Pipeline View</code>。<br><img src="/assets/jenkins-by-step/new_view.png" alt=""></p>
+<p>然后配置Pipeline View，特别注意需要在Layout中选择Initial Job，并且该Job已经配置好Downstream Jobs，然后设定显示的Builds数量和刷新频率等。<br><img src="/assets/jenkins-by-step/config_pipeline_view.png" alt=""></p>
+<p>配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow。<br><img src="/assets/jenkins-by-step/pipeline_view.png" alt=""></p>
+<h2 id="Manage-Jenkins-管理"><a href="#Manage-Jenkins-管理" class="headerlink" title="Manage Jenkins 管理"></a>Manage Jenkins 管理</h2><h5 id="Jenkins-Plugins-插件管理"><a href="#Jenkins-Plugins-插件管理" class="headerlink" title="Jenkins Plugins 插件管理"></a>Jenkins Plugins 插件管理</h5><p>Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过<code>Manage Jenkins</code>-&gt;<code>Manage Plugins</code>进入到插件管理页面，可以执行安装、升级、删除插件等操作。<br><img src="/assets/jenkins-by-step/plugins_manager.png" alt=""></p>
+<p>以下补充罗列一些常用的插件：</p>
+<ul>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Gradle plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Git plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Github plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">SSH plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Pipeline plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Deployment plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">JaCoCo plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin" target="_blank" rel="external">Authorize Project plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin" target="_blank" rel="external">Checkstyle Plugin</a></li>
+</ul>
+<h4 id="Manage-Nodes-管理节点"><a href="#Manage-Nodes-管理节点" class="headerlink" title="Manage Nodes 管理节点"></a>Manage Nodes 管理节点</h4><p>I will talk about Master and Slave later.</p>
+<h4 id="其他配置管理"><a href="#其他配置管理" class="headerlink" title="其他配置管理"></a>其他配置管理</h4><p>Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择<code>Manage Jenkins</code>进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，这里就不再一一列举了。<br><img src="/assets/jenkins-by-step/manage_jenkins.png" alt=""></p>
+<h2 id="Pipeline-as-Code"><a href="#Pipeline-as-Code" class="headerlink" title="Pipeline as Code"></a>Pipeline as Code</h2><p>Jenkins 2.x推出了<code>Jenkinsfile</code>来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://jenkins.io/" target="_blank" rel="external">Jenkins Home</a></li>
+<li><a href="http://www.tutorialspoint.com/jenkins/index.htm" target="_blank" rel="external">Jenkins Tutorial</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Step+by+step+guide+to+set+up+master+and+slave+machines" target="_blank" rel="external">Step by step guide to set up master and slave machines</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin" target="_blank" rel="external">Build Pipeline Plugin</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/jenkins-by-step/">Jenkins Step by Step</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-07-06 21:30</p>
+        <!--<p><span>最后更新:</span>2016-07-20 14:05</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/jenkins-by-step/" title="Jenkins Step by Step">http://blog.waterstrong.me/jenkins-by-step/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/jenkins-by-step/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/ansible-practice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ansible实践篇</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Jenkins Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Installation"><span class="toc-number">2.</span> <span class="toc-text">Jenkins Installation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#War包安装方式"><span class="toc-number">2.0.1.</span> <span class="toc-text">War包安装方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker镜像方式"><span class="toc-number">2.0.2.</span> <span class="toc-text">Docker镜像方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ansible安装方式"><span class="toc-number">2.0.3.</span> <span class="toc-text">Ansible安装方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在RedHat-CentOS中安装"><span class="toc-number">2.0.4.</span> <span class="toc-text">在RedHat/CentOS中安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Ubuntu-Debian中安装"><span class="toc-number">2.0.5.</span> <span class="toc-text">在Ubuntu/Debian中安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Mac或Windows下安装"><span class="toc-number">2.0.6.</span> <span class="toc-text">在Mac或Windows下安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Setup"><span class="toc-number">3.</span> <span class="toc-text">Jenkins Setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-Jobs"><span class="toc-number">4.</span> <span class="toc-text">Jenkins Jobs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个Job"><span class="toc-number">4.0.1.</span> <span class="toc-text">创建一个Job</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Source-Code-Management-源代码管理"><span class="toc-number">4.0.2.</span> <span class="toc-text">Source Code Management 源代码管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Build-Triggers-构建触发器"><span class="toc-number">4.0.3.</span> <span class="toc-text">Build Triggers 构建触发器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Build-构建和任务"><span class="toc-number">4.0.4.</span> <span class="toc-text">Build 构建和任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Post-build-Actions-构建后置行为"><span class="toc-number">4.0.5.</span> <span class="toc-text">Post-build Actions 构建后置行为</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Custom-Workspace-自定义工作区"><span class="toc-number">4.0.6.</span> <span class="toc-text">Custom Workspace 自定义工作区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Test-Report-测试报告"><span class="toc-number">4.0.7.</span> <span class="toc-text">Test Report 测试报告</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deployment-部署"><span class="toc-number">4.0.8.</span> <span class="toc-text">Deployment 部署</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-View"><span class="toc-number">5.</span> <span class="toc-text">Jenkins View</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Manage-Jenkins-管理"><span class="toc-number">6.</span> <span class="toc-text">Manage Jenkins 管理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Jenkins-Plugins-插件管理"><span class="toc-number">6.0.0.1.</span> <span class="toc-text">Jenkins Plugins 插件管理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Manage-Nodes-管理节点"><span class="toc-number">6.0.1.</span> <span class="toc-text">Manage Nodes 管理节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他配置管理"><span class="toc-number">6.0.2.</span> <span class="toc-text">其他配置管理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pipeline-as-Code"><span class="toc-number">7.</span> <span class="toc-text">Pipeline as Code</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'waterstrongblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >Site Visited: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">Page Visited: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 0;
+            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+        })
+    </script>
+
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("search").onclick = function(){
+        search();
+      }
+    };
+    function search(){
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
+    }
+  </script>
+
+
+
+
+
+
+
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
+
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        }
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script language="text/javascript">
+        $(function() {
+            $("a[title]").each(function() {
+                var a = $(this);
+                var title = a.attr('title');
+                if (title == undefined || title == "") return;
+                a.data('title', title).removeAttr('title').hover(
+
+                        function() {
+                            var offset = a.offset();
+                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                                top: offset.top - a.outerHeight() - 15,
+                                left: offset.left + a.outerWidth()/2 + 1
+                            }).fadeIn(function() {
+                                var pop = $(this);
+                                setTimeout(function() {
+                                    pop.remove();
+                                }, pop.text().length * 800);
+                            });
+                        }, function() {
+                            $("#anchortitlecontainer").remove();
+                        });
+            });
+        });
+    </script>
+
+
+  </div>
+</body>
+</html>
