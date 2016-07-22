@@ -187,12 +187,33 @@ Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装�
 #### Manage Nodes 管理节点
 I will talk about Master and Slave later.
 
+#### Jenkins CLI 命令行模式
+Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。
+
+首先需要下载`jenkins-cli.jar`，假设你的Jenkins地址是`jenkins.xxx.net:8080`，可以访问以下地址下载：
+```
+http://jenkins.xxx.com:8080/jnlpJars/jenkins-cli.jar
+```
+
+然后可以通过命令行查看帮助，命令为：
+```
+java -jar jenkins-cli.jar -s http://jenkins.xxx.net:8080/ help
+```
+
+当然也可以通过界面查看每个命令的使用帮助，在`Manage Jenkins`->`Jenkins CLI`页面查看到所有Available的命令。
+![](/assets/jenkins-by-step/jenkins_cli.png)
+
+如何需要了解更多，可以参考[Jenkins CLI Wiki](https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI)。
+
 #### 其他配置管理
-Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择`Manage Jenkins`进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，这里就不再一一列举了。
+Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择`Manage Jenkins`进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，相对也比较简单易懂，这里就不再一一列举了。
 ![](/assets/jenkins-by-step/manage_jenkins.png)
 
 ## Pipeline as Code
-Jenkins 2.x推出了`Jenkinsfile`来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。
+Jenkins 2.x推出了`Jenkinsfile`来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下
+
+## The End
+总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，TravisCI以及ConcourseCI的简单使用教程，敬请期待。
 
 ----
 References
