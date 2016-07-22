@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-07-20T06:05:03.000Z</updated>
+  <updated>2016-07-22T15:58:33.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/jenkins-by-step/"/>
     <id>http://blog.waterstrong.me/jenkins-by-step/</id>
     <published>2016-07-06T13:30:44.000Z</published>
-    <updated>2016-07-20T06:05:03.000Z</updated>
+    <updated>2016-07-22T15:58:33.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Jenkins-Introduction&quot;&gt;&lt;a href=&quot;#Jenkins-Introduction&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Introduction&quot;&gt;&lt;/a&gt;Jenkins Introduction&lt;/h2&gt;&lt;p&gt;Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。&lt;br&gt;下图摘自官网，展示了持续交付场景下应用示例一般流程。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/pipeline_flow.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;Jenkins-Installation&quot;&gt;&lt;a href=&quot;#Jenkins-Installation&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Installation&quot;&gt;&lt;/a&gt;Jenkins Installation&lt;/h2&gt;&lt;p&gt;Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins官网&lt;/a&gt;下载需要的版本并安装。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/download.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -75,8 +75,14 @@
 &lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Checkstyle Plugin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;Manage-Nodes-管理节点&quot;&gt;&lt;a href=&quot;#Manage-Nodes-管理节点&quot; class=&quot;headerlink&quot; title=&quot;Manage Nodes 管理节点&quot;&gt;&lt;/a&gt;Manage Nodes 管理节点&lt;/h4&gt;&lt;p&gt;I will talk about Master and Slave later.&lt;/p&gt;
-&lt;h4 id=&quot;其他配置管理&quot;&gt;&lt;a href=&quot;#其他配置管理&quot; class=&quot;headerlink&quot; title=&quot;其他配置管理&quot;&gt;&lt;/a&gt;其他配置管理&lt;/h4&gt;&lt;p&gt;Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择&lt;code&gt;Manage Jenkins&lt;/code&gt;进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，这里就不再一一列举了。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/manage_jenkins.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Pipeline-as-Code&quot;&gt;&lt;a href=&quot;#Pipeline-as-Code&quot; class=&quot;headerlink&quot; title=&quot;Pipeline as Code&quot;&gt;&lt;/a&gt;Pipeline as Code&lt;/h2&gt;&lt;p&gt;Jenkins 2.x推出了&lt;code&gt;Jenkinsfile&lt;/code&gt;来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。&lt;/p&gt;
+&lt;h4 id=&quot;Jenkins-CLI-命令行模式&quot;&gt;&lt;a href=&quot;#Jenkins-CLI-命令行模式&quot; class=&quot;headerlink&quot; title=&quot;Jenkins CLI 命令行模式&quot;&gt;&lt;/a&gt;Jenkins CLI 命令行模式&lt;/h4&gt;&lt;p&gt;Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。&lt;/p&gt;
+&lt;p&gt;首先需要下载&lt;code&gt;jenkins-cli.jar&lt;/code&gt;，假设你的Jenkins地址是&lt;code&gt;jenkins.xxx.net:8080&lt;/code&gt;，可以访问以下地址下载：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http://jenkins.xxx.com:8080/jnlpJars/jenkins-cli.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;然后可以通过命令行查看帮助，命令为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -jar jenkins-cli.jar -s http://jenkins.xxx.net:8080/ help&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;当然也可以通过界面查看每个命令的使用帮助，在&lt;code&gt;Manage Jenkins&lt;/code&gt;-&amp;gt;&lt;code&gt;Jenkins CLI&lt;/code&gt;页面查看到所有Available的命令。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/jenkins_cli.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如何需要了解更多，可以参考&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins CLI Wiki&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;其他配置管理&quot;&gt;&lt;a href=&quot;#其他配置管理&quot; class=&quot;headerlink&quot; title=&quot;其他配置管理&quot;&gt;&lt;/a&gt;其他配置管理&lt;/h4&gt;&lt;p&gt;Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择&lt;code&gt;Manage Jenkins&lt;/code&gt;进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，相对也比较简单易懂，这里就不再一一列举了。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/manage_jenkins.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Pipeline-as-Code&quot;&gt;&lt;a href=&quot;#Pipeline-as-Code&quot; class=&quot;headerlink&quot; title=&quot;Pipeline as Code&quot;&gt;&lt;/a&gt;Pipeline as Code&lt;/h2&gt;&lt;p&gt;Jenkins 2.x推出了&lt;code&gt;Jenkinsfile&lt;/code&gt;来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下&lt;/p&gt;
+&lt;h2 id=&quot;The-End&quot;&gt;&lt;a href=&quot;#The-End&quot; class=&quot;headerlink&quot; title=&quot;The End&quot;&gt;&lt;/a&gt;The End&lt;/h2&gt;&lt;p&gt;总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，TravisCI以及ConcourseCI的简单使用教程，敬请期待。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References&lt;/p&gt;
 &lt;ul&gt;
