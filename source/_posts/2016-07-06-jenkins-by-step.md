@@ -182,23 +182,28 @@ Jenkins提供了多种视图，如Pipeline View、List View、My View等，目�
 ## Manage Jenkins 管理
 
 ##### Jenkins Plugins 插件管理
-Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过`Manage Jenkins`->`Manage Plugins`进入到插件管理页面，可以执行安装、升级、删除插件等操作。
+Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过`Manage Jenkins`->`Manage Plugins`进入到插件管理页面，可以执行安装、升级、删除插件等操作，通常需要重启Jenkins服务来生效你的修改。
 ![](/assets/jenkins-by-step/plugins_manager.png)
 
 以下补充罗列一些常用的插件：
 - [Gradle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Gradle+Plugin)
 - [Git Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
-- [Github Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [SSH Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Pipeline Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Deployment Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Github Plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
+- [SSH Plugin](http://wiki.jenkins-ci.org/display/JENKINS/SSH+Slaves+plugin)
+- [Pipeline Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin)
+- [Deploy Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Deploy+Plugin)
 - [JaCoCo Plugin](https://wiki.jenkins-ci.org/display/JENKINS/JaCoCo+Plugin)
 - [Authorize Project Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin)
 - [Checkstyle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin)
 - [Parameterized Trigger Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin)
 
 #### Manage Nodes 管理节点
-I will talk about Master and Slave later.
+Jenkins提供了集群的能力，允许加入多个Nodes，一台Master对应多个Nodes，Master通常负责Job的Schedule和资源协调，Node通常是执行Master发放的Job并返回结果。
+当项目的Build/Deploy较多时，可以并行地执行Job任务，减少等待时间，另外，还可以根据Job依赖的环境来指定对应操作系统和构建环境的节点机器。
+`Manage Jenkins`->`Manage Nodes`
+SSH方式
+
+`General`->`Restrict where this project can be run`
 
 #### Jenkins CLI 命令行模式
 Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。
