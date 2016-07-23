@@ -24,17 +24,18 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_build.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/add_build_step.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/add_post_action.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/job_post_action.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/post_build_parameterized.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/custom_workspace.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/jacoco_report.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/deploy_tomcat.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/new_view.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/config_pipeline_view.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view1.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view2.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/plugins_manager.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/jenkins_cli.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/manage_jenkins.png">
-<meta property="og:updated_time" content="2016-07-22T15:58:33.000Z">
+<meta property="og:updated_time" content="2016-07-23T00:17:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins Step by Step">
 <meta name="twitter:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
@@ -341,28 +342,38 @@
 <h4 id="Build-Triggers-构建触发器"><a href="#Build-Triggers-构建触发器" class="headerlink" title="Build Triggers 构建触发器"></a>Build Triggers 构建触发器</h4><p>构建触发条件Jenkins提供了多种方式，根据项目需要可以设置不同的触发方式，通常采用<code>Poll SCM</code>方式，通过设置Schedule来控制触发条件，Schedule采用的是基于<strong>Cron</strong>语法，但Jenkins对其进行了略微调整，比如设置<code>H/5 * * * *</code>表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号<img src="/assets/jenkins-by-step/help.png" alt="">按钮来获得更多帮助信息，或参考<a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="external">Cron Wiki</a>和<a href="http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html" target="_blank" rel="external">CronTrigger Tutorial</a>。<br><img src="/assets/jenkins-by-step/job_trigger.png" alt=""></p>
 <h4 id="Build-构建和任务"><a href="#Build-构建和任务" class="headerlink" title="Build 构建和任务"></a>Build 构建和任务</h4><p>假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具<a href="https://gradle.org/" target="_blank" rel="external">Gradle</a>，选择<code>Use Gradle Wrapper</code>，添加项目执行的Tasks即可，图中示例最终将执行<code>gradlew clean build</code>操作。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。<br><img src="/assets/jenkins-by-step/job_build.png" alt=""></p>
 <p>当然，除了Gradle外还可以选择Maven、Ant等方式。当然，如果有一些复杂的自动化工作也可以选择Shell脚本完成，根据项目需要定义。<br><img src="/assets/jenkins-by-step/add_build_step.png" alt=""></p>
-<h4 id="Post-build-Actions-构建后置行为"><a href="#Post-build-Actions-构建后置行为" class="headerlink" title="Post-build Actions 构建后置行为"></a>Post-build Actions 构建后置行为</h4><p>Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或并行/串行地触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：<br><img src="/assets/jenkins-by-step/add_post_action.png" alt=""></p>
+<h4 id="Post-build-Actions-构建后置行为"><a href="#Post-build-Actions-构建后置行为" class="headerlink" title="Post-build Actions 构建后置行为"></a>Post-build Actions 构建后置行为</h4><p>Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：<br><img src="/assets/jenkins-by-step/add_post_action.png" alt=""></p>
 <p>其中<code>Build other projects</code>表示将自动触发后续Job，<code>Build other projects(manual step)</code>表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个<code>Trigger parameterized build on other projects</code>选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。Jenkins也提供了Deployment相关的插件，总之，Jenkins的插件生态系统管理得很好，需要的功能都可以通过Plugins实现。</p>
-<p>下图中定义<code>melon-build</code>完成后并行地执行<code>integration-test</code>、<code>acceptance-test</code>和<code>sonar</code>，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。<br><img src="/assets/jenkins-by-step/job_post_action.png" alt=""></p>
+<p>下图中定义<code>melon-build</code>完成后会同时触发执行<code>integration-test</code>、<code>acceptance-test</code>和<code>sonar</code>，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。另外，还可以在<code>Build Trigger</code>-&gt;<code>Add Parameters</code>中选择参数传递策略。<br><img src="/assets/jenkins-by-step/post_build_parameterized.png" alt=""></p>
 <p>至此，针对第一个melon-build的Job设置完成，可以点击<code>Save</code>或<code>Apply</code>保存了。</p>
 <h4 id="Custom-Workspace-自定义工作区"><a href="#Custom-Workspace-自定义工作区" class="headerlink" title="Custom Workspace 自定义工作区"></a>Custom Workspace 自定义工作区</h4><p>另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页<code>General</code>-&gt;<code>Advanced</code>-&gt;<code>Use custom workspace</code>，然后填写<code>Directory</code>，比如填写为<code>jobs/melon-build/workspace/</code>。<br><img src="/assets/jenkins-by-step/custom_workspace.png" alt=""></p>
+<p>在<code>General</code>Tab下有很多可选项，如果需要传入特定参数可以勾选<code>This project is parameterized</code>并配置相应参数，这在配置<code>Post-build Actions</code>-&gt;<code>Trigger parameterized build on other projects</code>时会很有用。另外，根据项目情况也可以勾选更多的选项，比如：</p>
+<ul>
+<li><code>Execute concurrent builds if necessary</code></li>
+<li><code>Restrict where this project can be run</code></li>
+<li><code>Block build when upstream project is building</code></li>
+<li><code>Block build when downstream project is building</code></li>
+</ul>
 <h4 id="Test-Report-测试报告"><a href="#Test-Report-测试报告" class="headerlink" title="Test Report 测试报告"></a>Test Report 测试报告</h4><p>另外，针对测试报告，若基于Jacoco，可直接选择<code>Record JaCoCo coverage report</code>，当build完成后可自动生成报告。也可以尝试配置<code>Publish JUnit test result report</code>中的<code>Test report XMLs</code>。<br><img src="/assets/jenkins-by-step/jacoco_report.png" alt=""></p>
 <h4 id="Deployment-部署"><a href="#Deployment-部署" class="headerlink" title="Deployment 部署"></a>Deployment 部署</h4><p>部署有多种方式，可以通过<code>Build</code>中执行部署脚本，或者在<code>Post-build actions</code>中选择相应的Step，比如针对War包部署可以选择<code>Deploy war/ear to a container</code>。<br><img src="/assets/jenkins-by-step/deploy_tomcat.png" alt=""></p>
 <h2 id="Jenkins-View"><a href="#Jenkins-View" class="headerlink" title="Jenkins View"></a>Jenkins View</h2><p>Jenkins提供了多种视图，如Pipeline View、List View、My View等，目的是为了更好地归类和展示所关注的信息，通常会创建Pipeline View来增强Pipeline可视化效果。首先在Jenkins主页点击Dashboad标题栏最右边的<code>+</code>号，然后输入View Name并选择<code>Build Pipeline View</code>。<br><img src="/assets/jenkins-by-step/new_view.png" alt=""></p>
 <p>然后配置Pipeline View，特别注意需要在Layout中选择Initial Job，并且该Job已经配置好Downstream Jobs，然后设定显示的Builds数量和刷新频率等。<br><img src="/assets/jenkins-by-step/config_pipeline_view.png" alt=""></p>
-<p>配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow。<br><img src="/assets/jenkins-by-step/pipeline_view.png" alt=""></p>
+<p>配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow，正确配置Job的执行顺序和依赖关系即可。<br><em>直接Build情况的Pipeline View示例(仅供参考)：</em><br><img src="/assets/jenkins-by-step/pipeline_view1.png" alt=""></p>
+<p><em>存在参数化情况的Pipeline View示例(仅供参考)：</em><br><img src="/assets/jenkins-by-step/pipeline_view2.png" alt=""></p>
+<p>通常会用颜色来表示Job的状态：绿色代表Pass，黄色代表Building或Unstable，蓝色代表N/A未操作，红色代表Fail。</p>
 <h2 id="Manage-Jenkins-管理"><a href="#Manage-Jenkins-管理" class="headerlink" title="Manage Jenkins 管理"></a>Manage Jenkins 管理</h2><h5 id="Jenkins-Plugins-插件管理"><a href="#Jenkins-Plugins-插件管理" class="headerlink" title="Jenkins Plugins 插件管理"></a>Jenkins Plugins 插件管理</h5><p>Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过<code>Manage Jenkins</code>-&gt;<code>Manage Plugins</code>进入到插件管理页面，可以执行安装、升级、删除插件等操作。<br><img src="/assets/jenkins-by-step/plugins_manager.png" alt=""></p>
 <p>以下补充罗列一些常用的插件：</p>
 <ul>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Gradle plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Git plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Github plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">SSH plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Pipeline plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Deployment plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">JaCoCo plugin</a></li>
-<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin" target="_blank" rel="external">Authorize Project plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Gradle+Plugin" target="_blank" rel="external">Gradle Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin" target="_blank" rel="external">Git Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Github Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">SSH Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Pipeline Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins" target="_blank" rel="external">Deployment Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/JaCoCo+Plugin" target="_blank" rel="external">JaCoCo Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin" target="_blank" rel="external">Authorize Project Plugin</a></li>
 <li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin" target="_blank" rel="external">Checkstyle Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin" target="_blank" rel="external">Parameterized Trigger Plugin</a></li>
 </ul>
 <h4 id="Manage-Nodes-管理节点"><a href="#Manage-Nodes-管理节点" class="headerlink" title="Manage Nodes 管理节点"></a>Manage Nodes 管理节点</h4><p>I will talk about Master and Slave later.</p>
 <h4 id="Jenkins-CLI-命令行模式"><a href="#Jenkins-CLI-命令行模式" class="headerlink" title="Jenkins CLI 命令行模式"></a>Jenkins CLI 命令行模式</h4><p>Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。</p>
@@ -392,7 +403,7 @@
         <p><span>本文标题:</span><a href="/jenkins-by-step/">Jenkins Step by Step</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-07-06 21:30</p>
-        <!--<p><span>最后更新:</span>2016-07-22 23:58</p>-->
+        <!--<p><span>最后更新:</span>2016-07-23 08:17</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/jenkins-by-step/" title="Jenkins Step by Step">http://blog.waterstrong.me/jenkins-by-step/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/jenkins-by-step/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
