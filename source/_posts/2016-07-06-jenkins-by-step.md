@@ -135,19 +135,21 @@ Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么
 ![](/assets/jenkins-by-step/add_build_step.png)
 
 #### Post-build Actions 构建后置行为
-Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或并行/串行地触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：
+Post-build Actions定义了在完成当前Job的Build任务后接下来需要执行的一系列操作的关系。比如设置在正常完成Build后，进一步获取测试报告和Artifacts，发送Email通知，或触发后续Downstream的一个或多个Jobs，以及部署应用到服务器等。Post-build actions有很多种类型和触发条件，通过下拉列表可以选择，如下图：
 ![](/assets/jenkins-by-step/add_post_action.png)
 
 其中`Build other projects`表示将自动触发后续Job，`Build other projects(manual step)`表示定义了后续Job，但需要手动点击按钮触发，通常针对部署到High Environments的Job。另外还有一个`Trigger parameterized build on other projects`选项定义了同时触发后续的多个Jobs，比如在build完成后同时触发Integration Test、Acceptance Test以及Sonar等。Jenkins也提供了Deployment相关的插件，总之，Jenkins的插件生态系统管理得很好，需要的功能都可以通过Plugins实现。
 
-下图中定义`melon-build`完成后并行地执行`integration-test`、`acceptance-test`和`sonar`，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。
-![](/assets/jenkins-by-step/job_post_action.png)
+下图中定义`melon-build`完成后会同时触发执行`integration-test`、`acceptance-test`和`sonar`，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。另外，还可以在`Build Trigger`->`Add Parameters`中选择参数传递策略。
+![](/assets/jenkins-by-step/post_build_parameterized.png)
 
 至此，针对第一个melon-build的Job设置完成，可以点击`Save`或`Apply`保存了。
 
 #### Custom Workspace 自定义工作区
 另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页`General`->`Advanced`->`Use custom workspace`，然后填写`Directory`，比如填写为`jobs/melon-build/workspace/`。
 ![](/assets/jenkins-by-step/custom_workspace.png)
+
+在`General`Tab下有很多可选项，如果需要传入特定参数可以勾选`This project is parameterized`并配置相应参数，这在配置`Post-build Actions`->`Trigger parameterized build on other projects`时会很有用。另外，根据项目情况也可以勾选`Execute concurrent builds if necessary`, `Restrict where this project can be run`或`Block build when upstream/downstream project is building`等。
 
 #### Test Report 测试报告
 另外，针对测试报告，若基于Jacoco，可直接选择`Record JaCoCo coverage report`，当build完成后可自动生成报告。也可以尝试配置`Publish JUnit test result report`中的`Test report XMLs`。
@@ -164,8 +166,14 @@ Jenkins提供了多种视图，如Pipeline View、List View、My View等，目�
 然后配置Pipeline View，特别注意需要在Layout中选择Initial Job，并且该Job已经配置好Downstream Jobs，然后设定显示的Builds数量和刷新频率等。
 ![](/assets/jenkins-by-step/config_pipeline_view.png)
 
-配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow。
-![](/assets/jenkins-by-step/pipeline_view.png)
+配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow，正确配置Job的执行顺序和依赖关系即可。
+*直接Build情况的Pipeline View示例(仅供参考)：*
+![](/assets/jenkins-by-step/pipeline_view1.png)
+
+*存在参数化情况的Pipeline View示例(仅供参考)：*
+![](/assets/jenkins-by-step/pipeline_view2.png)
+
+通常会用颜色来表示Job的状态：绿色代表Pass，黄色代表Building或Unstable，蓝色代表N/A未操作，红色代表Fail。
 
 ## Manage Jenkins 管理
 
@@ -174,15 +182,16 @@ Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装�
 ![](/assets/jenkins-by-step/plugins_manager.png)
 
 以下补充罗列一些常用的插件：
-- [Gradle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Git plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Github plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [SSH plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Pipeline plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Deployment plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [JaCoCo plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
-- [Authorize Project plugin](https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin)
+- [Gradle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Gradle+Plugin)
+- [Git Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
+- [Github Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [SSH Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Pipeline Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [Deployment Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Plugins)
+- [JaCoCo Plugin](https://wiki.jenkins-ci.org/display/JENKINS/JaCoCo+Plugin)
+- [Authorize Project Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin)
 - [Checkstyle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin)
+- [Parameterized Trigger Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin)
 
 #### Manage Nodes 管理节点
 I will talk about Master and Slave later.
