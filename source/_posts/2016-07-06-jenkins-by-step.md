@@ -149,7 +149,11 @@ Post-build Actions定义了在完成当前Job的Build任务后接下来需要执
 另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页`General`->`Advanced`->`Use custom workspace`，然后填写`Directory`，比如填写为`jobs/melon-build/workspace/`。
 ![](/assets/jenkins-by-step/custom_workspace.png)
 
-在`General`Tab下有很多可选项，如果需要传入特定参数可以勾选`This project is parameterized`并配置相应参数，这在配置`Post-build Actions`->`Trigger parameterized build on other projects`时会很有用。另外，根据项目情况也可以勾选`Execute concurrent builds if necessary`, `Restrict where this project can be run`或`Block build when upstream/downstream project is building`等。
+在`General`Tab下有很多可选项，如果需要传入特定参数可以勾选`This project is parameterized`并配置相应参数，这在配置`Post-build Actions`->`Trigger parameterized build on other projects`时会很有用。另外，根据项目情况也可以勾选更多的选项，比如：
+- `Execute concurrent builds if necessary`
+- `Restrict where this project can be run`
+- `Block build when upstream project is building`
+- `Block build when downstream project is building`
 
 #### Test Report 测试报告
 另外，针对测试报告，若基于Jacoco，可直接选择`Record JaCoCo coverage report`，当build完成后可自动生成报告。也可以尝试配置`Publish JUnit test result report`中的`Test report XMLs`。
