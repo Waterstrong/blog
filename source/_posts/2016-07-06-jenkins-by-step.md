@@ -143,7 +143,7 @@ Post-build Actions定义了在完成当前Job的Build任务后接下来需要执
 下图中定义`melon-build`完成后会同时触发执行`integration-test`、`acceptance-test`和`sonar`，执行顺序的关系可以被配置在Pipeline View中以可视化的方式展现出来，稍候会在Pipeline View中提及。另外，还可以在`Build Trigger`->`Add Parameters`中选择参数传递策略。
 ![](/assets/jenkins-by-step/post_build_parameterized.png)
 
-至此，针对第一个melon-build的Job设置完成，可以点击`Save`或`Apply`保存了。
+至此，针对第一个melon-build的Job设置完成，可以点击`Save`或`Apply`保存了，默认会保存在`/var/lib/jenkins/jobs/`路径下。
 
 #### Custom Workspace 自定义工作区
 另外，如果当前Job要重用已经有的Workspace代码，可以选择Tab页`General`->`Advanced`->`Use custom workspace`，然后填写`Directory`，比如填写为`jobs/melon-build/workspace/`。
@@ -177,7 +177,7 @@ Jenkins提供了多种视图，如Pipeline View、List View、My View等，目�
 *存在参数化情况的Pipeline View示例(仅供参考)：*
 ![](/assets/jenkins-by-step/pipeline_view2.png)
 
-通常会用颜色来表示Job的状态：绿色代表Pass，黄色代表Building或Unstable，蓝色代表N/A未操作，红色代表Fail。
+通常会用颜色来表示Job的状态：绿色代表Pass，黄色代表Building或Unstable，蓝色代表N/A未操作，红色代表Fail。如果需要查看某次Build的Log，可以点击Build编号(或在Build History查看)查看左边栏中的`Console Output`。
 
 ## Manage Jenkins 管理
 
@@ -198,12 +198,18 @@ Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装�
 - [Parameterized Trigger Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin)
 
 #### Manage Nodes 管理节点
-Jenkins提供了集群的能力，允许加入多个Nodes，一台Master对应多个Nodes，Master通常负责Job的Schedule和资源协调，Node通常是执行Master发放的Job并返回结果。
-当项目的Build/Deploy较多时，可以并行地执行Job任务，减少等待时间，另外，还可以根据Job依赖的环境来指定对应操作系统和构建环境的节点机器。
-`Manage Jenkins`->`Manage Nodes`
-SSH方式
+Jenkins提供了集群的能力，允许加入多个Nodes，一台Master对应多个Nodes，Master通常负责Job的Schedule和资源协调，Node通常是执行Master发放的Job并返回结果，这种模型也称Master/Slave模型。
+当项目的Build/Deploy较多时，可以并行地执行Job任务，减少等待时间，另外，还可以根据Job依赖的环境来指定对应操作系统和构建环境的节点机器。在`Manage Jenkins`->`Manage Nodes`页面可以管理节点，首先来创建一个节点`New Node`，填写相应的`Remote root directory`和`Labels`信息，这里Launch method选择SSH方式，指定Host和Credentials，当然也可以选择其他的登录授权方式。
+![](/assets/jenkins-by-step/new_node.png)
 
-`General`->`Restrict where this project can be run`
+![](/assets/jenkins-by-step/add_credential.png)
+
+*特别注意：*请确保master上的key可以访问指定的node，并且jenkins拥有使用该key的权限，以及jenkins用户能够对Remote root directory进行读写操作。
+
+创建完成后可以启动并查看Node状态以及系统信息等：
+![](/assets/jenkins-by-step/all_nodes.png)
+
+若需指定某个Job在指定的节点上运行，请在Job配置中修改`General`->`Restrict where this project can be run`。
 
 #### Jenkins CLI 命令行模式
 Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。
@@ -240,5 +246,6 @@ References
 * [Jenkins Tutorial](http://www.tutorialspoint.com/jenkins/index.htm)
 * [Step by step guide to set up master and slave machines](https://wiki.jenkins-ci.org/display/JENKINS/Step+by+step+guide+to+set+up+master+and+slave+machines)
 * [Build Pipeline Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin)
+* [Jenkins Slave Nodes](http://www.donaldsimpson.co.uk/2011/10/06/jenkins-slave-nodes/)
 
 
