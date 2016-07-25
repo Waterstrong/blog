@@ -237,7 +237,7 @@ Jenkins除了对插件和节点进行管理，还有系统管理、安全管理�
 Jenkins 2.x推出了`Jenkinsfile`来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下
 
 ## The End
-总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，TravisCI以及ConcourseCI的简单使用教程，敬请期待。
+总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，[Travis CI](/travisci-by-step)以及Concourse CI的简单使用教程，敬请期待。
 
 ----
 References
