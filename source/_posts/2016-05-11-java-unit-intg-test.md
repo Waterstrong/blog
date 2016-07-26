@@ -2,7 +2,7 @@
 title: Java单元和集成测试配置
 date: 2016-05-11 21:47:36
 category: Frameworks
-tags: [Java, Spring Boot, Gradle, IntelliJ, Unit Test, Integration Test]
+tags: [Java, Spring Boot, Gradle, Unit Test, Integration Test]
 description: 基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在build.gradle中配置Integration Test和Unit Test有多种方式。
 ---
 
