@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-07-24T10:34:50.000Z</updated>
+  <updated>2016-07-27T04:48:15.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -16,11 +16,68 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Travis CI Step by Step</title>
+    <link href="http://blog.waterstrong.me/travisci-by-step/"/>
+    <id>http://blog.waterstrong.me/travisci-by-step/</id>
+    <published>2016-07-15T13:57:02.000Z</published>
+    <updated>2016-07-27T04:48:15.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Travis-CI介绍&quot;&gt;&lt;a href=&quot;#Travis-CI介绍&quot; class=&quot;headerlink&quot; title=&quot;Travis CI介绍&quot;&gt;&lt;/a&gt;Travis CI介绍&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Travis CI是一款提供托管与分布式持续集成(Continuous Integration)服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/travisci-by-step/travis_ci_home.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;Travis CI主要为开源免费提供轻量级可定制化的持续持续集成环境和服务，而对于非开源项目，会按照相应的标准收取一定的费用。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，与GitHub集成度很好，支持Pull Request等。一般通过简单配置&lt;code&gt;.travis.yml&lt;/code&gt;文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作，但它不支持pipeline，只能支持简单的构建。&lt;/p&gt;
+&lt;h2 id=&quot;Travis-CI集成&quot;&gt;&lt;a href=&quot;#Travis-CI集成&quot; class=&quot;headerlink&quot; title=&quot;Travis CI集成&quot;&gt;&lt;/a&gt;Travis CI集成&lt;/h2&gt;&lt;p&gt;Travis CI与GitHub集成只需要简单的几步即可，通过访问&lt;a href=&quot;https://github.com/integrations&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Integrations&lt;/a&gt;搜索&lt;code&gt;Travis CI&lt;/code&gt;选择进入子页面，可以看到对Travis CI的集成的基本介绍。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/integrations.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;GitHub登录授权&quot;&gt;&lt;a href=&quot;#GitHub登录授权&quot; class=&quot;headerlink&quot; title=&quot;GitHub登录授权&quot;&gt;&lt;/a&gt;GitHub登录授权&lt;/h4&gt;&lt;p&gt;Travis CI与GitHub集成需要登录GitHub帐号，一般有两种入口方式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在&lt;a href=&quot;https://github.com/integrations/travis-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI Integration&lt;/a&gt;页面中点击&lt;code&gt;Add to GitHub&lt;/code&gt;-&amp;gt;&lt;code&gt;Authorize application&lt;/code&gt;进行授权。&lt;/li&gt;
+&lt;li&gt;对于&lt;strong&gt;Public&lt;/strong&gt;项目直接访问&lt;a href=&quot;https://travis-ci.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;travis-ci.org&lt;/a&gt;并登录GitHub帐号授权，而&lt;strong&gt;Private&lt;/strong&gt;项目应访问&lt;a href=&quot;https://travis-ci.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;travis-ci.com&lt;/a&gt;。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/authorize_travis_ci.png&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;另外，若需要管理Travis CI的权限(Revoke/Grant Access)，可以在登录&lt;a href=&quot;https://github.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;后点击头像下拉菜单中的&lt;a href=&quot;https://github.com/settings/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Settings&lt;/a&gt;，选择左边导航栏中的&lt;a href=&quot;https://github.com/settings/applications&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;OAuth applications&lt;/a&gt;，进入&lt;code&gt;Travis CI&lt;/code&gt;应用进行操作，对于未授权的Organization，通常需要手动点击&lt;code&gt;Grant access&lt;/code&gt;确认才能授权Travis CI访问。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/oauth_travis_ci.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;激活GitHub仓库&quot;&gt;&lt;a href=&quot;#激活GitHub仓库&quot; class=&quot;headerlink&quot; title=&quot;激活GitHub仓库&quot;&gt;&lt;/a&gt;激活GitHub仓库&lt;/h4&gt;&lt;p&gt;Travis CI触发Build的原理是基于GitHub的Service Hook钩子实现，而需要Travis CI应用到自己的项目，需要在Travis CI的&lt;a href=&quot;https://travis-ci.org/profile/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Profile&lt;/a&gt; (&lt;code&gt;Yourname&lt;/code&gt;-&amp;gt;&lt;code&gt;Accounts&lt;/code&gt;)中选择对应的Repository并开启Hook，若没有看到项目列出，请点击&lt;code&gt;Sync account&lt;/code&gt;同步一下。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/hook_switch.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;若需要设定某些配置项或设置环境变量，可以点击齿轮状的按钮进行设置页面，更多可参阅&lt;a href=&quot;https://docs.travis-ci.com/user/cron-jobs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI Docs&lt;/a&gt;。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/travis_ci_settings.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;配置TRAVIS-YML文件&quot;&gt;&lt;a href=&quot;#配置TRAVIS-YML文件&quot; class=&quot;headerlink&quot; title=&quot;配置TRAVIS YML文件&quot;&gt;&lt;/a&gt;配置TRAVIS YML文件&lt;/h4&gt;&lt;p&gt;Travis CI支持多种语言的项目，只需要在项目目录下新建文件&lt;code&gt;.travis.yml&lt;/code&gt;，加入几行配置即可，比如选择&lt;a href=&quot;https://docs.travis-ci.com/user/languages/java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Java&lt;/a&gt;项目(Gradle+Java8)，一个简单的示例配置如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;language: java&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;install: true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;script: ./gradlew clean build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;before_cache:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  directories:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    - $HOME/.gradle/caches/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    - $HOME/.gradle/wrapper/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdk:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - oraclejdk8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;也可以针对多个Java版本进行测试，保证项目的兼容性，只需要设置jdk即可：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jdk:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - oraclejdk8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - oraclejdk7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - openjdk6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;再比如&lt;a href=&quot;https://docs.travis-ci.com/user/languages/javascript-with-nodejs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Javascript Node.js&lt;/a&gt;项目(NodeJs+Gulp+Bower+Redis)的简单示例配置如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;language: node_js&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;node_js:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - &amp;quot;6&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;before_script:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - npm install -g gulp bower&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - npm install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - bower install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;script: gulp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;services:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - redis-server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;另外，也支持&lt;a href=&quot;https://docs.travis-ci.com/user/installing-dependencies/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Installing Dependencies&lt;/a&gt;, &lt;a href=&quot;https://docs.travis-ci.com/user/database-setup/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Setting up Databases&lt;/a&gt;, &lt;a href=&quot;https://docs.travis-ci.com/user/deployment/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployments and Uploads&lt;/a&gt;以及&lt;a href=&quot;https://docs.travis-ci.com/user/notifications/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Configuring Build Notifications&lt;/a&gt;等。更多配置项详情请参阅&lt;a href=&quot;https://docs.travis-ci.com/user/getting-started/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Getting Started&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;触发Build构建&quot;&gt;&lt;a href=&quot;#触发Build构建&quot; class=&quot;headerlink&quot; title=&quot;触发Build构建&quot;&gt;&lt;/a&gt;触发Build构建&lt;/h4&gt;&lt;p&gt;当所有配置完成后，下一次提交代码时就会触发Build，可以看到Build的一些详细信息，包括Build号，Commit号，Elapsed用时，Log日志等信息，如果成功就显示绿色，失败则显示红色。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/trigger_build.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;除了查看Current当前的Build，也可以选择查看Branches分支状态或Build History历史记录等。&lt;/p&gt;
+&lt;h4 id=&quot;关联Build状态&quot;&gt;&lt;a href=&quot;#关联Build状态&quot; class=&quot;headerlink&quot; title=&quot;关联Build状态&quot;&gt;&lt;/a&gt;关联Build状态&lt;/h4&gt;&lt;p&gt;为了显示指明项目与Travis CI的关系与状态，可以在项目README.md中关联Build状态图标，点击项目右边的状态图片&lt;img src=&quot;/assets/travisci-by-step/passing_status.svg&quot; alt=&quot;&quot;&gt;，然后会弹出一个Status Image链接的页面，选择Markdown格式，然后复制链接到项目的README.md中即可。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/link_build_status.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Build状态标识的Markdown格式为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[![Build Status](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME.svg?branch=master)](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# E.g. GITHUB_MAME=tw-wee, PROJECT_NAME=qas-service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[![Build Status](https://travis-ci.org/tw-wee/qas-service.svg?branch=master)](https://travis-ci.org/tw-wee/qas-service)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;The-End&quot;&gt;&lt;a href=&quot;#The-End&quot; class=&quot;headerlink&quot; title=&quot;The End&quot;&gt;&lt;/a&gt;The End&lt;/h2&gt;&lt;p&gt;总体说来，对于公司或企业项目，更倾向于选择GoCD或Jenkins这样的产品，个人或社区开源项目建议采用Travis CI来快速实现持续集成服务。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI Docs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Travis_CI&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+    
+    
+      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="CI/CD" scheme="http://blog.waterstrong.me/tags/CI-CD/"/>
+    
+      <category term="TravisCI" scheme="http://blog.waterstrong.me/tags/TravisCI/"/>
+    
+      <category term="GitHub" scheme="http://blog.waterstrong.me/tags/GitHub/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Jenkins Step by Step</title>
     <link href="http://blog.waterstrong.me/jenkins-by-step/"/>
     <id>http://blog.waterstrong.me/jenkins-by-step/</id>
     <published>2016-07-06T13:30:44.000Z</published>
-    <updated>2016-07-24T10:34:50.000Z</updated>
+    <updated>2016-07-27T04:46:53.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Jenkins-Introduction&quot;&gt;&lt;a href=&quot;#Jenkins-Introduction&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Introduction&quot;&gt;&lt;/a&gt;Jenkins Introduction&lt;/h2&gt;&lt;p&gt;Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。&lt;br&gt;下图摘自官网，展示了持续交付场景下应用示例一般流程。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/pipeline_flow.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;Jenkins-Installation&quot;&gt;&lt;a href=&quot;#Jenkins-Installation&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Installation&quot;&gt;&lt;/a&gt;Jenkins Installation&lt;/h2&gt;&lt;p&gt;Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins官网&lt;/a&gt;下载需要的版本并安装。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/download.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -28,7 +85,7 @@
 &lt;h4 id=&quot;War包安装方式&quot;&gt;&lt;a href=&quot;#War包安装方式&quot; class=&quot;headerlink&quot; title=&quot;War包安装方式&quot;&gt;&lt;/a&gt;War包安装方式&lt;/h4&gt;&lt;p&gt;可以直接下载自带Jetty的&lt;code&gt;*.war&lt;/code&gt;包并运行，非常方便，比较推荐使用，Jenkins默认会运行在&lt;code&gt;8080&lt;/code&gt;端口。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java -jar jenkins.war&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;也可以下载最新版本的&lt;a href=&quot;http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jenkins.war&lt;/a&gt;。&lt;/p&gt;
 &lt;h4 id=&quot;Docker镜像方式&quot;&gt;&lt;a href=&quot;#Docker镜像方式&quot; class=&quot;headerlink&quot; title=&quot;Docker镜像方式&quot;&gt;&lt;/a&gt;Docker镜像方式&lt;/h4&gt;&lt;p&gt;可以直接下载Docker镜像来使用，无需进行安装，但需要有docker环境。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;docker pull jenkinsci/jenkins&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;其中&lt;code&gt;/your/home&lt;/code&gt;需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅&lt;a href=&quot;https://github.com/jenkinsci/docker&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github jenkinsci&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;其中&lt;code&gt;/your/home&lt;/code&gt;需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅&lt;a href=&quot;https://github.com/jenkinsci/docker&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub jenkinsci&lt;/a&gt;。&lt;/p&gt;
 &lt;h4 id=&quot;Ansible安装方式&quot;&gt;&lt;a href=&quot;#Ansible安装方式&quot; class=&quot;headerlink&quot; title=&quot;Ansible安装方式&quot;&gt;&lt;/a&gt;Ansible安装方式&lt;/h4&gt;&lt;p&gt;另外，还可以通过Ansible自动化脚本安装，在另一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;中也有涉及。首先需要下载jenkins role到本地，假设下载到了&lt;code&gt;/usr/local/etc/ansible/roles/&lt;/code&gt;目录下。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-galaxy install geerlingguy.jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;然后编写&lt;code&gt;playbook&lt;/code&gt;来实现&lt;strong&gt;自动化批量安装&lt;/strong&gt;，假设创建一个playbook名为&lt;code&gt;setup_jenkins.yml&lt;/code&gt;，其中&lt;code&gt;ci-server&lt;/code&gt;是&lt;code&gt;inventory&lt;/code&gt;文件中的Group或Host。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- hosts: ci-server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  become_method: sudo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  become: yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  roles:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    - /usr/local/etc/ansible/roles/geerlingguy.jenkins&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;最后运行命令执行安装，稍等片刻后可访问主机的8080端口：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ansible-playbook -i inventory setup_jenkins.yml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -47,7 +104,7 @@
 &lt;h2 id=&quot;Jenkins-Jobs&quot;&gt;&lt;a href=&quot;#Jenkins-Jobs&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Jobs&quot;&gt;&lt;/a&gt;Jenkins Jobs&lt;/h2&gt;&lt;p&gt;Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么样的任务，以及执行后的操作。&lt;/p&gt;
 &lt;h4 id=&quot;创建一个Job&quot;&gt;&lt;a href=&quot;#创建一个Job&quot; class=&quot;headerlink&quot; title=&quot;创建一个Job&quot;&gt;&lt;/a&gt;创建一个Job&lt;/h4&gt;&lt;p&gt;首先来创建一个Jenkins的Job，点击&lt;code&gt;create new jobs&lt;/code&gt;或&lt;code&gt;New Item&lt;/code&gt;来创建一个Job。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/home.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;然后在&lt;code&gt;Enter an item name&lt;/code&gt;下输入Job的名称，比如：“melon-build”，并选择&lt;code&gt;Freestyle project&lt;/code&gt;，最后点击OK保存。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/new_job.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;Source-Code-Management-源代码管理&quot;&gt;&lt;a href=&quot;#Source-Code-Management-源代码管理&quot; class=&quot;headerlink&quot; title=&quot;Source Code Management 源代码管理&quot;&gt;&lt;/a&gt;Source Code Management 源代码管理&lt;/h4&gt;&lt;p&gt;可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为&lt;code&gt;*/master&lt;/code&gt;。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/job_source_code.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Source-Code-Management-源代码管理&quot;&gt;&lt;a href=&quot;#Source-Code-Management-源代码管理&quot; class=&quot;headerlink&quot; title=&quot;Source Code Management 源代码管理&quot;&gt;&lt;/a&gt;Source Code Management 源代码管理&lt;/h4&gt;&lt;p&gt;可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以GitHub托管的项目为例，拉取的Branch为&lt;code&gt;*/master&lt;/code&gt;。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/job_source_code.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h4 id=&quot;Build-Triggers-构建触发器&quot;&gt;&lt;a href=&quot;#Build-Triggers-构建触发器&quot; class=&quot;headerlink&quot; title=&quot;Build Triggers 构建触发器&quot;&gt;&lt;/a&gt;Build Triggers 构建触发器&lt;/h4&gt;&lt;p&gt;构建触发条件Jenkins提供了多种方式，根据项目需要可以设置不同的触发方式，通常采用&lt;code&gt;Poll SCM&lt;/code&gt;方式，通过设置Schedule来控制触发条件，Schedule采用的是基于&lt;strong&gt;Cron&lt;/strong&gt;语法，但Jenkins对其进行了略微调整，比如设置&lt;code&gt;H/5 * * * *&lt;/code&gt;表示每5分钟检查一次代码仓库是否有新的code changes，如果有就pull并执行tasks。可以通过点击问号&lt;img src=&quot;/assets/jenkins-by-step/help.png&quot; alt=&quot;&quot;&gt;按钮来获得更多帮助信息，或参考&lt;a href=&quot;https://en.wikipedia.org/wiki/Cron&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cron Wiki&lt;/a&gt;和&lt;a href=&quot;http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CronTrigger Tutorial&lt;/a&gt;。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/job_trigger.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h4 id=&quot;Build-构建和任务&quot;&gt;&lt;a href=&quot;#Build-构建和任务&quot; class=&quot;headerlink&quot; title=&quot;Build 构建和任务&quot;&gt;&lt;/a&gt;Build 构建和任务&lt;/h4&gt;&lt;p&gt;假设项目构建工具采用的是目前相对比较流行的开源自动化构建工具&lt;a href=&quot;https://gradle.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gradle&lt;/a&gt;，选择&lt;code&gt;Use Gradle Wrapper&lt;/code&gt;，添加项目执行的Tasks即可，图中示例最终将执行&lt;code&gt;gradlew clean build&lt;/code&gt;操作。需要注意的是，如果build依赖特定版本的运行环境，请确保在build机器上安装了对应版本的运行环境，如Java 8等。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/job_build.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;当然，除了Gradle外还可以选择Maven、Ant等方式。当然，如果有一些复杂的自动化工作也可以选择Shell脚本完成，根据项目需要定义。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/add_build_step.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -75,7 +132,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Gradle+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gradle Plugin&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Plugin&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github Plugin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Plugin&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://wiki.jenkins-ci.org/display/JENKINS/SSH+Slaves+plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SSH Plugin&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Pipeline Plugin&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Deploy+Plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deploy Plugin&lt;/a&gt;&lt;/li&gt;
@@ -96,7 +153,7 @@
 &lt;p&gt;如何需要了解更多，可以参考&lt;a href=&quot;https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins CLI Wiki&lt;/a&gt;。&lt;/p&gt;
 &lt;h4 id=&quot;其他配置管理&quot;&gt;&lt;a href=&quot;#其他配置管理&quot; class=&quot;headerlink&quot; title=&quot;其他配置管理&quot;&gt;&lt;/a&gt;其他配置管理&lt;/h4&gt;&lt;p&gt;Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择&lt;code&gt;Manage Jenkins&lt;/code&gt;进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，相对也比较简单易懂，这里就不再一一列举了。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/manage_jenkins.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;Pipeline-as-Code&quot;&gt;&lt;a href=&quot;#Pipeline-as-Code&quot; class=&quot;headerlink&quot; title=&quot;Pipeline as Code&quot;&gt;&lt;/a&gt;Pipeline as Code&lt;/h2&gt;&lt;p&gt;Jenkins 2.x推出了&lt;code&gt;Jenkinsfile&lt;/code&gt;来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下&lt;/p&gt;
-&lt;h2 id=&quot;The-End&quot;&gt;&lt;a href=&quot;#The-End&quot; class=&quot;headerlink&quot; title=&quot;The End&quot;&gt;&lt;/a&gt;The End&lt;/h2&gt;&lt;p&gt;总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，TravisCI以及ConcourseCI的简单使用教程，敬请期待。&lt;/p&gt;
+&lt;h2 id=&quot;The-End&quot;&gt;&lt;a href=&quot;#The-End&quot; class=&quot;headerlink&quot; title=&quot;The End&quot;&gt;&lt;/a&gt;The End&lt;/h2&gt;&lt;p&gt;总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，&lt;a href=&quot;/travisci-by-step&quot;&gt;Travis CI&lt;/a&gt;以及Concourse CI的简单使用教程，敬请期待。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References&lt;/p&gt;
 &lt;ul&gt;
@@ -228,7 +285,7 @@
     <link href="http://blog.waterstrong.me/ansible-basic/"/>
     <id>http://blog.waterstrong.me/ansible-basic/</id>
     <published>2016-06-26T11:56:40.000Z</published>
-    <updated>2016-07-13T07:33:34.000Z</updated>
+    <updated>2016-07-27T04:47:57.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;什么是Ansible&quot;&gt;&lt;a href=&quot;#什么是Ansible&quot; class=&quot;headerlink&quot; title=&quot;什么是Ansible?&quot;&gt;&lt;/a&gt;什么是Ansible?&lt;/h2&gt;&lt;p&gt;Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。其主要目标就是变得更加简单易使用，同时也考虑到安全和可靠性等。&lt;/p&gt;
 &lt;h2 id=&quot;为什么要使用Ansible&quot;&gt;&lt;a href=&quot;#为什么要使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用Ansible?&quot;&gt;&lt;/a&gt;为什么要使用Ansible?&lt;/h2&gt;&lt;h3 id=&quot;存在的问题及解决方案&quot;&gt;&lt;a href=&quot;#存在的问题及解决方案&quot; class=&quot;headerlink&quot; title=&quot;存在的问题及解决方案&quot;&gt;&lt;/a&gt;存在的问题及解决方案&lt;/h3&gt;&lt;p&gt;当需要对系统配置进行管理、维护以及部署时通常采用文档方式或Shell脚本。对于上百上千台机器集群进行管理时文档已经不适用，而Shell方式对维护人员要求较高，而且容易出错。总得来说传统方式会存在以下几个方面的问题：&lt;/p&gt;
@@ -298,7 +355,7 @@
 &lt;p&gt;若有兴趣可阅读更多关于&lt;a href=&quot;http://docs.ansible.com/ansible/YAMLSyntax.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;YAML Syntax&lt;/a&gt;的介绍。&lt;/p&gt;
 &lt;h3 id=&quot;Playbooks-Roles-amp-Tasks&quot;&gt;&lt;a href=&quot;#Playbooks-Roles-amp-Tasks&quot; class=&quot;headerlink&quot; title=&quot;Playbooks, Roles &amp;amp; Tasks&quot;&gt;&lt;/a&gt;Playbooks, Roles &amp;amp; Tasks&lt;/h3&gt;&lt;p&gt;在Ansible中，最终被执行的自动化脚本叫做Playbooks，每个Playbook可能包含有多个Plays，每个Play可能包含有多个Tasks，每个Task是Ansible的最小执行单元，它都会利用相应的Module来执行对应的任务： &lt;code&gt;playbooks -&amp;gt; plays -&amp;gt; tasks -&amp;gt; modules -&amp;gt; variables&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;如果一个Playbook需要执行很多task，Playbook会变得非常庞大，而且其中的代码非常难以复用。通常Playbooks中会使用多个Roles来完成整个自动化任务，Role是Ansible代码复用的基本单位，它能够完整地实现一个独立任务。Role中会包含很多Tasks，每个Task是Ansible的最小执行单元。&lt;/p&gt;
-&lt;h2 id=&quot;如何使用Ansible&quot;&gt;&lt;a href=&quot;#如何使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;如何使用Ansible?&quot;&gt;&lt;/a&gt;如何使用Ansible?&lt;/h2&gt;&lt;p&gt;可以移步笔者的Github&lt;a href=&quot;https://github.com/waterstrong/ansible-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop Step by Step&lt;/a&gt;或另一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：&lt;/p&gt;
+&lt;h2 id=&quot;如何使用Ansible&quot;&gt;&lt;a href=&quot;#如何使用Ansible&quot; class=&quot;headerlink&quot; title=&quot;如何使用Ansible?&quot;&gt;&lt;/a&gt;如何使用Ansible?&lt;/h2&gt;&lt;p&gt;可以移步笔者的GitHub&lt;a href=&quot;https://github.com/waterstrong/ansible-workshop&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ansible Workshop Step by Step&lt;/a&gt;或另一篇博客&lt;a href=&quot;/ansible-practice&quot;&gt;Ansible实践篇&lt;/a&gt;来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 1. Set up the environment&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Step 2. Inventory Practice&lt;/a&gt;&lt;/li&gt;
@@ -339,7 +396,7 @@
     <link href="http://blog.waterstrong.me/java-unit-intg-test/"/>
     <id>http://blog.waterstrong.me/java-unit-intg-test/</id>
     <published>2016-05-11T13:47:36.000Z</published>
-    <updated>2016-07-06T14:14:15.000Z</updated>
+    <updated>2016-07-25T16:04:12.000Z</updated>
     
     <content type="html">&lt;p&gt;基于Spring Boot搭建一个Java工程，通过Gradle进行构建，使用IntelliJ IDE开发，对于在&lt;code&gt;build.gradle&lt;/code&gt;中配置Integration Test和Unit Test有多种方式。接下来分别介绍两种方式:&lt;/p&gt;
 &lt;p&gt;假设在IntelliJ中创建好如下Tree结构:&lt;br&gt;&lt;img src=&quot;/assets/java-unit-intg-test/java_project_tree.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -382,8 +439,6 @@
       <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
     
       <category term="Gradle" scheme="http://blog.waterstrong.me/tags/Gradle/"/>
-    
-      <category term="IntelliJ" scheme="http://blog.waterstrong.me/tags/IntelliJ/"/>
     
       <category term="Unit Test" scheme="http://blog.waterstrong.me/tags/Unit-Test/"/>
     
@@ -461,7 +516,7 @@
     <link href="http://blog.waterstrong.me/concourse-ci/"/>
     <id>http://blog.waterstrong.me/concourse-ci/</id>
     <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-07-11T05:14:01.000Z</updated>
+    <updated>2016-07-27T04:47:46.000Z</updated>
     
     <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
 &lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
@@ -514,13 +569,13 @@
 &lt;li&gt;Concourse对于每个Job只定义有效的输入，即哪个Job在什么情况下输出的什么的资源是可以触发当前Job的，即使复杂的Pipeline顺序出现时，配置也很方便，每个Job只关心自己的有效输入，局部优化达到了全局优化，不会造成混乱的感觉；&lt;/li&gt;
 &lt;li&gt;特别指出的是Concourse的每一个Job构建都在独立的Container中Build，对其他的环境没有影响。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&quot;vs-Travis-CI&quot;&gt;&lt;a href=&quot;#vs-Travis-CI&quot; class=&quot;headerlink&quot; title=&quot;vs. Travis CI&quot;&gt;&lt;/a&gt;vs. Travis CI&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI&lt;/a&gt;其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与Github集成度很好，支持PR。&lt;/p&gt;
+&lt;h4 id=&quot;vs-Travis-CI&quot;&gt;&lt;a href=&quot;#vs-Travis-CI&quot; class=&quot;headerlink&quot; title=&quot;vs. Travis CI&quot;&gt;&lt;/a&gt;vs. Travis CI&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI&lt;/a&gt;其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与GitHub集成度很好，支持PR。&lt;/p&gt;
 &lt;p&gt;但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。&lt;/p&gt;
 &lt;p&gt;总体说来，对于公司的项目，更倾向于选择GoCD或Jenkins这样的产品，个人的开源项目倒是可以通过Travis CI快速搭建来感受一下。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&quot;Concourse-Concepts&quot;&gt;&lt;a href=&quot;#Concourse-Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Concepts&quot;&gt;&lt;/a&gt;Concourse Concepts&lt;/h3&gt;&lt;p&gt;Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可以对任何的Pipeline进行建模，从简单的unit-&amp;gt;integration-&amp;gt;deploy-&amp;gt;ship到复杂的多基础设施, fanning out/in等。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如Github上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见&lt;a href=&quot;http://concourse.ci/resource-types.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Customer Resource Types&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/concourse_resources.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如GitHub上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见&lt;a href=&quot;http://concourse.ci/resource-types.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Customer Resource Types&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/concourse_resources.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Jobs: Job是某个有计划有条件的工作任务，描述了一些依赖资源或手动触发的行为，当提交了代码就触发Build，或Unit Test通过后触发了Intg Test等。&lt;/p&gt;
 &lt;/li&gt;
@@ -585,7 +640,7 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite get-pipeline -p hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;该Pipeline非常简单，只有单一的&lt;code&gt;Job&lt;/code&gt;，整个计划中只有一个&lt;code&gt;Task&lt;/code&gt;，可以看到&lt;code&gt;Task&lt;/code&gt;执行过程的快照：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/hello_run_build.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;更多示例教程可以参见&lt;a href=&quot;http://concourse.ci/tutorials.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse官网Demo&lt;/a&gt;或&lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Github的Concourse教程&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;更多示例教程可以参见&lt;a href=&quot;http://concourse.ci/tutorials.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse官网Demo&lt;/a&gt;或&lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub的Concourse教程&lt;/a&gt;。&lt;/p&gt;
 &lt;h3 id=&quot;Concourse-Assess&quot;&gt;&lt;a href=&quot;#Concourse-Assess&quot; class=&quot;headerlink&quot; title=&quot;Concourse Assess&quot;&gt;&lt;/a&gt;Concourse Assess&lt;/h3&gt;&lt;p&gt;虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Concerns 1: 与其他CI/CD以GUI进行配置的方式不同，虽然Build和Pipeline的UI可视化效果很不错，但在配置上采用了YML文件，且需要使用FLY命令行的方式进行交互，因此要求记住一些规则、关键字和相关命令，这样势必增加了学习成本。&lt;/li&gt;
@@ -609,7 +664,7 @@
     
       <category term="CI/CD" scheme="http://blog.waterstrong.me/tags/CI-CD/"/>
     
-      <category term="Concourse" scheme="http://blog.waterstrong.me/tags/Concourse/"/>
+      <category term="ConcourseCI" scheme="http://blog.waterstrong.me/tags/ConcourseCI/"/>
     
       <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
     
@@ -937,103 +992,6 @@
       <category term="锁机制" scheme="http://blog.waterstrong.me/tags/%E9%94%81%E6%9C%BA%E5%88%B6/"/>
     
       <category term="行版本控制" scheme="http://blog.waterstrong.me/tags/%E8%A1%8C%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AOP面向切面编程</title>
-    <link href="http://blog.waterstrong.me/aspect-oriented-programming/"/>
-    <id>http://blog.waterstrong.me/aspect-oriented-programming/</id>
-    <published>2016-01-20T05:45:32.000Z</published>
-    <updated>2016-06-11T13:27:25.000Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;What-is-AOP&quot;&gt;&lt;a href=&quot;#What-is-AOP&quot; class=&quot;headerlink&quot; title=&quot;What is AOP ?&quot;&gt;&lt;/a&gt;What is AOP ?&lt;/h2&gt;&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。&lt;/p&gt;
-&lt;p&gt;AOP可以理解为OOP(面向对象编程)里程碑式的补充。OOP是从静态角度考虑程序结构，从横向上区分出类，AOP是从动态角度考虑程序运行过程，从纵向上向对象中加入特定的代码，加上时间维度，AOP使得OOP从二维变成三维，由平面变成立体。常常通过AOP来处理一些具有横切性质的系统性服务，如&lt;a href=&quot;/transactional-mechanism-protocol&quot;&gt;事务处理&lt;/a&gt;、安全检查、缓存、对象池管理等。&lt;/p&gt;
-&lt;p&gt;通常做法，是在运行时动态地将代码切入到类的指定方法、指定位置上，而切入到指定类指定方法的代码片段称为切面，而切入到哪些类、哪些方法则叫切入点，采用AOP可以把几个类共有的代码抽取到一个切片中，等到需要时再切入对象中去，从而改变其原有的行为。接下来将详解AOP中的几个核心概念。&lt;/p&gt;
-&lt;h3 id=&quot;AOP相关概念&quot;&gt;&lt;a href=&quot;#AOP相关概念&quot; class=&quot;headerlink&quot; title=&quot;AOP相关概念&quot;&gt;&lt;/a&gt;AOP相关概念&lt;/h3&gt;&lt;h4 id=&quot;Aspect（切面-方面）&quot;&gt;&lt;a href=&quot;#Aspect（切面-方面）&quot; class=&quot;headerlink&quot; title=&quot;Aspect（切面/方面）&quot;&gt;&lt;/a&gt;Aspect（切面/方面）&lt;/h4&gt;&lt;p&gt;需要切入到指定类指定方法的代码片段称为切面，包含定义的额外功能的某个模块，相当于OOP中定义的类，但代表的更多是对象间横向的关系，如日志切面、权限切面、事务切面等。&lt;/p&gt;
-&lt;h4 id=&quot;Joinpoint（连接点）&quot;&gt;&lt;a href=&quot;#Joinpoint（连接点）&quot; class=&quot;headerlink&quot; title=&quot;Joinpoint（连接点）&quot;&gt;&lt;/a&gt;Joinpoint（连接点）&lt;/h4&gt;&lt;p&gt;程序执行过程中精确执行点，如类中的方法调用、异常抛出等。&lt;/p&gt;
-&lt;h4 id=&quot;Advice（通知-增强）&quot;&gt;&lt;a href=&quot;#Advice（通知-增强）&quot; class=&quot;headerlink&quot; title=&quot;Advice（通知/增强）&quot;&gt;&lt;/a&gt;Advice（通知/增强）&lt;/h4&gt;&lt;p&gt;在切面的某个特定的连接点(Joinpoint)上执行的动作，是执行切面的具体逻辑，包括Before，AfterReturning，AfterThrowing，After，Around等Advice。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Before Advice: 前置通知，在方法执行前执行&lt;/li&gt;
-&lt;li&gt;AfterReturning: 后置返回通知，在方法执行正常返回后执行，方法没有抛出任何异常&lt;/li&gt;
-&lt;li&gt;AfterThrowing Advice: 后置异常通知，在方法执行过程中抛出异常的时候执行&lt;/li&gt;
-&lt;li&gt;After Advice: 后置通知/后置最终通知，在方法执行完成后执行，不论是正常返回还是异常退出&lt;/li&gt;
-&lt;li&gt;Around Advice: 环绕通知，在方法执行前后和抛出异常时执行，环绕通知可以在方法调用前后完成自定义的行为&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;Pointcut（切入点）&quot;&gt;&lt;a href=&quot;#Pointcut（切入点）&quot; class=&quot;headerlink&quot; title=&quot;Pointcut（切入点）&quot;&gt;&lt;/a&gt;Pointcut（切入点）&lt;/h4&gt;&lt;p&gt;匹配连接点(Joinpoint)的断言，通知(Advice)和切入点(Pointcut)表达式关联，并在满足该切入点(Pointcut)的连接点(Joinpoint)上运行，可以认为是连接点的集合，本质是一个捕获连接点的结构，通常可用正则表达式来找到那些匹配的连接点。&lt;/p&gt;
-&lt;h4 id=&quot;Target（目标对象）&quot;&gt;&lt;a href=&quot;#Target（目标对象）&quot; class=&quot;headerlink&quot; title=&quot;Target（目标对象）&quot;&gt;&lt;/a&gt;Target（目标对象）&lt;/h4&gt;&lt;p&gt;包含连接点的对象，即被通知或被代理的实际对象。&lt;/p&gt;
-&lt;h4 id=&quot;Proxy（代理对象）&quot;&gt;&lt;a href=&quot;#Proxy（代理对象）&quot; class=&quot;headerlink&quot; title=&quot;Proxy（代理对象）&quot;&gt;&lt;/a&gt;Proxy（代理对象）&lt;/h4&gt;&lt;p&gt;通过代理模式创建的对象，从而实现在目标对象连接点处插入切面，代理对象对使用者透明，是程序运行中间产物。&lt;/p&gt;
-&lt;h4 id=&quot;Weaving（织入）&quot;&gt;&lt;a href=&quot;#Weaving（织入）&quot; class=&quot;headerlink&quot; title=&quot;Weaving（织入）&quot;&gt;&lt;/a&gt;Weaving（织入）&lt;/h4&gt;&lt;p&gt;织入是一个过程，将切面应用到目标对象从而创建出AOP代理对象的过程，织入可以在编译期(Complie)、类装载期(Classload)、运行期(Runtime)进行。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;How-does-it-wok&quot;&gt;&lt;a href=&quot;#How-does-it-wok&quot; class=&quot;headerlink&quot; title=&quot;How does it wok ?&quot;&gt;&lt;/a&gt;How does it wok ?&lt;/h2&gt;&lt;p&gt;AOP技术可以通过反射机制与动态代理机制实现，业务逻辑组件在运行过程中，动态创建一个代理对象供使用者调用，该代理对象已经将切面成功切入到目标方法的连接点上，从而使切面的功能与业务逻辑的功能同时得以执行。当然也可以通过静态织入的方式，引入特定的语法，在编译期间织入有关切面代码。&lt;/p&gt;
-&lt;p&gt;反射机制被视为动态（或准动态）语言的一个关键性质，它允许取得任何一个已知名称的class的内部信息，并能直接操作程序的内部属性。&lt;br&gt;动态代理机制指在程序运行时运用反射机制动态创建代理类，后续会有举例讲解到。&lt;/p&gt;
-&lt;p&gt;从网络图库中收割到一幅关于AOP理解的图例，表达得非常到位，可以参见一下:&lt;br&gt;&lt;img src=&quot;/assets/aop/aop_diagram.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;图中的切入箭头代表切入的动作，而切入的动作是依赖于称为切入点(Pointcut)的表达式规则匹配找到应该切入到哪些连接点(Joinpoint)上。从图解中可以大致了解到AOP的工作原理和过程，同时加强了对切面、连接点和切入点区别和关系的进一步理解。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;Why-AOP&quot;&gt;&lt;a href=&quot;#Why-AOP&quot; class=&quot;headerlink&quot; title=&quot;Why AOP ?&quot;&gt;&lt;/a&gt;Why AOP ?&lt;/h2&gt;&lt;p&gt;OOP引入封装、继承和多态来建立对象层次结构，从而模拟公共行为的一个集合，当需要为分散的对象引入公共行为的时候，OOP则显得无能为力，如日志、权限、事务等功能。这种与主要业务处理流程（核心关注点）关系不大的代码被称为横切（cross cutting），在OO设计中会导致大量重复代码，也不利于模块重用和维护。&lt;/p&gt;
-&lt;p&gt;因此需要AOP作为OOP的补充和完善来解决上述问题，AOP的优势主要表现在以下方面：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;解决核心业务逻辑共有代码冗余问题，使代码变更简洁优雅&lt;/li&gt;
-&lt;li&gt;只需关心核心的业务逻辑处理，能够提高编写工作效率&lt;/li&gt;
-&lt;li&gt;核心关注点和横切关注点分离开来，共有代码集中存放，使得维护工作更加简单轻松&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;When-AOP&quot;&gt;&lt;a href=&quot;#When-AOP&quot; class=&quot;headerlink&quot; title=&quot;When AOP?&quot;&gt;&lt;/a&gt;When AOP?&lt;/h2&gt;&lt;p&gt;其实之前多次提到，当需要为分散的对象引入公共行为的时候，需要处理一些具有横切性质的系统性服务的时候，就可以使用AOP，以下列举了常见的几种应用范围和场合:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Authentication 权限检查&lt;/li&gt;
-&lt;li&gt;logging / tracing 日志/跟踪&lt;/li&gt;
-&lt;li&gt;Transactions 事务处理&lt;/li&gt;
-&lt;li&gt;Exception Handling 异常处理&lt;/li&gt;
-&lt;li&gt;profiling / monitoring　分析/监控&lt;/li&gt;
-&lt;li&gt;Caching 缓存&lt;/li&gt;
-&lt;li&gt;Debugging 调试&lt;/li&gt;
-&lt;li&gt;Performance Optimization 性能优化&lt;/li&gt;
-&lt;li&gt;Persistence 持久化&lt;/li&gt;
-&lt;li&gt;Resource Pooling 资源池&lt;/li&gt;
-&lt;li&gt;Synchronization 同步&lt;/li&gt;
-&lt;li&gt;……&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;AOP-in-Practice&quot;&gt;&lt;a href=&quot;#AOP-in-Practice&quot; class=&quot;headerlink&quot; title=&quot;AOP in Practice&quot;&gt;&lt;/a&gt;AOP in Practice&lt;/h2&gt;&lt;p&gt;主要针对AOP在Java中的实现，并解读在Spring中AOP的伪代码实现。&lt;/p&gt;
-&lt;h3 id=&quot;代理设计模式&quot;&gt;&lt;a href=&quot;#代理设计模式&quot; class=&quot;headerlink&quot; title=&quot;代理设计模式&quot;&gt;&lt;/a&gt;代理设计模式&lt;/h3&gt;&lt;p&gt;首先来回顾一下设计模式中的代理模式:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;代理模式(Proxy Design Pattern)，为其他对象提供一种代理以控制对这个对象的访问。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;也就是如下图所示的关系，代理对象通过调用实际对象的方法来控制对该实际对象的访问。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/aop/proxy_dp.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;以下简单给出以Hello类为例的伪代码，通过代理对象调用实际对象的sayHello方法，并且在该方法的实际调用前后增加打印记录行为，模拟了拦截方法的过程。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public interface IHello &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    void sayHello(String name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 实际的类，已有的操作和行为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public class Hello implements IHello &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public void sayHello(String name) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         println(“Hello &amp;quot;+name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 代理类，通过调用代理方法访问实际方法并且添加新的职责&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;class HelloProxy implements IHello &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private IHello hello = new Hello(); // 指向目标对象,通常在用构造方法传值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public void sayHello(String name) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        println(&amp;quot;before....&amp;quot;); // 实际调用前添加新的行为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        hello.sayHello(name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        println(&amp;quot;after....&amp;quot;); // 实际调用后添加新的行为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在回顾了代理模式后，那么进一步了解如何结合代理模式在运行时通过反射机制动态创建代理类，即动态代理技术。&lt;/p&gt;
-&lt;h3 id=&quot;JDK动态代理&quot;&gt;&lt;a href=&quot;#JDK动态代理&quot; class=&quot;headerlink&quot; title=&quot;JDK动态代理&quot;&gt;&lt;/a&gt;JDK动态代理&lt;/h3&gt;&lt;p&gt;主要针对JDK动态代理方式，使用接口实现，给出核心部分伪代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class DynamicProxyHello implements InvocationHandler &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private Object target; // 目标对象&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public Object bind(Object target)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        this.target = target;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        // 通过目标类和接口来生成代理类&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return Proxy.newProxyInstance(target.getClass().getClassLoader(),&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                                      target.getClass().getInterfaces(), this);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @Override // 代理类中拦截了目标对象的方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public Object invoke(Object proxy, Method method, Object[] args) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        do(&amp;quot;before..... &amp;quot;); // 代理类中Advice&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Object result = method.invoke(target, args); // 目标对象的实际方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        do(&amp;quot;after.....&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return result;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;特别注意: JDK动态代理只能基于接口动态代理。一般默认情况下，如果目标类是接口，则使用JDK动态代理技术，否则只能使用CGLib来生成代理。&lt;/p&gt;
-&lt;h3 id=&quot;CGLib代理&quot;&gt;&lt;a href=&quot;#CGLib代理&quot; class=&quot;headerlink&quot; title=&quot;CGLib代理&quot;&gt;&lt;/a&gt;CGLib代理&lt;/h3&gt;&lt;p&gt;CGLIB方式，使用继承实现：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 主要了解以下几个类, 代码在相应的库中都可以找到, 此处不再赘述&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MethodInterceptor // 方法拦截类, 定义的代理类需要实现该接口以调用intercept方法添加Advice&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Enhancer // 增强类, 继承至AbstractClassGenerator, 主要用于生成目标类的子类&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MethodProxy // 生成的子类, 可以在intercept中通过调用proxy.invokeSuper()来调用目标对象的实际方法&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;特别注意: CGLib代理基于接口和非final类代理，不能代理static方法。&lt;/p&gt;
-&lt;p&gt;之前有用Java实现过简单的IoC和AOP，有兴趣可以参见工程: &lt;a href=&quot;https://github.com/Waterstrong/summarine&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;summarine&lt;/a&gt;。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      AOP(Aspect Oriented Programming)，即面向切面编程，是一种设计思想，通过预编译方式或运行时动态代理实现为程序统一添加功能的技术。
-    
-    </summary>
-    
-      <category term="Design Patterns" scheme="http://blog.waterstrong.me/categories/Design-Patterns/"/>
-    
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
-      <category term="面向切面编程" scheme="http://blog.waterstrong.me/tags/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B/"/>
-    
-      <category term="AOP" scheme="http://blog.waterstrong.me/tags/AOP/"/>
-    
-      <category term="反射机制" scheme="http://blog.waterstrong.me/tags/%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"/>
-    
-      <category term="代理模式" scheme="http://blog.waterstrong.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="Proxy" scheme="http://blog.waterstrong.me/tags/Proxy/"/>
-    
-      <category term="CGLib" scheme="http://blog.waterstrong.me/tags/CGLib/"/>
     
   </entry>
   

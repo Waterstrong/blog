@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Travis CI Step by Step | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Travis CI Step by Step">
+<meta property="og:url" content="http://blog.waterstrong.me/travisci-by-step/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/travis_ci_home.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/integrations.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/authorize_travis_ci.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/oauth_travis_ci.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/hook_switch.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/travis_ci_settings.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/trigger_build.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/passing_status.svg">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/link_build_status.png">
+<meta property="og:updated_time" content="2016-07-27T04:48:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Travis CI Step by Step">
+<meta name="twitter:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/travisci-by-step/travis_ci_home.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/archives">Archives</a></li>
+                        
+                            <li><a href="/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Java/" style="font-size: 17.5px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/archives">Archives</a></li>
+                
+                    <li><a href="/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-travisci-by-step" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/travisci-by-step/" class="article-date">
+      <time datetime="2016-07-15T13:57:02.000Z" itemprop="datePublished">2016-07-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Travis CI Step by Step
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI-CD/">CI/CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TravisCI/">TravisCI</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Travis-CI介绍"><a href="#Travis-CI介绍" class="headerlink" title="Travis CI介绍"></a>Travis CI介绍</h2><blockquote>
+<p>Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.</p>
+</blockquote>
+<p>Travis CI是一款提供托管与分布式持续集成(Continuous Integration)服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。</p>
+<p><img src="/assets/travisci-by-step/travis_ci_home.png" alt=""><br>Travis CI主要为开源免费提供轻量级可定制化的持续持续集成环境和服务，而对于非开源项目，会按照相应的标准收取一定的费用。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，与GitHub集成度很好，支持Pull Request等。一般通过简单配置<code>.travis.yml</code>文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作，但它不支持pipeline，只能支持简单的构建。</p>
+<h2 id="Travis-CI集成"><a href="#Travis-CI集成" class="headerlink" title="Travis CI集成"></a>Travis CI集成</h2><p>Travis CI与GitHub集成只需要简单的几步即可，通过访问<a href="https://github.com/integrations" target="_blank" rel="external">GitHub Integrations</a>搜索<code>Travis CI</code>选择进入子页面，可以看到对Travis CI的集成的基本介绍。<br><img src="/assets/travisci-by-step/integrations.png" alt=""></p>
+<h4 id="GitHub登录授权"><a href="#GitHub登录授权" class="headerlink" title="GitHub登录授权"></a>GitHub登录授权</h4><p>Travis CI与GitHub集成需要登录GitHub帐号，一般有两种入口方式：</p>
+<ol>
+<li>在<a href="https://github.com/integrations/travis-ci" target="_blank" rel="external">Travis CI Integration</a>页面中点击<code>Add to GitHub</code>-&gt;<code>Authorize application</code>进行授权。</li>
+<li>对于<strong>Public</strong>项目直接访问<a href="https://travis-ci.org/" target="_blank" rel="external">travis-ci.org</a>并登录GitHub帐号授权，而<strong>Private</strong>项目应访问<a href="https://travis-ci.org/" target="_blank" rel="external">travis-ci.com</a>。<br><img src="/assets/travisci-by-step/authorize_travis_ci.png" alt=""></li>
+</ol>
+<p>另外，若需要管理Travis CI的权限(Revoke/Grant Access)，可以在登录<a href="https://github.com/" target="_blank" rel="external">GitHub</a>后点击头像下拉菜单中的<a href="https://github.com/settings/" target="_blank" rel="external">Settings</a>，选择左边导航栏中的<a href="https://github.com/settings/applications" target="_blank" rel="external">OAuth applications</a>，进入<code>Travis CI</code>应用进行操作，对于未授权的Organization，通常需要手动点击<code>Grant access</code>确认才能授权Travis CI访问。<br><img src="/assets/travisci-by-step/oauth_travis_ci.png" alt=""></p>
+<h4 id="激活GitHub仓库"><a href="#激活GitHub仓库" class="headerlink" title="激活GitHub仓库"></a>激活GitHub仓库</h4><p>Travis CI触发Build的原理是基于GitHub的Service Hook钩子实现，而需要Travis CI应用到自己的项目，需要在Travis CI的<a href="https://travis-ci.org/profile/" target="_blank" rel="external">Profile</a> (<code>Yourname</code>-&gt;<code>Accounts</code>)中选择对应的Repository并开启Hook，若没有看到项目列出，请点击<code>Sync account</code>同步一下。<br><img src="/assets/travisci-by-step/hook_switch.png" alt=""></p>
+<p>若需要设定某些配置项或设置环境变量，可以点击齿轮状的按钮进行设置页面，更多可参阅<a href="https://docs.travis-ci.com/user/cron-jobs/" target="_blank" rel="external">Travis CI Docs</a>。<br><img src="/assets/travisci-by-step/travis_ci_settings.png" alt=""></p>
+<h4 id="配置TRAVIS-YML文件"><a href="#配置TRAVIS-YML文件" class="headerlink" title="配置TRAVIS YML文件"></a>配置TRAVIS YML文件</h4><p>Travis CI支持多种语言的项目，只需要在项目目录下新建文件<code>.travis.yml</code>，加入几行配置即可，比如选择<a href="https://docs.travis-ci.com/user/languages/java" target="_blank" rel="external">Java</a>项目(Gradle+Java8)，一个简单的示例配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">language: java</span><br><span class="line">install: true</span><br><span class="line">script: ./gradlew clean build</span><br><span class="line">before_cache:</span><br><span class="line">  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock</span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">    - $HOME/.gradle/caches/</span><br><span class="line">    - $HOME/.gradle/wrapper/</span><br><span class="line">jdk:</span><br><span class="line">  - oraclejdk8</span><br></pre></td></tr></table></figure></p>
+<p>也可以针对多个Java版本进行测试，保证项目的兼容性，只需要设置jdk即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdk:</span><br><span class="line">  - oraclejdk8</span><br><span class="line">  - oraclejdk7</span><br><span class="line">  - openjdk6</span><br></pre></td></tr></table></figure></p>
+<p>再比如<a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs" target="_blank" rel="external">Javascript Node.js</a>项目(NodeJs+Gulp+Bower+Redis)的简单示例配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line">node_js:</span><br><span class="line">  - &quot;6&quot;</span><br><span class="line">before_script:</span><br><span class="line">  - npm install -g gulp bower</span><br><span class="line">  - npm install</span><br><span class="line">  - bower install</span><br><span class="line">script: gulp</span><br><span class="line">services:</span><br><span class="line">  - redis-server</span><br></pre></td></tr></table></figure></p>
+<p>另外，也支持<a href="https://docs.travis-ci.com/user/installing-dependencies/" target="_blank" rel="external">Installing Dependencies</a>, <a href="https://docs.travis-ci.com/user/database-setup/" target="_blank" rel="external">Setting up Databases</a>, <a href="https://docs.travis-ci.com/user/deployment/" target="_blank" rel="external">Deployments and Uploads</a>以及<a href="https://docs.travis-ci.com/user/notifications/" target="_blank" rel="external">Configuring Build Notifications</a>等。更多配置项详情请参阅<a href="https://docs.travis-ci.com/user/getting-started/" target="_blank" rel="external">Getting Started</a>。</p>
+<h4 id="触发Build构建"><a href="#触发Build构建" class="headerlink" title="触发Build构建"></a>触发Build构建</h4><p>当所有配置完成后，下一次提交代码时就会触发Build，可以看到Build的一些详细信息，包括Build号，Commit号，Elapsed用时，Log日志等信息，如果成功就显示绿色，失败则显示红色。<br><img src="/assets/travisci-by-step/trigger_build.png" alt=""></p>
+<p>除了查看Current当前的Build，也可以选择查看Branches分支状态或Build History历史记录等。</p>
+<h4 id="关联Build状态"><a href="#关联Build状态" class="headerlink" title="关联Build状态"></a>关联Build状态</h4><p>为了显示指明项目与Travis CI的关系与状态，可以在项目README.md中关联Build状态图标，点击项目右边的状态图片<img src="/assets/travisci-by-step/passing_status.svg" alt="">，然后会弹出一个Status Image链接的页面，选择Markdown格式，然后复制链接到项目的README.md中即可。<br><img src="/assets/travisci-by-step/link_build_status.png" alt=""></p>
+<p>Build状态标识的Markdown格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[![Build Status](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME.svg?branch=master)](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME)</span><br><span class="line"></span><br><span class="line"># E.g. GITHUB_MAME=tw-wee, PROJECT_NAME=qas-service</span><br><span class="line">[![Build Status](https://travis-ci.org/tw-wee/qas-service.svg?branch=master)](https://travis-ci.org/tw-wee/qas-service)</span><br></pre></td></tr></table></figure></p>
+<h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>总体说来，对于公司或企业项目，更倾向于选择GoCD或Jenkins这样的产品，个人或社区开源项目建议采用Travis CI来快速实现持续集成服务。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://docs.travis-ci.com/" target="_blank" rel="external">Travis CI Docs</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Travis_CI" target="_blank" rel="external">Travis CI Wiki</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/travisci-by-step/">Travis CI Step by Step</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-07-15 21:57</p>
+        <!--<p><span>最后更新:</span>2016-07-27 12:48</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/travisci-by-step/" title="Travis CI Step by Step">http://blog.waterstrong.me/travisci-by-step/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/travisci-by-step/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/jenkins-by-step/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Jenkins Step by Step</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Travis-CI介绍"><span class="toc-number">1.</span> <span class="toc-text">Travis CI介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Travis-CI集成"><span class="toc-number">2.</span> <span class="toc-text">Travis CI集成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub登录授权"><span class="toc-number">2.0.1.</span> <span class="toc-text">GitHub登录授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#激活GitHub仓库"><span class="toc-number">2.0.2.</span> <span class="toc-text">激活GitHub仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置TRAVIS-YML文件"><span class="toc-number">2.0.3.</span> <span class="toc-text">配置TRAVIS YML文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#触发Build构建"><span class="toc-number">2.0.4.</span> <span class="toc-text">触发Build构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关联Build状态"><span class="toc-number">2.0.5.</span> <span class="toc-text">关联Build状态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-End"><span class="toc-number">3.</span> <span class="toc-text">The End</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'waterstrongblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >Site Visited: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">Page Visited: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 0;
+            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+        })
+    </script>
+
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("search").onclick = function(){
+        search();
+      }
+    };
+    function search(){
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
+    }
+  </script>
+
+
+
+
+
+
+
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
+
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        }
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script language="text/javascript">
+        $(function() {
+            $("a[title]").each(function() {
+                var a = $(this);
+                var title = a.attr('title');
+                if (title == undefined || title == "") return;
+                a.data('title', title).removeAttr('title').hover(
+
+                        function() {
+                            var offset = a.offset();
+                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                                top: offset.top - a.outerHeight() - 15,
+                                left: offset.left + a.outerWidth()/2 + 1
+                            }).fadeIn(function() {
+                                var pop = $(this);
+                                setTimeout(function() {
+                                    pop.remove();
+                                }, pop.text().length * 800);
+                            });
+                        }, function() {
+                            $("#anchortitlecontainer").remove();
+                        });
+            });
+        });
+    </script>
+
+
+  </div>
+</body>
+</html>
