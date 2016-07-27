@@ -89,7 +89,7 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 
 #### vs. Travis CI
 
-[Travis CI](https://travis-ci.com/)其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与Github集成度很好，支持PR。
+[Travis CI](https://travis-ci.com/)其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与GitHub集成度很好，支持PR。
 
 但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。
 
@@ -100,7 +100,7 @@ Continuous Delivery(持续交付). A software development discipline, build soft
 ### Concourse Concepts
 Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可以对任何的Pipeline进行建模，从简单的unit->integration->deploy->ship到复杂的多基础设施, fanning out/in等。
 
-1. Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如Github上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见[Customer Resource Types](http://concourse.ci/resource-types.html)
+1. Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如GitHub上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见[Customer Resource Types](http://concourse.ci/resource-types.html)
 ![](/assets/concourse-ci/concourse_resources.png)
 
 2. Jobs: Job是某个有计划有条件的工作任务，描述了一些依赖资源或手动触发的行为，当提交了代码就触发Build，或Unit Test通过后触发了Intg Test等。
@@ -247,7 +247,7 @@ fly -t lite get-pipeline -p hello-world
 
 ![](/assets/concourse-ci/hello_run_build.png)
 
-更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[Github的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
+更多示例教程可以参见[Concourse官网Demo](http://concourse.ci/tutorials.html)或[GitHub的Concourse教程](https://github.com/starkandwayne/concourse-tutorial)。
 
 ### Concourse Assess
 虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:

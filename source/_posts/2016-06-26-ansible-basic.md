@@ -205,7 +205,7 @@ Ansible Playbooks使用YAML语言，对使用者相对友好。Ansible中使用Y
 
 ## 如何使用Ansible?
 
-可以移步笔者的Github[Ansible Workshop Step by Step](https://github.com/waterstrong/ansible-workshop)或另一篇博客[Ansible实践篇](/ansible-practice)来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：
+可以移步笔者的GitHub[Ansible Workshop Step by Step](https://github.com/waterstrong/ansible-workshop)或另一篇博客[Ansible实践篇](/ansible-practice)来帮助一步步学习理解并使用Ansible，可以尝试一下，加深理解，主要包括以下几个步骤：
 
 * [Step 1. Set up the environment](https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP1.md)
 * [Step 2. Inventory Practice](https://github.com/Waterstrong/ansible-workshop/blob/master/tutorials/STEP2.md)

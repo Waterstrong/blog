@@ -34,7 +34,7 @@ docker pull jenkinsci/jenkins
 docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins
 ```
 
-其中`/your/home`需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅[Github jenkinsci](https://github.com/jenkinsci/docker)。
+其中`/your/home`需要替换为你的主机路径，用于保存Jenkins的Workspace数据，更多细节可以参阅[GitHub jenkinsci](https://github.com/jenkinsci/docker)。
 
 #### Ansible安装方式
 另外，还可以通过Ansible自动化脚本安装，在另一篇博客[Ansible实践篇](/ansible-practice)中也有涉及。首先需要下载jenkins role到本地，假设下载到了`/usr/local/etc/ansible/roles/`目录下。
@@ -120,7 +120,7 @@ Jenkins Job是很重要的概念，定义了在什么样的情况下执行什么
 ![](/assets/jenkins-by-step/new_job.png)
 
 #### Source Code Management 源代码管理
-可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以Github托管的项目为例，拉取的Branch为`*/master`。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。
+可以指定下载源代码的仓库路径，目前Git是最为流行的VCS，指定Repositories URL，这里以GitHub托管的项目为例，拉取的Branch为`*/master`。这里的项目仓库为公开仓库，因此直接用HTTP方式即可，如果是私有项目需要添加授权信息。另外特别注意，需要确保Server安装了Git，否则在pull代码时会因找不到命令而失败。
 ![](/assets/jenkins-by-step/job_source_code.png)
 
 #### Build Triggers 构建触发器
@@ -188,7 +188,7 @@ Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装�
 以下补充罗列一些常用的插件：
 - [Gradle Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Gradle+Plugin)
 - [Git Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
-- [Github Plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
+- [GitHub Plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin)
 - [SSH Plugin](http://wiki.jenkins-ci.org/display/JENKINS/SSH+Slaves+plugin)
 - [Pipeline Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin)
 - [Deploy Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Deploy+Plugin)
