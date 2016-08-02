@@ -4,7 +4,7 @@ date: 2016-07-31 19:53:11
 category: Tools
 tags: [Java, Code Coverage, Jacoco, Cobertura]
 description:
-published: false
+published: true
 ---
 
 # Code Coverage介绍
@@ -18,7 +18,140 @@ published: false
 # 在Java中应用Code Coverage
 ## Gradle+Jacoco
 
+新建一个名为`jacoco.gradle`的文件，并加入以下脚本代码：
+```
+apply plugin: 'jacoco'
 
+ext {
+    limits = [
+            'instruction': 95,
+            'branch'     : 90,
+            'line'       : 90,
+            'complexity' : 90,
+            'method'     : 95,
+            'class'      : 95
+    ]
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    description = "Generate and check jacoco coverage reports after running tests."
+
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/Application**'])
+        })
+    }
+
+    doLast {
+        new TestCoverage(jacoco).check(limits)
+    }
+}
+
+check.dependsOn jacocoTestReport
+```
+
+其中，`limits`用于配置代码覆盖率检查满足的最小阈值，可以根据项目需要自定义修改，在`exclude`中也可以配置不接收覆盖率检查的Package或Class。
+
+另外，还需要创建一个用于测试覆盖率检查的类，可以在`jacoco.gradle`中追加以下代码：
+```
+import org.slf4j.Logger
+import static org.slf4j.LoggerFactory.getLogger
+
+class TestCoverage {
+    private static Logger logger = getLogger(TestCoverage.class);
+    def xmlReport
+    def htmlReport
+    def metrics
+
+    TestCoverage(jacoco) {
+        xmlReport = new File("${jacoco.reportsDir}/test/jacocoTestReport.xml")
+        htmlReport = new File("${jacoco.reportsDir}/test/html/index.html")
+        initMetrics()
+    }
+
+    void check(limits) {
+        logger.lifecycle("Checking coverage results: ${xmlReport}")
+        logger.lifecycle("Html report: ${htmlReport}")
+        showResult checkMetrics(limits)
+    }
+
+    private void showResult(failures, improvements) {
+        if (failures) {
+            logger.quiet("--------------------- Jacoco Code Coverage Failed ---------------------")
+            failures.each {
+                logger.quiet(it)
+            }
+            logger.quiet("-----------------------------------------------------------------------")
+            throw new GradleException("Jacoco Code coverage failed")
+        }
+        if (improvements) {
+            logger.quiet("-------------------- Jacoco Code Coverage Improved --------------------")
+            improvements.each {
+                logger.quiet(it)
+            }
+            logger.quiet("-----------------------------------------------------------------------")
+        }
+    }
+
+    private List checkMetrics(limits) {
+        def failures = []
+        def improvements = []
+        metrics.each { key, value ->
+            def limit = limits[key] as Double
+            if (value < limit) {
+                failures.add("- ${key} coverage rate is: ${value}%, minimum is ${limit}%")
+            }
+            if (value > limit + 1) {
+                improvements.add("- $key coverage rate is: ${value}%, minimum is ${limit}%")
+            }
+        }
+        [failures, improvements]
+    }
+
+    private void initMetrics() {
+        def parser = new XmlParser()
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        def counters = parser.parse(xmlReport).counter
+        def percentage = {
+            def covered = it ? it.'@covered' as Double : 0
+            def missed = it ? it.'@missed' as Double : 0
+            ((covered / (covered + missed)) * 100).round(2)
+        }
+        metrics = [:]
+        metrics << [
+                'instruction': percentage(counters.find { it.'@type'.equals('INSTRUCTION') }),
+                'branch'     : percentage(counters.find { it.'@type'.equals('BRANCH') }),
+                'line'       : percentage(counters.find { it.'@type'.equals('LINE') }),
+                'complexity' : percentage(counters.find { it.'@type'.equals('COMPLEXITY') }),
+                'method'     : percentage(counters.find { it.'@type'.equals('METHOD') }),
+                'class'      : percentage(counters.find { it.'@type'.equals('CLASS') })
+        ]
+    }
+}
+```
+
+最后需要在`build.gradle`中引用自定义脚本和依赖：
+```
+apply from: 'jacoco.gradle'
+...
+
+dependencies {
+	...
+	testRuntime 'org.slf4j:slf4j-api:1.7.21'
+}
+```
+
+在命令行中运行`./gradlew build`可以生成代码覆盖率报告并检查覆盖率是否通过。
+![](/assets/java-code-coverage/jacoco_console.png)
+![](/assets/java-code-coverage/jacoco_report.png)
 
 ## Gradle+Cobertura
 Cobertura是开源的Java代码测试覆盖率检查工具，它主要基于对字节码离线插桩的方式实现，支持提供branch和line覆盖率报告。接下来将讲解如何在Gradle中使用Cobertura，并配置实现对Java代码的测试覆盖率检查。
@@ -64,7 +197,7 @@ check.dependsOn 'coberturaCheck'
 ```
 
 最后，简单写一些测试代码，在命令行中运行`./gradlew clean build`来查看代码覆盖率检查是否配置成功，默认cobertura生成的报告在当前项目的`build/reports/cobertura/`下，可以查看`index.html`。
-![]()
+![](/assets/java-code-coverage/cobertura_report.png)
 
 另外，如果在项目中使用cobertura作为代码测试覆盖率检查工具，但未使用[SLF4J](http://www.slf4j.org/)日志库，在运行时会报出关于slf4j的`NoClassDefFoundError`问题，只需要在`build.gradle`中添加testRuntime的依赖即可：
 ```
