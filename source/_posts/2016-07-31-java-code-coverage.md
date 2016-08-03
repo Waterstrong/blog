@@ -1,9 +1,9 @@
 ---
-title: java-code-coverage
+title: Java Code Coverage in Gradle
 date: 2016-07-31 19:53:11
 category: Tools
 tags: [Java, Code Coverage, Jacoco, Cobertura]
-description:
+description: Code Coverage is ...
 published: true
 ---
 
@@ -17,8 +17,10 @@ published: true
 
 # 在Java中应用Code Coverage
 ## Gradle+Jacoco
+Jacoco是开源的Java代码测试覆盖率检查工具，使用ASM修改字节码，插桩主要基于对字节码的on-the-fly和offline的方式，支持提供method, class, line, branch, instruction以及complexity的覆盖率报告。接下来将讲解如何在Gradle中配置Jacoco，实现对Java代码的测试覆盖率检查。
 
-新建一个名为`jacoco.gradle`的文件，并加入以下脚本代码：
+##### Apply Jacoco Plugin
+首先，新建一个名为[jacoco.gradle](/assets/java-code-coverage/jacoco.gradle)的文件，并加入以下脚本代码：
 ```
 apply plugin: 'jacoco'
 
@@ -59,7 +61,8 @@ check.dependsOn jacocoTestReport
 
 其中，`limits`用于配置代码覆盖率检查满足的最小阈值，可以根据项目需要自定义修改，在`exclude`中也可以配置不接收覆盖率检查的Package或Class。
 
-另外，还需要创建一个用于测试覆盖率检查的类，可以在`jacoco.gradle`中追加以下代码：
+#### Create TestCoverage Class
+另外，还需要创建一个用于测试覆盖率检查的类，可以在[jacoco.gradle](/assets/java-code-coverage/jacoco.gradle)中追加以下代码：
 ```
 import org.slf4j.Logger
 import static org.slf4j.LoggerFactory.getLogger
@@ -138,6 +141,7 @@ class TestCoverage {
 }
 ```
 
+#### Use Custom Jacoco Script
 最后需要在`build.gradle`中引用自定义脚本和依赖：
 ```
 apply from: 'jacoco.gradle'
@@ -177,7 +181,7 @@ plugins {
 }
 ```
 
-然后可以在同一脚本`build.gradle`文件中或另外新增一个名为`cobertura.gradle`的脚本，并写入如下代码：
+然后可以在同一脚本`build.gradle`文件中或另外新增一个名为[cobertura.gradle](/assets/java-code-coverage/cobertura.gradle)的脚本，并写入如下代码：
 ```
 cobertura {
     coverageFormats = ['html', 'xml']

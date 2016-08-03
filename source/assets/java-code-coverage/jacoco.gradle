@@ -1,0 +1,113 @@
+apply plugin: 'jacoco'
+
+ext {
+    limits = [
+            'instruction': 95,
+            'branch'     : 90,
+            'line'       : 90,
+            'complexity' : 90,
+            'method'     : 95,
+            'class'      : 95
+    ]
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    description = "Generate and check jacoco coverage reports after running tests."
+
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/Application**'])
+        })
+    }
+
+    doLast {
+        new TestCoverage(jacoco).check(limits)
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+
+import org.slf4j.Logger
+import static org.slf4j.LoggerFactory.getLogger
+
+class TestCoverage {
+    private static Logger logger = getLogger(TestCoverage.class);
+    def xmlReport
+    def htmlReport
+    def metrics
+
+    TestCoverage(jacoco) {
+        xmlReport = new File("${jacoco.reportsDir}/test/jacocoTestReport.xml")
+        htmlReport = new File("${jacoco.reportsDir}/test/html/index.html")
+        initMetrics()
+    }
+
+    void check(limits) {
+        logger.lifecycle("Checking coverage results: ${xmlReport}")
+        logger.lifecycle("Html report: ${htmlReport}")
+        showResult checkMetrics(limits)
+    }
+
+    private void showResult(failures, improvements) {
+        if (failures) {
+            logger.quiet("--------------------- Jacoco Code Coverage Failed ---------------------")
+            failures.each {
+                logger.quiet(it)
+            }
+            logger.quiet("-----------------------------------------------------------------------")
+            throw new GradleException("Jacoco Code coverage failed")
+        }
+        if (improvements) {
+            logger.quiet("-------------------- Jacoco Code Coverage Improved --------------------")
+            improvements.each {
+                logger.quiet(it)
+            }
+            logger.quiet("-----------------------------------------------------------------------")
+        }
+    }
+
+    private List checkMetrics(limits) {
+        def failures = []
+        def improvements = []
+        metrics.each { key, value ->
+            def limit = limits[key] as Double
+            if (value < limit) {
+                failures.add("- ${key} coverage rate is: ${value}%, minimum is ${limit}%")
+            }
+            if (value > limit + 1) {
+                improvements.add("- $key coverage rate is: ${value}%, minimum is ${limit}%")
+            }
+        }
+        [failures, improvements]
+    }
+
+    private void initMetrics() {
+        def parser = new XmlParser()
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        def counters = parser.parse(xmlReport).counter
+        def percentage = {
+            def covered = it ? it.'@covered' as Double : 0
+            def missed = it ? it.'@missed' as Double : 0
+            ((covered / (covered + missed)) * 100).round(2)
+        }
+        metrics = [:]
+        metrics << [
+                'instruction': percentage(counters.find { it.'@type'.equals('INSTRUCTION') }),
+                'branch'     : percentage(counters.find { it.'@type'.equals('BRANCH') }),
+                'line'       : percentage(counters.find { it.'@type'.equals('LINE') }),
+                'complexity' : percentage(counters.find { it.'@type'.equals('COMPLEXITY') }),
+                'method'     : percentage(counters.find { it.'@type'.equals('METHOD') }),
+                'class'      : percentage(counters.find { it.'@type'.equals('CLASS') })
+        ]
+    }
+}
+
