@@ -3,23 +3,36 @@ title: Java Code Coverage in Gradle
 date: 2016-07-31 19:53:11
 category: Tools
 tags: [Java, Code Coverage, Jacoco, Cobertura]
-description: Code Coverage is ...
+description: 代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。
 published: true
 ---
 
-# Code Coverage介绍
-## 什么是代码覆盖率
+## Code Coverage介绍
+### 什么是代码覆盖率？
+代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。
 
-## 代码覆盖率的好处
+覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。但并不代表代码测试覆盖率越高越好，也不需要实现100%的覆盖率，并且这也很难实现，通常对核心逻辑才会增加测试粒度，根据经验值，覆盖率在85%左右为宜，即增加团队成员信心，也减少不必要的工作量。
 
-## 代码覆盖率的类型
+另外，代码覆盖率粒度通常分为类(Class)、方法(Method)、块(Block)、分支(Branch)、行(Line)、指令(instruction)以圈(complexity)覆盖。
+
+需要注意的是，不应把测试覆盖率作为代码质量唯一指标，而应作为发现未被测试覆盖的代码的手段，并且代码覆盖率不能完全作为衡量代码质量的标准。
+
+### 覆盖率实现及插桩原理
+主流代码覆盖率工具都采用字节码插桩模式，通过钩子的方式来记录代码执行轨迹信息。以Java为例，目前常用的工具为Jacoco和Cobertura，其对字节码进行插桩，主要分为on-the-fly和offine两种模式。一般的过程为：首先执行测试用例，收集程序执行轨迹信息，并存入内存中，然后数据处理器结合程序执行轨迹信息和代码结构信息分析生成代码覆盖率报告，最后将代码覆盖率报告以图形化方式展示出来。
+
+#### On-The-Fly插桩
 
 
-# 在Java中应用Code Coverage
-## Gradle+Jacoco
+
+#### Offile插桩
+
+
+
+## 在Java中应用Code Coverage
+### Gradle+Jacoco
 Jacoco是开源的Java代码测试覆盖率检查工具，使用ASM修改字节码，插桩主要基于对字节码的on-the-fly和offline的方式，支持提供method, class, line, branch, instruction以及complexity的覆盖率报告。接下来将讲解如何在Gradle中配置Jacoco，实现对Java代码的测试覆盖率检查。
 
-##### Apply Jacoco Plugin
+#### Apply Jacoco Plugin
 首先，新建一个名为[jacoco.gradle](/assets/java-code-coverage/jacoco.gradle)的文件，并加入以下脚本代码：
 ```
 apply plugin: 'jacoco'
@@ -157,8 +170,8 @@ dependencies {
 ![](/assets/java-code-coverage/jacoco_console.png)
 ![](/assets/java-code-coverage/jacoco_report.png)
 
-## Gradle+Cobertura
-Cobertura是开源的Java代码测试覆盖率检查工具，它主要基于对字节码离线插桩的方式实现，支持提供branch和line覆盖率报告。接下来将讲解如何在Gradle中使用Cobertura，并配置实现对Java代码的测试覆盖率检查。
+### Gradle+Cobertura
+Cobertura是开源的Java代码测试覆盖率检查工具，它主要基于对字节码offline插桩的方式实现，支持提供branch和line覆盖率报告。接下来将讲解如何在Gradle中使用Cobertura，并配置实现对Java代码的测试覆盖率检查。
 
 #### Apply Cobertura Plugin
 首先在`build.gradle`文件开始处加入构建脚本依赖并引用cobertura插件。一般有两种方式，第一种方式支持在所有版本的Gradle中使用：
@@ -242,17 +255,19 @@ Cobertura创建了三个Tasks用于生成和检查覆盖率报告：
 
 如果需要了解更多，可以参阅[Gradle Cobertura Plugin](https://github.com/stevesaliman/gradle-cobertura-plugin)。
 
-## Jacoco vs Cobertura
+### Jacoco vs Cobertura
 
 
-# The End
+## The End
 
 
 ----
 References
 
 * [Code coverage Wiki](https://en.wikipedia.org/wiki/Code_coverage)
+* [浅谈代码覆盖率](http://www.tuicool.com/articles/aq6rUz)
 * [Java Code Coverage Tools](https://en.wikipedia.org/wiki/Java_Code_Coverage_Tools)
+* [The JaCoCo Plugin](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
 * [springfox jacoco](https://github.com/springfox/springfox)
 * [Gradle Logging](http://scratchpad.pietschy.com/gradle/logging.html)
 * [gradle-cobertura-plugin](https://github.com/stevesaliman/gradle-cobertura-plugin)
