@@ -1,0 +1,18 @@
+//apply plugin: 'net.saliman.cobertura'
+
+cobertura {
+    coverageFormats = ['html', 'xml']
+    coverageEncoding = 'UTF-8'
+    coverageExcludes = ['.*Application.*']
+    coverageIgnoreMethodAnnotations = []
+    coverageCheckBranchRate = 90
+    coverageCheckLineRate = 90
+    coverageCheckPackageBranchRate = 90
+    coverageCheckPackageLineRate = 90
+    coverageCheckTotalBranchRate = 90
+    coverageCheckTotalLineRate = 90
+    coverageIgnoreTrivial = true
+    coverageCheckHaltOnFailure = true
+}
+
+check.dependsOn 'coberturaCheck'

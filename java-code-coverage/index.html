@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java Code Coverage in Gradle | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Code Coverage in Gradle">
+<meta property="og:url" content="http://blog.waterstrong.me/java-code-coverage/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/jacoco_console.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/jacoco_report.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/cobertura_report.png">
+<meta property="og:updated_time" content="2016-08-04T15:57:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Code Coverage in Gradle">
+<meta name="twitter:description" content="代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/java-code-coverage/jacoco_console.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/archives">Archives</a></li>
+                        
+                            <li><a href="/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 17.5px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 15px;">数据库</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/archives">Archives</a></li>
+                
+                    <li><a href="/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-java-code-coverage" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/java-code-coverage/" class="article-date">
+      <time datetime="2016-07-31T11:53:11.000Z" itemprop="datePublished">2016-07-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Code Coverage in Gradle
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cobertura/">Cobertura</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Code-Coverage/">Code Coverage</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jacoco/">Jacoco</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Code-Coverage介绍"><a href="#Code-Coverage介绍" class="headerlink" title="Code Coverage介绍"></a>Code Coverage介绍</h2><h3 id="什么是代码覆盖率？"><a href="#什么是代码覆盖率？" class="headerlink" title="什么是代码覆盖率？"></a>什么是代码覆盖率？</h3><p>代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。</p>
+<p>覆盖率主要用于尽量减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。但并不代表代码测试覆盖率越高越好，也不需要实现100%的覆盖率，并且这也很难实现，通常对核心逻辑才会增加测试粒度，根据经验值，覆盖率在85%左右为宜，即增加团队成员信心，也减少不必要的工作量。</p>
+<p>另外，代码覆盖率粒度通常分为类(Class)、方法(Method)、块(Block)、分支(Branch)、行(Line)、指令(instruction)以圈(complexity)覆盖。</p>
+<p>需要注意的是，不应把测试覆盖率作为代码质量唯一指标，而应作为发现未被测试覆盖的代码的手段，并且代码覆盖率不能完全作为衡量代码质量的标准。</p>
+<h3 id="覆盖率实现及插桩原理"><a href="#覆盖率实现及插桩原理" class="headerlink" title="覆盖率实现及插桩原理"></a>覆盖率实现及插桩原理</h3><p>主流代码覆盖率工具都采用字节码插桩模式，通过钩子的方式来记录代码执行轨迹信息。以Java为例，目前常用的工具为Jacoco和Cobertura，其对字节码进行插桩，主要分为on-the-fly和offine两种模式。一般的过程为：首先执行测试用例，收集程序执行轨迹信息，并存入内存中，然后数据处理器结合程序执行轨迹信息和代码结构信息分析生成代码覆盖率报告，最后将代码覆盖率报告以图形化方式展示出来。</p>
+<h4 id="On-The-Fly插桩"><a href="#On-The-Fly插桩" class="headerlink" title="On-The-Fly插桩"></a>On-The-Fly插桩</h4><h4 id="Offile插桩"><a href="#Offile插桩" class="headerlink" title="Offile插桩"></a>Offile插桩</h4><h2 id="在Java中应用Code-Coverage"><a href="#在Java中应用Code-Coverage" class="headerlink" title="在Java中应用Code Coverage"></a>在Java中应用Code Coverage</h2><h3 id="Gradle-Jacoco"><a href="#Gradle-Jacoco" class="headerlink" title="Gradle+Jacoco"></a>Gradle+Jacoco</h3><p>Jacoco是开源的Java代码测试覆盖率检查工具，使用ASM修改字节码，插桩主要基于对字节码的on-the-fly和offline的方式，支持提供method, class, line, branch, instruction以及complexity的覆盖率报告。接下来将讲解如何在Gradle中配置Jacoco，实现对Java代码的测试覆盖率检查。</p>
+<h4 id="Apply-Jacoco-Plugin"><a href="#Apply-Jacoco-Plugin" class="headerlink" title="Apply Jacoco Plugin"></a>Apply Jacoco Plugin</h4><p>首先，新建一个名为<a href="/assets/java-code-coverage/jacoco.gradle">jacoco.gradle</a>的文件，并加入以下脚本代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;jacoco&apos;</span><br><span class="line"></span><br><span class="line">ext &#123;</span><br><span class="line">    limits = [</span><br><span class="line">            &apos;instruction&apos;: 95,</span><br><span class="line">            &apos;branch&apos;     : 90,</span><br><span class="line">            &apos;line&apos;       : 90,</span><br><span class="line">            &apos;complexity&apos; : 90,</span><br><span class="line">            &apos;method&apos;     : 95,</span><br><span class="line">            &apos;class&apos;      : 95</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jacocoTestReport &#123;</span><br><span class="line">    group = &quot;Reporting&quot;</span><br><span class="line">    description = &quot;Generate and check jacoco coverage reports after running tests.&quot;</span><br><span class="line"></span><br><span class="line">    reports &#123;</span><br><span class="line">        xml.enabled true</span><br><span class="line">        html.enabled true</span><br><span class="line">        csv.enabled false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    afterEvaluate &#123;</span><br><span class="line">        classDirectories = files(classDirectories.files.collect &#123;</span><br><span class="line">            fileTree(dir: it, exclude: [&apos;**/Application**&apos;])</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    doLast &#123;</span><br><span class="line">        new TestCoverage(jacoco).check(limits)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">check.dependsOn jacocoTestReport</span><br></pre></td></tr></table></figure></p>
+<p>其中，<code>limits</code>用于配置代码覆盖率检查满足的最小阈值，可以根据项目需要自定义修改，在<code>exclude</code>中也可以配置不接收覆盖率检查的Package或Class。</p>
+<h4 id="Create-TestCoverage-Class"><a href="#Create-TestCoverage-Class" class="headerlink" title="Create TestCoverage Class"></a>Create TestCoverage Class</h4><p>另外，还需要创建一个用于测试覆盖率检查的类，可以在<a href="/assets/java-code-coverage/jacoco.gradle">jacoco.gradle</a>中追加以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">import org.slf4j.Logger</span><br><span class="line">import static org.slf4j.LoggerFactory.getLogger</span><br><span class="line"></span><br><span class="line">class TestCoverage &#123;</span><br><span class="line">    private static Logger logger = getLogger(TestCoverage.class);</span><br><span class="line">    def xmlReport</span><br><span class="line">    def htmlReport</span><br><span class="line">    def metrics</span><br><span class="line"></span><br><span class="line">    TestCoverage(jacoco) &#123;</span><br><span class="line">        xmlReport = new File(&quot;$&#123;jacoco.reportsDir&#125;/test/jacocoTestReport.xml&quot;)</span><br><span class="line">        htmlReport = new File(&quot;$&#123;jacoco.reportsDir&#125;/test/html/index.html&quot;)</span><br><span class="line">        initMetrics()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void check(limits) &#123;</span><br><span class="line">        logger.lifecycle(&quot;Checking coverage results: $&#123;xmlReport&#125;&quot;)</span><br><span class="line">        logger.lifecycle(&quot;Html report: $&#123;htmlReport&#125;&quot;)</span><br><span class="line">        showResult checkMetrics(limits)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void showResult(failures, improvements) &#123;</span><br><span class="line">        if (failures) &#123;</span><br><span class="line">            logger.quiet(&quot;--------------------- Jacoco Code Coverage Failed ---------------------&quot;)</span><br><span class="line">            failures.each &#123;</span><br><span class="line">                logger.quiet(it)</span><br><span class="line">            &#125;</span><br><span class="line">            logger.quiet(&quot;-----------------------------------------------------------------------&quot;)</span><br><span class="line">            throw new GradleException(&quot;Jacoco Code coverage failed&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        if (improvements) &#123;</span><br><span class="line">            logger.quiet(&quot;-------------------- Jacoco Code Coverage Improved --------------------&quot;)</span><br><span class="line">            improvements.each &#123;</span><br><span class="line">                logger.quiet(it)</span><br><span class="line">            &#125;</span><br><span class="line">            logger.quiet(&quot;-----------------------------------------------------------------------&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private List checkMetrics(limits) &#123;</span><br><span class="line">        def failures = []</span><br><span class="line">        def improvements = []</span><br><span class="line">        metrics.each &#123; key, value -&gt;</span><br><span class="line">            def limit = limits[key] as Double</span><br><span class="line">            if (value &lt; limit) &#123;</span><br><span class="line">                failures.add(&quot;- $&#123;key&#125; coverage rate is: $&#123;value&#125;%, minimum is $&#123;limit&#125;%&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">            if (value &gt; limit + 1) &#123;</span><br><span class="line">                improvements.add(&quot;- $key coverage rate is: $&#123;value&#125;%, minimum is $&#123;limit&#125;%&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        [failures, improvements]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void initMetrics() &#123;</span><br><span class="line">        def parser = new XmlParser()</span><br><span class="line">        parser.setFeature(&quot;http://apache.org/xml/features/nonvalidating/load-external-dtd&quot;, false);</span><br><span class="line">        parser.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, false)</span><br><span class="line">        def counters = parser.parse(xmlReport).counter</span><br><span class="line">        def percentage = &#123;</span><br><span class="line">            def covered = it ? it.&apos;@covered&apos; as Double : 0</span><br><span class="line">            def missed = it ? it.&apos;@missed&apos; as Double : 0</span><br><span class="line">            ((covered / (covered + missed)) * 100).round(2)</span><br><span class="line">        &#125;</span><br><span class="line">        metrics = [:]</span><br><span class="line">        metrics &lt;&lt; [</span><br><span class="line">                &apos;instruction&apos;: percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;INSTRUCTION&apos;) &#125;),</span><br><span class="line">                &apos;branch&apos;     : percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;BRANCH&apos;) &#125;),</span><br><span class="line">                &apos;line&apos;       : percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;LINE&apos;) &#125;),</span><br><span class="line">                &apos;complexity&apos; : percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;COMPLEXITY&apos;) &#125;),</span><br><span class="line">                &apos;method&apos;     : percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;METHOD&apos;) &#125;),</span><br><span class="line">                &apos;class&apos;      : percentage(counters.find &#123; it.&apos;@type&apos;.equals(&apos;CLASS&apos;) &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Use-Custom-Jacoco-Script"><a href="#Use-Custom-Jacoco-Script" class="headerlink" title="Use Custom Jacoco Script"></a>Use Custom Jacoco Script</h4><p>最后需要在<code>build.gradle</code>中引用自定义脚本和依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apply from: &apos;jacoco.gradle&apos;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	...</span><br><span class="line">	testRuntime &apos;org.slf4j:slf4j-api:1.7.21&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在命令行中运行<code>./gradlew build</code>可以生成代码覆盖率报告并检查覆盖率是否通过。<br><img src="/assets/java-code-coverage/jacoco_console.png" alt=""><br><img src="/assets/java-code-coverage/jacoco_report.png" alt=""></p>
+<h3 id="Gradle-Cobertura"><a href="#Gradle-Cobertura" class="headerlink" title="Gradle+Cobertura"></a>Gradle+Cobertura</h3><p>Cobertura是开源的Java代码测试覆盖率检查工具，它主要基于对字节码offline插桩的方式实现，支持提供branch和line覆盖率报告。接下来将讲解如何在Gradle中使用Cobertura，并配置实现对Java代码的测试覆盖率检查。</p>
+<h4 id="Apply-Cobertura-Plugin"><a href="#Apply-Cobertura-Plugin" class="headerlink" title="Apply Cobertura Plugin"></a>Apply Cobertura Plugin</h4><p>首先在<code>build.gradle</code>文件开始处加入构建脚本依赖并引用cobertura插件。一般有两种方式，第一种方式支持在所有版本的Gradle中使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath &quot;net.saliman:gradle-cobertura-plugin:2.3.2&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">apply plugin: &apos;net.saliman.cobertura&apos;</span><br></pre></td></tr></table></figure></p>
+<p>第二种方式如下，直接引用plugins DSL的机制，但只支持在Gradle 2.1及以后的版本使用，但特别注意，该script代码只能放在<code>buildscript</code>之后，其他script代码之前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id &apos;net.saliman.cobertura&apos; version &apos;2.3.2&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后可以在同一脚本<code>build.gradle</code>文件中或另外新增一个名为<a href="/assets/java-code-coverage/cobertura.gradle">cobertura.gradle</a>的脚本，并写入如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cobertura &#123;</span><br><span class="line">    coverageFormats = [&apos;html&apos;, &apos;xml&apos;]</span><br><span class="line">    coverageEncoding = &apos;UTF-8&apos;</span><br><span class="line">    coverageExcludes = [&apos;.*Application.*&apos;]</span><br><span class="line">    coverageIgnoreMethodAnnotations = []</span><br><span class="line">    coverageCheckBranchRate = 90</span><br><span class="line">    coverageCheckLineRate = 90</span><br><span class="line">    coverageCheckPackageBranchRate = 90</span><br><span class="line">    coverageCheckPackageLineRate = 90</span><br><span class="line">    coverageCheckTotalBranchRate = 90</span><br><span class="line">    coverageCheckTotalLineRate = 90</span><br><span class="line">    coverageIgnoreTrivial = true</span><br><span class="line">    coverageCheckHaltOnFailure = true</span><br><span class="line">&#125;</span><br><span class="line">check.dependsOn &apos;coberturaCheck&apos;</span><br></pre></td></tr></table></figure></p>
+<p>最后，简单写一些测试代码，在命令行中运行<code>./gradlew clean build</code>来查看代码覆盖率检查是否配置成功，默认cobertura生成的报告在当前项目的<code>build/reports/cobertura/</code>下，可以查看<code>index.html</code>。<br><img src="/assets/java-code-coverage/cobertura_report.png" alt=""></p>
+<p>另外，如果在项目中使用cobertura作为代码测试覆盖率检查工具，但未使用<a href="http://www.slf4j.org/" target="_blank" rel="external">SLF4J</a>日志库，在运行时会报出关于slf4j的<code>NoClassDefFoundError</code>问题，只需要在<code>build.gradle</code>中添加testRuntime的依赖即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">	testRuntime &apos;org.slf4j:slf4j-api:1.7.21&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Cobertura-Configuration"><a href="#Cobertura-Configuration" class="headerlink" title="Cobertura Configuration"></a>Cobertura Configuration</h4><p>Cobertura的行为是由<code>cobertura</code>块中的设置选项控制的，以下将列举常用的选项并简单解释：</p>
+<ul>
+<li><code>coberturaVersion = &lt;version&gt;</code>: 指定使用哪个版本的Cobertura来Run测试覆盖率报告，默认值为2.1.1。</li>
+<li><code>coverageDirs = [ &lt;dirnames&gt; ]</code>: 指定包含代码覆盖率检查的一个或多个Class目录，默认为[ project.sourceSets.main.classesDir.path ]。</li>
+<li><code>coverageReportDir = &lt;dir&gt;</code>: 代码覆盖率报告生成目录。</li>
+<li><code>coverageFormats = [ &lt;formats&gt; ]</code>: 指定Cobertura生成报告的格式，支持<code>html</code>和<code>xml</code>，默认为html。</li>
+<li><code>coverageEncoding</code>: 生成覆盖率报告时的编码，比如<code>UTF-8</code>，如果未设置将自动跟随操作系统编码。</li>
+<li><code>coverageSourceDirs = &lt;set of directories&gt;</code>: 指定需要进行覆盖率检查以及将include在报告中的源文件，默认为project.sourceSets.main.java.srcDirs, project.sourceSets.main.groovy.srcDirs和project.sourceSets.main.scala.srcDirs。</li>
+<li><code>coverageIncludes = [ &lt;regexes&gt; ]</code>: 指定包含满足正则表达式的类文件，比如<code>coverageIncludes = [&#39;.*net.saliman.someapp.logger.*&#39;]</code>。</li>
+<li><code>coverageExcludes = [ &lt;regexes&gt; ]</code>: 指定不需要进行覆盖检查的类文件，比如<code>coverageExcludes = [&#39;.*net.saliman.someapp.logger.*&#39;]</code>。</li>
+<li><code>coverageIgnores = [ &lt;regexes&gt; ]</code>: 指定在源代码级别忽略的正则表达语句，比如一些用于日志记录的代码。</li>
+<li><code>coverageIgnoreTrivial = &lt;true|false&gt;</code>: 在版本2.0中的新选项，指定是否忽略简单的getters和setters，默认为false。</li>
+<li><code>coverageIgnoreMethodAnnotations = [ &lt;annotations&gt; ]</code>: 在2.0版本中，可以指定忽略的方法级注解。</li>
+<li><code>coverageCheckBranchRate = &lt;percent&gt;</code>: 指定每个Class的分支覆盖率阈值，0~100的整型值，在运行<code>coberturaCheck</code>时有效。</li>
+<li><code>coverageCheckLineRate = &lt;percent&gt;</code>: 指定每个Class的行覆盖率阈值，其余同上。</li>
+<li><code>coverageCheckPackageBranchRate = &lt;percent&gt;</code>: 指定每个Packge的分支覆盖率阈值，其余同上。</li>
+<li><code>coverageCheckPackageLineRate = &lt;percent&gt;</code>: 指定每个Packge的行覆盖率阈值，其余同上。</li>
+<li><code>coverageCheckTotalBranchRate = &lt;percent&gt;</code>: 指定整体分支覆盖率阈值，其余同上。</li>
+<li><code>coverageCheckTotalLineRate = &lt;percent&gt;</code>: 指定整体行覆盖率阈值，其余同上。</li>
+<li><code>coverageCheckRegexes = [ &lt;regexes&gt; ]</code>: 用于更细粒度的控制，可以指定每个独立类的分支和行覆盖率阈值，每个表达式包含三个键值对，比如:<code>coverageCheckRegexes = [ [ regex: &#39;com.example.reallyimportant.*&#39;, branchRate: 80, lineRate: 90 ], [ regex: &#39;com.example.boringcode.*&#39;, branchRate: 40, lineRate: 30 ] ]</code>。</li>
+<li><code>coverageCheckHaltOnFailure = &lt;true|false&gt;</code>: 指定<code>coberturaCheck</code>在不满足最小覆盖率时是否失败的开关，默认为false。</li>
+</ul>
+<h4 id="Cobertura-Tasks"><a href="#Cobertura-Tasks" class="headerlink" title="Cobertura Tasks"></a>Cobertura Tasks</h4><p>Cobertura创建了三个Tasks用于生成和检查覆盖率报告：</p>
+<ul>
+<li><code>coberturaReport</code>: 只用于在测试后生成覆盖率报告，该Task不会触发运行测试，需要Gradle单独处理test，通常用于multi-project中需要合并测试报告的情况。</li>
+<li><code>cobertura</code>: 运行<code>test</code>任务并生成覆盖率报告，包含了<code>coberturaReport</code>任务。</li>
+<li><code>coberturaCheck</code>: 在生成覆盖率报告后进行覆盖率检查，但不会运行test。</li>
+</ul>
+<p>如果需要了解更多，可以参阅<a href="https://github.com/stevesaliman/gradle-cobertura-plugin" target="_blank" rel="external">Gradle Cobertura Plugin</a>。</p>
+<h3 id="Jacoco-vs-Cobertura"><a href="#Jacoco-vs-Cobertura" class="headerlink" title="Jacoco vs Cobertura"></a>Jacoco vs Cobertura</h3><h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><hr>
+<p>References</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank" rel="external">Code coverage Wiki</a></li>
+<li><a href="http://www.tuicool.com/articles/aq6rUz" target="_blank" rel="external">浅谈代码覆盖率</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Java_Code_Coverage_Tools" target="_blank" rel="external">Java Code Coverage Tools</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/jacoco_plugin.html" target="_blank" rel="external">The JaCoCo Plugin</a></li>
+<li><a href="https://github.com/springfox/springfox" target="_blank" rel="external">springfox jacoco</a></li>
+<li><a href="http://scratchpad.pietschy.com/gradle/logging.html" target="_blank" rel="external">Gradle Logging</a></li>
+<li><a href="https://github.com/stevesaliman/gradle-cobertura-plugin" target="_blank" rel="external">gradle-cobertura-plugin</a></li>
+<li><a href="https://plugins.gradle.org/plugin/net.saliman.cobertura" target="_blank" rel="external">net.saliman.cobertura</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/java-code-coverage/">Java Code Coverage in Gradle</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-07-31 19:53</p>
+        <!--<p><span>最后更新:</span>2016-08-04 23:57</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/java-code-coverage/" title="Java Code Coverage in Gradle">http://blog.waterstrong.me/java-code-coverage/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/java-code-coverage/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/travisci-by-step/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Travis CI Step by Step</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Coverage介绍"><span class="toc-number">1.</span> <span class="toc-text">Code Coverage介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是代码覆盖率？"><span class="toc-number">1.1.</span> <span class="toc-text">什么是代码覆盖率？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖率实现及插桩原理"><span class="toc-number">1.2.</span> <span class="toc-text">覆盖率实现及插桩原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#On-The-Fly插桩"><span class="toc-number">1.2.1.</span> <span class="toc-text">On-The-Fly插桩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Offile插桩"><span class="toc-number">1.2.2.</span> <span class="toc-text">Offile插桩</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Java中应用Code-Coverage"><span class="toc-number">2.</span> <span class="toc-text">在Java中应用Code Coverage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-Jacoco"><span class="toc-number">2.1.</span> <span class="toc-text">Gradle+Jacoco</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Apply-Jacoco-Plugin"><span class="toc-number">2.1.1.</span> <span class="toc-text">Apply Jacoco Plugin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-TestCoverage-Class"><span class="toc-number">2.1.2.</span> <span class="toc-text">Create TestCoverage Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-Custom-Jacoco-Script"><span class="toc-number">2.1.3.</span> <span class="toc-text">Use Custom Jacoco Script</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-Cobertura"><span class="toc-number">2.2.</span> <span class="toc-text">Gradle+Cobertura</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Apply-Cobertura-Plugin"><span class="toc-number">2.2.1.</span> <span class="toc-text">Apply Cobertura Plugin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cobertura-Configuration"><span class="toc-number">2.2.2.</span> <span class="toc-text">Cobertura Configuration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cobertura-Tasks"><span class="toc-number">2.2.3.</span> <span class="toc-text">Cobertura Tasks</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jacoco-vs-Cobertura"><span class="toc-number">2.3.</span> <span class="toc-text">Jacoco vs Cobertura</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-End"><span class="toc-number">3.</span> <span class="toc-text">The End</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'waterstrongblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >Site Visited: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">Page Visited: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 0;
+            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+        })
+    </script>
+
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("search").onclick = function(){
+        search();
+      }
+    };
+    function search(){
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
+    }
+  </script>
+
+
+
+
+
+
+
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
+
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        }
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script language="text/javascript">
+        $(function() {
+            $("a[title]").each(function() {
+                var a = $(this);
+                var title = a.attr('title');
+                if (title == undefined || title == "") return;
+                a.data('title', title).removeAttr('title').hover(
+
+                        function() {
+                            var offset = a.offset();
+                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                                top: offset.top - a.outerHeight() - 15,
+                                left: offset.left + a.outerWidth()/2 + 1
+                            }).fadeIn(function() {
+                                var pop = $(this);
+                                setTimeout(function() {
+                                    pop.remove();
+                                }, pop.text().length * 800);
+                            });
+                        }, function() {
+                            $("#anchortitlecontainer").remove();
+                        });
+            });
+        });
+    </script>
+
+
+  </div>
+</body>
+</html>
