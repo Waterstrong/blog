@@ -21,12 +21,29 @@ published: true
 主流代码覆盖率工具都采用字节码插桩模式，通过钩子的方式来记录代码执行轨迹信息。以Java为例，目前常用的工具为Jacoco和Cobertura，其对字节码进行插桩，主要分为on-the-fly和offine两种模式。一般的过程为：首先执行测试用例，收集程序执行轨迹信息，并存入内存中，然后数据处理器结合程序执行轨迹信息和代码结构信息分析生成代码覆盖率报告，最后将代码覆盖率报告以图形化方式展示出来。
 
 #### On-The-Fly插桩
+On-The_Fly也可分为基于Java Agent和Class Loader两种方式。
 
+Java Agent原理如下: 
+1. JVM中通过`-javaagent`参数指定特定的jar文件启动Instrumentation的代理程序
+2. 代理程序在每装载一个class文件前判断是否已经转换修改了该文件，如果没有则需要将探针插入class文件中
+3. 代码覆盖率就可以在JVM执行代码的时候实时获取
 
+Class Loader原理为：自定义Class Loader实现自己的类装载策略，在类加载之前将探针插入class文件中。
 
-#### Offile插桩
+On-The-Fly模式优点在于无需修改源代码，无需提前进行字节码插桩，更加方便的获取代码覆盖率，可以在系统不停机的情况下，实时获取和收集代码覆盖率信息。
 
+#### Offline插桩
 
+在测试之前先对文件进行插桩，生成插过桩的class文件或者jar包，执行插过桩的class文件或者jar包之后，会生成覆盖率信息到文件，最后统一对覆盖率信息进行处理，并生成报告。Offline插桩又分为两种：
+* Replace：替换方式，修改字节码生成新的class文件
+* Inject：注入方式，在原有字节码文件上进行修改
+
+Offine模式优点在于系统启动不需要额外开启代理，但只能在系统停机的情况下才能获取代码覆盖率。Offline模式适用于以下场景：
+- 运行环境不支持Java Agent
+- 部署环境不允许设置JVM参数
+- 字节码需要被转换成其他虚拟机字节码
+- 动态修改字节码过程中和其他Agent冲突
+- 无法自定义用户加载类
 
 ## 在Java中应用Code Coverage
 本博客将主要讲解如何在Java中实现对代码测试覆盖统计和检查，采用Gradle构建工具，以Jacoco和Cobertura覆盖率工具为例，分别给出实现步骤和代码。
@@ -258,19 +275,21 @@ Cobertura创建了三个Tasks用于生成和检查覆盖率报告：
 如果需要了解更多，可以参阅[Gradle Cobertura Plugin](https://github.com/stevesaliman/gradle-cobertura-plugin)。
 
 ### Jacoco vs Cobertura
-
+Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持[SonarQube](http://www.sonarqube.org/)集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。更多对比请参阅[Comparison of code coverage tools](https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools)和[Code Coverage Tools Comparison in Sonar](https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/)。
 
 ## The End
-
+总之，在开发过程中进行测试覆盖率检查在一定程度上能够保证代码的质量，可以作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点，从而尽可能减少代码Defects和Bugs及降低出错风险，提高团队成员的信心，至于使用哪种覆盖率工具需要根据项目代码性质决定，大多数情况下建议选择Jacoco。以上就是对Jacoco和Cobertura的基本概念和实践的介绍，现在就可以自己动手试一下吧。
 
 ----
 References
 
 * [Code coverage Wiki](https://en.wikipedia.org/wiki/Code_coverage)
-* [浅谈代码覆盖率](http://www.tuicool.com/articles/aq6rUz)
 * [Java Code Coverage Tools](https://en.wikipedia.org/wiki/Java_Code_Coverage_Tools)
 * [The JaCoCo Plugin](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
 * [springfox jacoco](https://github.com/springfox/springfox)
 * [Gradle Logging](http://scratchpad.pietschy.com/gradle/logging.html)
 * [gradle-cobertura-plugin](https://github.com/stevesaliman/gradle-cobertura-plugin)
 * [net.saliman.cobertura](https://plugins.gradle.org/plugin/net.saliman.cobertura)
+* [Comparison of code coverage tools](https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools)
+* [浅谈代码覆盖率](http://www.tuicool.com/articles/aq6rUz)
+* [Code Coverage Tools Comparison in Sonar](https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/)
