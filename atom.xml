@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-08-05T16:28:29.000Z</updated>
+  <updated>2016-08-07T03:42:36.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/java-code-coverage/"/>
     <id>http://blog.waterstrong.me/java-code-coverage/</id>
     <published>2016-07-31T11:53:11.000Z</published>
-    <updated>2016-08-05T16:28:29.000Z</updated>
+    <updated>2016-08-07T03:42:36.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Code-Coverage介绍&quot;&gt;&lt;a href=&quot;#Code-Coverage介绍&quot; class=&quot;headerlink&quot; title=&quot;Code Coverage介绍&quot;&gt;&lt;/a&gt;Code Coverage介绍&lt;/h2&gt;&lt;h3 id=&quot;什么是代码覆盖率？&quot;&gt;&lt;a href=&quot;#什么是代码覆盖率？&quot; class=&quot;headerlink&quot; title=&quot;什么是代码覆盖率？&quot;&gt;&lt;/a&gt;什么是代码覆盖率？&lt;/h3&gt;&lt;p&gt;代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。&lt;/p&gt;
 &lt;p&gt;覆盖率主要用于尽可能减少代码Defects和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心，但并不代表代码测试覆盖率越高越好，也不需要实现100%的覆盖率，并且这也很难实现，通常对核心逻辑才会增加测试粒度，根据经验值，覆盖率在85%左右为宜，即增加团队成员信心，也减少不必要的工作量。&lt;/p&gt;
@@ -91,7 +91,8 @@
 &lt;li&gt;&lt;code&gt;coberturaCheck&lt;/code&gt;: 在生成覆盖率报告后进行覆盖率检查，但不会运行test。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果需要了解更多，可以参阅&lt;a href=&quot;https://github.com/stevesaliman/gradle-cobertura-plugin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gradle Cobertura Plugin&lt;/a&gt;。&lt;/p&gt;
-&lt;h3 id=&quot;Jacoco-vs-Cobertura&quot;&gt;&lt;a href=&quot;#Jacoco-vs-Cobertura&quot; class=&quot;headerlink&quot; title=&quot;Jacoco vs Cobertura&quot;&gt;&lt;/a&gt;Jacoco vs Cobertura&lt;/h3&gt;&lt;p&gt;Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持&lt;a href=&quot;http://www.sonarqube.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube&lt;/a&gt;集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。更多对比请参阅&lt;a href=&quot;https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Comparison of code coverage tools&lt;/a&gt;和&lt;a href=&quot;https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Code Coverage Tools Comparison in Sonar&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;Jacoco-vs-Cobertura&quot;&gt;&lt;a href=&quot;#Jacoco-vs-Cobertura&quot; class=&quot;headerlink&quot; title=&quot;Jacoco vs Cobertura&quot;&gt;&lt;/a&gt;Jacoco vs Cobertura&lt;/h3&gt;&lt;p&gt;Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持&lt;a href=&quot;http://www.sonarqube.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube&lt;/a&gt;集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。另外，目前Cobertura2.3版本对Java1.8支持不太好，在使用过程中会遇到ParseException的错误。&lt;/p&gt;
+&lt;p&gt;更多对比请参阅&lt;a href=&quot;https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Comparison of code coverage tools&lt;/a&gt;和&lt;a href=&quot;https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Code Coverage Tools Comparison in Sonar&lt;/a&gt;。&lt;/p&gt;
 &lt;h2 id=&quot;The-End&quot;&gt;&lt;a href=&quot;#The-End&quot; class=&quot;headerlink&quot; title=&quot;The End&quot;&gt;&lt;/a&gt;The End&lt;/h2&gt;&lt;p&gt;总之，在开发过程中进行测试覆盖率检查在一定程度上能够保证代码的质量，可以作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点，从而尽可能减少代码Defects和Bugs及降低出错风险，提高团队成员的信心，至于使用哪种覆盖率工具需要根据项目代码性质决定，大多数情况下建议选择Jacoco。以上就是对Jacoco和Cobertura的基本概念和实践的介绍，现在就可以自己动手试一下吧。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References&lt;/p&gt;

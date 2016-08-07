@@ -4,7 +4,7 @@
   <url>
     <loc>http://blog.waterstrong.me/java-code-coverage/</loc>
     
-    <lastmod>2016-08-05T16:28:29.000Z</lastmod>
+    <lastmod>2016-08-07T03:42:36.000Z</lastmod>
     
   </url>
   
@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mybatis-in-practice/</loc>
+    <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
+    <loc>http://blog.waterstrong.me/mybatis-in-practice/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
@@ -86,7 +86,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
+    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
@@ -135,13 +135,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -150,6 +143,13 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

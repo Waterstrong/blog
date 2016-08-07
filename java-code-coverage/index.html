@@ -14,7 +14,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/jacoco_console.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/jacoco_report.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/java-code-coverage/cobertura_report.png">
-<meta property="og:updated_time" content="2016-08-05T16:28:29.000Z">
+<meta property="og:updated_time" content="2016-08-07T03:42:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Code Coverage in Gradle">
 <meta name="twitter:description" content="代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽可能减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。">
@@ -361,7 +361,8 @@
 <li><code>coberturaCheck</code>: 在生成覆盖率报告后进行覆盖率检查，但不会运行test。</li>
 </ul>
 <p>如果需要了解更多，可以参阅<a href="https://github.com/stevesaliman/gradle-cobertura-plugin" target="_blank" rel="external">Gradle Cobertura Plugin</a>。</p>
-<h3 id="Jacoco-vs-Cobertura"><a href="#Jacoco-vs-Cobertura" class="headerlink" title="Jacoco vs Cobertura"></a>Jacoco vs Cobertura</h3><p>Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持<a href="http://www.sonarqube.org/" target="_blank" rel="external">SonarQube</a>集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。更多对比请参阅<a href="https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools" target="_blank" rel="external">Comparison of code coverage tools</a>和<a href="https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/" target="_blank" rel="external">Code Coverage Tools Comparison in Sonar</a>。</p>
+<h3 id="Jacoco-vs-Cobertura"><a href="#Jacoco-vs-Cobertura" class="headerlink" title="Jacoco vs Cobertura"></a>Jacoco vs Cobertura</h3><p>Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持<a href="http://www.sonarqube.org/" target="_blank" rel="external">SonarQube</a>集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。另外，目前Cobertura2.3版本对Java1.8支持不太好，在使用过程中会遇到ParseException的错误。</p>
+<p>更多对比请参阅<a href="https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools" target="_blank" rel="external">Comparison of code coverage tools</a>和<a href="https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/" target="_blank" rel="external">Code Coverage Tools Comparison in Sonar</a>。</p>
 <h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>总之，在开发过程中进行测试覆盖率检查在一定程度上能够保证代码的质量，可以作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点，从而尽可能减少代码Defects和Bugs及降低出错风险，提高团队成员的信心，至于使用哪种覆盖率工具需要根据项目代码性质决定，大多数情况下建议选择Jacoco。以上就是对Jacoco和Cobertura的基本概念和实践的介绍，现在就可以自己动手试一下吧。</p>
 <hr>
 <p>References</p>
@@ -388,7 +389,7 @@
         <p><span>本文标题:</span><a href="/java-code-coverage/">Java Code Coverage in Gradle</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-07-31 19:53</p>
-        <!--<p><span>最后更新:</span>2016-08-06 00:28</p>-->
+        <!--<p><span>最后更新:</span>2016-08-07 11:42</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/java-code-coverage/" title="Java Code Coverage in Gradle">http://blog.waterstrong.me/java-code-coverage/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/java-code-coverage/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
