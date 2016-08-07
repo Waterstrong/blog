@@ -275,7 +275,9 @@ Cobertura创建了三个Tasks用于生成和检查覆盖率报告：
 如果需要了解更多，可以参阅[Gradle Cobertura Plugin](https://github.com/stevesaliman/gradle-cobertura-plugin)。
 
 ### Jacoco vs Cobertura
-Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持[SonarQube](http://www.sonarqube.org/)集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。更多对比请参阅[Comparison of code coverage tools](https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools)和[Code Coverage Tools Comparison in Sonar](https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/)。
+Jacoco与Cobertura的区别在于插桩的方式，前者是off-line和on-the-fly，而后者只是off-line，Jacoco支持的覆盖率粒度要多于Cobertura(只支持line和branch)，二者都支持[SonarQube](http://www.sonarqube.org/)集成，报告都支持HTML和XML格式，Jacoco性能要略优于Cobertura。另外，目前Cobertura2.3版本对Java1.8支持不太好，在使用过程中会遇到ParseException的错误。
+
+更多对比请参阅[Comparison of code coverage tools](https://confluence.atlassian.com/display/CLOVER/Comparison+of+code+coverage+tools)和[Code Coverage Tools Comparison in Sonar](https://onlysoftware.wordpress.com/2012/12/19/code-coverage-tools-jacoco-cobertura-emma-comparison-in-sonar/)。
 
 ## The End
 总之，在开发过程中进行测试覆盖率检查在一定程度上能够保证代码的质量，可以作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点，从而尽可能减少代码Defects和Bugs及降低出错风险，提高团队成员的信心，至于使用哪种覆盖率工具需要根据项目代码性质决定，大多数情况下建议选择Jacoco。以上就是对Jacoco和Cobertura的基本概念和实践的介绍，现在就可以自己动手试一下吧。
