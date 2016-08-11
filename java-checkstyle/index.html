@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java Checkstyle in Gradle | Watersrong Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Checkstyle in Gradle">
+<meta property="og:url" content="http://blog.waterstrong.me/java-checkstyle/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。">
+<meta property="og:updated_time" content="2016-08-11T15:36:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Checkstyle in Gradle">
+<meta name="twitter:description" content="Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。">
+  
+    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Enjoy this moment!</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <!--<li>菜单</li>-->
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>Motto</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://waterstrong.me">Home</a></li>
+                        
+                            <li><a href="/archives">Archives</a></li>
+                        
+                            <li><a href="/tags">Tag Cloud</a></li>
+                        
+                            <li><a href="/about">About</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                            
+                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                            
+                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                            
+                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                            
+                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                            
+                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                            
+                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                            
+                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 13.33px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 13.33px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/C/" style="font-size: 13.33px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 16.67px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/GitHub/" style="font-size: 10px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 16.67px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 10px;">Spring Boot</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 13.33px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 16.67px;">数据库</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Enjoy this moment!</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://waterstrong.me">Home</a></li>
+                
+                    <li><a href="/archives">Archives</a></li>
+                
+                    <li><a href="/tags">Tag Cloud</a></li>
+                
+                    <li><a href="/about">About</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                    
+                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                    
+                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                    
+                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                    
+                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                    
+                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                    
+                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                    
+                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-java-checkstyle" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/java-checkstyle/" class="article-date">
+      <time datetime="2016-08-11T14:31:37.000Z" itemprop="datePublished">2016-08-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java Checkstyle in Gradle
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Checkstyle/">Checkstyle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。</p>
+<blockquote>
+<p>Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. It automates the process of checking Java code to spare humans of this boring (but important) task. This makes it ideal for projects that want to enforce a coding standard.</p>
+</blockquote>
+<p>通常的检查项目包括Javadoc注释、命名约定、Title标题、Import语句、文件大小、空白、修饰符、代码块、类设计、混合检查等。可以阅读<a href="http://checkstyle.sourceforge.net/checks.html" target="_blank" rel="external">Checkstyle Checks</a>了解更多。</p>
+<p>在Gradle中，实现对Java的编码规范检查，只需要三步即可：</p>
+<ul>
+<li>1) 在<code>build.gradle</code>中引入Checkstyle插件<code>apply plugin: &#39;checkstyle&#39;</code>。</li>
+<li>2) 在项目目录下添加默认的文件夹<code>config/checkstyle</code>，然后新建默认配置文件<a href="/assets/java-checkstyle/checkstyle.xml">checkstyle.xml</a>文件，并配置编码规范检查规则。比如这里给出一个编码规范配置的示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE module PUBLIC &quot;-//Puppy Crawl//DTD Check Configuration 1.3//EN&quot; &quot;http://www.puppycrawl.com/dtds/configuration_1_3.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;module name=&quot;Checker&quot;&gt;</span><br><span class="line">    &lt;module name=&quot;SuppressionFilter&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;file&quot; value=&quot;config/checkstyle/suppressions.xml&quot;/&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Checks that property files contain the same keys. --&gt;</span><br><span class="line">    &lt;module name=&quot;Translation&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- All text file should end with a blank line. --&gt;</span><br><span class="line">    &lt;module name=&quot;NewlineAtEndOfFile&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;lineSeparator&quot; value=&quot;lf&quot; /&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- The maximum number of lines allow in any source file is 200 --&gt;</span><br><span class="line">    &lt;module name=&quot;FileLength&quot; &gt;</span><br><span class="line">        &lt;property name=&quot;max&quot; value=&quot;200&quot;/&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Tab characters are not allowed in source files. --&gt;</span><br><span class="line">    &lt;module name=&quot;FileTabCharacter&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;module name=&quot;RegexpSingleline&quot;&gt;</span><br><span class="line">        &lt;!-- Checks that FIXME is not used in comments.  TODO is preferred.</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;property name=&quot;format&quot; value=&quot;((//.*)|(\*.*))FIXME&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;message&quot; value=&apos;TODO is preferred to FIXME.  e.g. &quot;TODO(johndoe): Refactor when v2 is released.&quot;&apos; /&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;module name=&quot;RegexpSingleline&quot;&gt;</span><br><span class="line">        &lt;!-- Checks that TODOs are named.  (Actually, just that they are followed</span><br><span class="line">             by an open paren.)</span><br><span class="line">        --&gt;</span><br><span class="line">        &lt;property name=&quot;format&quot; value=&quot;((//.*)|(\*.*))TODO[^(]&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;message&quot; value=&apos;All TODOs should be named.  e.g. &quot;TODO(johndoe): Refactor when v2 is released.&quot;&apos; /&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;module name=&quot;TreeWalker&quot;&gt;</span><br><span class="line">        &lt;module name=&quot;FileContentsHolder&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;cacheFile&quot; value=&quot;checkstyle.cache&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;property name=&quot;tabWidth&quot; value=&quot;4&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- only check java files. --&gt;</span><br><span class="line">        &lt;property name=&quot;fileExtensions&quot; value=&quot;java&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Checks for Javadoc comments.                     --&gt;</span><br><span class="line">        &lt;!-- See http://checkstyle.sf.net/config_javadoc.html --&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;JavadocMethod&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;scope&quot; value=&quot;protected&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowMissingJavadoc&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowMissingParamTags&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowMissingReturnTag&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowMissingThrowsTags&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowThrowsTagsForSubclasses&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowUndeclaredRTE&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--</span><br><span class="line">        &lt;module name=&quot;JavadocType&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;scope&quot; value=&quot;protected&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;JavadocStyle&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &lt;!-- Naming Conventions --&gt;</span><br><span class="line">        &lt;module name=&quot;ConstantNameCheck&quot;&gt;</span><br><span class="line">            &lt;!-- Validates non-private, static, final fields against the supplied</span><br><span class="line">            public/package final fields &quot;^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$&quot;. --&gt;</span><br><span class="line">            &lt;metadata name=&quot;altname&quot; value=&quot;ConstantName&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPublic&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToProtected&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPackage&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPrivate&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;format&quot; value=&quot;^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*|FLAG_.*)$&quot;/&gt;</span><br><span class="line">            &lt;message key=&quot;name.invalidPattern&quot;</span><br><span class="line">                     value=&quot;Variable &apos;&apos;&#123;0&#125;&apos;&apos; should be in ALL_CAPS (if it is a constant) or be private (otherwise).&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;StaticVariableNameCheck&quot;&gt;</span><br><span class="line">            &lt;!-- Validates static, non-final fields against the supplied</span><br><span class="line">            expression &quot;^[a-z][a-zA-Z0-9]*_?$&quot;. --&gt;</span><br><span class="line">            &lt;metadata name=&quot;altname&quot; value=&quot;StaticVariableName&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPublic&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToProtected&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPackage&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPrivate&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;format&quot; value=&quot;^[a-z][a-zA-Z0-9]*_?$&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;MemberNameCheck&quot;&gt;</span><br><span class="line">            &lt;!-- Validates non-static members against the supplied expression. --&gt;</span><br><span class="line">            &lt;metadata name=&quot;altname&quot; value=&quot;MemberName&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPublic&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToProtected&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPackage&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;applyToPrivate&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;format&quot; value=&quot;^[a-z][a-zA-Z0-9]*$&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;MethodNameCheck&quot;&gt;</span><br><span class="line">            &lt;!-- Validates identifiers for method names. --&gt;</span><br><span class="line">            &lt;metadata name=&quot;altname&quot; value=&quot;MethodName&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;format&quot; value=&quot;^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;PackageName&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;format&quot; value=&quot;^[a-z]+(\.[a-z][a-z0-9]*)*$&quot; /&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;LocalFinalVariableName&quot;&gt;</span><br><span class="line">            &lt;!-- Validates identifiers for local final variables against the</span><br><span class="line">              expression &quot;^[a-z][a-zA-Z0-9]*$&quot;. --&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;LocalVariableName&quot;&gt;</span><br><span class="line">            &lt;!-- Validates identifiers for local variables against the</span><br><span class="line">              expression &quot;^[a-z][a-zA-Z0-9]*$&quot;. --&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;TypeNameCheck&quot;&gt;</span><br><span class="line">            &lt;!-- Validates static, final fields against the</span><br><span class="line">            expression &quot;^[A-Z][a-zA-Z0-9]*$&quot;. --&gt;</span><br><span class="line">            &lt;metadata name=&quot;altname&quot; value=&quot;TypeName&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Import check --&gt;</span><br><span class="line">        &lt;module name=&quot;AvoidStarImport&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;IllegalImport&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;RedundantImport&quot;&gt;</span><br><span class="line">            &lt;!-- Checks for redundant import statements. --&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;UnusedImports&quot;/&gt;</span><br><span class="line">        &lt;module name=&quot;ImportOrder&quot;&gt;</span><br><span class="line">            &lt;!-- Checks for out of order import statements. --&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;groups&quot; value=&quot;java,javax,org,net,com&quot;/&gt;</span><br><span class="line">            &lt;!-- This ensures that static imports go first. --&gt;</span><br><span class="line">            &lt;property name=&quot;option&quot; value=&quot;top&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;STATIC_IMPORT, IMPORT&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Length check --&gt;</span><br><span class="line">        &lt;module name=&quot;LineLength&quot;&gt;</span><br><span class="line">            &lt;!-- Checks if a line is too long. --&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;$&#123;com.puppycrawl.tools.checkstyle.checks.sizes.LineLength.max&#125;&quot; default=&quot;112&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line"></span><br><span class="line">            &lt;!--</span><br><span class="line">              The default ignore pattern exempts the following elements:</span><br><span class="line">                - import statements</span><br><span class="line">                - long URLs inside comments</span><br><span class="line">            --&gt;</span><br><span class="line"></span><br><span class="line">            &lt;property name=&quot;ignorePattern&quot;</span><br><span class="line">                      value=&quot;$&#123;com.puppycrawl.tools.checkstyle.checks.sizes.LineLength.ignorePattern&#125;&quot;</span><br><span class="line">                      default=&quot;^(package .*;\s*)|(import .*;\s*)|( *\* *https?://.*)$&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;MethodLength&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;20&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;countEmpty&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot; /&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;ParameterNumber&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;5&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;LeftCurly&quot;&gt;</span><br><span class="line">            &lt;!--&lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;--&gt;</span><br><span class="line">            &lt;!--&lt;property name=&quot;option&quot; value=&quot;nl&quot;/&gt;--&gt;</span><br><span class="line">            &lt;!--&lt;property name=&quot;tokens&quot; value=&quot;CLASS_DEF,INTERFACE_DEF, METHOD_DEF&quot;/&gt;--&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;RightCurly&quot;&gt;</span><br><span class="line">            &lt;!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on</span><br><span class="line">            the same line. e.g., the following example is fine:</span><br><span class="line">            &lt;pre&gt;</span><br><span class="line">              if &#123;</span><br><span class="line">                ...</span><br><span class="line">              &#125; else</span><br><span class="line">            &lt;/pre&gt;</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;!-- This next example is not fine:</span><br><span class="line">            &lt;pre&gt;</span><br><span class="line">              if &#123;</span><br><span class="line">                ...</span><br><span class="line">              &#125;</span><br><span class="line">              else</span><br><span class="line">            &lt;/pre&gt;</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;property name=&quot;option&quot; value=&quot;same&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Checks for braces around if and else blocks --&gt;</span><br><span class="line">        &lt;module name=&quot;NeedBraces&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;UpperEll&quot;&gt;</span><br><span class="line">            &lt;!-- Checks that long constants are defined with an upper ell.--&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &lt;!-- Whites Space check --&gt;</span><br><span class="line">        &lt;module name=&quot;EmptyForInitializerPad&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;NoWhitespaceAfter&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;BNOT, DEC, DOT, INC, LNOT,UNARY_MINUS, UNARY_PLUS&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;allowLineBreaks&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;warning&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;FallThrough&quot;&gt;</span><br><span class="line">            &lt;!-- Warn about falling through to the next case statement.  Similar to</span><br><span class="line">            javac -Xlint:fallthrough, but the check is suppressed if a single-line comment</span><br><span class="line">            on the last non-blank line preceding the fallen-into case contains &apos;fall through&apos; (or</span><br><span class="line">            some other variants which we don&apos;t publicized to promote consistency).</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;property name=&quot;reliefPattern&quot;</span><br><span class="line">                      value=&quot;fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;severity&quot; value=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &lt;!-- Line Wrap --&gt;</span><br><span class="line">        &lt;module name=&quot;OperatorWrap&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;option&quot; value=&quot;eol&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot;</span><br><span class="line">                      value=&quot;BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, QUESTION, SL, SR, STAR&quot; /&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;OperatorWrap&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;option&quot; value=&quot;nl&quot;/&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;COLON&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;ParenPad&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;TypecastParenPad&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;WhitespaceAfter&quot;&gt;</span><br><span class="line">            &lt;!-- Checks that commas, semicolons and typecasts are followed by</span><br><span class="line">                 whitespace.</span><br><span class="line">            --&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot; value=&quot;COMMA, SEMI, TYPECAST&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;WhitespaceAround&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;tokens&quot;</span><br><span class="line">                      value=&quot;ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO,  LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;ModifierOrder&quot;&gt;</span><br><span class="line">            &lt;!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and</span><br><span class="line">                 8.4.3.  The prescribed order is:</span><br><span class="line">                 public, protected, private, abstract, static, final, transient, volatile,</span><br><span class="line">                 synchronized, native, strictfp</span><br><span class="line">              --&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;RedundantModifier&quot;/&gt;</span><br><span class="line">        &lt;module name=&quot;EmptyBlock&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;NeedBraces&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;RightCurly&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;AvoidNestedBlocks&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;module name=&quot;CovariantEquals&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;EmptyStatement&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;EqualsHashCode&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;IllegalInstantiation&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;classes&quot; value=&quot;java.lang.Boolean&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;InnerAssignment&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;MissingSwitchDefault&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;RedundantThrows&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;SimplifyBooleanReturn&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;StringLiteralEquality&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;NestedIfDepth&quot; &gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;1&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;NestedTryDepth&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;1&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;SuperClone&quot;/&gt;</span><br><span class="line">        &lt;module name=&quot;SuperFinalize&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;PackageDeclaration&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;JUnitTestCase&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;ReturnCount&quot; &gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;2&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;IllegalType&quot;/&gt;</span><br><span class="line">        &lt;module name=&quot;DeclarationOrder&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;ParameterAssignment&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;VisibilityModifier&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;protectedAllowed&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;FinalClass&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;InterfaceIsType&quot; &gt;</span><br><span class="line">            &lt;property name=&quot;allowMarkerInterfaces&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;!--&lt;module name=&quot;HideUtilityClassConstructor&quot; /&gt;--&gt;</span><br><span class="line">        &lt;module name=&quot;MutableException&quot; /&gt;</span><br><span class="line">        &lt;module name=&quot;ThrowsCount&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;CyclomaticComplexity&quot;&gt;</span><br><span class="line">            &lt;property name=&quot;max&quot; value=&quot;7&quot;/&gt;</span><br><span class="line">        &lt;/module&gt;</span><br><span class="line">        &lt;module name=&quot;UpperEll&quot;/&gt;</span><br><span class="line">        &lt;module name=&quot;ArrayTypeStyle&quot; /&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">    &lt;module name=&quot;SuppressionCommentFilter&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;offCommentFormat&quot; value=&quot;CHECKSTYLE\:OFF ([\w\|]+)&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;onCommentFormat&quot; value=&quot;CHECKSTYLE\:ON ([\w\|]+)&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;checkFormat&quot; value=&quot;$1&quot; /&gt;</span><br><span class="line">    &lt;/module&gt;</span><br><span class="line"></span><br><span class="line">&lt;/module&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当然，除了使用默认文件名外，也可以在<code>build.gradle</code>中自定义规范检查的配置文件，并且可以针对Main和Test类代码的编码规范分别配置，因为通常对Test类代码的编码规范检查并没有那么严格。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">todo</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>3) 在同一目录下新建默认忽略检查规范的文件<a href="/assets/java-checkstyle/suppressions.xml">suppressions.xml</a>，可以配置忽略对某个文件的某个规则的检查。比如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE suppressions PUBLIC</span><br><span class="line">        &quot;-//Puppy Crawl//DTD Suppressions 1.1//EN&quot;</span><br><span class="line">        &quot;http://www.puppycrawl.com/dtds/suppressions_1_1.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;suppressions&gt;</span><br><span class="line">    &lt;suppress files=&quot;SimpleCORSFilter&quot; checks=&quot;RedundantThrows&quot; /&gt;</span><br><span class="line">&lt;/suppressions&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>该<code>suppressions.xml</code>需要在<code>checkstyle.xml</code>文件或<code>build.gradle</code>中配置，默认执行check会触发编码规范检查<code>checkstyleMain</code>和<code>checkstyleTest</code>。</p>
+<p>OK，配置完成后可以放心写代码了，再也不用担心团队成员编码规范不统一的问题了，Enjoy~</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="http://checkstyle.sourceforge.net/" target="_blank" rel="external">Sourceforge Checkstyle</a></li>
+<li><a href="http://checkstyle.sourceforge.net/reports/google-java-style.html" target="_blank" rel="external">Google Java Style</a></li>
+<li><a href="https://docs.gradle.org/current/userguide/checkstyle_plugin.html" target="_blank" rel="external">The Checkstyle Plugin</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/java-checkstyle/">Java Checkstyle in Gradle</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-08-11 22:31</p>
+        <!--<p><span>最后更新:</span>2016-08-11 23:36</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/java-checkstyle/" title="Java Checkstyle in Gradle">http://blog.waterstrong.me/java-checkstyle/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/java-checkstyle/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/sonarqube-in-practice/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">代码质量管理神器SonarQube</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'waterstrongblog'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Waterstrong
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >Site Visited: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">Page Visited: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="/js/require-jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 0;
+            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
+        })
+    </script>
+
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+  <script type="text/javascript">
+    window.onload = function(){
+      document.getElementById("search").onclick = function(){
+        search();
+      }
+    };
+    function search(){
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
+    }
+  </script>
+
+
+
+
+
+
+
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
+
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        }
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script language="text/javascript">
+        $(function() {
+            $("a[title]").each(function() {
+                var a = $(this);
+                var title = a.attr('title');
+                if (title == undefined || title == "") return;
+                a.data('title', title).removeAttr('title').hover(
+
+                        function() {
+                            var offset = a.offset();
+                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                                top: offset.top - a.outerHeight() - 15,
+                                left: offset.left + a.outerWidth()/2 + 1
+                            }).fadeIn(function() {
+                                var pop = $(this);
+                                setTimeout(function() {
+                                    pop.remove();
+                                }, pop.text().length * 800);
+                            });
+                        }, function() {
+                            $("#anchortitlecontainer").remove();
+                        });
+            });
+        });
+    </script>
+
+
+  </div>
+</body>
+</html>
