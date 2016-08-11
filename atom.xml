@@ -65,32 +65,6 @@
   </entry>
   
   <entry>
-    <title>代码质量管理神器SonarQube</title>
-    <link href="http://blog.waterstrong.me/sonarqube-in-practice/"/>
-    <id>http://blog.waterstrong.me/sonarqube-in-practice/</id>
-    <published>2016-08-10T14:23:48.000Z</published>
-    <updated>2016-08-11T15:39:29.000Z</updated>
-    
-    <content type="html">&lt;hr&gt;
-&lt;p&gt;References&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      SonarQube是一个开源的代码质量管理平台。
-    
-    </summary>
-    
-      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
-    
-    
-      <category term="Code Quality" scheme="http://blog.waterstrong.me/tags/Code-Quality/"/>
-    
-      <category term="Sonar Qube" scheme="http://blog.waterstrong.me/tags/Sonar-Qube/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Java Code Coverage in Gradle</title>
     <link href="http://blog.waterstrong.me/java-code-coverage/"/>
     <id>http://blog.waterstrong.me/java-code-coverage/</id>
@@ -860,6 +834,110 @@
       <category term="TravisCI" scheme="http://blog.waterstrong.me/tags/TravisCI/"/>
     
       <category term="GoCD" scheme="http://blog.waterstrong.me/tags/GoCD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS EC2搭建VPN服务器</title>
+    <link href="http://blog.waterstrong.me/aws-ec2-vpn/"/>
+    <id>http://blog.waterstrong.me/aws-ec2-vpn/</id>
+    <published>2016-04-13T15:30:52.000Z</published>
+    <updated>2016-06-11T13:29:32.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;基本介绍&quot;&gt;&lt;a href=&quot;#基本介绍&quot; class=&quot;headerlink&quot; title=&quot;基本介绍&quot;&gt;&lt;/a&gt;基本介绍&lt;/h3&gt;&lt;p&gt;主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。&lt;/p&gt;
+&lt;p&gt;而且自己搭建VPN有诸多好处:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;暂时免费，只要不超出AWS免费流量和时间限制;&lt;/li&gt;
+&lt;li&gt;速度有保障，可以选择最快地区的AWS EC2进行搭建;&lt;/li&gt;
+&lt;li&gt;自己的帐号自己管理，流量也自己控制，安全有保障。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;AWS EC2已经在另一篇Blog中有相关介绍，有兴趣可以参见&lt;a href=&quot;/aws-ec2-basic&quot;&gt;AWS EC2入门篇&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;VPN: Virtual Private Network, 虚拟专用网络，是一种远程访问技术，主要功能是在公用网络上建立专用网络，进行加密通讯，支持跨平台。&lt;br&gt;PPTP: Point to Point Tunneling Protocol, 点对点隧道协议，是PPP协议的基础上的增强型安全协议，支持多协议VPN，默认端口号1723。利于PPTP可以快速搭建自己的VPN，并且在很多的移动设备上也支持PPTP，同时PPTP速度也较快，资源消耗也小。&lt;/p&gt;
+&lt;p&gt;简单介绍了之后，可以尝试以下步骤在服务器上搭建一个VPN服务。&lt;/p&gt;
+&lt;h3 id=&quot;Step1-安装PPTP&quot;&gt;&lt;a href=&quot;#Step1-安装PPTP&quot; class=&quot;headerlink&quot; title=&quot;Step1 - 安装PPTP&quot;&gt;&lt;/a&gt;Step1 - 安装PPTP&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;On Ubuntu 14.04 x64:&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo su  # 登录服务器后切换到超级管理员&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get update -y  # 更新源&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;On CentOS or Red Hat Linux 6.x x64:&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo su  # 登录服务器后切换到超级管理员&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum update -y  # 更新源&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;如果找不到源，返回&lt;code&gt;No package pptpd available&lt;/code&gt;，如Amazon AMI Linux，可以采用以下方法解决: &lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;方法一: 下载rpm包直接安装（推荐）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 针对EL6.x版本:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -c http://poptop.sourceforge.net/yum/stable/packages/pptpd-1.4.0-1.el6.x86_64.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 针对EL7.x版本:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -c http://dl.fedoraproject.org/pub/epel/7/x86_64/p/pptpd-1.4.0-2.el7.x86_64.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh pptpd-1.4.0-1.el6.x86_64.rpm  # 安装显示安装进度--install--verbose--hash&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;方法二: 需要添加新的源&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum repolist  # 查看yum源列表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 只针对EL7版本:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum localinstall http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm -y&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum makecache  # 将服务器上的软件包信息下载到本地缓存, 以提高搜索和安装软件的速度&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum repolist  # 可以再次查看新加入的列表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install pptpd -y  # 再次执行安装pptpd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 可用 yum-config-manager --disable &amp;lt;repoid&amp;gt; 删除源&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Step2-配置PPTP&quot;&gt;&lt;a href=&quot;#Step2-配置PPTP&quot; class=&quot;headerlink&quot; title=&quot;Step2 - 配置PPTP&quot;&gt;&lt;/a&gt;Step2 - 配置PPTP&lt;/h3&gt;&lt;p&gt;编辑&lt;code&gt;/etc/pptpd.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/pptpd.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;搜索&lt;code&gt;localip&lt;/code&gt;并去掉以下字段前的注释符&lt;code&gt;#&lt;/code&gt;，保存并退出&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;localip 192.168.0.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remoteip 192.168.0.234-238,192.168.0.245&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;localip&lt;/code&gt;表示VPN服务器使用的地址，而&lt;code&gt;remoteip&lt;/code&gt;表示分配给VPN客户端的地址范围，当然也可以自定义设置范围。&lt;/p&gt;
+&lt;h3 id=&quot;Step3-添加DNS解析&quot;&gt;&lt;a href=&quot;#Step3-添加DNS解析&quot; class=&quot;headerlink&quot; title=&quot;Step3 - 添加DNS解析&quot;&gt;&lt;/a&gt;Step3 - 添加DNS解析&lt;/h3&gt;&lt;p&gt;针对&lt;code&gt;Ubuntu&lt;/code&gt;系统，编辑&lt;code&gt;/etc/ppp/pptpd-options&lt;/code&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/ppp/pptpd-options&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;针对&lt;code&gt;CentOS/RedHat&lt;/code&gt;，编辑&lt;code&gt;/etc/ppp/options.pptpd&lt;/code&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/ppp/options.pptpd&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在文件中搜索&lt;code&gt;ms-dns&lt;/code&gt;，去掉以下字段前的注释符&lt;code&gt;#&lt;/code&gt;，并修改为以下值后保存退出&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ms-dns 8.8.8.8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ms-dns 8.8.4.4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上两条配置指定了使用Google Public DNS服务器。&lt;/p&gt;
+&lt;h3 id=&quot;Step4-添加VPN用户&quot;&gt;&lt;a href=&quot;#Step4-添加VPN用户&quot; class=&quot;headerlink&quot; title=&quot;Step4 - 添加VPN用户&quot;&gt;&lt;/a&gt;Step4 - 添加VPN用户&lt;/h3&gt;&lt;p&gt;编辑&lt;code&gt;/etc/ppp/chap-secrets&lt;/code&gt;，添加用户名和密码条目，格式为&lt;code&gt;[username] [service] [password] [ip]&lt;/code&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# client	server  	secret		IP addresses&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vpnuser01	pptpd   	123456		*&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其中，用户名和密码可自行设置，服务名应为&lt;code&gt;pptpd&lt;/code&gt;，IP表明允许登录的ip列表，如果允许所有ip可以设置为&lt;code&gt;*&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;Step5-开启IPv4转发&quot;&gt;&lt;a href=&quot;#Step5-开启IPv4转发&quot; class=&quot;headerlink&quot; title=&quot;Step5 - 开启IPv4转发&quot;&gt;&lt;/a&gt;Step5 - 开启IPv4转发&lt;/h3&gt;&lt;p&gt;为了支持IP数据包的转发，需要开启IPv4转发功能。&lt;br&gt;编辑&lt;code&gt;/etc/sysctl.conf&lt;/code&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/sysctl.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;搜索并找到以下字段，去掉注释并修改为以下值：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;net.ipv4.ip_forward = 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;= 1&lt;/code&gt;表明开启了服务器内核支持IP数据包转发功能，允许通过PPTP协议在公有IP和私有IPs之间进行数据包转发。&lt;/p&gt;
+&lt;p&gt;使得修改生效，需要执行：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sysctl -p&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Step6-创建NAT规则&quot;&gt;&lt;a href=&quot;#Step6-创建NAT规则&quot; class=&quot;headerlink&quot; title=&quot;Step6 - 创建NAT规则&quot;&gt;&lt;/a&gt;Step6 - 创建NAT规则&lt;/h3&gt;&lt;p&gt;创建网络地址转换，添加防火墙规则到iptables中，在终端执行以下命令&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  # 将所有目标IP包转向eth0接口&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service iptables save  # 添加规则后重启会失效，所以需要保存，若不支持，可添加到rc.local文件中开机自动设置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 也可使用命令 iptables-save&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service iptables restart  # 重启iptables，貌似针对Ubuntu无效(忽略)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;pptpd默认监听1723端口，可以通过以下命令查看：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;netstat -nap | grep pptpd&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;(可选)如果端口没有开启则开启相关端口:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p tcp –dport 1723 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p tcp –dport 47 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p UDP --dport 53 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p gre -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service iptables save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Step7-启动PPTP服务&quot;&gt;&lt;a href=&quot;#Step7-启动PPTP服务&quot; class=&quot;headerlink&quot; title=&quot;Step7 - 启动PPTP服务&quot;&gt;&lt;/a&gt;Step7 - 启动PPTP服务&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig pptpd on  # 设置开机启动VPN服务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service pptpd restart  # 重启VPN服务, 当然可以用stop/start来停止/启动服务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service pptpd status  # 查看VPN服务当前运行状态&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到服务已经启动:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/linux_pptpd_started.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;针对Ubuntu，即使运行start命令，但查看status还是显示&lt;code&gt;pptpd is not running&lt;/code&gt;，可以编辑&lt;code&gt;/etc/init.d/pptpd&lt;/code&gt;文件，搜索&lt;code&gt;status&lt;/code&gt;找到该行&lt;code&gt;status_of_proc &amp;quot;$PIDFILE&amp;quot; &amp;quot;$DAEMON&amp;quot; &amp;quot;$NAME&amp;quot; &amp;amp;&amp;amp; exit 0 || exit $?&lt;/code&gt;，并添加&lt;code&gt;-p&lt;/code&gt;参数：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;status_of_proc -p &amp;quot;$PIDFILE&amp;quot; &amp;quot;$DAEMON&amp;quot; &amp;quot;$NAME&amp;quot; &amp;amp;&amp;amp; exit 0 || exit $?&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;针对VPN日志，在CentOS中，VPN服务器默认会写日志到&lt;code&gt;/var/log/messages&lt;/code&gt;中; 在Ubuntu中，VPN服务器默认会写日志到&lt;code&gt;/var/log/syslog&lt;/code&gt;中。&lt;/p&gt;
+&lt;p&gt;以上步骤完成配置正确后，可以利用自己的终端设备连接到VPN上网了。&lt;/p&gt;
+&lt;h3 id=&quot;Step8-使用VPN服务&quot;&gt;&lt;a href=&quot;#Step8-使用VPN服务&quot; class=&quot;headerlink&quot; title=&quot;Step8 - 使用VPN服务&quot;&gt;&lt;/a&gt;Step8 - 使用VPN服务&lt;/h3&gt;&lt;h4 id=&quot;在Mac-OS-X上配置VPN&quot;&gt;&lt;a href=&quot;#在Mac-OS-X上配置VPN&quot; class=&quot;headerlink&quot; title=&quot;在Mac OS X上配置VPN&quot;&gt;&lt;/a&gt;在Mac OS X上配置VPN&lt;/h4&gt;&lt;p&gt;System Preferences(系统设置) -&amp;gt; Network(网络):&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/mac_system_network.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;选择左下角的&lt;code&gt;+&lt;/code&gt;号添加VPN，选择PPTP类型，点击create创建:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/mac_new_vpn.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Advanced(高级) -&amp;gt; Options(选项) -&amp;gt; 勾选Session Options中的所有项 -&amp;gt; OK保存:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/mac_vpn_options.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;填写VPN相关服务器地址、用户名、密码等信息 -&amp;gt; 点击Apply应用所有修改 -&amp;gt; 点击connect连接VPN服务:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/mac_vpn_connected.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;其中Server Address绑定了子域名&lt;code&gt;aws.vpn.xxx&lt;/code&gt;，在需要更改服务主机时只需要重定位DNS即可，Client终端配置不需要更改，当然要做负载时也很方便，同时也利用记忆。&lt;/p&gt;
+&lt;h4 id=&quot;在iPhone-6s上配置VPN&quot;&gt;&lt;a href=&quot;#在iPhone-6s上配置VPN&quot; class=&quot;headerlink&quot; title=&quot;在iPhone 6s上配置VPN&quot;&gt;&lt;/a&gt;在iPhone 6s上配置VPN&lt;/h4&gt;&lt;p&gt;首先进入Settings设置，选择VPN项（也可以借助第三方软件，如AnyConnect）:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_vpn_setting.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;选择PPTP类型，填写服务器地址、用户名、密码等，然后保存:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_new_vpn.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;点击connect连接VPN服务:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_vpn_connected.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;进入已连接的VPN查看分配的IP，连接时间等详细信息，当然也可以删除VPN:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_vpn_detail.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;测试访问Google，在手机浏览器输入&lt;code&gt;www.google.com&lt;/code&gt;，使用4G数据流量，连接正常，速度没有明显差异:&lt;br&gt;&lt;img src=&quot;/assets/aws-ec2-vpn/6s_test_vpn.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。
+    
+    </summary>
+    
+      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
+    
+    
+      <category term="Linux" scheme="http://blog.waterstrong.me/tags/Linux/"/>
+    
+      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="AWS EC2" scheme="http://blog.waterstrong.me/tags/AWS-EC2/"/>
+    
+      <category term="VPN" scheme="http://blog.waterstrong.me/tags/VPN/"/>
+    
+      <category term="PPTP" scheme="http://blog.waterstrong.me/tags/PPTP/"/>
+    
+      <category term="CentOS" scheme="http://blog.waterstrong.me/tags/CentOS/"/>
+    
+      <category term="RedHat" scheme="http://blog.waterstrong.me/tags/RedHat/"/>
+    
+      <category term="Ubuntu" scheme="http://blog.waterstrong.me/tags/Ubuntu/"/>
     
   </entry>
   

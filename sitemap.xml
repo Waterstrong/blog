@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.waterstrong.me/sonarqube-in-practice/</loc>
-    
-    <lastmod>2016-08-11T15:39:29.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/java-checkstyle/</loc>
     
     <lastmod>2016-08-11T15:36:34.000Z</lastmod>
@@ -128,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -142,7 +135,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
+    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
