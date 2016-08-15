@@ -37,16 +37,16 @@ git help <concept>  # 查看某个概念引导，比如git help tutorial
 #### Configuration
 因为Git是分布式的，需要在本地配置Git用户名和邮箱作为一个标识。
 ```
-git config --global user.name "your_name"
+git config --global user.name "your_name"  # 若无参数，则表示查看当前配置
 git config --global user.email "your_email"
 ```
 
 加上`--global`参数表明所有Project都使用这一配置，如果需要针对某个单独Project进行设置，可以在指定的Project中输入上述命令，但不需要`--global`参数。
 
 #### Repository
-现在可以在本地创建一个Git仓库并进行版本管理，一般会常用到以下这些命令：
+现在可以在本地创建一个Git仓库并进行版本管理，最最基础的常用命令如下：
 ```
-git init  # 初始化一个版本库，会生成.git文件夹
+git init  # 初始化一个版本库，会生成.git文件夹，可以添加.gitignore文件来标识需要忽略的项
 
 git status  # 查看状态，该命令会非常频繁地用到，建议每一步都check一下状态，确保操作都正确了
 
@@ -64,57 +64,20 @@ git push origin master  # 将代码Push到远端仓库的master
 可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外推荐一篇[手把手教你用Git](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)。
 
 ## Git进阶
+除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，接下来会分别介绍一些常用的命令及其常用参数。
 
-#### 分支 branch
-
-#### 日志 log/reflog
+#### 远程 remote
+在初始化新项目可能需要添加远程库链接或现在项目的远程库链接时，[Remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`set-url`还是会常用到的。
 ```
-git log -5  # 查看最近5条历史提交记录
-git log --pretty=oneline  # 以单行的格式显示提交记录
+git remote -v  # --verbose 查看当前已添加的远程库地址
+git remote show  # 查看已添加了哪些远程库源
+git remote show origin  # 查看指定远程库源origin的详细信息
 
-git reflog  # 查看所有操作记录，该命令非常有用，可以在用于任何操作步骤Hash
-
-显示Network的命令
-```
-
-#### 还原 revert
-
-#### 重置 reset
-```
-git reset --hard HEAD^ 
+git remote add origin https://github.com/xxx/demo.git  # 添加origin并指定其远程库地址，通常默认为origin
+git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HTTPS或SSH，取决于你的权限
 ```
 
-#### 切出 checkout
-```
-git checkout -- <target>
-```
-
-#### 对比 diff
-```
-git diff HEAD  # 对比修改前后内容，也可以指定特定文件
-git diff --staged  # 对比已经加入暂存区的文件
-```
-
-#### 移除 rm
-```
-git rm --cache
-```
-
-#### 暂存 stash
-```
-git stash  # 把当前的工作隐藏起来 等以后恢复现场后继续工作
-git stash list  # 查看所有被隐藏的文件列表
-git stash apply  # 恢复被隐藏的文件，但是内容不删除
-git stash drop  # 删除文件
-git stash pop  # 恢复文件的同时 也删除文件
-```
-
-#### 远程库 remote
-```
-git remote -v
-git remote add origin xxx
-git remote set-url origin xxx
-```
+当然还有更多的用法和参数，但以上命令足够应对平时使用了，更多特殊场景用途的介绍会放在后续章节讲解。
 
 #### 拉取 pull
 ```
@@ -127,14 +90,97 @@ git branch --set-upstream-to=origin/<branch> master
 git push -u origin master
 
 git push --set-upstream origin master
+git push --set-upstream origin newtest
 ```
 
-#### rebase
+#### 对比 diff
+```
+git diff HEAD  # 对比修改前后内容，也可以指定特定文件
+git diff --staged  # 对比已经加入暂存区的文件
+```
+
+#### 分支 branch
+通常需要查看、创建、修改或删除一个分支[Branch](https://git-scm.com/docs/git-branch)时需要用到，假设示例中使用的分支名为`feature/card1`。
+```
+git branch -a  # --all 列出所有分支
+git branch --list <pattern>  # 列出符合条件的分支
+git branch -r  # --remotes 列出远程分支
+git branch -vv  # 查看分支情况，显示sha1, commit和upstream分支信息
+
+git branch feature/card1  # 创建一个新分支
+git checkout feature/card1  # 切换到该分支
+git checkout -b feature/card1  # 创建并切换到该分支
+
+git branch -m feature/renamed  # --move 修改所在分支的名字
+git branch -M feature/renamed  # --move --force 强制修改所在分支的名字
+
+git branch -d feature/card1  # --delete 删除本地分支，不能删除当前所在分支
+git branch -D feature/card1  # --delete --force 强制删除本地分支，不能删除当前所在分支
+git branch -dr origin/feature/card1  # --delete --remotes 删除远程仓库分支Tracking
+git push origin :feature/card1  # 把空分支push到远端，相当于删除远程仓库分支
+```
+
+#### 检出 checkout
+checkout
+[Checkout](https://git-scm.com/docs/git-checkout)
+```
+git checkout -- <target>
+```
 
 #### 合并 merge
 
 
+#### 暂存 stash
+```
+git stash  # 把当前的工作隐藏起来 等以后恢复现场后继续工作
+git stash list  # 查看所有被隐藏的文件列表
+git stash apply  # 恢复被隐藏的文件，但是内容不删除
+git stash drop  # 删除文件
+git stash pop  # 恢复文件的同时 也删除文件
+```
+
+#### 移除 rm
+```
+git rm --cache
+```
+
+#### 提交记录 log
+```
+git log -5  # 查看最近5条历史提交记录
+git log --pretty=oneline  # 以单行的格式显示提交记录
+
+显示Network的命令
+```
+
+#### 操作记录 reflog
+```
+git reflog  # 查看所有操作记录，该命令非常有用，可以在用于任何操作步骤Hash
+```
+
+#### 还原 revert
+```
+git revert
+```
+
+#### 重置 reset
+```
+git reset --hard HEAD^
+```
+
+
+[Bitbucket](https://bitbucket.org/)
+[GitHub](http://github.com/)
+
 ## Git高阶
+
+git remote show origin
+
+git remote 同时指定多个源
+
+git branch --unset-upstream
+
+#### rebase
+
 ```
 git commit --amend -m "xxx"
 
@@ -158,6 +204,10 @@ git push --delete origin tagname
 Generate a new SSH key:
 ssh keygen -t rsa -b 4096 "your_email example com"
 ```
+
+#### 数据恢复
+https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D#_data_recovery
+#### 移除对象
 
 #### 权限
 ```
