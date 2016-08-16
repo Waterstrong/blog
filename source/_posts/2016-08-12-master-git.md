@@ -20,7 +20,7 @@ Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux
 
 更多细节和原理介绍可以阅读[Git官网介绍](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)，这里就不再赘述。
 
-## Git初阶
+## Git准备
 首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门的步骤：
 #### Installation
 请根据操作系统下载并安装Git，请参见[Git Downloads](https://git-scm.com/downloads)。
@@ -60,10 +60,7 @@ git pull origin master  # 从远端仓库拉取master代码，需要设置origin
 git push origin master  # 将代码Push到远端仓库的master
 ```
 
-
-可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外推荐一篇[手把手教你用Git](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)。
-
-## Git进阶
+## Git初阶
 除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，接下来会分别介绍一些常用的命令及其常用参数。
 
 #### 远程 remote
@@ -80,17 +77,20 @@ git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HT
 当然还有更多的用法和参数，但以上命令足够应对平时使用了，更多特殊场景用途的介绍会放在后续章节讲解。
 
 #### 拉取 pull
+在平常的Git使用过程中，[Pull](https://git-scm.com/docs/git-pull)命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：[Fetch](https://git-scm.com/docs/git-fetch)和[Merge](https://git-scm.com/docs/git-merge)。
 ```
-git pull -r
-git branch --set-upstream-to=origin/<branch> master
+git pull origin
+git pull -r  # --rebase 把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接
 ```
 
 #### 推送 push
+另一个常用的命令就是[Push](https://git-scm.com/docs/git-push)，用于把本地的提交推送到远端仓库。
 ```
-git push -u origin master
+git push -u origin master  # 首次Push时需要加-u参数
 
-git push --set-upstream origin master
-git push --set-upstream origin newtest
+git push --set-upstream origin master  # 建立upstream与当前分支master的关联关系
+
+git push  # 建立关联关系后默认会推送到对应分支
 ```
 
 #### 对比 diff
@@ -118,6 +118,12 @@ git branch -d feature/card1  # --delete 删除本地分支，不能删除当前�
 git branch -D feature/card1  # --delete --force 强制删除本地分支，不能删除当前所在分支
 git branch -dr origin/feature/card1  # --delete --remotes 删除远程仓库分支Tracking
 git push origin :feature/card1  # 把空分支push到远端，相当于删除远程仓库分支
+
+git branch --set-upstream-to=origin/<branch> master  # 把远程分支和本地分支关联起来
+git branch --unset-upstream [<branchname>]  # 移除关联的上游分支，默认针对当前分支
+
+git branch --merged  # 列出已经合并到当前分支的所有分支
+git branch --no-merged  # 列出未合并到当前分支的所有分支
 ```
 
 #### 检出 checkout
@@ -167,11 +173,12 @@ git revert
 git reset --hard HEAD^
 ```
 
+可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[手把手教你用Git](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。
 
 [Bitbucket](https://bitbucket.org/)
 [GitHub](http://github.com/)
 
-## Git高阶
+## Git进阶
 
 git remote show origin
 
