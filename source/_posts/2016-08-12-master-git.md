@@ -142,21 +142,36 @@ git checkout -- <target>  # 针对unstaged的文件丢弃其修改
 
 ```
 
-#### 合并 merge
-
-
-#### 暂存 stash
+#### git merge
+通常需要在分支间进行分支合并操作，需要用到[git merge](https://git-scm.com/docs/git-merge)命令，比如把`topic`分支merge到`master`上。
 ```
-git stash  # 把当前的工作隐藏起来 等以后恢复现场后继续工作
-git stash list  # 查看所有被隐藏的文件列表
-git stash apply  # 恢复被隐藏的文件，但是内容不删除
-git stash drop  # 删除文件
-git stash pop  # 恢复文件的同时 也删除文件
+git merge topic  # 合并topic分支到当前所在分支
 ```
 
-#### 移除 rm
+当然，也可以指定一些其他参数或是合并策略等，用法非常灵活。在merge时通常会遇到合并冲突问题，如果遇到需要解决冲突，然后运行添加命令`git add -u`，最后根据提示运行`git rebase --continue`即可，**切记勿再commit**。
+
+#### git stash
+暂存命令[git stash](https://git-scm.com/docs/git-stash)用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。`stash@{0}`指最近一次暂存记录，`stash@{1}`指上上次的暂存记录，类似于压栈的操作。
 ```
-git rm --cache
+git stash  # 把当前的工作暂存起来 等以后恢复现场后继续工作
+
+git stash list  # 查看所有被暂存的文件记录列表
+git stash show -p stash@{0}  # 查看最近一次的暂存的内容
+
+git stash apply  # 恢复最近一次被暂存的文件，但不删除该暂存记录与内容
+git stash apply stash@{1}  # 指定恢复指定的暂存记录
+git stash pop  # 恢复被暂存的文件同时，也删除该暂存文件与记录
+
+git stash drop  # 删除最近一次被暂存的所有文件与记录
+git stash drop stash@{1}  # 删除指定的暂存记录
+git stash clear  # 清除所有暂存记录列表
+```
+
+#### git rm
+删除命令[git rm](https://git-scm.com/docs/git-rm)用于从Git的工作树和索引中删除文件。
+```
+git rm <target>  # 从工作树中移除对象，Git会记录该操作，相当于rm后再git add
+git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存
 ```
 
 #### 提交记录 log
@@ -252,6 +267,11 @@ git rebase -i xxx
 git rebase xx
 git push -f
 
+cherry-pick
+apply
+
+fast-forward
+
 git merge 和 rebase 讲解
 
 配置快捷方式
@@ -262,6 +282,7 @@ git merge 和 rebase 讲解
 
 
 [Git Documentation](https://git-scm.com/doc)
+[Git Reference](https://git-scm.com/docs)
 
 ----
 References
