@@ -55,6 +55,7 @@ git add .  # 添加当前目录下所有新增或修改的文件，可能会无�
 git add -u  # 添加已版本管理并修改了的文件，新增文件不会加入，相对保险，建议使用
 
 git commit -m "here is the comment"  # 提交并加入必要的注释说明
+git commit --amend  # 重新编辑当前提交的注释信息
 
 git pull origin master  # 从远端仓库拉取master代码，需要设置origin
 git push origin master  # 将代码Push到远端仓库的master
@@ -63,8 +64,8 @@ git push origin master  # 将代码Push到远端仓库的master
 ## Git初阶
 除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，接下来会分别介绍一些常用的命令及其常用参数。
 
-#### 远程 remote
-在初始化新项目可能需要添加远程库链接或现在项目的远程库链接时，[Remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`set-url`还是会常用到的。
+#### git remote
+在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
 ```
 git remote -v  # --verbose 查看当前已添加的远程库地址
 git remote show  # 查看已添加了哪些远程库源
@@ -76,15 +77,15 @@ git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HT
 
 当然还有更多的用法和参数，但以上命令足够应对平时使用了，更多特殊场景用途的介绍会放在后续章节讲解。
 
-#### 拉取 pull
-在平常的Git使用过程中，[Pull](https://git-scm.com/docs/git-pull)命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：[Fetch](https://git-scm.com/docs/git-fetch)和[Merge](https://git-scm.com/docs/git-merge)。
+#### git pull
+在平常的Git使用过程中，[git pull](https://git-scm.com/docs/git-pull)命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：[git fetch](https://git-scm.com/docs/git-fetch)和[git merge](https://git-scm.com/docs/git-merge)。
 ```
 git pull origin
 git pull -r  # --rebase 把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接
 ```
 
-#### 推送 push
-另一个常用的命令就是[Push](https://git-scm.com/docs/git-push)，用于把本地的提交推送到远端仓库。
+#### git push
+另一个常用的命令就是推送[git push](https://git-scm.com/docs/git-push)，用于把本地的提交推送到远端仓库。
 ```
 git push -u origin master  # 首次Push时需要加-u参数
 
@@ -93,14 +94,16 @@ git push --set-upstream origin master  # 建立upstream与当前分支master的�
 git push  # 建立关联关系后默认会推送到对应分支
 ```
 
-#### 对比 diff
+#### git diff
+Git中对比命令[git diff](https://git-scm.com/docs/git-diff)用于对比提交文件或工作区文件的修改情况，通常在准备提交之前可检查一下修改，防止提交不期望的文件。
 ```
-git diff HEAD  # 对比修改前后内容，也可以指定特定文件
-git diff --staged  # 对比已经加入暂存区的文件
+git diff [<filename>]  # 对比unstaged文件与HEAD的区别，可以指定特定文件
+git diff HEAD [<filename>]  # 相对最近commit对比修改前后内容，无论是否staged，可指定特定文件
+git diff --staged [<filename>]  # 对比已经加入暂存区的文件与最近commit区别，可指定特定文件
 ```
 
-#### 分支 branch
-通常需要查看、创建、修改或删除一个分支[Branch](https://git-scm.com/docs/git-branch)时需要用到，假设示例中使用的分支名为`feature/card1`。
+#### git branch
+通常需要查看、创建、修改或删除一个分支时需要用到[git branch](https://git-scm.com/docs/git-branch)，假设示例中使用的分支名为`feature/card1`。
 ```
 git branch -a  # --all 列出所有分支
 git branch --list <pattern>  # 列出符合条件的分支
@@ -126,11 +129,17 @@ git branch --merged  # 列出已经合并到当前分支的所有分支
 git branch --no-merged  # 列出未合并到当前分支的所有分支
 ```
 
-#### 检出 checkout
-checkout
-[Checkout](https://git-scm.com/docs/git-checkout)
+#### git checkout
+再来介绍一下检出命令[git checkout](https://git-scm.com/docs/git-checkout)，除了对分支切换操作，还可以用于丢弃修改，常用的方式如下：
 ```
-git checkout -- <target>
+git checkout master  # 切换到master分支
+git checkout tag1  # 切换到指定的Tag上
+
+git checkout -b <new_branch>  # 基于当前分支，创建并切换到一个新分支
+git checkout --orphan <new_branch>  # 创建一个孤儿分支，没有父节点，属于全新的分支
+
+git checkout -- <target>  # 针对unstaged的文件丢弃其修改
+
 ```
 
 #### 合并 merge
