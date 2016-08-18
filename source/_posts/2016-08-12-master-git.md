@@ -174,15 +174,20 @@ git rm <target>  # 从工作树中移除对象，Git会记录该操作，相当�
 git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存
 ```
 
-#### 提交记录 log
+#### git log
+有时需要查看提交记录日志，可以使用命令[git log](https://git-scm.com/docs/git-log)。
 ```
+git log [<options>]  # 显示提交记录，可以指定文件或regex
 git log -5  # 查看最近5条历史提交记录
-git log --pretty=oneline  # 以单行的格式显示提交记录
-
-显示Network的命令
+git log -p  # 按补丁格式显示每个更新之间的差异
+git log --stat  # 显示每次提交文件的变更统计
+git log --graph  # 显示ASCII字符图形表示的每个提交所在的分支及其衍合情况
+git log --pretty=oneline  # 以单行的格式显示提交记录，只显示哈希值和提交注释
+git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref name等
 ```
 
-#### 操作记录 reflog
+#### git reflog
+除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的操作记录，通常用于重置或还原等操作。
 ```
 git reflog  # 查看所有操作记录，该命令非常有用，可以在用于任何操作步骤Hash
 ```
