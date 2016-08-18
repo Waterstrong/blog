@@ -187,14 +187,20 @@ git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref 
 ```
 
 #### git reflog
-除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的操作记录，通常用于重置或还原等操作。
+除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
 ```
-git reflog  # 查看所有操作记录，该命令非常有用，可以在用于任何操作步骤Hash
+git reflog [--all]
 ```
 
-#### 还原 revert
+#### git revert
+Git提供了撤销某次操作的命令[git revert](https://git-scm.com/docs/git-revert)，相当于对某次提交的回滚操作，该命令会保留之前的所有提交记录，并把撤销操作当作一次新的提交。
 ```
-git revert
+git revert HEAD  # HEAD~0 撤销最近一次提交
+git revert HEAD^  # HEAD~1 撤销上上次的提交
+git revert 6a7c70c  # 撤销该HASH对应在的提交
+
+git revert --no-edit  # 撤销操作时使用默认的注释
+git revert -n  # --no-commit 只在本地撤销，不自动提交，可以用于Revert多个commits
 ```
 
 #### 重置 reset
