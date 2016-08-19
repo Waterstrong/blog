@@ -21,7 +21,7 @@ Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux
 更多细节和原理介绍可以阅读[Git官网介绍](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)，这里就不再赘述。
 
 ## Git准备
-首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门的步骤：
+首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门准备的步骤：
 #### Installation
 请根据操作系统下载并安装Git，请参见[Git Downloads](https://git-scm.com/downloads)。
 ```
@@ -51,8 +51,9 @@ git init  # 初始化一个版本库，会生成.git文件夹，可以添加.git
 git status  # 查看状态，该命令会非常频繁地用到，建议每一步都check一下状态，确保操作都正确了
 
 git add xxx  # 添加指定的文件到暂存区，可以用Regex匹配，如'*.txt'，对于新增文件可以直接指定
-git add .  # 添加当前目录下所有新增或修改的文件，可能会无意加入其他不想加入的文件
 git add -u  # 添加已版本管理并修改了的文件，新增文件不会加入，相对保险，建议使用
+git add .  # 添加当前目录下所有新增或修改的文件，可能会无意加入其他不想加入的文件
+git add -A  # --all 添加全部文件
 
 git commit -m "here is the comment"  # 提交并加入必要的注释说明
 git commit --amend  # 重新编辑当前提交的注释信息
@@ -61,8 +62,18 @@ git pull origin master  # 从远端仓库拉取master代码，需要设置origin
 git push origin master  # 将代码Push到远端仓库的master
 ```
 
+#### GitHub + SSH Key
+如果希望自己的代码上传到[GitHub](http://github.com/)，可以阅读Github官方Demo教程[GitHub Guides](https://guides.github.com/activities/hello-world/)，当然也可以上传到其它代码托管平台，原理步骤基本相同。另外，如果需要添加SSH Key，可以参考[Generating an SSH key](https://help.github.com/articles/generating-an-ssh-key/)。
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"  # 生成新的SSH Key，需要替换自己的Email
+
+ssh-keygen -f ~/.ssh/id_rsa -p  # 修改已生成私钥文件的密码 
+
+ssh-add ~/.ssh/id_rsa  # 添加已有私钥到ssh-agent中
+```
+
 ## Git初阶
-除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，接下来会分别介绍一些常用的命令及其常用参数。
+除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，除了[init](https://git-scm.com/docs/git-init),[clone](https://git-scm.com/docs/git-clone),[status](https://git-scm.com/docs/git-status),[add](https://git-scm.com/docs/git-add),[commit](https://git-scm.com/docs/git-commit)外接下来会分别介绍一些常用的命令及其常用参数。
 
 #### git remote
 在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
@@ -168,7 +179,7 @@ git stash clear  # 清除所有暂存记录列表
 ```
 
 #### git rm
-删除命令[git rm](https://git-scm.com/docs/git-rm)用于从Git的工作树和索引中删除文件。
+删除命令[git rm](https://git-scm.com/docs/git-rm)用于从Git的工作树和索引中删除文件。另外，还有一个类似的[git mv](https://git-scm.com/docs/git-mv)命令，但不太常用，主要作用是改名或移动文件，只作简单了解即可。
 ```
 git rm <target>  # 从工作树中移除对象，Git会记录该操作，相当于rm后再git add
 git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存
@@ -197,21 +208,29 @@ Git提供了撤销某次操作的命令[git revert](https://git-scm.com/docs/git
 ```
 git revert HEAD  # HEAD~0 撤销最近一次提交
 git revert HEAD^  # HEAD~1 撤销上上次的提交
-git revert 6a7c70c  # 撤销该HASH对应在的提交
+git revert 6a7c70c  # 撤销该HASH对应的提交
 
+git revert [--edit]  # 撤销操作时需要编程注释，默认参数
 git revert --no-edit  # 撤销操作时使用默认的注释
 git revert -n  # --no-commit 只在本地撤销，不自动提交，可以用于Revert多个commits
 ```
 
-#### 重置 reset
+#### git reset
+回退操作[git reset](https://git-scm.com/docs/git-reset)也是非常有用，可以实现回退到指定的版本。
 ```
-git reset --hard HEAD^
+git reset --hard HEAD~3  # 将HEAD指向HEAD~3，回退到HEAD~3的版本，即删除最近三次提交HEAD, HEAD^, HEAD~2
+git reset --hard 6a7c70c  # 回退到6a7c70c所在的版本
+git reset --hard origin/master  # 将本地版本回退到和远程相同
+git reset --hard HEAD  # 回退到最近提交的版本
+git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 ```
 
-可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[手把手教你用Git](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。
+除了`--hard`参数外，还有另外两个参数，分别进行解释说明：
+* --soft: 缓存区index和工作目录working tree都不会被改变
+* --mixed: 默认选项，缓存区index和指定的提交同步，但工作目录working tree不受影响
+* --hard: 缓存区index和工作目录working tree都同步到指定的提交
 
-[Bitbucket](https://bitbucket.org/)
-[GitHub](http://github.com/)
+**以上就是一些常用命令，需要自己练习进行掌握，可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[《手把手教你用Git》](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。**
 
 ## Git进阶
 
@@ -299,3 +318,4 @@ git merge 和 rebase 讲解
 References
 [Git官网](https://git-scm.com/)
 [Git Wiki](https://en.wikipedia.org/wiki/Git)
+[GitHub Help](https://help.github.com/)
