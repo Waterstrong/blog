@@ -59,6 +59,7 @@ git add -A  # --all 添加全部文件
 
 git commit -m "here is the comment"  # 提交并加入必要的注释说明
 git commit --amend  # 重新编辑当前提交的注释信息
+git commit --amend -m "new message"  # 覆盖已提交的注释信息
 
 git pull origin master  # 从远端仓库拉取master代码，需要设置origin
 git push origin master  # 将代码Push到远端仓库的master
@@ -215,7 +216,7 @@ git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref 
 ```
 
 #### git reflog
-除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
+除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的引用日志(操作记录)，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
 ```
 git reflog [--all]
 ```
@@ -253,7 +254,28 @@ git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 除了掌握常用的命令外，还需要在实践中不断地练习，在真正遇到一些问题并解决后才能提升，踩了坑才能更深有体会，正所谓在实践中学习，在跌倒中成长。
 
 #### 数据恢复
-https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D#_data_recovery
+只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用`git reset`命令实现恢复。
+```
+$ git reflog  # 查看到引用日志SHA值
+6a7c70c HEAD@{0}: checkout: moving from master to develop
+627d359 HEAD@{1}: checkout: moving from testbranch1 to master
+6811ed6 HEAD@{2}: checkout: moving from release/v2 to testbranch
+6811ed6 HEAD@{3}: rebase finished: returning to refs/heads/release/v2
+6811ed6 HEAD@{4}: rebase: checkout 6811ed6f7b0128b293ecf17ad365508620d92116
+b632cfd HEAD@{5}: checkout: moving from develop to release/v2
+6a7c70c HEAD@{6}: rebase finished: returning to refs/heads/develop
+6a7c70c HEAD@{7}: pull -r: checkout 6a7c70c3f852da407980147d710850c1b5150ddc
+938f88d HEAD@{8}: checkout: moving from feature/card6 to develop
+fe9366d HEAD@{9}: commit: feature card 6
+
+$ git log -g  # 以标准格式显示提交和引用
+
+$ git reset --hard 8a0c223  # 恢复到之前的操作
+
+$ git branch recovery fe9366d  # 创建一个新恢复分支，并且指向某个引用日志记录
+
+$ git fsck --full  # 若无reflog了，可用fsck命令显示所有未被其它对象指向的对象，fsck会检查数据库的完整性
+```
 
 #### 移除对象
 
@@ -270,30 +292,28 @@ git rebase
 
 
 #### 使用标签
-git tag
-
-
+使用[git tag](https://git-scm.com/docs/git-tag)命令可以帮助建立一系列的Tags，与Branch用法相似，但相对于分支来说更轻量级，并且很适合在workshop中使用，当然也可以作为轻量级项目管理release版本的策略。
 ```
-git commit --amend -m "xxx"
+git tag  # 显示本地所有标签
+git tag v1.0  # 在当前点创建名为v1.0的轻量级标签
+git tag v1.0 46a359f  # 在46a359f提交点创建轻量级标签
+git tag -a v1.0 -m “message here"  # --annotate, --message, 在当前点创建带注释的新标签
+git tag -a v1.2 46a359f  # 在某个commit点添加Tag，会弹出输入注释编辑框
 
-git format-patch master xxx
+git tag -l ‘v1.*’  # --list 列出匹配模式的标签
+git tag -ln  # --list, --num, 显示当前所有的标签
+git show v1.0  # 显示标签的详细信息
 
-git cherry-pick ...
+git push v1.0  # 把指定的标签push到远程库，可指定remote
+git push --tags  # 把所有标签push到远程仓库，可指定remote
 
+git checkout v1.0  # 切换到标签v1.0
+git checkout -b relese1.0 v1.0  # 为标签v1.0创建一个新的分支release1.0
 
-git tag example
-git tag -a v1.0 -m “message goes here"
-git tag -ln
-git push --tags
-
-git checkout v1.0
-git tag -d v1.0  # delete tag
-git push origin :refs/tags/v1.0  # delete remote tag
-git push origin :tagname
-git push --delete origin tagname
-
+git tag -d v1.0  # --delete 删除本地指定的标签
+git push -d origin v1.0  # --delete 删除origin中的标签
+git push origin :refs/tags/v1.0  # 删除远程仓库中的标签
 ```
-
 
 #### 修改权限
 ```
@@ -306,6 +326,16 @@ git format-patch
 
 git cherry-pick
 
+git format-patch master xxx
+
+git cherry-pick ...
+
+#### 回收垃圾
+```
+git gc
+git gc --auto
+git count-objects -v
+```
 
 #### Git别名
 为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，
