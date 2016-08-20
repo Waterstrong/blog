@@ -48,6 +48,8 @@ git config --global user.email "your_email"
 ```
 git init  # 初始化一个版本库，会生成.git文件夹，可以添加.gitignore文件来标识需要忽略的项
 
+git clone git@github.com:xxx/demo.git [new_name]  # 克隆远程库，可指定新目录名，默认与远程库相同
+
 git status  # 查看状态，该命令会非常频繁地用到，建议每一步都check一下状态，确保操作都正确了
 
 git add xxx  # 添加指定的文件到暂存区，可以用Regex匹配，如'*.txt'，对于新增文件可以直接指定
@@ -73,7 +75,22 @@ ssh-add ~/.ssh/id_rsa  # 添加已有私钥到ssh-agent中
 ```
 
 ## Git初阶
-除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，除了[init](https://git-scm.com/docs/git-init),[clone](https://git-scm.com/docs/git-clone),[status](https://git-scm.com/docs/git-status),[add](https://git-scm.com/docs/git-add),[commit](https://git-scm.com/docs/git-commit)外接下来会分别介绍一些常用的命令及其常用参数。
+除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，除了[init](https://git-scm.com/docs/git-init),[clone](https://git-scm.com/docs/git-clone),[status](https://git-scm.com/docs/git-status),[add](https://git-scm.com/docs/git-add)和[commit](https://git-scm.com/docs/git-commit)命令外，接下来会分别介绍一些其他的常用命令及参数。
+
+#### git config
+除了上节提到的使用[git config](https://git-scm.com/docs/git-config)命令来配置`user.name`和`user.email`外，还有一些其他常用参数。
+```
+git config --global -l  # --list 显示所有的全局配置
+git config --global user.name  # 显示全局配置的用户名
+
+git config --global push.default simple  # 配置push的默认方式为simple匹配
+git config --global alias.s status  # 配置status的别名为s
+```
+
+Git配置有三种级别：
+* System: `--system`，一般很少会修改系统级配置，对应的系统配置在`/etc/gitconfig`中。
+* Global: `--global`，通常会修改全局配置，对应的全局配置在`~/.gitconfig`或`~/.config/git/config`中。
+* Local: `--local`默认值，需要对某个项目单独配置时使用，对应的配置在项目目录下的`.git/config`中。
 
 #### git remote
 在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
@@ -233,14 +250,28 @@ git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 **以上就是一些常用命令，需要自己练习进行掌握，可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[《手把手教你用Git》](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。**
 
 ## Git进阶
+除了掌握常用的命令外，还需要在实践中不断地练习，在真正遇到一些问题并解决后才能提升，踩了坑才能更深有体会，正所谓在实践中学习，在跌倒中成长。
 
-git remote show origin
+#### 数据恢复
+https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D#_data_recovery
 
-git remote 同时指定多个源
+#### 移除对象
 
-git branch --unset-upstream
 
-#### rebase
+#### 差异对比
+
+
+#### 合并冲突
+
+
+#### 分支衍合
+
+git rebase
+
+
+#### 使用标签
+git tag
+
 
 ```
 git commit --amend -m "xxx"
@@ -261,20 +292,23 @@ git push origin :refs/tags/v1.0  # delete remote tag
 git push origin :tagname
 git push --delete origin tagname
 
-
-Generate a new SSH key:
-ssh keygen -t rsa -b 4096 "your_email example com"
 ```
 
-#### 数据恢复
-https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D#_data_recovery
-#### 移除对象
 
-#### 权限
+#### 修改权限
 ```
 To solve the execute permission for gradlew: git update-index --chmod=+x  gradlew
 ```
 
+#### 补丁技巧
+
+git format-patch
+
+git cherry-pick
+
+
+#### Git别名
+为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，
 
 git alias config (but not suggest below) `~/.gitconfig`
 
@@ -303,6 +337,10 @@ apply
 fast-forward
 
 git merge 和 rebase 讲解
+
+git remote show origin
+
+git remote 同时指定多个源
 
 配置快捷方式
 或者Zsh+Iterm2
