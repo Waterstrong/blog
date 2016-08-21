@@ -3,7 +3,7 @@ title: 优雅地使用Git
 date: 2016-08-12 22:29:48
 category: Tools
 tags: [Git, VCS, SCM, GitHub]
-description: Git
+description: Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。
 published: true
 ---
 
@@ -94,7 +94,7 @@ Git配置有三种级别：
 * Local: `--local`默认值，需要对某个项目单独配置时使用，对应的配置在项目目录下的`.git/config`中。
 
 #### git remote
-在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
+在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，或同时指定多个源等，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
 ```
 git remote -v  # --verbose 查看当前已添加的远程库地址
 git remote show  # 查看已添加了哪些远程库源
@@ -104,7 +104,7 @@ git remote add origin https://github.com/xxx/demo.git  # 添加origin并指定�
 git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HTTPS或SSH，取决于你的权限
 ```
 
-当然还有更多的用法和参数，但以上命令足够应对平时使用了，更多特殊场景用途的介绍会放在后续章节讲解。
+当然还有更多的用法和参数，更多特殊场景用途可以参数官方的文档说明，但个人认为以上用法足够应对平时使用了。
 
 #### git pull
 在平常的Git使用过程中，[git pull](https://git-scm.com/docs/git-pull)命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：[git fetch](https://git-scm.com/docs/git-fetch)和[git merge](https://git-scm.com/docs/git-merge)。
@@ -121,6 +121,8 @@ git push -u origin master  # 首次Push时需要加-u参数
 git push --set-upstream origin master  # 建立upstream与当前分支master的关联关系
 
 git push  # 建立关联关系后默认会推送到对应分支
+
+git push -f  # --force, 强制Push
 ```
 
 #### git diff
@@ -130,6 +132,8 @@ git diff [<filename>]  # 对比unstaged文件与HEAD的区别，可以指定特�
 git diff HEAD [<filename>]  # 相对最近commit对比修改前后内容，无论是否staged，可指定特定文件
 git diff --staged [<filename>]  # 对比已经加入暂存区的文件与最近commit区别，可指定特定文件
 ```
+
+通常大家更倾向于使用IDE来对比修改，这一点倒觉得没什么问题，毕竟IDE界面上的对比有更强的视觉感，在某种程度上会减少出错的概率。
 
 #### git branch
 通常需要查看、创建、修改或删除一个分支时需要用到[git branch](https://git-scm.com/docs/git-branch)，假设示例中使用的分支名为`feature/card1`。
@@ -177,24 +181,7 @@ git checkout -- <target>  # 针对unstaged的文件丢弃其修改
 git merge topic  # 合并topic分支到当前所在分支
 ```
 
-当然，也可以指定一些其他参数或是合并策略等，用法非常灵活。在merge时通常会遇到合并冲突问题，如果遇到需要解决冲突，然后运行添加命令`git add -u`，最后根据提示运行`git rebase --continue`即可，**切记勿再commit**。
-
-#### git stash
-暂存命令[git stash](https://git-scm.com/docs/git-stash)用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。`stash@{0}`指最近一次暂存记录，`stash@{1}`指上上次的暂存记录，类似于压栈的操作。
-```
-git stash  # 把当前的工作暂存起来 等以后恢复现场后继续工作
-
-git stash list  # 查看所有被暂存的文件记录列表
-git stash show -p stash@{0}  # 查看最近一次的暂存的内容
-
-git stash apply  # 恢复最近一次被暂存的文件，但不删除该暂存记录与内容
-git stash apply stash@{1}  # 指定恢复指定的暂存记录
-git stash pop  # 恢复被暂存的文件同时，也删除该暂存文件与记录
-
-git stash drop  # 删除最近一次被暂存的所有文件与记录
-git stash drop stash@{1}  # 删除指定的暂存记录
-git stash clear  # 清除所有暂存记录列表
-```
+当然，也可以指定一些其他参数或是合并策略等，用法非常灵活。在merge时通常会遇到合并冲突问题，如果遇到，在自己熟悉的编辑方式下解决冲突，然后运行添加命令`git add -u`，最后根据提示运行`git rebase --continue`即可，**切记勿再commit**。
 
 #### git rm
 删除命令[git rm](https://git-scm.com/docs/git-rm)用于从Git的工作树和索引中删除文件。另外，还有一个类似的[git mv](https://git-scm.com/docs/git-mv)命令，但不太常用，主要作用是改名或移动文件，只作简单了解即可。
@@ -202,6 +189,8 @@ git stash clear  # 清除所有暂存记录列表
 git rm <target>  # 从工作树中移除对象，Git会记录该操作，相当于rm后再git add
 git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存
 ```
+
+`--cached`参数相当有用的，通常的使用场景是，当某个文件已经被添加到Git管理，但后来又需要在`.gitignore`中忽略。
 
 #### git log
 有时需要查看提交记录日志，可以使用命令[git log](https://git-scm.com/docs/git-log)。
@@ -213,12 +202,6 @@ git log --stat  # 显示每次提交文件的变更统计
 git log --graph  # 显示ASCII字符图形表示的每个提交所在的分支及其衍合情况
 git log --pretty=oneline  # 以单行的格式显示提交记录，只显示哈希值和提交注释
 git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref name等
-```
-
-#### git reflog
-除了查看提交记录日志外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的引用日志(操作记录)，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
-```
-git reflog [--all]
 ```
 
 #### git revert
@@ -233,8 +216,13 @@ git revert --no-edit  # 撤销操作时使用默认的注释
 git revert -n  # --no-commit 只在本地撤销，不自动提交，可以用于Revert多个commits
 ```
 
-#### git reset
-回退操作[git reset](https://git-scm.com/docs/git-reset)也是非常有用，可以实现回退到指定的版本。
+**以上就是一些常用命令，需要自己练习进行掌握，可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[《手把手教你用Git》](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。**
+
+## Git进阶
+除了掌握常用的命令外，还需要在实践中不断地练习，在真正遇到一些问题并解决后才能提升，踩了坑才能更深有体会，正所谓在实践中学习，在跌倒中成长。
+
+#### 数据恢复
+只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用[git reset](https://git-scm.com/docs/git-reset)命令实现回退或恢复。
 ```
 git reset --hard HEAD~3  # 将HEAD指向HEAD~3，回退到HEAD~3的版本，即删除最近三次提交HEAD, HEAD^, HEAD~2
 git reset --hard 6a7c70c  # 回退到6a7c70c所在的版本
@@ -248,14 +236,10 @@ git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 * --mixed: 默认选项，缓存区index和指定的提交同步，但工作目录working tree不受影响
 * --hard: 缓存区index和工作目录working tree都同步到指定的提交
 
-**以上就是一些常用命令，需要自己练习进行掌握，可以花15分钟在[Try Git](https://try.github.io/)进行简单学习，另外，[Learn Git Branching](http://learngitbranching.js.org/)提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇[《手把手教你用Git》](http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&mid=201723758&idx=1&sn=e5b7c27caec76992c348bf30e4bd30e8&scene=2&from=timeline&isappinstalled=0)，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。**
-
-## Git进阶
-除了掌握常用的命令外，还需要在实践中不断地练习，在真正遇到一些问题并解决后才能提升，踩了坑才能更深有体会，正所谓在实践中学习，在跌倒中成长。
-
-#### 数据恢复
-只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用`git reset`命令实现恢复。
+为了实现回退或恢复，需要查看日志，除了`git log`命令外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的引用日志，即操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
 ```
+$ git reflog [--all]  # 查看所有引用日志，获取操作记录
+
 $ git reflog  # 查看到引用日志SHA值
 6a7c70c HEAD@{0}: checkout: moving from master to develop
 627d359 HEAD@{1}: checkout: moving from testbranch1 to master
@@ -277,19 +261,54 @@ $ git branch recovery fe9366d  # 创建一个新恢复分支，并且指向某�
 $ git fsck --full  # 若无reflog了，可用fsck命令显示所有未被其它对象指向的对象，fsck会检查数据库的完整性
 ```
 
-#### 移除对象
+#### 暂存现场
+暂存命令[git stash](https://git-scm.com/docs/git-stash)用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。`stash@{0}`指最近一次暂存记录，`stash@{1}`指上上次的暂存记录，类似于压栈的操作。
+```
+git stash  # 把当前的工作暂存起来 等以后恢复现场后继续工作
 
+git stash list  # 查看所有被暂存的文件记录列表
+git stash show -p stash@{0}  # 查看最近一次的暂存的内容
 
-#### 差异对比
+git stash apply  # 恢复最近一次被暂存的文件，但不删除该暂存记录与内容
+git stash apply stash@{1}  # 指定恢复指定的暂存记录
+git stash pop  # 恢复被暂存的文件同时，也删除该暂存文件与记录
 
-
-#### 合并冲突
-
+git stash drop  # 删除最近一次被暂存的所有文件与记录
+git stash drop stash@{1}  # 删除指定的暂存记录
+git stash clear  # 清除所有暂存记录列表
+```
 
 #### 分支衍合
+分支衍合命令[git rebase](https://git-scm.com/docs/git-rebase)非常实用，能够自动把分支结点衍合到upstream顶端从而保证提交树的整洁。
+* 在拉取代码时加上`--rebase`参数总是好的，也推荐使用，即`git pull -r`，这样就会把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接。
 
-git rebase
+* 当在处理Merge或Patch时，会遇到冲突，当解决完成冲突后，会使用到`rebase`命令。
+```
+git rebase --continue  # 继续完成之前的操作
+git rebase --abort  # 放弃rebase过程
+git rebase --skip  # 跳过当前rebase过程
+```
 
+* 当需要把多个提交点合并成一个提交点时，可以使用`rebase`命令，比如，把`6a7c70c`之前的所有提交合并。
+```
+$ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作
+# 通常会保留每一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出
+
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+```
+
+* 当出现了Infinity分支，或者需要简化分支的树，可以使用`rebase`命令，假设在release/v2上需要rebase到develop的6a7c70c点上。
+```
+git checkout release/v2
+git rebase 6a7c70c
+git push -f
+```
 
 #### 使用标签
 使用[git tag](https://git-scm.com/docs/git-tag)命令可以帮助建立一系列的Tags，与Branch用法相似，但相对于分支来说更轻量级，并且很适合在workshop中使用，当然也可以作为轻量级项目管理release版本的策略。
@@ -316,34 +335,36 @@ git push origin :refs/tags/v1.0  # 删除远程仓库中的标签
 ```
 
 #### 修改权限
+通常在管理可执行脚本时，执行权限默认不会被Git管理，比如`gradlew`在本地创建完成并且也可以运行，但在服务器上拉取代码后发现没有执行权限，因此会导致执行脚本任务失败，为了解决这一问题，需要用到[git update-index](https://git-scm.com/docs/git-update-index)命令。
 ```
-To solve the execute permission for gradlew: git update-index --chmod=+x  gradlew
+git update-index --chmod=+x gradlew  # 添加执行权限
+git update-index --chmod=-x test.sh  # 移除执行权限
 ```
 
 #### 补丁技巧
-
-git format-patch
-
-git cherry-pick
-
+有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。
+[git format-patch](https://git-scm.com/docs/git-format-patch), [git cherry-pick](https://git-scm.com/docs/git-cherry-pick), [git apply](https://git-scm.com/docs/git-apply)
+```
 git format-patch master xxx
 
-git cherry-pick ...
+git cherry-pick xxx
+fast-forward
+```
 
 #### 回收垃圾
+[git gc](https://git-scm.com/docs/git-gc)和[git count-objects](https://git-scm.com/docs/git-count-objects)命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。
 ```
-git gc
-git gc --auto
-git count-objects -v
-```
+git gc  # 压缩文件，回收垃圾，同时查看数据库占用空间
+git gc --auto  # 手动执行自动垃圾回收
 
-#### Git别名
-为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，
+git count-objects -v  # 查看对象数量和占用空间
 
-git alias config (but not suggest below) `~/.gitconfig`
-
+git prune --expire now  # 删除过期的文件
 ```
 
+#### 高效别名
+为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，其中一种方式是自己在`~/.gitconfig`中配置，但不是首选推荐使用。
+```
 [alias]
 co = checkout
 ci = commit
@@ -357,33 +378,59 @@ type = cat-file -t
 dump = cat-file -p
 ```
 
-git rebase -i xxx
-git rebase xx
-git push -f
+还有一种推荐使用的方式，如果你使用的[Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)+[iTerm2](http://www.iterm2.com/index.html)的命令行方案，那么你可以感受到`Oh My Zsh`带来的优势了，提供了[git plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git)并设定了统一的更加简短的别名，常用的Alias如下：
+```
+gst  # git status !!!
 
-cherry-pick
-apply
+ga  # git add !!!
+gaa  # git add --all
 
-fast-forward
+gb  # git branch !!!
+gba  # git branch -a
 
-git merge 和 rebase 讲解
+gl  # git pull !!!
+gup  # git pull --rebase !!
+gupv  # git pull --rebase -v
 
-git remote show origin
+gp  # git push !!!
 
-git remote 同时指定多个源
+gc  # git commit -v !!!
+gc!  # git commit -v --amend !!!
+gcmsg # git commit -m !!
+gca  # git commit -v -a
+gcam  # git commit -a -m
+gca!  # git commit -v -a --amend
 
-配置快捷方式
-或者Zsh+Iterm2
+gco  # git checkout !!!
+gcm  # git checkout master !!
+gcb  # git checkout -b
 
+gd  # git diff !!!
+gdca  # git diff --cached !!
 
-[更多Git相关文章](http://blog.jobbole.com/tag/git/)
+gsta  # git stash !!!
+gstaa  # git stash apply
+gstd  # git stash drop
+gstl  # git stash list
+gstp  # git stash pop
+gsts  # git stash show --text
 
+gcf  # git config --list
 
-[Git Documentation](https://git-scm.com/doc)
-[Git Reference](https://git-scm.com/docs)
+gcp  # git cherry-pick
+```
+
+其中，`!!!`表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。
+
+## 结束语
+
+对于Git初阶部分，都是平常自己使用的一些命令，对于Git进阶部分，除了补充一些命令外，也是自己使用Git的一些心得体会和技巧，无论怎样，只有通过自己亲身实践，不断练习才能真正掌握。以上所有都只是作为一名普通Git用户的实践方式，如果需要开发一些基于Git的应用等，那就需要了解更深层次的底层命令和原理了。
 
 ----
 References
 [Git官网](https://git-scm.com/)
 [Git Wiki](https://en.wikipedia.org/wiki/Git)
+[Git Documentation](https://git-scm.com/doc)
+[Git Reference](https://git-scm.com/docs)
 [GitHub Help](https://help.github.com/)
+[更多Git相关文章](http://blog.jobbole.com/tag/git/)
