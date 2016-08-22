@@ -18,6 +18,17 @@ published: true
 
 Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，分布式意味着每个人的电脑都是一个完整的版本控制库，并且工作时都不需要联网，相对于其他版本控制管理系统，优势不只是一个两个数量级，目前算是世界上最先进的分布式版本控制系统。
 
+首先特别需要提一下Git的三种状态: committed(已提交), modified(已修改)和staged(已暂存)，同时也需要理解一下git directory(Git版本库), working directory(工作区)和staging area(暂存区)。
+* Git Directory(Repository): Git版本库，有一个`.git`的隐藏目录，即版本库，存放了元数据和数据库文件。
+* Working Directory: 工作区，指正在工作的目录，`.git`版本库目录除外。
+* Staging Area: 暂存区，在版本库中，一个包含待提交信息或缓存的文件。
+
+通常，Git工作的一般流程为：
+1. 在工作区中添加或修改文件
+2. 将文件快照添加到暂存区中
+3. 将暂存区的文件提交并永久存入版本库
+![](/assets/master-git/areas.png)
+
 更多细节和原理介绍可以阅读[Git官网介绍](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control)，这里就不再赘述。
 
 ## Git准备
@@ -200,6 +211,7 @@ git log -5  # 查看最近5条历史提交记录
 git log -p  # 按补丁格式显示每个更新之间的差异
 git log --stat  # 显示每次提交文件的变更统计
 git log --graph  # 显示ASCII字符图形表示的每个提交所在的分支及其衍合情况
+git log --graph --oneline --all  # 以更详细的信息展示
 git log --pretty=oneline  # 以单行的格式显示提交记录，只显示哈希值和提交注释
 git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref name等
 ```
@@ -232,9 +244,9 @@ git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 ```
 
 除了`--hard`参数外，还有另外两个参数，分别进行解释说明：
-* --soft: 缓存区index和工作目录working tree都不会被改变
-* --mixed: 默认选项，缓存区index和指定的提交同步，但工作目录working tree不受影响
-* --hard: 缓存区index和工作目录working tree都同步到指定的提交
+* --soft: 暂存区和工作区都不会被改变，被reset的文件会在暂存区等待新的提交
+* --mixed: 默认选项，暂存区会被reset，但工作区不受影响
+* --hard: 暂存区和工作区都被reset，直接回退到指定提交
 
 为了实现回退或恢复，需要查看日志，除了`git log`命令外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的引用日志，即操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
 ```
@@ -259,6 +271,8 @@ $ git reset --hard 8a0c223  # 恢复到之前的操作
 $ git branch recovery fe9366d  # 创建一个新恢复分支，并且指向某个引用日志记录
 
 $ git fsck --full  # 若无reflog了，可用fsck命令显示所有未被其它对象指向的对象，fsck会检查数据库的完整性
+
+$ git fsck --lost-found  # 文件系统检测丢失更改
 ```
 
 #### 暂存现场
@@ -278,6 +292,28 @@ git stash drop stash@{1}  # 删除指定的暂存记录
 git stash clear  # 清除所有暂存记录列表
 ```
 
+#### 部分提交
+通常提交是针对一个文件，要么都提交，要么都不提交，但有时候需要在修改某个文件后，只希望暂时提交其中部分已修改内容，其他修改内容打算后续再提交。针对这种对文件进行了多次修改并希望分别提交的场景，首先需要进行部分修改暂存，然后提交，再暂存其它修改，再提交。
+```
+$ git add -p xxx  # --patch, 可以暂存并提交部分内容
+
+Stage this hunk [y,n,q,a,d,/,e,?]? s # 输入s表示分割该块为更小块，通常是第一步
+
+Stage this hunk [y,n,q,a,d,/,e,?]? y # 依次处理，输入y表示暂存该块
+
+Stage this hunk [y,n,q,a,d,/,e,?]? n # 依次处理，输入n表示不暂存该块
+```
+
+* 输入s表示分割该块为更小块
+* 输入y表示暂存该块
+* 输入n表示不暂存该块
+* 输入e表示手工编辑该块
+* 输入a表示暂存当前块以及当前文件的后续块
+* 输入d表示退出当前文件，不处理后续块，但会转到下一个文件
+* 输入q表示退出，不再处理后续块和文件
+* 输入/表示搜索匹配给定Regex的块
+* 输入?表示查看帮助信息
+
 #### 分支衍合
 分支衍合命令[git rebase](https://git-scm.com/docs/git-rebase)非常实用，能够自动把分支结点衍合到upstream顶端从而保证提交树的整洁。
 * 在拉取代码时加上`--rebase`参数总是好的，也推荐使用，即`git pull -r`，这样就会把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接。
@@ -289,7 +325,7 @@ git rebase --abort  # 放弃rebase过程
 git rebase --skip  # 跳过当前rebase过程
 ```
 
-* 当需要把多个提交点合并成一个提交点时，可以使用`rebase`命令，比如，把`6a7c70c`之前的所有提交合并。
+* 当需要把多个提交点合并成一个commit时，可以使用`rebase`命令，比如，把`6a7c70c`之前的所有提交合并。
 ```
 $ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作
 # 通常会保留每一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出
@@ -342,14 +378,13 @@ git update-index --chmod=-x test.sh  # 移除执行权限
 ```
 
 #### 补丁技巧
-有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。
-[git format-patch](https://git-scm.com/docs/git-format-patch), [git cherry-pick](https://git-scm.com/docs/git-cherry-pick), [git apply](https://git-scm.com/docs/git-apply)
+有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。首先介绍一下[git cherry-pick](https://git-scm.com/docs/git-cherry-pick)命令，该命令允许从其他分支上选取某一个Commit，再应用到当前分支上。
 ```
-git format-patch master xxx
+git checkout test_branch  # 首先切到某个需要被补丁的分支
+git cherry-pick 46a329f  # 然后应用某个其他分支上的commit
+```
 
-git cherry-pick xxx
-fast-forward
-```
+另外还有两个命令[git format-patch](https://git-scm.com/docs/git-format-patch)和[git apply](https://git-scm.com/docs/git-apply)。
 
 #### 回收垃圾
 [git gc](https://git-scm.com/docs/git-gc)和[git count-objects](https://git-scm.com/docs/git-count-objects)命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。
@@ -360,6 +395,12 @@ git gc --auto  # 手动执行自动垃圾回收
 git count-objects -v  # 查看对象数量和占用空间
 
 git prune --expire now  # 删除过期的文件
+```
+
+#### 谁的代码
+还有一个很有用的命令[git blame](https://git-scm.com/docs/git-blame)，可以查看到某个文件的每一行修改记录，有时需要确认是谁修改了某一行代码，该命令会很有帮助。
+```
+git blame xxx  #  查看文件的每一行作者、最新提交和操作时间等
 ```
 
 #### 高效别名
@@ -380,35 +421,35 @@ dump = cat-file -p
 
 还有一种推荐使用的方式，如果你使用的[Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)+[iTerm2](http://www.iterm2.com/index.html)的命令行方案，那么你可以感受到`Oh My Zsh`带来的优势了，提供了[git plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git)并设定了统一的更加简短的别名，常用的Alias如下：
 ```
-gst  # git status !!!
+gst  # git status  ★★★★★
 
-ga  # git add !!!
+ga  # git add  ★★★★★
 gaa  # git add --all
 
-gb  # git branch !!!
+gb  # git branch  ★★★★★
 gba  # git branch -a
 
-gl  # git pull !!!
-gup  # git pull --rebase !!
+gl  # git pull  ★★★★★
+gup  # git pull --rebase  ★★★
 gupv  # git pull --rebase -v
 
-gp  # git push !!!
+gp  # git push  ★★★★★
 
-gc  # git commit -v !!!
-gc!  # git commit -v --amend !!!
-gcmsg # git commit -m !!
+gc  # git commit -v  ★★★★★
+gc!  # git commit -v --amend  ★★★★★
+gcmsg # git commit -m  ★★★
 gca  # git commit -v -a
 gcam  # git commit -a -m
 gca!  # git commit -v -a --amend
 
-gco  # git checkout !!!
-gcm  # git checkout master !!
+gco  # git checkout  ★★★★★
+gcm  # git checkout master  ★★★
 gcb  # git checkout -b
 
-gd  # git diff !!!
-gdca  # git diff --cached !!
+gd  # git diff  ★★★★★
+gdca  # git diff --cached  ★★★
 
-gsta  # git stash !!!
+gsta  # git stash  ★★★★★
 gstaa  # git stash apply
 gstd  # git stash drop
 gstl  # git stash list
@@ -420,7 +461,7 @@ gcf  # git config --list
 gcp  # git cherry-pick
 ```
 
-其中，`!!!`表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。
+其中，`★★★★★`表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。
 
 ## 结束语
 
