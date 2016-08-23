@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-08-22T15:51:20.000Z</updated>
+  <updated>2016-08-23T15:57:26.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>代码质量管理SonarQube</title>
+    <link href="http://blog.waterstrong.me/sonarqube-by-step/"/>
+    <id>http://blog.waterstrong.me/sonarqube-by-step/</id>
+    <published>2016-08-20T14:23:48.000Z</published>
+    <updated>2016-08-23T15:57:26.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/Plugin+Library&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;20+种语言&lt;/a&gt;，并且有很多&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;插件Plugins&lt;/a&gt;可以集成。接下来将大致讲解SonarQube的安装、配置及使用。&lt;/p&gt;
+&lt;h2 id=&quot;Installation&quot;&gt;&lt;a href=&quot;#Installation&quot; class=&quot;headerlink&quot; title=&quot;Installation&quot;&gt;&lt;/a&gt;Installation&lt;/h2&gt;&lt;p&gt;以下所有操作均在CentOS下进行，其他系统的过程基本类似，只需要替换成对应命令即可，假设CentOS分配的IP地址为&lt;code&gt;192.168.56.105&lt;/code&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;Install-the-SonarQube&quot;&gt;&lt;a href=&quot;#Install-the-SonarQube&quot; class=&quot;headerlink&quot; title=&quot;Install the SonarQube&quot;&gt;&lt;/a&gt;Install the SonarQube&lt;/h4&gt;&lt;p&gt;首先到&lt;a href=&quot;http://www.sonarqube.org/downloads/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube Download&lt;/a&gt;页面下载压缩包，然后解压到&lt;code&gt;~/sonarqube&lt;/code&gt;文件夹，最后运行命令启动服务，需要Java8运行环境支持。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ~/sonarqube/bin/linux-x86-64/sonar.sh start  # 启动SonarQube服务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Usage: ./sonar.sh &amp;#123; console | start | stop | restart | status | dump &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;然后访问&lt;a href=&quot;http://192.168.56.105:9000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.56.105:9000&lt;/a&gt;将能够看到SonarQube页面，这里需要替换成你的IP地址，SonarQube会默认监听9000端口。&lt;br&gt;&lt;img src=&quot;/assets/sonarqube-by-step/sonarqube_home.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;其中，默认的管理员登录用户名和密码为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Login: &lt;code&gt;admin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Password: &lt;code&gt;admin&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然可以访问了，但当前SonarQube使用的是Embedded数据库，只能用于评估目的，不支持扩展和升级，更不支持数据迁移，因此强烈建议安装一款数据库引擎，不过别着急，稍候会涉及到配置PostgreSQL的操作过程。&lt;/p&gt;
+&lt;h4 id=&quot;Install-the-Scanner&quot;&gt;&lt;a href=&quot;#Install-the-Scanner&quot; class=&quot;headerlink&quot; title=&quot;Install the Scanner&quot;&gt;&lt;/a&gt;Install the Scanner&lt;/h4&gt;&lt;p&gt;为了实现扫描项目代码并上传到SonarQube Server的目的，需要再到&lt;a href=&quot;http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube Scanner Download&lt;/a&gt;页面下载压缩包并解压，如解压到&lt;code&gt;~/sonar-scanner&lt;/code&gt;。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ~/sonar-scanner/bin/sonar-scanner --version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INFO: Scanner configuration file: ~/sonar-scanner/conf/sonar-scanner.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INFO: Project root configuration file: NONE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INFO: SonarQube Scanner 2.6.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INFO: Java 1.8.0_66 Oracle Corporation (64-bit)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;INFO: Linux 3.10.0-327.18.2.el7.x86_64 amd64&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Configuration&quot;&gt;&lt;a href=&quot;#Configuration&quot; class=&quot;headerlink&quot; title=&quot;Configuration&quot;&gt;&lt;/a&gt;Configuration&lt;/h2&gt;&lt;p&gt;为了使用SonarQube的更多功能，支持扩展、升级和数据迁移，需要配置数据库引擎，另外，也可以配置WEB访问地址和端口。&lt;/p&gt;
+&lt;h4 id=&quot;Config-Database&quot;&gt;&lt;a href=&quot;#Config-Database&quot; class=&quot;headerlink&quot; title=&quot;Config Database&quot;&gt;&lt;/a&gt;Config Database&lt;/h4&gt;&lt;p&gt;以配置PostgresSQL为例，首先需要确保安装了PostgresSQL数据库引擎。若SonarQube安装目录为&lt;code&gt;~/sonarqube&lt;/code&gt;，则需要在&lt;code&gt;conf/sonar.properties&lt;/code&gt;中配置一些参数。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Database Configuration&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.jdbc.username=sonarqube&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.jdbc.password=sonarqube&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# PostgreSQL URL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# MySQL JDBC URL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;rewriteBatchedStatements=true&amp;amp;useConfigs=maxPerformance&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Default SonarQube server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# sonar.host.url=http://localhost:9000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.host.url=http://192.168.56.105/sonarqube&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# The default port is &amp;quot;9000&amp;quot; and the context path is &amp;quot;/&amp;quot;. &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# These values can be changed in sonar.properties.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.web.host=0.0.0.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.web.port=80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.web.context=/sonarqube&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;配置完成后重启SonarQube服务，再访问&lt;a href=&quot;http://192.168.56.105/sonarqube&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.56.105/sonarqube&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;更多其他数据库配置可以参阅&lt;a href=&quot;http://docs.sonarqube.org/display/SONAR/Installing+the+Server&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Installing the Server&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;Analyzing-with-Scanner&quot;&gt;&lt;a href=&quot;#Analyzing-with-Scanner&quot; class=&quot;headerlink&quot; title=&quot;Analyzing with Scanner&quot;&gt;&lt;/a&gt;Analyzing with Scanner&lt;/h2&gt;&lt;h4 id=&quot;Runner&quot;&gt;&lt;a href=&quot;#Runner&quot; class=&quot;headerlink&quot; title=&quot;Runner&quot;&gt;&lt;/a&gt;Runner&lt;/h4&gt;&lt;p&gt;通常可以直接运行Runner实现对支持语言的项目代码进行扫描。假设Sonar Scanner被解压到&lt;code&gt;~/sonar-scanner&lt;/code&gt;文件夹中，随意找一个项目代码，并在其中添加&lt;code&gt;sonar-project.properties&lt;/code&gt;配置文件，针对Java项目的配置如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Must be unique in a given SonarQube instance&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.projectKey=twee:qas-service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# This is the name displayed in the SonarQube UI&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.projectName=QAS Service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.projectVersion=1.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Comma-separated paths to directories with sources&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Path is relative to the sonar-project.properties file. Replace &amp;quot;\&amp;quot; by &amp;quot;/&amp;quot; on Windows.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Since SonarQube 4.2, this property is optional if sonar.modules is set. &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# If not set, SonarQube starts looking for source code from the directory containing &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# the sonar-project.properties file.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.sources=src&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Language&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.language=java&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Encoding of the source code. Default is default system encoding&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.sourceEncoding=UTF-8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;如果暂时自己没有适合的代码，也可以使用官方提供的&lt;a href=&quot;https://github.com/SonarSource/sonar-examples/archive/master.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Project Samples&lt;/a&gt;，然后在项目代码目录下运行如下命令进行Sonar Scanner扫描代码。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;~/sonar-scanner/bin/sonar-scanner  # 当然也可以直接把bin目录加入环境变量中&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;更多配置和用法可以参阅&lt;a href=&quot;http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Analyzing with SonarQube Scanner&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;Gradle&quot;&gt;&lt;a href=&quot;#Gradle&quot; class=&quot;headerlink&quot; title=&quot;Gradle&quot;&gt;&lt;/a&gt;Gradle&lt;/h4&gt;&lt;p&gt;SonarQube支持Gradle 2.0以上的版本，以下来将配置&lt;code&gt;build.gradle&lt;/code&gt;文件，使得支持SonarQube任务。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// Uses DSL plugins resolution introduced in Gradle 2.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;plugins &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  id &amp;quot;org.sonarqube&amp;quot; version &amp;quot;2.0.1&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonarqube &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    properties &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        property &amp;quot;sonar.projectName&amp;quot;, &amp;quot;QAS Service&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        property &amp;quot;sonar.projectKey&amp;quot;, &amp;quot;tw.wee:qas-service&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        property &amp;quot;sonar.jacoco.reportPath&amp;quot;, &amp;quot;$&amp;#123;project.buildDir&amp;#125;/jacoco/test.exec&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;还需要在&lt;code&gt;gradle.properties&lt;/code&gt;中配置SonarQube地址和登录信息：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sonar.host.url=http://xxx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 当sonar.forceAuthentication被设置成true时需要提供登录信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.login=admin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sonar.password=admin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;Gradle的Task为：&lt;code&gt;./gradlew sonarqube&lt;/code&gt;，并且可以指定HOST和PASSWORD，这样就避免了把密码明文写在配置文件中。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;./gradlew sonarqube -Dsonar.host.url=http://xxx -Dsonar.jdbc.password=*** -Dsonar.verbose=true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;更多关于Gradle的配置可以参阅&lt;a href=&quot;http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Analyzing with SonarQube Scanner for Gradle&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;SonarQube扫描还可以与Jenkins集成，有兴趣可以参阅&lt;a href=&quot;http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Analyzing with SonarQube Scanner for Jenkins&lt;/a&gt;实现步骤。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References&lt;br&gt;&lt;a href=&quot;http://www.sonarqube.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube官网&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Innodb Performance Optimization Basics&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持20+种语言的分析，并且有很多插件可以集成。
+    
+    </summary>
+    
+      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
+    
+    
+      <category term="Code Quality" scheme="http://blog.waterstrong.me/tags/Code-Quality/"/>
+    
+      <category term="Sonar Qube" scheme="http://blog.waterstrong.me/tags/Sonar-Qube/"/>
+    
+  </entry>
   
   <entry>
     <title>优雅地使用Git</title>
@@ -129,13 +178,13 @@
       <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
     
     
+      <category term="GitHub" scheme="http://blog.waterstrong.me/tags/GitHub/"/>
+    
       <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
     
       <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
     
       <category term="SCM" scheme="http://blog.waterstrong.me/tags/SCM/"/>
-    
-      <category term="GitHub" scheme="http://blog.waterstrong.me/tags/GitHub/"/>
     
   </entry>
   
@@ -793,169 +842,6 @@
       <category term="Servlet" scheme="http://blog.waterstrong.me/tags/Servlet/"/>
     
       <category term="JSP" scheme="http://blog.waterstrong.me/tags/JSP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Concourse CI 介绍</title>
-    <link href="http://blog.waterstrong.me/concourse-ci/"/>
-    <id>http://blog.waterstrong.me/concourse-ci/</id>
-    <published>2016-04-19T05:02:02.000Z</published>
-    <updated>2016-07-27T04:47:46.000Z</updated>
-    
-    <content type="html">&lt;p&gt;目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身April ‘16的&lt;a href=&quot;https://www.thoughtworks.com/radar/tools/concourse-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThoughtWorks Tech Radar&lt;/a&gt;？&lt;/p&gt;
-&lt;h3 id=&quot;Advantages-of-CI-CD&quot;&gt;&lt;a href=&quot;#Advantages-of-CI-CD&quot; class=&quot;headerlink&quot; title=&quot;Advantages of CI/CD&quot;&gt;&lt;/a&gt;Advantages of CI/CD&lt;/h3&gt;&lt;p&gt;首先还是快速介绍一下CI/CD，特别是为什么要采用CI/CD，有什么样的优势，只有在有意义的前提下，使用工具才能发挥作用，并且解决项目开发中的痛点问题。&lt;/p&gt;
-&lt;h4 id=&quot;Continuous-Integration&quot;&gt;&lt;a href=&quot;#Continuous-Integration&quot; class=&quot;headerlink&quot; title=&quot;Continuous Integration&quot;&gt;&lt;/a&gt;Continuous Integration&lt;/h4&gt;&lt;p&gt;Continuous Integration(持续集成). Integrating, building, and testing code within the development environment.&lt;/p&gt;
-&lt;h4 id=&quot;Continuous-Delivery&quot;&gt;&lt;a href=&quot;#Continuous-Delivery&quot; class=&quot;headerlink&quot; title=&quot;Continuous Delivery&quot;&gt;&lt;/a&gt;Continuous Delivery&lt;/h4&gt;&lt;p&gt;Continuous Delivery(持续交付). A software development discipline, build software that can be released to production at any time.&lt;/p&gt;
-&lt;h4 id=&quot;CI-CD的好处&quot;&gt;&lt;a href=&quot;#CI-CD的好处&quot; class=&quot;headerlink&quot; title=&quot;CI/CD的好处&quot;&gt;&lt;/a&gt;CI/CD的好处&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;Reduced Deployment Risk，降低部署风险。快速提交小部分修改进行部署和集成，从而降低了出现错误的概率，即使出现错误也能快速定位问题并修复。&lt;/li&gt;
-&lt;li&gt;Believable Progress，可信的进度。如果直接部署到线上环境中，项目进展以及完成度相对于开发人员自己声称已经完成要更加的有可信度。&lt;/li&gt;
-&lt;li&gt;User Feedback，用户反馈。众所周知，项目开发中最大的风险就是开发的软件不被用户接受，这样的软件是没有太大的用处和意义的，尽早和更加频繁地交付给用户并且快速获得用户反馈来获取有价值的内容，从而保证了开发的软件是被用户接受的。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;有关CI/CD的更多详细解释可以参见Martin Fowler博客文章&lt;a href=&quot;http://martinfowler.com/bliki/ContinuousDelivery.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Continuous Delivery&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;What-is-Concourse&quot;&gt;&lt;a href=&quot;#What-is-Concourse&quot; class=&quot;headerlink&quot; title=&quot;What is Concourse?&quot;&gt;&lt;/a&gt;What is Concourse?&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse&lt;/a&gt; is a &lt;code&gt;CI/CD tool&lt;/code&gt; that treats &lt;code&gt;build pipelines and artifacts as first-class citizens&lt;/code&gt;.&lt;br&gt;It enables builds that &lt;code&gt;run in containers&lt;/code&gt;, has a &lt;code&gt;clean, usable UI and discourages snowflake&lt;/code&gt; build servers.&lt;br&gt;It aims to provide an &lt;code&gt;expressive system&lt;/code&gt; with as &lt;code&gt;few distinct moving parts&lt;/code&gt; as possible.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;先感受一下Concourse的界面，这是Concourse项目本身的Pipelines:&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/concourse_pipeline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Concourse CI是一款CI/CD工具，把构建pipeline和artifacts当作first-class citizens(可译作: 第一类公民)。&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;First-class Citizens:&lt;/strong&gt; In programming language design, a first-class citizen (also type, object, entity, or value) in a given programming language is an entity which supports all the operations generally available to other entities. These operations typically include being passed as an argument, returned from a function, and assigned to a variable.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;em&gt;第一类公民：&lt;/em&gt; 即支持其他实体所有操作的实体，比如能够在运行时被动态创建，能够作为参数或返回值直接被其他实体消费或生成。举个例子，在C语言中，function就不是第一类公民，而在Javascript中function是第一类公民。其中，实体是指各种各样的数据类型和值，比如对象、类、函数、字面量等。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Concourse CI本身就与容器结合，Build构建在容器中运行，隔离各个环境，避免不同环境之间相互污染情况发生。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;表现系统意味着有更简洁清晰可用的UI，而尽量少的移动部件意味着模块组件统一化，并且不会有雪花式的配置，Concourse CI采用YAML文件配置Pipeline，并且通过版本控制管理起来，很容易地实现移植和恢复。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;下图中展示了一个标准的Pipeline示例，其中的黑色框元素代表资源(Resources)，彩色框元素代表Jobs，会有不同的颜色代表Build的状态，流线代表了依赖和执行顺序，如Integration需要前面所有的Jobs执行成功并且提供相关Resources才能正确触发并执行。&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/standard_pipeline_demo.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;对Jobs简单的YML配置示例:&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/config_yml_demo.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;Why-is-Concourse&quot;&gt;&lt;a href=&quot;#Why-is-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Why is Concourse?&quot;&gt;&lt;/a&gt;Why is Concourse?&lt;/h3&gt;&lt;p&gt;为什么会出现Concourse呢？它能带来什么新思路呢？相比目前已有的CI/CD工具有什么区别呢？&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Requires a CI/CD Tool, 首先当然是提供CI/CD的基本功能，需要一款CI/CD工具来解决项目开发中的一系列问题。&lt;/li&gt;
-&lt;li&gt;Concourse vs GoCD/Jenkins/Travis CI，除此之外，还需要弥补目前CI/CD工具的一些不足，并加入一些新元素。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;vs-GoCD&quot;&gt;&lt;a href=&quot;#vs-GoCD&quot; class=&quot;headerlink&quot; title=&quot;vs. GoCD&quot;&gt;&lt;/a&gt;vs. GoCD&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/gocd_pipelines.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GoCD&lt;/a&gt;属于老大级的，需要安装Server和Agent，其设计之初就是为了满足CI/CD的需求，把Build Pipelines和Artifacts作为First-class Citizens，因此也更好地支持自动化和流线式的build-test-release这样的CI/CD周期运作，同时，也支持更加复杂的工作流(Workflows)，包括并行和串行的，即使是很复杂的工作流也同样可以非常清晰直观地展示出来。&lt;/p&gt;
-&lt;p&gt;除此之外，当然GoCD还有很多其他的优点，并且目前项目组也在使用。但是美中不足是GoCD配置操作的GUI很不人性化，使用过的人都知道，查看Jobs运行情况与配置Jobs的切换很麻烦，需要到首页分别点击Pipelines和Settings，而且每一项菜单层级很深，操作不友好，GoCD在架构设计上分为Pipelines -&amp;gt; Stages -&amp;gt; jobs -&amp;gt; tasks，层级嵌套显得有些复杂，不过这样的划分还好，只要操作上更加人性化就可以了。&lt;/p&gt;
-&lt;p&gt;而Concourse针对GUI这一点进行了一些改进，并且引入了一种YML文件配置机制来实现对Job的配置，同样支持复杂的Workflow，也将Build Pipelines和Artifacts作为First-class Citizens，并且设计之初本身就与容器技术结合，每个Build都在Container中运行。&lt;/p&gt;
-&lt;h4 id=&quot;vs-Jenkins&quot;&gt;&lt;a href=&quot;#vs-Jenkins&quot; class=&quot;headerlink&quot; title=&quot;vs. Jenkins&quot;&gt;&lt;/a&gt;vs. Jenkins&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/jenkins_dashboard.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/jenkins_plugins.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins&lt;/a&gt;作为使用最广泛，用户量最大的CI工具，必定有其可取之处，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得很出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;但Jenkins也有其缺点，比如：&lt;/em&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在配置Shell命令时，如果Pipeline规模扩大，构建和部署环境增多，那么就会复制粘贴很多这样的Shell命令，称为雪花式(Snowflakes)配置，增加维护成本；&lt;/li&gt;
-&lt;li&gt;另外，Jenkins定义Job的顺序是以Job为关注点，从全局出发，比如定义A Job的前置Job是B，后置Job是C，当Jobs顺序情况变得复杂就很难再梳理清楚了；&lt;/li&gt;
-&lt;li&gt;Jenkins并未将Build Pipelines和Artifacts视作First-class Citizens，如果需要实现Continuous Delivery是需要借助插件完成，而Jenkins本身并不直接支持CD的；&lt;/li&gt;
-&lt;li&gt;此外，虽然Jenkins的插件生态系统管理得很好，一旦Workspace中有很多的插件，难免会造成一些插件问题导致Build环境被污染。&lt;/li&gt;
-&lt;li&gt;针对Jenkins 2.0的Jenkinsfile，可以将pipeline定义为代码形式，即Pipeline As Code，也方便了很多，算是优点，不过也是其缺点，最大的问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;针对Jenkins的一些问题，Concourse进行了一些改进，比如：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Snowflakes的情况就采用统一配置YML文件来解决，各Task各工程自己维护，有重复的内容通过提取文件多处引用即可；&lt;/li&gt;
-&lt;li&gt;通过VCS将这样配置文件进行版本控制管理，在恢复或移植时更加方便，虽然Jenkins和GoCD也有XML配置文件，但通常用于备份，一般的做法也不会进行版本控制，更不会直接去修改文件来实现Pipeline配置；&lt;/li&gt;
-&lt;li&gt;Concourse对于每个Job只定义有效的输入，即哪个Job在什么情况下输出的什么的资源是可以触发当前Job的，即使复杂的Pipeline顺序出现时，配置也很方便，每个Job只关心自己的有效输入，局部优化达到了全局优化，不会造成混乱的感觉；&lt;/li&gt;
-&lt;li&gt;特别指出的是Concourse的每一个Job构建都在独立的Container中Build，对其他的环境没有影响。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;vs-Travis-CI&quot;&gt;&lt;a href=&quot;#vs-Travis-CI&quot; class=&quot;headerlink&quot; title=&quot;vs. Travis CI&quot;&gt;&lt;/a&gt;vs. Travis CI&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI&lt;/a&gt;其实各方面也都挺不错的，没有Snowflake配置，使用.travis.yml文件配置，在容器中运行Builds，与GitHub集成度很好，支持PR。&lt;/p&gt;
-&lt;p&gt;但是也有一些缺点：如它不支持pipeline，只能支持简单的构建; 并且如果CI跑不过，需要设置多个Debug提交点来找到问题所在; 另外Travis CI是由个人发起的项目，并且目前只对开源软件免费。&lt;/p&gt;
-&lt;p&gt;总体说来，对于公司的项目，更倾向于选择GoCD或Jenkins这样的产品，个人的开源项目倒是可以通过Travis CI快速搭建来感受一下。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;Concourse-Concepts&quot;&gt;&lt;a href=&quot;#Concourse-Concepts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Concepts&quot;&gt;&lt;/a&gt;Concourse Concepts&lt;/h3&gt;&lt;p&gt;Concourse的核心概念: resources, jobs, tasks. 通过这三个核心模块可以对任何的Pipeline进行建模，从简单的unit-&amp;gt;integration-&amp;gt;deploy-&amp;gt;ship到复杂的多基础设施, fanning out/in等。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Resources: 就是资源，最重要的概念之一，Concourse把需要交互的对象都视作一种资源，比如GitHub上的某个工程代码，AWS的S3存储，以及其他的外部服务等。更多资源类型可参见&lt;a href=&quot;http://concourse.ci/resource-types.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Customer Resource Types&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/concourse_resources.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Jobs: Job是某个有计划有条件的工作任务，描述了一些依赖资源或手动触发的行为，当提交了代码就触发Build，或Unit Test通过后触发了Intg Test等。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Tasks: Task就是在隔离环境中依赖于资源的某个脚本执行，如build, test等，Job其实封装了Task，Job更侧重于描述什么情况下发生，而Task重点描述发生什么。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;Concourse-Architecture&quot;&gt;&lt;a href=&quot;#Concourse-Architecture&quot; class=&quot;headerlink&quot; title=&quot;Concourse Architecture&quot;&gt;&lt;/a&gt;Concourse Architecture&lt;/h3&gt;&lt;p&gt;Concourse架构属于一种简单的分布式系统，其三大核心部件分别为: &lt;code&gt;ATC&lt;/code&gt;, &lt;code&gt;TSA&lt;/code&gt;和&lt;code&gt;Workers&lt;/code&gt;，接下来将分别进行介绍。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/architecture.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;ATC-web-UI-amp-build-scheduler&quot;&gt;&lt;a href=&quot;#ATC-web-UI-amp-build-scheduler&quot; class=&quot;headerlink&quot; title=&quot;ATC: web UI &amp;amp; build scheduler&quot;&gt;&lt;/a&gt;ATC: web UI &amp;amp; build scheduler&lt;/h4&gt;&lt;p&gt;ATC主要用于运行Web UI和API以及所有Pipeline构建计划的，属于Concourse的心脏，占据了极其重要的位置。采用PostgreSQL数据库存储Pipeline数据和构建日志。&lt;/p&gt;
-&lt;p&gt;多个ATCs可以作为一个集群运行，各个ATC都共享一个数据库，ATC通过加锁机制在集群之间同步与传输数据。&lt;/p&gt;
-&lt;p&gt;ATC默认监听&lt;code&gt;8080&lt;/code&gt;端口，通常与&lt;code&gt;TSA&lt;/code&gt;一起处于负载均衡(Load Balancer)之后，为了实现正常拦截(&lt;a href=&quot;http://concourse.ci/fly-intercept.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Intercept&lt;/a&gt;)构建(Build)的功能，需要确保Load Balancer被正确配置到了TCP或SSL转发，而非HTTP或HTTPS。&lt;/p&gt;
-&lt;h4 id=&quot;TSA-worker-registration-amp-forwarding&quot;&gt;&lt;a href=&quot;#TSA-worker-registration-amp-forwarding&quot; class=&quot;headerlink&quot; title=&quot;TSA: worker registration &amp;amp; forwarding&quot;&gt;&lt;/a&gt;TSA: worker registration &amp;amp; forwarding&lt;/h4&gt;&lt;p&gt;TSA是&lt;code&gt;ATC&lt;/code&gt;定制的SSH服务器，仅用于安全地注册&lt;code&gt;Workers&lt;/code&gt;，仅支持两个命令&lt;code&gt;register-worker&lt;/code&gt;和&lt;code&gt;forward-worker&lt;/code&gt;。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;register-worker命令用于为ATC直接注册在同一私有网络中运行的worker。&lt;/li&gt;
-&lt;li&gt;forward-worker命令用于通过TSA反向隧道worker的地址，然后为ATC注册转发连接。这样只要workers能够连接到TSA，就可以运行在任意网络且安全地实现注册功能，ATC也就可以安全地连接到worker，该方式把worker与外界环境进行隔离，只有通过授权后才能访问，从而提高了其安全性。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;TSA默认监听&lt;code&gt;2222&lt;/code&gt;端口，通常与ATC协同工作运行在Load Balancer的之后。&lt;/p&gt;
-&lt;h4 id=&quot;Workers-container-runtime-amp-cache-management&quot;&gt;&lt;a href=&quot;#Workers-container-runtime-amp-cache-management&quot; class=&quot;headerlink&quot; title=&quot;Workers: container runtime &amp;amp; cache management&quot;&gt;&lt;/a&gt;Workers: container runtime &amp;amp; cache management&lt;/h4&gt;&lt;p&gt;Workers可以认为是一台通过&lt;code&gt;TSA&lt;/code&gt;进行自注册的正在运行&lt;a href=&quot;https://github.com/cloudfoundry-incubator/garden&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Garden&lt;/a&gt;和&lt;a href=&quot;https://github.com/concourse/baggageclaim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Baggageclaim&lt;/a&gt;服务的机器。&lt;/p&gt;
-&lt;p&gt;Workers在自己所属机器上并没有配置重要的状态什么的，所有的内容都运行在容器中，更不需要关心相关依赖包安装到主机上在，这就是workers区别于其他非容器化(non-containerized)的CI解决方案，特别是当workers中的依赖包的状态成为了pipeline正常工作与否的关键因素，容器化显得尤为重要。&lt;/p&gt;
-&lt;p&gt;每一个worker通过TSA注册自己，从而可以被Concourse集群发现并使用。Workers中的&lt;code&gt;Garden&lt;/code&gt;默认监听&lt;code&gt;7777&lt;/code&gt;端口，&lt;code&gt;Baggageclaim&lt;/code&gt;默认监听&lt;code&gt;7788&lt;/code&gt;端口。如果都在&lt;code&gt;ATC&lt;/code&gt;可达的同一个私有网络中，那么workers会绑定到所有地址&lt;code&gt;0.0.0.0&lt;/code&gt;，并且会直接注册自己，否则会绑定到&lt;code&gt;127.0.0.1&lt;/code&gt;，通过&lt;code&gt;TSA&lt;/code&gt;进行转发。&lt;/p&gt;
-&lt;p&gt;以上就是Concourse的架构，更多细节可以参见&lt;a href=&quot;http://concourse.ci/architecture.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse Architecture&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;Concourse-Impacts&quot;&gt;&lt;a href=&quot;#Concourse-Impacts&quot; class=&quot;headerlink&quot; title=&quot;Concourse Impacts&quot;&gt;&lt;/a&gt;Concourse Impacts&lt;/h3&gt;&lt;p&gt;之所以要介绍Concourse，是因为Concourse带了一些新思路和想法，提供了另一个看待CI/CD的视角。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Pluggable Resource Interface: 把操作对象看待资源，提供对资源访问的可接口，达到松耦合的目的&lt;/li&gt;
-&lt;li&gt;Running builds in Containers Natively: 本身就支持在容器中运行构建，隔离不同环境&lt;/li&gt;
-&lt;li&gt;Zero Snowflake-able Configuration: 没有雪花式的配置，可以重用相同的配置，通过版本控制管理，快速恢复和移植&lt;/li&gt;
-&lt;li&gt;Submitting builds from the local file system up to run in CI: 通过本地配置文件提交构建到CI中运行，每个项目单独管理Build，降低维护成本&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.cloudfoundry.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cloud Foundry&lt;/a&gt;: Run on diff architectures, diff platforms, against varying underlying IaaSs: Cloud Foundry是一款PaaS平台即服务产品，为了解决Cloud Foundry的CI/CD问题才开发出Concourse，些类项目需要运行在不同的架构，不同的平台以及不同的基础设施中，因此Pipeline会相当复杂，而Concourse在配置这样复杂的Pipeline的时候表现得更加令人满意。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;总得来说，Concourse带来了新的思路，并且与当下流行的Container技术结合，同样在支持PaaS项目的CI/CD时显得略胜一筹。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&quot;Using-Concourse&quot;&gt;&lt;a href=&quot;#Using-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Using Concourse&quot;&gt;&lt;/a&gt;Using Concourse&lt;/h3&gt;&lt;p&gt;使用Concourse不会过多作介绍，后续会有专门针对如何使用Concourse的详细教程，本博客中只简单介绍一下流程:&lt;/p&gt;
-&lt;h4 id=&quot;Step1-Install-and-Setup&quot;&gt;&lt;a href=&quot;#Step1-Install-and-Setup&quot; class=&quot;headerlink&quot; title=&quot;Step1. Install and Setup&quot;&gt;&lt;/a&gt;Step1. Install and Setup&lt;/h4&gt;&lt;p&gt;通常安装和运行Concourse有三种方式，任选一种方式尝试安装并启动：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Local VM with Vagrant&lt;/li&gt;
-&lt;li&gt;Standalone Binaries&lt;/li&gt;
-&lt;li&gt;Clusters with BOSH&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;首先我们在本地采用最快捷的Vagrant方式安装，运行以下命令：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vagrant init concourse/lite  # creates ./Vagrantfile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant up  # downloads the box and spins up the VM&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;然后Concourse服务已经开始运行了，通过&lt;a href=&quot;http://192.168.100.4:8080&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;192.168.100.4:8080&lt;/a&gt;地址进行访问。&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/no_pipeline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;如果提示需要更新升级，可以尝试运行以下命令：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vagrant box update --box concourse/lite # gets the newest Vagrant box&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant destroy                         # remove the old Vagrant box&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant up                              # re-create the machine with the newer box&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;但针对线上环境，不推荐Vagrant方式安装，Vagrant用于学习目的，快速掌握Concourse工作方式还是不错的选择，如果针对线上产品的项目，可以尝试采用后两种方式安装，更多安装介绍请参见&lt;a href=&quot;http://concourse.ci/installing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse Installing&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;当安装Concourse完成后，还需要在本地下载&lt;a href=&quot;http://concourse.ci/fly-cli.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;the Fly CLI&lt;/a&gt;. 也可以访问Concourse主界面，然后点击Fly CLI链接进入下载页。&lt;/p&gt;
-&lt;p&gt;针对Linux和Mac OS X系统，首先需要给下载的FLY CLI文件添加执行权限，然后安装到系统并添加到$PATH中：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chmod +x fly&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;install fly /usr/local/bin/fly&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h4 id=&quot;Step2-Using-yml-to-describe-pipeline&quot;&gt;&lt;a href=&quot;#Step2-Using-yml-to-describe-pipeline&quot; class=&quot;headerlink&quot; title=&quot;Step2. Using *.yml to describe pipeline&quot;&gt;&lt;/a&gt;Step2. Using *.yml to describe pipeline&lt;/h4&gt;&lt;p&gt;为了创建一个Pipeline，首先在创建名为&lt;code&gt;hello.yml&lt;/code&gt;的文件，并写入以下内容:&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jobs:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- name: hello-world&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  plan:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  - task: say-hello&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    config:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      platform: linux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      image_resource:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        type: docker-image&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        source: &amp;#123;repository: ubuntu&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      run:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        path: echo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        args: [&amp;quot;Hello, world!&amp;quot;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;关于定义Pipeline的更多内容可参见&lt;a href=&quot;http://concourse.ci/pipelines.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Pipelines&lt;/a&gt;。&lt;/p&gt;
-&lt;h4 id=&quot;Step3-Push-to-Concourse&quot;&gt;&lt;a href=&quot;#Step3-Push-to-Concourse&quot; class=&quot;headerlink&quot; title=&quot;Step3. Push to Concourse&quot;&gt;&lt;/a&gt;Step3. Push to Concourse&lt;/h4&gt;&lt;p&gt;如果使用的是Vagrant安装方式，我们可以尝试登录到本地VirutalBox中：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite login -c http://192.168.100.4:8080&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;当前已经保存了名为&lt;code&gt;lite&lt;/code&gt;的目标，会在以后的多个命令行中使用，&lt;code&gt;-t&lt;/code&gt;代表目标名(Target Name)。&lt;/p&gt;
-&lt;p&gt;当准备好&lt;code&gt;hello.yml&lt;/code&gt;后，可以通过以下命令设置Pipelilne：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite set-pipeline -p hello-world -c hello.yml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;然后刷新Concourse主页面，可以看到已经设置好一个简单的Hello World的Pipeline了。&lt;br&gt;&lt;img src=&quot;/assets/concourse-ci/hello_demo_pipeline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite unpause-pipeline -p hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;也可以通过命令查看当前Pipeline的配置：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fly -t lite get-pipeline -p hello-world&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;该Pipeline非常简单，只有单一的&lt;code&gt;Job&lt;/code&gt;，整个计划中只有一个&lt;code&gt;Task&lt;/code&gt;，可以看到&lt;code&gt;Task&lt;/code&gt;执行过程的快照：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/concourse-ci/hello_run_build.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;更多示例教程可以参见&lt;a href=&quot;http://concourse.ci/tutorials.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Concourse官网Demo&lt;/a&gt;或&lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub的Concourse教程&lt;/a&gt;。&lt;/p&gt;
-&lt;h3 id=&quot;Concourse-Assess&quot;&gt;&lt;a href=&quot;#Concourse-Assess&quot; class=&quot;headerlink&quot; title=&quot;Concourse Assess&quot;&gt;&lt;/a&gt;Concourse Assess&lt;/h3&gt;&lt;p&gt;虽然列举出了很多Concourse的优点和创新思路，但也有一些Concerns:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Concerns 1: 与其他CI/CD以GUI进行配置的方式不同，虽然Build和Pipeline的UI可视化效果很不错，但在配置上采用了YML文件，且需要使用FLY命令行的方式进行交互，因此要求记住一些规则、关键字和相关命令，这样势必增加了学习成本。&lt;/li&gt;
-&lt;li&gt;Concerns 2: 因为Concourse作为新产品新工具，稳定性、易用行、扩展性等各方面还有待市场和用户的大量验证，当然，如果Concourse确实能够带来更多方便和更多新思路，并且解决了用户的真正痛点问题，那么，相信其未来一定是非常光明的。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;至于目前选择用哪款工具，其实需要根据团队和项目的情况来平衡选择的，有兴趣喜欢尝鲜的同学倒是可以折腾下，还是很有意思的。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;[1] &lt;a href=&quot;https://concourse.ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://concourse.ci&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;https://www.go.cd/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.go.cd/&lt;/a&gt;&lt;br&gt;[3] &lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://jenkins.io/&lt;/a&gt;&lt;br&gt;[4] &lt;a href=&quot;https://travis-ci.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://travis-ci.com/&lt;/a&gt;&lt;br&gt;[5] &lt;a href=&quot;https://en.wikipedia.org/wiki/First-class_citizen&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://en.wikipedia.org/wiki/First-class_citizen&lt;/a&gt;&lt;br&gt;[6] &lt;a href=&quot;https://github.com/starkandwayne/concourse-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/starkandwayne/concourse-tutorial&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
-    
-    
-      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
-    
-      <category term="CI/CD" scheme="http://blog.waterstrong.me/tags/CI-CD/"/>
-    
-      <category term="ConcourseCI" scheme="http://blog.waterstrong.me/tags/ConcourseCI/"/>
-    
-      <category term="Jenkins" scheme="http://blog.waterstrong.me/tags/Jenkins/"/>
-    
-      <category term="TravisCI" scheme="http://blog.waterstrong.me/tags/TravisCI/"/>
-    
-      <category term="GoCD" scheme="http://blog.waterstrong.me/tags/GoCD/"/>
     
   </entry>
   
