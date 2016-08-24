@@ -3,12 +3,12 @@ title: 代码质量管理SonarQube
 date: 2016-08-20 22:23:48
 category: Platforms
 tags: [Code Quality, Sonar Qube]
-description: SonarQube是一个开源的代码质量管理平台。
+description: SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持20+种语言的分析，并且有很多插件可以集成。
 published: true
 ---
 
 ## Introduction
-SonarQube是一个开源的代码质量管理平台，能够快速分析并定位代码中明显或潜在错误信息。目前支持[20+种语言](http://docs.sonarqube.org/display/PLUG/Plugin+Library)，并且有很多[插件Plugins](http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins)可以集成。接下来将大致讲解SonarQube的安装、配置及使用。
+SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持[20+种语言](http://docs.sonarqube.org/display/PLUG/Plugin+Library)，并且有很多[插件Plugins](http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins)可以集成。接下来将大致讲解SonarQube的安装、配置及使用。
 
 ## Installation
 以下所有操作均在CentOS下进行，其他系统的过程基本类似，只需要替换成对应命令即可，假设CentOS分配的IP地址为`192.168.56.105`。
@@ -21,14 +21,14 @@ $ ~/sonarqube/bin/linux-x86-64/sonar.sh start  # 启动SonarQube服务
 Usage: ./sonar.sh { console | start | stop | restart | status | dump }
 ```
 
-然后访问[http://192.168.56.105:9000](http://192.168.56.105:9000)将能够看到SonarQube页面，这里需要替换成你的IP地址。
+然后访问[http://192.168.56.105:9000](http://192.168.56.105:9000)将能够看到SonarQube页面，这里需要替换成你的IP地址，SonarQube会默认监听9000端口。
 ![](/assets/sonarqube-by-step/sonarqube_home.png)
 
 其中，默认的管理员登录用户名和密码为：
 * Login: `admin`
 * Password: `admin`
 
-虽然可以访问了，但当前SonarQube使用的是Embedded数据库，只能用于评估目的，不支持扩展和升级，更不支持数据迁移，因此强烈建议安装一款数据库引擎，不过别着急，稍候会涉及到配置Mysql的操作过程。
+虽然可以访问了，但当前SonarQube使用的是Embedded数据库，只能用于评估目的，不支持扩展和升级，更不支持数据迁移，因此强烈建议安装一款数据库引擎，不过别着急，稍候会涉及到配置PostgreSQL的操作过程。
 
 #### Install the Scanner
 为了实现扫描项目代码并上传到SonarQube Server的目的，需要再到[SonarQube Scanner Download](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner)页面下载压缩包并解压，如解压到`~/sonar-scanner`。
@@ -43,11 +43,33 @@ INFO: Linux 3.10.0-327.18.2.el7.x86_64 amd64
 ```
 
 ## Configuration
+为了使用SonarQube的更多功能，支持扩展、升级和数据迁移，需要配置数据库引擎，另外，也可以配置WEB访问地址和端口。
+
 #### Config Database
+以配置PostgresSQL为例，首先需要确保安装了PostgresSQL数据库引擎。若SonarQube安装目录为`~/sonarqube`，则需要在`conf/sonar.properties`中配置一些参数。
+```
+# Database Configuration
+sonar.jdbc.username=sonarqube
+sonar.jdbc.password=sonarqube
+# PostgreSQL URL
+sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
+# MySQL JDBC URL
+# sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
 
+# Default SonarQube server
+# sonar.host.url=http://localhost:9000
+sonar.host.url=http://192.168.56.105/sonarqube
 
+# The default port is "9000" and the context path is "/". 
+# These values can be changed in sonar.properties.
+sonar.web.host=0.0.0.0
+sonar.web.port=80
+sonar.web.context=/sonarqube
+```
 
+配置完成后重启SonarQube服务，再访问[http://192.168.56.105/sonarqube](http://192.168.56.105/sonarqube)。
 
+更多其他数据库配置可以参阅[Installing the Server](http://docs.sonarqube.org/display/SONAR/Installing+the+Server)。
 
 ## Analyzing with Scanner
 #### Runner
@@ -79,6 +101,8 @@ sonar.sourceEncoding=UTF-8
 ~/sonar-scanner/bin/sonar-scanner  # 当然也可以直接把bin目录加入环境变量中
 ```
 
+更多配置和用法可以参阅[Analyzing with SonarQube Scanner](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner)。
+
 #### Gradle
 SonarQube支持Gradle 2.0以上的版本，以下来将配置`build.gradle`文件，使得支持SonarQube任务。
 ```
@@ -96,15 +120,29 @@ sonarqube {
 }
 ```
 
+还需要在`gradle.properties`中配置SonarQube地址和登录信息：
+```
+sonar.host.url=http://xxx
+ 
+# 当sonar.forceAuthentication被设置成true时需要提供登录信息
+sonar.login=admin
+sonar.password=admin
+```
+
+Gradle的Task为：`./gradlew sonarqube`，并且可以指定HOST和PASSWORD，这样就避免了把密码明文写在配置文件中。
+```
+./gradlew sonarqube -Dsonar.host.url=http://xxx -Dsonar.jdbc.password=*** -Dsonar.verbose=true
+```
+
+更多关于Gradle的配置可以参阅[Analyzing with SonarQube Scanner for Gradle](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle)。
 
 SonarQube扫描还可以与Jenkins集成，有兴趣可以参阅[Analyzing with SonarQube Scanner for Jenkins](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins)实现步骤。
 
 ----
 References
 [SonarQube官网](http://www.sonarqube.org/)
-[Installing the Server](http://docs.sonarqube.org/display/SONAR/Installing+the+Server)
-[Analyzing with SonarQube Scanner](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner)
-[Analyzing with SonarQube Scanner for Gradle](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle)
+[Innodb Performance Optimization Basics](https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/)
+
 
 
 
