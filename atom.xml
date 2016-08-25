@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-08-23T15:57:26.000Z</updated>
+  <updated>2016-08-25T15:36:47.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://blog.waterstrong.me/sonarqube-by-step/"/>
     <id>http://blog.waterstrong.me/sonarqube-by-step/</id>
     <published>2016-08-20T14:23:48.000Z</published>
-    <updated>2016-08-23T15:57:26.000Z</updated>
+    <updated>2016-08-25T15:36:47.000Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/Plugin+Library&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;20+种语言&lt;/a&gt;，并且有很多&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;插件Plugins&lt;/a&gt;可以集成。接下来将大致讲解SonarQube的安装、配置及使用。&lt;/p&gt;
+    <content type="html">&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/Plugin+Library&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;20+种语言&lt;/a&gt;，并且有很多&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;插件Plugins&lt;/a&gt;可以集成。接下来将大致讲解SonarQube的安装、配置及使用。&lt;/p&gt;
 &lt;h2 id=&quot;Installation&quot;&gt;&lt;a href=&quot;#Installation&quot; class=&quot;headerlink&quot; title=&quot;Installation&quot;&gt;&lt;/a&gt;Installation&lt;/h2&gt;&lt;p&gt;以下所有操作均在CentOS下进行，其他系统的过程基本类似，只需要替换成对应命令即可，假设CentOS分配的IP地址为&lt;code&gt;192.168.56.105&lt;/code&gt;。&lt;/p&gt;
 &lt;h4 id=&quot;Install-the-SonarQube&quot;&gt;&lt;a href=&quot;#Install-the-SonarQube&quot; class=&quot;headerlink&quot; title=&quot;Install the SonarQube&quot;&gt;&lt;/a&gt;Install the SonarQube&lt;/h4&gt;&lt;p&gt;首先到&lt;a href=&quot;http://www.sonarqube.org/downloads/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube Download&lt;/a&gt;页面下载压缩包，然后解压到&lt;code&gt;~/sonarqube&lt;/code&gt;文件夹，最后运行命令启动服务，需要Java8运行环境支持。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ~/sonarqube/bin/linux-x86-64/sonar.sh start  # 启动SonarQube服务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Usage: ./sonar.sh &amp;#123; console | start | stop | restart | status | dump &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;然后访问&lt;a href=&quot;http://192.168.56.105:9000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.56.105:9000&lt;/a&gt;将能够看到SonarQube页面，这里需要替换成你的IP地址，SonarQube会默认监听9000端口。&lt;br&gt;&lt;img src=&quot;/assets/sonarqube-by-step/sonarqube_home.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -51,7 +51,7 @@
     
     <summary type="html">
     
-      SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持20+种语言的分析，并且有很多插件可以集成。
+      SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持20+种语言的分析，并且有很多插件可以集成。
     
     </summary>
     
@@ -178,13 +178,13 @@
       <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
     
     
-      <category term="GitHub" scheme="http://blog.waterstrong.me/tags/GitHub/"/>
-    
       <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
     
       <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
     
       <category term="SCM" scheme="http://blog.waterstrong.me/tags/SCM/"/>
+    
+      <category term="GitHub" scheme="http://blog.waterstrong.me/tags/GitHub/"/>
     
   </entry>
   
