@@ -3,12 +3,12 @@ title: 代码质量管理SonarQube
 date: 2016-08-20 22:23:48
 category: Platforms
 tags: [Code Quality, Sonar Qube]
-description: SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持20+种语言的分析，并且有很多插件可以集成。
+description: SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持20+种语言的分析，并且有很多插件可以集成。
 published: true
 ---
 
 ## Introduction
-SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息。目前支持[20+种语言](http://docs.sonarqube.org/display/PLUG/Plugin+Library)，并且有很多[插件Plugins](http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins)可以集成。接下来将大致讲解SonarQube的安装、配置及使用。
+SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持[20+种语言](http://docs.sonarqube.org/display/PLUG/Plugin+Library)，并且有很多[插件Plugins](http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins)可以集成。接下来将大致讲解SonarQube的安装、配置及使用。
 
 ## Installation
 以下所有操作均在CentOS下进行，其他系统的过程基本类似，只需要替换成对应命令即可，假设CentOS分配的IP地址为`192.168.56.105`。
@@ -43,23 +43,38 @@ INFO: Linux 3.10.0-327.18.2.el7.x86_64 amd64
 ```
 
 ## Configuration
-为了使用SonarQube的更多功能，支持扩展、升级和数据迁移，需要配置数据库引擎，另外，也可以配置WEB访问地址和端口。
+为了使用SonarQube的更多功能，支持扩展、升级和数据迁移，需要配置SonarQube，若安装目录为`~/sonarqube`，则需要在安装目录中的`conf/sonar.properties`中配置一些参数，主要针对数据库引擎配置和WEB访问地址和端口配置。
 
-#### Config Database
-以配置PostgresSQL为例，首先需要确保安装了PostgresSQL数据库引擎。若SonarQube安装目录为`~/sonarqube`，则需要在`conf/sonar.properties`中配置一些参数。
+#### Database
+以配置PostgresSQL为例，首先需要确保安装了PostgresSQL数据库引擎。
 ```
 # Database Configuration
-sonar.jdbc.username=sonarqube
-sonar.jdbc.password=sonarqube
+sonar.jdbc.username=postgres  # 好的方式是单独创建一个用户，并且授予读写库权限
+sonar.jdbc.password=postgres  # 若postgresql设置trust本机，则无需提供密码，md5时需提供密码
 # PostgreSQL URL
-sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
+sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube  # 需要先创建sonarqube数据库
 # MySQL JDBC URL
 # sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+```
 
-# Default SonarQube server
-# sonar.host.url=http://localhost:9000
-sonar.host.url=http://192.168.56.105/sonarqube
+在命令行中登录postgresql，创建命为`sonarqube`的数据库，这里为了方便，直接使用postgres用户。
+```
+$ psql -U postgres
+$ CREATE DATABASE sonarqube WITH OWNER postgres ENCODING 'UTF8';
+```
 
+假设遇到了postgresql的登录问题，需要以root权限在`/var/lib/pgsql/data/pg_hba.conf`中修改`localhost`和`127.0.0.1`的`peer`为`trust`或`md5`。
+```
+#TYPE DATABASE  USER    ADDRESS        METHOD
+local    all    all                    trust
+host     all    all    127.0.0.1/32    trust
+```
+
+更多其他数据库配置可以参阅[Installing the Server](http://docs.sonarqube.org/display/SONAR/Installing+the+Server)。
+
+#### Web
+可以修改`sonar.properties`中的Web相关配置控制访问地址和端口。
+```
 # The default port is "9000" and the context path is "/". 
 # These values can be changed in sonar.properties.
 sonar.web.host=0.0.0.0
@@ -67,14 +82,25 @@ sonar.web.port=80
 sonar.web.context=/sonarqube
 ```
 
-配置完成后重启SonarQube服务，再访问[http://192.168.56.105/sonarqube](http://192.168.56.105/sonarqube)。
+若以`80`端口启动，可能会遇到权限的错误，需要切换为root用户运行sonar启动命令，可在`~/sonarqube/logs/sonar.log`中查看日志。
+```
+...
+Failed to initialize end point associated with ProtocolHandler ["http-nio-0.0.0.0-80"]
+java.net.SocketException: Permission denied
+...
+```
 
-更多其他数据库配置可以参阅[Installing the Server](http://docs.sonarqube.org/display/SONAR/Installing+the+Server)。
+配置完成后重启SonarQube服务，再访问[http://192.168.56.105/sonarqube](http://192.168.56.105/sonarqube)，并且页面底端的红色警告消失了。
+![](/assets/sonarqube-by-step/sonarqube_home_new.png)
 
 ## Analyzing with Scanner
 #### Runner
 通常可以直接运行Runner实现对支持语言的项目代码进行扫描。假设Sonar Scanner被解压到`~/sonar-scanner`文件夹中，随意找一个项目代码，并在其中添加`sonar-project.properties`配置文件，针对Java项目的配置如下：
 ```
+# Default SonarQube server
+# sonar.host.url=http://localhost:9000
+sonar.host.url=http://192.168.56.105/sonarqube
+
 # Must be unique in a given SonarQube instance
 sonar.projectKey=twee:qas-service
 
@@ -101,6 +127,9 @@ sonar.sourceEncoding=UTF-8
 ~/sonar-scanner/bin/sonar-scanner  # 当然也可以直接把bin目录加入环境变量中
 ```
 
+运行后sonarqube runner后，界面上显示一条最新的Item记录：
+![](/assets/sonarqube-by-step/runner_scan_item.png)
+
 更多配置和用法可以参阅[Analyzing with SonarQube Scanner](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner)。
 
 #### Gradle
@@ -115,6 +144,7 @@ sonarqube {
     properties {
         property "sonar.projectName", "QAS Service"
         property "sonar.projectKey", "tw.wee:qas-service"
+        property "sonar.projectVersion", "v1.0"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
 }
@@ -122,7 +152,7 @@ sonarqube {
 
 还需要在`gradle.properties`中配置SonarQube地址和登录信息：
 ```
-sonar.host.url=http://xxx
+systemProp.sonar.host.url=http://192.168.56.105/sonarqube
  
 # 当sonar.forceAuthentication被设置成true时需要提供登录信息
 sonar.login=admin
@@ -131,12 +161,21 @@ sonar.password=admin
 
 Gradle的Task为：`./gradlew sonarqube`，并且可以指定HOST和PASSWORD，这样就避免了把密码明文写在配置文件中。
 ```
-./gradlew sonarqube -Dsonar.host.url=http://xxx -Dsonar.jdbc.password=*** -Dsonar.verbose=true
+./gradlew sonarqube -Dsonar.host.url=http://xxx/sonar -Dsonar.jdbc.password=*** -Dsonar.verbose=true
 ```
+
+运行sonarqube tasks后，刷新界面，又多了一条新记录：
+![](/assets/sonarqube-by-step/gradle_scan_item.png)
+
+点击进入查看详细扫描结果：
+![](/assets/sonarqube-by-step/scanner_results.png)
 
 更多关于Gradle的配置可以参阅[Analyzing with SonarQube Scanner for Gradle](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle)。
 
 SonarQube扫描还可以与Jenkins集成，有兴趣可以参阅[Analyzing with SonarQube Scanner for Jenkins](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins)实现步骤。
+
+除此之外，还可以对SonarQube的Dashboard进行配置，针对项目选择并添加一些需要关注和分析的Widget。
+![](/assets/sonarqube-by-step/widget_dashboard.png)
 
 ----
 References
