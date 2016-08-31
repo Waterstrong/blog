@@ -179,8 +179,8 @@ SonarQube扫描还可以与Jenkins集成，有兴趣可以参阅[Analyzing with 
 
 ----
 References
-[SonarQube官网](http://www.sonarqube.org/)
-[Innodb Performance Optimization Basics](https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/)
+* [SonarQube官网](http://www.sonarqube.org/)
+* [Innodb Performance Optimization Basics](https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/)
 
 
 

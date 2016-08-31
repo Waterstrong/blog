@@ -469,9 +469,9 @@ gcp  # git cherry-pick
 
 ----
 References
-[Git官网](https://git-scm.com/)
-[Git Wiki](https://en.wikipedia.org/wiki/Git)
-[Git Documentation](https://git-scm.com/doc)
-[Git Reference](https://git-scm.com/docs)
-[GitHub Help](https://help.github.com/)
-[更多Git相关文章](http://blog.jobbole.com/tag/git/)
+* [Git官网](https://git-scm.com/)
+* [Git Wiki](https://en.wikipedia.org/wiki/Git)
+* [Git Documentation](https://git-scm.com/doc)
+* [Git Reference](https://git-scm.com/docs)
+* [GitHub Help](https://help.github.com/)
+* [更多Git相关文章](http://blog.jobbole.com/tag/git/)
