@@ -39,8 +39,54 @@ Flyway Commands
 #### Flyway命令行
 
 #### 在Gradle中的应用
+首先需要在Gradle中引入Flyway插件，通常有两种方式：
+- 方式一：采用buildscript依赖方式。
+```
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.flywaydb:flyway-gradle-plugin:4.0.3")
+    }
+}
+apply plugin: 'org.flywaydb.flyway'
+```
 
+- 方式二（推荐）：采用DSL方式引用Plugins。
+```
+plugins {
+    id "org.flywaydb.flyway" version "4.0.3"
+}
+```
 
+而在Gradle中配置Flyway Properties也有两种方式：
+- 方式一：在`build.gradle`中配置Flyway Properties。
+```
+flyway{
+	url = jdbc:h2:./.tmp/testdb
+	user = sa
+	password = 
+}
+```
+
+- 方式二：在`gradle.properties`中配置Flyway Properties。
+```
+flyway.url = jdbc:h2:./.tmp/testdb
+flyway.user = sa
+flyway.password =
+```
+
+如果期望在运行Gradle Clean/Build Tasks时自动执行Flyway的某些任务，可以设置`dependsOn`，若不期望隐式执行Flyway任务，可以不配置。
+```
+clean.dependsOn flywayRepair  # To repair the Flyway metadata table
+build.dependsOn flywayMigrate  # To migrate the schema to the latest version
+```
+
+在使用Spring Boot时，运行`./gradlew bootRun`会自动检查并加载最新的db.migration脚本。
+**特别注意：**在Production环境中不应执行`./gradlew flywayClean`，除非你知道自己的行为和目的，因为该命令会清除所有的数据库对象，相当危险。
+
+更多关于Flyway在Gradle中的使用请参阅[Flyway Gradle Plugin](https://flywaydb.org/documentation/gradle/): `flywayInfo`, `flywayValidate`, `flywayBaseline`。
 
 #### 与Spring Boot集成
 在Spring Boot中，如果加入Flyway的依赖，则会<u>自动引用Flyway并使用默认值</u>，但可以修改并配置[FlywayProperties](https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java)。
