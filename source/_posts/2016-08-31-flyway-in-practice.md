@@ -2,14 +2,23 @@
 title: 快速掌握和使用Flyway
 date: 2016-08-31 21:32:16
 category: Tools
-tags: [数据库, Flyway, Gradle, Spring Boot]
+tags: [数据库, Flyway, Migration, Gradle, Spring Boot]
 description: Flyway是一款开源的数据库版本管理工具。
 published: true
 ---
 
 ## 什么是Flyway?
+> Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.
 
 ## 为什么使用Flyway?
+通常在项目开始时会针对数据库进行全局设计，但在开发产品新特性过程中，难免会遇到需要更新数据库Schema的情况，比如：添加新表，添加新字段和约束等，这种情况在实际项目中也经常发生。那么，当开发人员完成了对数据库更的SQL脚本后，如何快速地在其他开发者机器上同步？并且如何在测试服务器上快速同步？以及如何保证集成测试能够顺利执行并通过呢？
+
+假设以Spring Boot技术栈项目为例，可能有人会说，本地使用Hibernate自动更新数据库Schema模式，然后让QA或DEV到测试服务器上手动执行SQL脚本，同时可以写一个Gradle任务自动执行更新。
+
+个人觉得，对于Hibernate自动更新数据库，感觉不靠谱，不透明，控制自由度不高，而且有时很容易就会犯错，比如：用SQL创建的某个字段为VARCHAR类型，而在Entity中配置的为CHAR类型，那么在运行集成测试时，自动创建的数据库表中的字段为CHAR类型，而实际SQL脚本期望的是VARCHAR类型，虽然测试通过了，但不是期望的行为，并且在本地bootRun或服务器上运行Service时都会失败。另外，到各测试服务器上手动执行SQL脚本费时费神费力的，干嘛不自动化呢，当然，对于高级别和PROD环境，还是需要DBA手动执行的。最后，写一段自动化程序来自动执行更新，想法是很好的，那如果已经有了一些插件或库可以帮助你更好地实现这样的功能，为何不好好利用一下呢，当然，如果是为了学习目的，重复造轮子是无可厚非的。
+
+其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，接下来我们就一起看看Flyway是如何工作的。
+
 
 ## Flyway如何工作的?
 
