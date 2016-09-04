@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/sql_migration_base_dir.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/sql_migration_naming.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/cli_directory_structure.png">
-<meta property="og:updated_time" content="2016-09-04T09:46:00.000Z">
+<meta property="og:updated_time" content="2016-09-04T10:40:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速掌握和使用Flyway">
 <meta name="twitter:description" content="Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。">
@@ -307,8 +307,100 @@
 <h2 id="为什么使用Flyway"><a href="#为什么使用Flyway" class="headerlink" title="为什么使用Flyway?"></a>为什么使用Flyway?</h2><p>通常在项目开始时会针对数据库进行全局设计，但在开发产品新特性过程中，难免会遇到需要更新数据库Schema的情况，比如：添加新表，添加新字段和约束等，这种情况在实际项目中也经常发生。那么，当开发人员完成了对数据库更的SQL脚本后，如何快速地在其他开发者机器上同步？并且如何在测试服务器上快速同步？以及如何保证集成测试能够顺利执行并通过呢？</p>
 <p>假设以Spring Boot技术栈项目为例，可能有人会说，本地使用Hibernate自动更新数据库Schema模式，然后让QA或DEV到测试服务器上手动执行SQL脚本，同时可以写一个Gradle任务自动执行更新。</p>
 <p>个人觉得，对于Hibernate自动更新数据库，感觉不靠谱，不透明，控制自由度不高，而且有时很容易就会犯错，比如：用SQL创建的某个字段为VARCHAR类型，而在Entity中配置的为CHAR类型，那么在运行集成测试时，自动创建的数据库表中的字段为CHAR类型，而实际SQL脚本期望的是VARCHAR类型，虽然测试通过了，但不是期望的行为，并且在本地bootRun或服务器上运行Service时都会失败。另外，到各测试服务器上手动执行SQL脚本费时费神费力的，干嘛不自动化呢，当然，对于高级别和PROD环境，还是需要DBA手动执行的。最后，写一段自动化程序来自动执行更新，想法是很好的，那如果已经有了一些插件或库可以帮助你更好地实现这样的功能，为何不好好利用一下呢，当然，如果是为了学习目的，重复造轮子是无可厚非的。</p>
-<p>其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，接下来就一起看看Flyway是如何工作的。</p>
-<h2 id="Flyway如何工作的"><a href="#Flyway如何工作的" class="headerlink" title="Flyway如何工作的?"></a>Flyway如何工作的?</h2><p>Flyway对数据库进行版本管理主要由六种命令完成，每种命令功能和解决的问题范围不一样，以下分别对这些命令进行阐述，其中的示意图都来自Flyway的官方文档。</p>
+<p>其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，Flyway官网对<a href="https://flywaydb.org/getstarted/why" target="_blank" rel="external">Why database migrations</a>结合示例进行了详细的阐述，有兴趣可以参阅一下。</p>
+<h2 id="Flyway如何工作的"><a href="#Flyway如何工作的" class="headerlink" title="Flyway如何工作的?"></a>Flyway如何工作的?</h2><p>Flyway对数据库进行版本管理主要由Metadata表和6种命令完成，Metadata主要用于记录元数据，每种命令功能和解决的问题范围不一样，以下分别对metadata表和这些命令进行阐述，其中的示意图都来自Flyway的官方文档。</p>
+<h4 id="Metadata-Table"><a href="#Metadata-Table" class="headerlink" title="Metadata Table"></a>Metadata Table</h4><p>Flyway中最核心的就是用于记录所有版本演化和状态的Metadata表，在Flyway首次启动时会创建默认名为<code>SCHEMA_VERSION</code>的元数据表，其表结构为(以MySQL为例)：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Field</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Null</th>
+<th style="text-align:center">Key</th>
+<th style="text-align:center">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">version_rank</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">MUL</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">installed_rank</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">MUL</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">version</td>
+<td style="text-align:center">varchar(50)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">PRI</td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">description</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">varchar(20)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">script</td>
+<td style="text-align:center">varchar(1000)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">checksum</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">installed_by</td>
+<td style="text-align:center">varchar(100)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">installed_on</td>
+<td style="text-align:center">timestamp</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">CURRENT_TIMESTAMP</td>
+</tr>
+<tr>
+<td style="text-align:center">execution_time</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">NULL</td>
+</tr>
+<tr>
+<td style="text-align:center">success</td>
+<td style="text-align:center">tinyint(1)</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">MUL</td>
+<td style="text-align:center">NULL</td>
+</tr>
+</tbody>
+</table>
+<p>Flyway官网上提供了一个很清晰的示例<a href="https://flywaydb.org/getstarted/how" target="_blank" rel="external">How Flyway works</a>，可以参阅一下。</p>
 <h4 id="Migrate"><a href="#Migrate" class="headerlink" title="Migrate"></a>Migrate</h4><p>Migrate是指把数据库Schema迁移到最新版本，是Flyway工作流的核心功能，Flyway在Migrate时会检查Metadata(元数据)表，如果不存在会创建Metadata表，Metadata表主要用于记录版本变更历史以及Checksum之类的。<br><img src="/assets/flyway-in-practice/command_migrate.png" alt=""></p>
 <p>Migrate时会扫描指定文件系统或Classpath下的Migrations(可以理解为数据库的版本脚本)，并且会逐一比对Metadata表中的已存在的版本记录，如果有未应用的Migrations，Flyway会获取这些Migrations并按次序Apply到数据库中，否则不需要做任何事情。另外，通常在应用程序启动时应默认执行Migrate操作，从而避免程序和数据库的不一致性。</p>
 <h4 id="Clean"><a href="#Clean" class="headerlink" title="Clean"></a>Clean</h4><p>Clean相对比较容易理解，即清除掉对应数据库Schema中的所有对象，包括表结构，视图，存储过程，函数以及所有的数据等都会被清除。<br><img src="/assets/flyway-in-practice/command_clean.png" alt=""></p>
@@ -386,13 +478,14 @@
 <li><p>若项目有多个团队同时开发不同的功能，需要新建多个分支，并且都会涉及到数据库Schema更改，当后期Merge时，Migration的版本如何控制并且不会产生数据库更改的冲突呢？<br><strong>解决方案：</strong>如果两个分支的数据库更改有冲突，要么最初数据库设计不合理，要么目前数据库更改不合理，所以需要团队进行全局考虑和协调。而针对数据库在同一段时间有修改，但不会造成冲突的情况，通常实际项目中主要存在这样的情况，那可以设置<code>flyway.out-of-order=true</code>，这样允许当v1和v3已经被应用后，v2出现时同样也可以被应用。其实在本地使用内存数据库不会存在该问题，因为数据库所有对象会自动清除掉，而在local或dev中使用真实数据库时可遇到这样的问题，因此需要注意一下了。<br>另外，值得一提的是Flyway的参数<code>ignore-failed-future-migration</code>默认为<code>true</code>，使用情形为：当Rollback数据库更改到旧版本，而metadata表中已存在了新版本时，Flyway会忽略此错误，只会显示警告信息。</p>
 </li>
 </ul>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><hr>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>总得来说，Flyway可以有效改善数据库版本管理方式，如果项目中还未使用，不防尝试一下。如果有兴趣，也可以关注<a href="http://mybatis.github.io/migrations/" target="_blank" rel="external">MyBatis Migration</a>，功能支持没有Flyway多，属于更轻量级的数据库版本管理工具。如果在使用过程中遇到了问题或坑，欢迎留言一起交流讨论。</p>
+<hr>
 <p>References</p>
 <ul>
 <li><a href="https://flywaydb.org/documentation/" target="_blank" rel="external">Flyway Documentation</a></li>
 <li><a href="https://flywaydb.org/documentation/gradle/" target="_blank" rel="external">Gradle Plugin: Flyway</a></li>
-<li><a href="https://flywaydb.org/documentation/gradle/migrate" target="_blank" rel="external">Gradle Task: flywayMigrate</a></li>
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html" target="_blank" rel="external">Spring Common application properties</a></li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-execute-flyway-database-migrations-on-startup" target="_blank" rel="external">Execute Flyway database migrations on startup</a></li>
 </ul>
 
       
@@ -405,7 +498,7 @@
         <p><span>本文标题:</span><a href="/flyway-in-practice/">快速掌握和使用Flyway</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
         <p><span>发布时间:</span>2016-08-31 21:32</p>
-        <!--<p><span>最后更新:</span>2016-09-04 17:46</p>-->
+        <!--<p><span>最后更新:</span>2016-09-04 18:40</p>-->
         <p>
             <span>原始链接:</span><a class="post-url" href="/flyway-in-practice/" title="快速掌握和使用Flyway">http://blog.waterstrong.me/flyway-in-practice/</a>
             <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/flyway-in-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -434,7 +527,7 @@
 
     <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Flyway"><span class="toc-number">1.</span> <span class="toc-text">什么是Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用Flyway"><span class="toc-number">2.</span> <span class="toc-text">为什么使用Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flyway如何工作的"><span class="toc-number">3.</span> <span class="toc-text">Flyway如何工作的?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Migrate"><span class="toc-number">3.0.1.</span> <span class="toc-text">Migrate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clean"><span class="toc-number">3.0.2.</span> <span class="toc-text">Clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Info"><span class="toc-number">3.0.3.</span> <span class="toc-text">Info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Validate"><span class="toc-number">3.0.4.</span> <span class="toc-text">Validate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Baseline"><span class="toc-number">3.0.5.</span> <span class="toc-text">Baseline</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Repair"><span class="toc-number">3.0.6.</span> <span class="toc-text">Repair</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用Flyway"><span class="toc-number">4.</span> <span class="toc-text">如何使用Flyway?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正确创建Migrations"><span class="toc-number">4.0.1.</span> <span class="toc-text">正确创建Migrations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持的数据库"><span class="toc-number">4.0.2.</span> <span class="toc-text">支持的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flyway命令行"><span class="toc-number">4.0.3.</span> <span class="toc-text">Flyway命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Gradle中的应用"><span class="toc-number">4.0.4.</span> <span class="toc-text">在Gradle中的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#与Spring-Boot集成"><span class="toc-number">4.0.5.</span> <span class="toc-text">与Spring Boot集成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">5.</span> <span class="toc-text">结束语</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Flyway"><span class="toc-number">1.</span> <span class="toc-text">什么是Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用Flyway"><span class="toc-number">2.</span> <span class="toc-text">为什么使用Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flyway如何工作的"><span class="toc-number">3.</span> <span class="toc-text">Flyway如何工作的?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Metadata-Table"><span class="toc-number">3.0.1.</span> <span class="toc-text">Metadata Table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Migrate"><span class="toc-number">3.0.2.</span> <span class="toc-text">Migrate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clean"><span class="toc-number">3.0.3.</span> <span class="toc-text">Clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Info"><span class="toc-number">3.0.4.</span> <span class="toc-text">Info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Validate"><span class="toc-number">3.0.5.</span> <span class="toc-text">Validate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Baseline"><span class="toc-number">3.0.6.</span> <span class="toc-text">Baseline</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Repair"><span class="toc-number">3.0.7.</span> <span class="toc-text">Repair</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用Flyway"><span class="toc-number">4.</span> <span class="toc-text">如何使用Flyway?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正确创建Migrations"><span class="toc-number">4.0.1.</span> <span class="toc-text">正确创建Migrations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持的数据库"><span class="toc-number">4.0.2.</span> <span class="toc-text">支持的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flyway命令行"><span class="toc-number">4.0.3.</span> <span class="toc-text">Flyway命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Gradle中的应用"><span class="toc-number">4.0.4.</span> <span class="toc-text">在Gradle中的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#与Spring-Boot集成"><span class="toc-number">4.0.5.</span> <span class="toc-text">与Spring Boot集成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">5.</span> <span class="toc-text">结束语</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
        value="隐藏目录"
