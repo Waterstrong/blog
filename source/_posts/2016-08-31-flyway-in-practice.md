@@ -67,12 +67,30 @@ Repair会修复Metadata表的错误，通常有两种用途：
 - 重新调整已经应用的Migratons的Checksums值，比如：某个Migratinon已经被应用，但本地进行了修改，又期望重新应用并调整Checksum值，不过尽量不要这样操作，否则可能造成其它环境失败。
 
 ## 如何使用Flyway?
+这里将主要关注在Gradle和Spring Boot中集成并使用Flyway，数据库通常会采用MySQL、PostgreSQL、H2或Hsql等。
 
-#### 运用Migrations
+#### 正确创建Migrations
+**Migrations**是指Flyway在更新数据库时是使用的版本脚本，比如：一个基于Sql的Migration命名为`V1__init_tables.sql`，内容即是创建所有表的sql语句，另外，Flyway也支持基于Java的Migration。Flyway加载Migrations的默认Locations为`classpath:db/migration`，也可以指定`filesystem:/project/folder`，其加载是在Runtime自动递归地执行的。
 ![](/assets/flyway-in-practice/sql_migration_base_dir.png)
 
+除了需要指定Location外，Flyway对Migrations的扫描还必须遵从一定的命名模式，Migration主要分为两类：Versioned和Repeatable。
+- **Versioned migrations**
+一般常用的是Versioned类型，用于版本升级，每一个版本都有一个唯一的标识并且只能被应用一次，并且不能再修改已经加载过的Migrations，因为Metadata表会记录其Checksum值。其中的version标识版本号，由一个或多个数字构成，数字之间的分隔符可以采用点或下划线，在运行时下划线其实也是被替换成点了，每一部分的前导零会被自动忽略。
+
+- **Repeatable migrations**
+Repeatable是指可重复加载的Migrations，其每一次的更新会影响Checksum值，然后都会被重新加载，并不用于版本升级。对于管理不稳定的数据库对象的更新时非常有用。Repeatable的Migrations总是在Versioned之后按顺序执行，但开发者必须自己维护脚本并且确保可以重复执行，通常会在sql语句中使用`CREATE OR REPLACE`来保证可重复执行。
+
+默认情况下基于Sql的Migration文件的命令规则如下图所示：
 ![](/assets/flyway-in-practice/sql_migration_naming.png)
 
+其中的文件名由以下部分组成，除了使用默认配置外，某些部分还可自定义规则。
+- prefix: 可配置，前缀标识，默认值`V`表示Versioned，`R`表示Repeatable
+- version: 标识版本号，由一个或多个数字构成，数字之间的分隔符可用点`.`或下划线`_`
+- separator: 可配置，用于分隔版本标识与描述信息，默认为两个下划线`__`
+- description: 描述信息，文字之间可以用下划线或空格分隔
+- suffix: 可配置，后续标识，默认为`.sql`
+
+另外，关于如何使用基于Java的Migrations，有兴趣可以参考[Java-based migrations](https://flywaydb.org/documentation/migration/java)。
 
 #### 支持的数据库
 
