@@ -93,8 +93,32 @@ Repeatable是指可重复加载的Migrations，其每一次的更新会影响Che
 另外，关于如何使用基于Java的Migrations，有兴趣可以参考[Java-based migrations](https://flywaydb.org/documentation/migration/java)。
 
 #### 支持的数据库
+目前Flyway支持的数据库还是挺多的，包括：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix。
+目前来说，个人用得比较多的数据库是[PostgreSQL](https://flywaydb.org/documentation/database/postgresql)、[MySQL](https://flywaydb.org/documentation/database/mysql)、[H2](https://flywaydb.org/documentation/database/h2)和[Hsql](https://flywaydb.org/documentation/database/hsql)，针对每种数据库的`flyway.url`示例配置为：
+```
+# PostgreSQL
+flyway.url = jdbc:postgresql://localhost:5432/postgres?currentSchema=myschema
+
+# MySQL
+flyway.url = jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&useSSL=true
+
+# H2
+flyway.url = jdbc:h2:./.tmp/testdb
+
+# Hsql
+flyway.url = jdbc:hsqldb:hsql//localhost:1476/testdb
+```
 
 #### Flyway命令行
+Flyway的命令行工具支持直接在命令行中运行`Migrate`, `Clean`, `Info`, `Validate`, `Baseline`和`Repair`6种命令，不需要借助其他Build工具，不需要应用程序运行在JVM中，只需要单纯的命令行即可，但需要根据不同的操作系统[下载](https://flywaydb.org/documentation/commandline/)并安装该命令行工具。Flyway会依次搜索以下配置文件，越靠后的配置会覆盖靠前的配置：
+- <install-dir>/conf/flyway.conf
+- <user-home>/flyway.conf
+- <current-dir>/flyway.conf
+
+一个典型Flyway项目示例目录结构如下：
+![](/assets/flyway-in-practice/cli_directory_structure.png)
+
+更多关于Flyway命令行使用可以参考[Flyway Command-line](https://flywaydb.org/documentation/commandline/migrate)。
 
 #### 在Gradle中的应用
 首先需要在Gradle中引入Flyway插件，通常有两种方式：
@@ -118,15 +142,21 @@ plugins {
 }
 ```
 
-而在Gradle中配置Flyway Properties也有两种方式：
+而在Gradle中配置Flyway Properties有两种方式：
 - 方式一：在`build.gradle`中配置Flyway Properties。
 ```
-flyway{
+flyway {
 	url = jdbc:h2:./.tmp/testdb
 	user = sa
 	password = 
 }
+
+# 或者写成：
+project.ext['flyway.url'] = 'jdbc:h2:./.tmp/testdb'
+project.ext['flyway.user'] = 'sa'
+project.ext['flyway.password'] = ''
 ```
+
 
 - 方式二：在`gradle.properties`中配置Flyway Properties。
 ```
@@ -141,38 +171,39 @@ clean.dependsOn flywayRepair  # To repair the Flyway metadata table
 build.dependsOn flywayMigrate  # To migrate the schema to the latest version
 ```
 
-在使用Spring Boot时，运行`./gradlew bootRun`会自动检查并加载最新的db.migration脚本。
+另外，其它Tasks：`flywayInfo`, `flywayValidate`, `flywayBaseline`分别对应到Flyway的命令。在使用Spring Boot时，运行`./gradlew bootRun`会自动检查并加载最新的db.migration脚本。
+
 **特别注意：**在Production环境中不应执行`./gradlew flywayClean`，除非你知道自己的行为和目的，因为该命令会清除所有的数据库对象，相当危险。
 
-更多关于Flyway在Gradle中的使用请参阅[Flyway Gradle Plugin](https://flywaydb.org/documentation/gradle/): `flywayInfo`, `flywayValidate`, `flywayBaseline`。
+更多关于Flyway在Gradle中的使用请参阅[Flyway Gradle Plugin](https://flywaydb.org/documentation/gradle/migrate)。
 
 #### 与Spring Boot集成
 在Spring Boot中，如果加入Flyway的依赖，则会<u>自动引用Flyway并使用默认值</u>，但可以修改并配置[FlywayProperties](https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java)。
 ```
-flyway.baseline-description= #
-flyway.baseline-version=1 # version to start migration
+flyway.baseline-description= # The description to tag an existing schema with when executing baseline.
+flyway.baseline-version=1 # Version to start migration.
 flyway.baseline-on-migrate=false # Whether to execute migration against a non-empty schema with no metadata table
 flyway.check-location=false # Check that migration scripts location exists.
 flyway.clean-on-validation-error=false # will clean all objects. Warning! Do NOT enable in production!
 flyway.enabled=true # Enable flyway.
-flyway.encoding= #
-flyway.ignore-failed-future-migration= #
+flyway.encoding=UTF-8 # The encoding of migrations.
+flyway.ignore-failed-future-migration=true # Ignore future migrations when reading the metadata table.
 flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.
-flyway.locations=classpath:db/migration # locations of migrations scripts
-flyway.out-of-order=false # Allows migrations to be run "out of order"
-flyway.placeholder-prefix= #
-flyway.placeholder-replacement= #
-flyway.placeholder-suffix= #
-flyway.placeholders.*= #
-flyway.schemas= # schemas to update
-flyway.sql-migration-prefix=V #
-flyway.sql-migration-separator= #
-flyway.sql-migration-suffix=.sql #
-flyway.table= #
+flyway.locations=classpath:db/migration # locations of migrations scripts.
+flyway.out-of-order=false # Allows migrations to be run "out of order".
+flyway.placeholder-prefix=${ # The prefix of every placeholder.
+flyway.placeholder-replacement=true # Whether placeholders should be replaced.
+flyway.placeholder-suffix={ # The suffix of every placeholder.
+flyway.placeholders.*= # Placeholders to replace in Sql migrations.
+flyway.schemas= # Default schema of the connection and updating
+flyway.sql-migration-prefix=V # The file name prefix for Sql migrations
+flyway.sql-migration-separator=__ # The file name separator for Sql migrations
+flyway.sql-migration-suffix=.sql # The file name suffix for Sql migrations
+flyway.table=schema_version # The name of Flyway's metadata table.
 flyway.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.
-flyway.user= # Login user of the database to migrate. If not set, use spring.datasource.username value
-flyway.password= # JDBC password if you want Flyway to create its own DataSource
-flyway.validate-on-migrate=true # Validate sql migration CRC32 checksum in classpath
+flyway.user= # Login user of the database to migrate. If not set, use spring.datasource.username value.
+flyway.password= # JDBC password if you want Flyway to create its own DataSource.
+flyway.validate-on-migrate=true # Validate sql migration CRC32 checksum in classpath.
 ```
 
 若使用Gradle，通常在`build.gradle`引入`org.flywaydb:flyway-core:4.0.3`依赖后即可使用。可能会有以下几种需求：
