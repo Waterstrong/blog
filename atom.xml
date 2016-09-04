@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-08-27T09:53:51.000Z</updated>
+  <updated>2016-09-04T09:46:00.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -16,11 +16,137 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>快速掌握和使用Flyway</title>
+    <link href="http://blog.waterstrong.me/flyway-in-practice/"/>
+    <id>http://blog.waterstrong.me/flyway-in-practice/</id>
+    <published>2016-08-31T13:32:16.000Z</published>
+    <updated>2016-09-04T09:46:00.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;什么是Flyway&quot;&gt;&lt;a href=&quot;#什么是Flyway&quot; class=&quot;headerlink&quot; title=&quot;什么是Flyway?&quot;&gt;&lt;/a&gt;什么是Flyway?&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，Migrations可以写成SQL脚本，也可以写在Java代码中，不仅支持Command Line和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库，同时也支持失败恢复等。&lt;/p&gt;
+&lt;p&gt;Flyway主要基于6种基本命令：&lt;code&gt;Migrate&lt;/code&gt;, &lt;code&gt;Clean&lt;/code&gt;, &lt;code&gt;Info&lt;/code&gt;, &lt;code&gt;Validate&lt;/code&gt;, &lt;code&gt;Baseline&lt;/code&gt; and &lt;code&gt;Repair&lt;/code&gt;，稍候会逐一分析讲解。目前支持的数据库主要有：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix.&lt;/p&gt;
+&lt;p&gt;关于Flyway的优势，支持的数据库以及与其他数据库版本工具的对比，可以阅读&lt;a href=&quot;https://flywaydb.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Flyway官网介绍&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;为什么使用Flyway&quot;&gt;&lt;a href=&quot;#为什么使用Flyway&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Flyway?&quot;&gt;&lt;/a&gt;为什么使用Flyway?&lt;/h2&gt;&lt;p&gt;通常在项目开始时会针对数据库进行全局设计，但在开发产品新特性过程中，难免会遇到需要更新数据库Schema的情况，比如：添加新表，添加新字段和约束等，这种情况在实际项目中也经常发生。那么，当开发人员完成了对数据库更的SQL脚本后，如何快速地在其他开发者机器上同步？并且如何在测试服务器上快速同步？以及如何保证集成测试能够顺利执行并通过呢？&lt;/p&gt;
+&lt;p&gt;假设以Spring Boot技术栈项目为例，可能有人会说，本地使用Hibernate自动更新数据库Schema模式，然后让QA或DEV到测试服务器上手动执行SQL脚本，同时可以写一个Gradle任务自动执行更新。&lt;/p&gt;
+&lt;p&gt;个人觉得，对于Hibernate自动更新数据库，感觉不靠谱，不透明，控制自由度不高，而且有时很容易就会犯错，比如：用SQL创建的某个字段为VARCHAR类型，而在Entity中配置的为CHAR类型，那么在运行集成测试时，自动创建的数据库表中的字段为CHAR类型，而实际SQL脚本期望的是VARCHAR类型，虽然测试通过了，但不是期望的行为，并且在本地bootRun或服务器上运行Service时都会失败。另外，到各测试服务器上手动执行SQL脚本费时费神费力的，干嘛不自动化呢，当然，对于高级别和PROD环境，还是需要DBA手动执行的。最后，写一段自动化程序来自动执行更新，想法是很好的，那如果已经有了一些插件或库可以帮助你更好地实现这样的功能，为何不好好利用一下呢，当然，如果是为了学习目的，重复造轮子是无可厚非的。&lt;/p&gt;
+&lt;p&gt;其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，接下来就一起看看Flyway是如何工作的。&lt;/p&gt;
+&lt;h2 id=&quot;Flyway如何工作的&quot;&gt;&lt;a href=&quot;#Flyway如何工作的&quot; class=&quot;headerlink&quot; title=&quot;Flyway如何工作的?&quot;&gt;&lt;/a&gt;Flyway如何工作的?&lt;/h2&gt;&lt;p&gt;Flyway对数据库进行版本管理主要由六种命令完成，每种命令功能和解决的问题范围不一样，以下分别对这些命令进行阐述，其中的示意图都来自Flyway的官方文档。&lt;/p&gt;
+&lt;h4 id=&quot;Migrate&quot;&gt;&lt;a href=&quot;#Migrate&quot; class=&quot;headerlink&quot; title=&quot;Migrate&quot;&gt;&lt;/a&gt;Migrate&lt;/h4&gt;&lt;p&gt;Migrate是指把数据库Schema迁移到最新版本，是Flyway工作流的核心功能，Flyway在Migrate时会检查Metadata(元数据)表，如果不存在会创建Metadata表，Metadata表主要用于记录版本变更历史以及Checksum之类的。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_migrate.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Migrate时会扫描指定文件系统或Classpath下的Migrations(可以理解为数据库的版本脚本)，并且会逐一比对Metadata表中的已存在的版本记录，如果有未应用的Migrations，Flyway会获取这些Migrations并按次序Apply到数据库中，否则不需要做任何事情。另外，通常在应用程序启动时应默认执行Migrate操作，从而避免程序和数据库的不一致性。&lt;/p&gt;
+&lt;h4 id=&quot;Clean&quot;&gt;&lt;a href=&quot;#Clean&quot; class=&quot;headerlink&quot; title=&quot;Clean&quot;&gt;&lt;/a&gt;Clean&lt;/h4&gt;&lt;p&gt;Clean相对比较容易理解，即清除掉对应数据库Schema中的所有对象，包括表结构，视图，存储过程，函数以及所有的数据等都会被清除。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_clean.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Clean操作在开发和测试阶段是非常有用的，它能够帮助快速有效地更新和重新生成数据库表结构，但特别注意的是：不应在Production的数据库上使用！&lt;/p&gt;
+&lt;h4 id=&quot;Info&quot;&gt;&lt;a href=&quot;#Info&quot; class=&quot;headerlink&quot; title=&quot;Info&quot;&gt;&lt;/a&gt;Info&lt;/h4&gt;&lt;p&gt;Info用于打印所有Migrations的详细和状态信息，其实也是通过Metadata表和Migrations完成的，下图很好地示意了Info打印出来的信息。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_info.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Info能够帮助快速定位当前的数据库版本，以及查看执行成功和失败的Migrations。&lt;/p&gt;
+&lt;h4 id=&quot;Validate&quot;&gt;&lt;a href=&quot;#Validate&quot; class=&quot;headerlink&quot; title=&quot;Validate&quot;&gt;&lt;/a&gt;Validate&lt;/h4&gt;&lt;p&gt;Validate是指验证已经Apply的Migrations是否有变更，Flyway是默认是开启验证的。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_validate.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Validate原理是对比Metadata表与本地Migrations的Checksum值，如果值相同则验证通过，否则验证失败，从而可以防止对已经Apply到数据库的本地Migrations的无意修改。&lt;/p&gt;
+&lt;h4 id=&quot;Baseline&quot;&gt;&lt;a href=&quot;#Baseline&quot; class=&quot;headerlink&quot; title=&quot;Baseline&quot;&gt;&lt;/a&gt;Baseline&lt;/h4&gt;&lt;p&gt;Baseline针对已经存在Schema结构的数据库的一种解决方案，即实现在非空数据库中新建Metadata表，并把Migrations应用到该数据库。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_baseline.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Baseline可以应用到特定的版本，这样在已有表结构的数据库中也可以实现添加Metadata表，从而利用Flyway进行新Migrations的管理了。&lt;/p&gt;
+&lt;h4 id=&quot;Repair&quot;&gt;&lt;a href=&quot;#Repair&quot; class=&quot;headerlink&quot; title=&quot;Repair&quot;&gt;&lt;/a&gt;Repair&lt;/h4&gt;&lt;p&gt;Repair操作能够修复Metadata表，该操作在Metadata表出现错误时是非常有用的。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/command_repair.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Repair会修复Metadata表的错误，通常有两种用途：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;移除失败的Migration记录，该问题只是针对不支持DDL事务的数据库。&lt;/li&gt;
+&lt;li&gt;重新调整已经应用的Migratons的Checksums值，比如：某个Migratinon已经被应用，但本地进行了修改，又期望重新应用并调整Checksum值，不过尽量不要这样操作，否则可能造成其它环境失败。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;如何使用Flyway&quot;&gt;&lt;a href=&quot;#如何使用Flyway&quot; class=&quot;headerlink&quot; title=&quot;如何使用Flyway?&quot;&gt;&lt;/a&gt;如何使用Flyway?&lt;/h2&gt;&lt;p&gt;这里将主要关注在Gradle和Spring Boot中集成并使用Flyway，数据库通常会采用MySQL、PostgreSQL、H2或Hsql等。&lt;/p&gt;
+&lt;h4 id=&quot;正确创建Migrations&quot;&gt;&lt;a href=&quot;#正确创建Migrations&quot; class=&quot;headerlink&quot; title=&quot;正确创建Migrations&quot;&gt;&lt;/a&gt;正确创建Migrations&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Migrations&lt;/strong&gt;是指Flyway在更新数据库时是使用的版本脚本，比如：一个基于Sql的Migration命名为&lt;code&gt;V1__init_tables.sql&lt;/code&gt;，内容即是创建所有表的sql语句，另外，Flyway也支持基于Java的Migration。Flyway加载Migrations的默认Locations为&lt;code&gt;classpath:db/migration&lt;/code&gt;，也可以指定&lt;code&gt;filesystem:/project/folder&lt;/code&gt;，其加载是在Runtime自动递归地执行的。&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/sql_migration_base_dir.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;除了需要指定Location外，Flyway对Migrations的扫描还必须遵从一定的命名模式，Migration主要分为两类：Versioned和Repeatable。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Versioned migrations&lt;/strong&gt;&lt;br&gt;一般常用的是Versioned类型，用于版本升级，每一个版本都有一个唯一的标识并且只能被应用一次，并且不能再修改已经加载过的Migrations，因为Metadata表会记录其Checksum值。其中的version标识版本号，由一个或多个数字构成，数字之间的分隔符可以采用点或下划线，在运行时下划线其实也是被替换成点了，每一部分的前导零会被自动忽略。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Repeatable migrations&lt;/strong&gt;&lt;br&gt;Repeatable是指可重复加载的Migrations，其每一次的更新会影响Checksum值，然后都会被重新加载，并不用于版本升级。对于管理不稳定的数据库对象的更新时非常有用。Repeatable的Migrations总是在Versioned之后按顺序执行，但开发者必须自己维护脚本并且确保可以重复执行，通常会在sql语句中使用&lt;code&gt;CREATE OR REPLACE&lt;/code&gt;来保证可重复执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;默认情况下基于Sql的Migration文件的命令规则如下图所示：&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/sql_migration_naming.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;其中的文件名由以下部分组成，除了使用默认配置外，某些部分还可自定义规则。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prefix: 可配置，前缀标识，默认值&lt;code&gt;V&lt;/code&gt;表示Versioned，&lt;code&gt;R&lt;/code&gt;表示Repeatable&lt;/li&gt;
+&lt;li&gt;version: 标识版本号，由一个或多个数字构成，数字之间的分隔符可用点&lt;code&gt;.&lt;/code&gt;或下划线&lt;code&gt;_&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;separator: 可配置，用于分隔版本标识与描述信息，默认为两个下划线&lt;code&gt;__&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;description: 描述信息，文字之间可以用下划线或空格分隔&lt;/li&gt;
+&lt;li&gt;suffix: 可配置，后续标识，默认为&lt;code&gt;.sql&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外，关于如何使用基于Java的Migrations，有兴趣可以参考&lt;a href=&quot;https://flywaydb.org/documentation/migration/java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Java-based migrations&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;支持的数据库&quot;&gt;&lt;a href=&quot;#支持的数据库&quot; class=&quot;headerlink&quot; title=&quot;支持的数据库&quot;&gt;&lt;/a&gt;支持的数据库&lt;/h4&gt;&lt;p&gt;目前Flyway支持的数据库还是挺多的，包括：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix。&lt;br&gt;目前来说，个人用得比较多的数据库是&lt;a href=&quot;https://flywaydb.org/documentation/database/postgresql&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PostgreSQL&lt;/a&gt;、&lt;a href=&quot;https://flywaydb.org/documentation/database/mysql&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQL&lt;/a&gt;、&lt;a href=&quot;https://flywaydb.org/documentation/database/h2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;H2&lt;/a&gt;和&lt;a href=&quot;https://flywaydb.org/documentation/database/hsql&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hsql&lt;/a&gt;，针对每种数据库的&lt;code&gt;flyway.url&lt;/code&gt;示例配置为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# PostgreSQL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.url = jdbc:postgresql://localhost:5432/postgres?currentSchema=myschema&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# MySQL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.url = jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&amp;amp;useSSL=true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# H2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.url = jdbc:h2:./.tmp/testdb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Hsql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.url = jdbc:hsqldb:hsql//localhost:1476/testdb&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Flyway命令行&quot;&gt;&lt;a href=&quot;#Flyway命令行&quot; class=&quot;headerlink&quot; title=&quot;Flyway命令行&quot;&gt;&lt;/a&gt;Flyway命令行&lt;/h4&gt;&lt;p&gt;Flyway的命令行工具支持直接在命令行中运行&lt;code&gt;Migrate&lt;/code&gt;, &lt;code&gt;Clean&lt;/code&gt;, &lt;code&gt;Info&lt;/code&gt;, &lt;code&gt;Validate&lt;/code&gt;, &lt;code&gt;Baseline&lt;/code&gt;和&lt;code&gt;Repair&lt;/code&gt;6种命令，不需要借助其他Build工具，不需要应用程序运行在JVM中，只需要单纯的命令行即可，但需要根据不同的操作系统&lt;a href=&quot;https://flywaydb.org/documentation/commandline/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载&lt;/a&gt;并安装该命令行工具。Flyway会依次搜索以下配置文件，越靠后的配置会覆盖靠前的配置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;install-dir&gt;/conf/flyway.conf&lt;/install-dir&gt;&lt;/li&gt;
+&lt;li&gt;&lt;user-home&gt;/flyway.conf&lt;/user-home&gt;&lt;/li&gt;
+&lt;li&gt;&lt;current-dir&gt;/flyway.conf&lt;/current-dir&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一个典型Flyway项目示例目录结构如下：&lt;br&gt;&lt;img src=&quot;/assets/flyway-in-practice/cli_directory_structure.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;更多关于Flyway命令行使用可以参考&lt;a href=&quot;https://flywaydb.org/documentation/commandline/migrate&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Flyway Command-line&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;在Gradle中的应用&quot;&gt;&lt;a href=&quot;#在Gradle中的应用&quot; class=&quot;headerlink&quot; title=&quot;在Gradle中的应用&quot;&gt;&lt;/a&gt;在Gradle中的应用&lt;/h4&gt;&lt;p&gt;首先需要在Gradle中引入Flyway插件，通常有两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;方式一：采用buildscript依赖方式。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;buildscript &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    repositories &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mavenCentral()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    dependencies &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        classpath(&amp;quot;org.flywaydb:flyway-gradle-plugin:4.0.3&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apply plugin: &amp;apos;org.flywaydb.flyway&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;方式二（推荐）：采用DSL方式引用Plugins。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;plugins &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    id &amp;quot;org.flywaydb.flyway&amp;quot; version &amp;quot;4.0.3&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而在Gradle中配置Flyway Properties有两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;方式一：在&lt;code&gt;build.gradle&lt;/code&gt;中配置Flyway Properties。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;flyway &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	url = jdbc:h2:./.tmp/testdb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	user = sa&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	password = &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 或者写成：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;project.ext[&amp;apos;flyway.url&amp;apos;] = &amp;apos;jdbc:h2:./.tmp/testdb&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;project.ext[&amp;apos;flyway.user&amp;apos;] = &amp;apos;sa&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;project.ext[&amp;apos;flyway.password&amp;apos;] = &amp;apos;&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;方式二：在&lt;code&gt;gradle.properties&lt;/code&gt;中配置Flyway Properties。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;flyway.url = jdbc:h2:./.tmp/testdb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.user = sa&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.password =&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果期望在运行Gradle Clean/Build Tasks时自动执行Flyway的某些任务，可以设置&lt;code&gt;dependsOn&lt;/code&gt;，若不期望隐式执行Flyway任务，可以不配置。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;clean.dependsOn flywayRepair  # To repair the Flyway metadata table&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;build.dependsOn flywayMigrate  # To migrate the schema to the latest version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;另外，其它Tasks：&lt;code&gt;flywayInfo&lt;/code&gt;, &lt;code&gt;flywayValidate&lt;/code&gt;, &lt;code&gt;flywayBaseline&lt;/code&gt;分别对应到Flyway的命令。在使用Spring Boot时，运行&lt;code&gt;./gradlew bootRun&lt;/code&gt;会自动检查并加载最新的db.migration脚本。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;特别注意：&lt;/strong&gt;在Production环境中不应执行&lt;code&gt;./gradlew flywayClean&lt;/code&gt;，除非你知道自己的行为和目的，因为该命令会清除所有的数据库对象，相当危险。&lt;/p&gt;
+&lt;p&gt;更多关于Flyway在Gradle中的使用请参阅&lt;a href=&quot;https://flywaydb.org/documentation/gradle/migrate&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Flyway Gradle Plugin&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;与Spring-Boot集成&quot;&gt;&lt;a href=&quot;#与Spring-Boot集成&quot; class=&quot;headerlink&quot; title=&quot;与Spring Boot集成&quot;&gt;&lt;/a&gt;与Spring Boot集成&lt;/h4&gt;&lt;p&gt;在Spring Boot中，如果加入Flyway的依赖，则会&lt;u&gt;自动引用Flyway并使用默认值&lt;/u&gt;，但可以修改并配置&lt;a href=&quot;https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;FlywayProperties&lt;/a&gt;。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;flyway.baseline-description= # The description to tag an existing schema with when executing baseline.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.baseline-version=1 # Version to start migration.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.baseline-on-migrate=false # Whether to execute migration against a non-empty schema with no metadata table&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.check-location=false # Check that migration scripts location exists.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.clean-on-validation-error=false # will clean all objects. Warning! Do NOT enable in production!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.enabled=true # Enable flyway.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.encoding=UTF-8 # The encoding of migrations.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.ignore-failed-future-migration=true # Ignore future migrations when reading the metadata table.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.locations=classpath:db/migration # locations of migrations scripts.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.out-of-order=false # Allows migrations to be run &amp;quot;out of order&amp;quot;.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.placeholder-prefix=$&amp;#123; # The prefix of every placeholder.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.placeholder-replacement=true # Whether placeholders should be replaced.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.placeholder-suffix=&amp;#123; # The suffix of every placeholder.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.placeholders.*= # Placeholders to replace in Sql migrations.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.schemas= # Default schema of the connection and updating&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.sql-migration-prefix=V # The file name prefix for Sql migrations&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.sql-migration-separator=__ # The file name separator for Sql migrations&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.sql-migration-suffix=.sql # The file name suffix for Sql migrations&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.table=schema_version # The name of Flyway&amp;apos;s metadata table.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.user= # Login user of the database to migrate. If not set, use spring.datasource.username value.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.password= # JDBC password if you want Flyway to create its own DataSource.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flyway.validate-on-migrate=true # Validate sql migration CRC32 checksum in classpath.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;若使用Gradle，通常在&lt;code&gt;build.gradle&lt;/code&gt;引入&lt;code&gt;org.flywaydb:flyway-core:4.0.3&lt;/code&gt;依赖后即可使用。可能会有以下几种需求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在本地Run和Tests都会使用内存数据库，其中的&lt;code&gt;spring.jpa.hibernate.ddl-auto&lt;/code&gt;都设置为&lt;code&gt;validate&lt;/code&gt;，Schema不需要Hibernate自动生成，并期望使用Flyway，而在线上环境会使用真实数据库，并不期望使用Flyway，如何实现呢？&lt;br&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;可以在&lt;code&gt;common.properties&lt;/code&gt;中配置&lt;code&gt;flyway.enabled=false&lt;/code&gt;，然后在local或dev的配置中启用Flyway即可。通常推荐使用此模式，毕竟可以对不同的环境进行控制，另外本地Run不会依赖真实数据库，又能保证数据库Schema是按脚本创建的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在运行Tests会使用内存数据库，有单独的配置文件，不使用Flyway，而在本地bootRun时会使用真实数据库，使用Flyway，毕竟不想每次Schema改后都在本地手动去执行脚本，如何实现？&lt;br&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;设置&lt;code&gt;bootRun.dependsOn&lt;/code&gt;动态添加Flyway的依赖即可：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;addFlywayDenpendency &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	doLast &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		dependencies &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			compile(&amp;apos;org.flywaydb:flyway-core:4.0.3&amp;apos;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bootRun.dependsOn=addFlywayDenpendency&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;若项目有多个团队同时开发不同的功能，需要新建多个分支，并且都会涉及到数据库Schema更改，当后期Merge时，Migration的版本如何控制并且不会产生数据库更改的冲突呢？&lt;br&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;如果两个分支的数据库更改有冲突，要么最初数据库设计不合理，要么目前数据库更改不合理，所以需要团队进行全局考虑和协调。而针对数据库在同一段时间有修改，但不会造成冲突的情况，通常实际项目中主要存在这样的情况，那可以设置&lt;code&gt;flyway.out-of-order=true&lt;/code&gt;，这样允许当v1和v3已经被应用后，v2出现时同样也可以被应用。其实在本地使用内存数据库不会存在该问题，因为数据库所有对象会自动清除掉，而在local或dev中使用真实数据库时可遇到这样的问题，因此需要注意一下了。&lt;br&gt;另外，值得一提的是Flyway的参数&lt;code&gt;ignore-failed-future-migration&lt;/code&gt;默认为&lt;code&gt;true&lt;/code&gt;，使用情形为：当Rollback数据库更改到旧版本，而metadata表中已存在了新版本时，Flyway会忽略此错误，只会显示警告信息。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;结束语&quot;&gt;&lt;a href=&quot;#结束语&quot; class=&quot;headerlink&quot; title=&quot;结束语&quot;&gt;&lt;/a&gt;结束语&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;References&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://flywaydb.org/documentation/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Flyway Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://flywaydb.org/documentation/gradle/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gradle Plugin: Flyway&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://flywaydb.org/documentation/gradle/migrate&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gradle Task: flywayMigrate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Spring Common application properties&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+    
+    
+      <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
+    
+      <category term="Gradle" scheme="http://blog.waterstrong.me/tags/Gradle/"/>
+    
+      <category term="Flyway" scheme="http://blog.waterstrong.me/tags/Flyway/"/>
+    
+      <category term="Migration" scheme="http://blog.waterstrong.me/tags/Migration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>代码质量管理SonarQube</title>
     <link href="http://blog.waterstrong.me/sonarqube-by-step/"/>
     <id>http://blog.waterstrong.me/sonarqube-by-step/</id>
     <published>2016-08-20T14:23:48.000Z</published>
-    <updated>2016-08-27T09:53:51.000Z</updated>
+    <updated>2016-08-31T14:56:58.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/Plugin+Library&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;20+种语言&lt;/a&gt;，并且有很多&lt;a href=&quot;http://docs.sonarqube.org/display/PLUG/SonarSource+Plugins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;插件Plugins&lt;/a&gt;可以集成。接下来将大致讲解SonarQube的安装、配置及使用。&lt;/p&gt;
 &lt;h2 id=&quot;Installation&quot;&gt;&lt;a href=&quot;#Installation&quot; class=&quot;headerlink&quot; title=&quot;Installation&quot;&gt;&lt;/a&gt;Installation&lt;/h2&gt;&lt;p&gt;以下所有操作均在CentOS下进行，其他系统的过程基本类似，只需要替换成对应命令即可，假设CentOS分配的IP地址为&lt;code&gt;192.168.56.105&lt;/code&gt;。&lt;/p&gt;
@@ -54,7 +180,11 @@
 &lt;p&gt;SonarQube扫描还可以与Jenkins集成，有兴趣可以参阅&lt;a href=&quot;http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Analyzing with SonarQube Scanner for Jenkins&lt;/a&gt;实现步骤。&lt;/p&gt;
 &lt;p&gt;除此之外，还可以对SonarQube的Dashboard进行配置，针对项目选择并添加一些需要关注和分析的Widget。&lt;br&gt;&lt;img src=&quot;/assets/sonarqube-by-step/widget_dashboard.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;References&lt;br&gt;&lt;a href=&quot;http://www.sonarqube.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube官网&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Innodb Performance Optimization Basics&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;References&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.sonarqube.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SonarQube官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.percona.com/blog/2007/11/01/innodb-performance-optimization-basics/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Innodb Performance Optimization Basics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </content>
     
     <summary type="html">
@@ -77,7 +207,7 @@
     <link href="http://blog.waterstrong.me/master-git/"/>
     <id>http://blog.waterstrong.me/master-git/</id>
     <published>2016-08-12T14:29:48.000Z</published>
-    <updated>2016-08-22T15:51:20.000Z</updated>
+    <updated>2016-08-31T14:56:58.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;序&quot;&gt;&lt;a href=&quot;#序&quot; class=&quot;headerlink&quot; title=&quot;序&quot;&gt;&lt;/a&gt;序&lt;/h2&gt;&lt;p&gt;前几天遇到一些关于权限和rebase的问题，另外，之前也有被多次问到在某某情况下怎么处理，某某操作是什么命令，某某命令怎么用等等的问题，当然，还有一些其他不常用的Git命令，但真正需要的时候又比较棘手，估计大部分人只会使用一些简单常规并且在正常流程下的命令，鉴于此，觉得还是有必要分享一下。&lt;/p&gt;
 &lt;p&gt;如果你已经是Git高手了，这篇博客对你意义不大，不过可以下方留言，补充更多的信息。如果你是从来没有使用过Git的，这篇博客也不太适合你，不过我会给出一些简单说明和入门教程的链接，如果你有兴趣学习的话，想必能够帮到你。如果你是Git新用户，或者使用Git有一段时间了，但经常会遇到一些棘手问题不知所措，那本博客应该会对你有一些帮助。&lt;/p&gt;
@@ -174,7 +304,15 @@
 &lt;p&gt;其中，&lt;code&gt;★★★★★&lt;/code&gt;表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。&lt;/p&gt;
 &lt;h2 id=&quot;结束语&quot;&gt;&lt;a href=&quot;#结束语&quot; class=&quot;headerlink&quot; title=&quot;结束语&quot;&gt;&lt;/a&gt;结束语&lt;/h2&gt;&lt;p&gt;对于Git初阶部分，都是平常自己使用的一些命令，对于Git进阶部分，除了补充一些命令外，也是自己使用Git的一些心得体会和技巧，无论怎样，只有通过自己亲身实践，不断练习才能真正掌握。以上所有都只是作为一名普通Git用户的实践方式，如果需要开发一些基于Git的应用等，那就需要了解更深层次的底层命令和原理了。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;References&lt;br&gt;&lt;a href=&quot;https://git-scm.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git官网&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Wiki&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://git-scm.com/doc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Documentation&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://git-scm.com/docs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Reference&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://help.github.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Help&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://blog.jobbole.com/tag/git/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;更多Git相关文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;References&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://git-scm.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://git-scm.com/doc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://git-scm.com/docs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Git Reference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://help.github.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Help&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://blog.jobbole.com/tag/git/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;更多Git相关文章&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </content>
     
     <summary type="html">
@@ -785,71 +923,6 @@
       <category term="Unit Test" scheme="http://blog.waterstrong.me/tags/Unit-Test/"/>
     
       <category term="Integration Test" scheme="http://blog.waterstrong.me/tags/Integration-Test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JBoss Tips in Practice</title>
-    <link href="http://blog.waterstrong.me/jboss-tips/"/>
-    <id>http://blog.waterstrong.me/jboss-tips/</id>
-    <published>2016-04-20T14:23:50.000Z</published>
-    <updated>2016-06-12T15:25:05.000Z</updated>
-    
-    <content type="html">&lt;p&gt;JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 以下列出一些Tips供使用参考。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;Tip1-IP-域名黑白名单&quot;&gt;&lt;a href=&quot;#Tip1-IP-域名黑白名单&quot; class=&quot;headerlink&quot; title=&quot;Tip1: IP/域名黑白名单&quot;&gt;&lt;/a&gt;Tip1: IP/域名黑白名单&lt;/h2&gt;&lt;p&gt;针对JBoss EAP5，为了实现Web容器级别的IP/域名黑白名单，需要到JBoss的server.xml文件中配置相应Valve规则并重启JBoss后生效。&lt;/p&gt;
-&lt;p&gt;在文件&lt;code&gt;jboss-as/server/&amp;lt;instance_name&amp;gt;/deploy/jbossweb.sar/server.xml&lt;/code&gt;中的&lt;code&gt;&amp;lt;Host&amp;gt;&amp;lt;/Host&amp;gt;&lt;/code&gt;内添加如下配置:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        .....&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;Valve className=&amp;apos;org.apache.catalina.valves.RemoteAddrValve&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        allow=&amp;apos;192.168.[0-1].*, *.testing.com&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        deny=&amp;apos;127.0.0.1&amp;apos;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/Host&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/Engine&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;其中&lt;code&gt;allow&lt;/code&gt;表明允许的IP地址正则表达式，&lt;code&gt;deny&lt;/code&gt;表明拒绝的IP地址正则表达式，特别注意的是逗号(&lt;code&gt;,&lt;/code&gt;)会被解析成&lt;code&gt;或&lt;/code&gt;，因此IP Regex中一定不要包含&lt;code&gt;逗号&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;当然，除了可以设置服务器级别&lt;code&gt;server-level&lt;/code&gt;，也可以设置应用层级别&lt;code&gt;application-level&lt;/code&gt;，更多关于Web Server的配置可参见&lt;a href=&quot;http://www.datadisk.co.uk/html_docs/java_app/jboss5/jboss5_web_server.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Configuring the Web Server&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;另外补充一下Valve的相关解释:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Valves are similar to filters, they can intercept any incoming and outgoing request. Valves are managed by the Engine, they access incoming/outgoing requests before they are handled by the servlet and JSP processing logic. Logically they can also be applied on a virtual host or web application basis.&lt;br&gt;Valves can add the following functionality:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Access logging&lt;/li&gt;
-&lt;li&gt;Single sign-on for all Web applications&lt;/li&gt;
-&lt;li&gt;Request filtering/blocking by IP address and or hostname&lt;/li&gt;
-&lt;li&gt;Dumping of incoming/outgoing request headers for debugging purposes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Valves are nested components in the component model, they use the &lt;valve&gt; XML element in the server.xml file, they can be placed in the &lt;engine&gt;, &lt;host&gt; or &lt;context&gt; containers. The Java programming interface org.apache.catalina.Valve is used and well documented.&lt;/context&gt;&lt;/host&gt;&lt;/engine&gt;&lt;/valve&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;想了解更多其他内容及详细解释请参见&lt;a href=&quot;http://www.datadisk.co.uk/html_docs/java_app/tomcat6/tomcat6_advanced.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Advanced Tomcat Features&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;Tip2-自动清除work目录&quot;&gt;&lt;a href=&quot;#Tip2-自动清除work目录&quot; class=&quot;headerlink&quot; title=&quot;Tip2: 自动清除work目录&quot;&gt;&lt;/a&gt;Tip2: 自动清除work目录&lt;/h2&gt;&lt;p&gt;针对JBoss EAP5:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The work directory:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Directory where compiled JSP .java and .class files reside&lt;/li&gt;
-&lt;li&gt;Also contains cached TLDs&lt;/li&gt;
-&lt;li&gt;Very useful for debugging problems in JSPs&lt;br&gt;Java ServerPages (.jsp files) are automatically compiled into Java Servlets (.java file) and then into Java byte-code (.class files) by Tomcat (the embedded servlet engine running within JBoss AS).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;JBoss中的work目录是工作目录，即把jsp转换为class文件的工作目录, 其工作原理是当浏览器访问某个jsp页面时，JBoss会在work目录里把这个jsp页面转换成.java文件，然后编译为.class文件，最后容器通过ClassLoader类把这个.class类装载入内存，进行响应客户端的工作。&lt;/p&gt;
-&lt;p&gt;通常情况下会定时检查容器内的jsp文件，读取每个文件的属性，当发现某个jsp文件发生改变时(文件的最后修改时间与上次检查时不相同)，容器会重新转换、编译这个jsp文件, 但是检查是定时的不是实时的，因此jsp文件修改后需要几分钟的时间来等修改过的jsp生效。为了即刻生效，通常的做法是重启JBoss之前或在修改jsp页面后立即清除work目录里的文件。&lt;/p&gt;
-&lt;p&gt;一般情况下, 当停止JBoss服务时对work目录进行一次清理, 最简单快速的做法就是在JBoss相应的目录下配置自动清理选项:&lt;br&gt;修改文件&lt;code&gt;jboss-as/server/&amp;lt;instance_name&amp;gt;/deployers/jbossweb.deployer/META-INF/war-deployers-jboss-beans.xml&lt;/code&gt;中的:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!--Flag to delete the Work Dir on Context Destroy --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;property name=&amp;quot;deleteWorkDirOnContextDestroy&amp;quot;&amp;gt;false&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;为&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!--Flag to delete the Work Dir on Context Destroy --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;property name=&amp;quot;deleteWorkDirOnContextDestroy&amp;quot;&amp;gt;true&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;hr&gt;
-</content>
-    
-    <summary type="html">
-    
-      JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 将列出一些Tips供使用参考。
-    
-    </summary>
-    
-      <category term="Frameworks" scheme="http://blog.waterstrong.me/categories/Frameworks/"/>
-    
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
-      <category term="Web容器" scheme="http://blog.waterstrong.me/tags/Web%E5%AE%B9%E5%99%A8/"/>
-    
-      <category term="JBoss" scheme="http://blog.waterstrong.me/tags/JBoss/"/>
-    
-      <category term="EJB" scheme="http://blog.waterstrong.me/tags/EJB/"/>
-    
-      <category term="Servlet" scheme="http://blog.waterstrong.me/tags/Servlet/"/>
-    
-      <category term="JSP" scheme="http://blog.waterstrong.me/tags/JSP/"/>
     
   </entry>
   
