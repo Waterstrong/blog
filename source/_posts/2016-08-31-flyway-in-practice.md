@@ -23,10 +23,29 @@ Flyway主要基于6种基本命令：`Migrate`, `Clean`, `Info`, `Validate`, `Ba
 
 个人觉得，对于Hibernate自动更新数据库，感觉不靠谱，不透明，控制自由度不高，而且有时很容易就会犯错，比如：用SQL创建的某个字段为VARCHAR类型，而在Entity中配置的为CHAR类型，那么在运行集成测试时，自动创建的数据库表中的字段为CHAR类型，而实际SQL脚本期望的是VARCHAR类型，虽然测试通过了，但不是期望的行为，并且在本地bootRun或服务器上运行Service时都会失败。另外，到各测试服务器上手动执行SQL脚本费时费神费力的，干嘛不自动化呢，当然，对于高级别和PROD环境，还是需要DBA手动执行的。最后，写一段自动化程序来自动执行更新，想法是很好的，那如果已经有了一些插件或库可以帮助你更好地实现这样的功能，为何不好好利用一下呢，当然，如果是为了学习目的，重复造轮子是无可厚非的。
 
-其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，接下来就一起看看Flyway是如何工作的。
+其实，以上问题可以通过Flyway工具来解决，Flyway可以实现自动化的数据库版本管理，并且能够记录数据库版本更新记录，Flyway官网对[Why database migrations](https://flywaydb.org/getstarted/why)结合示例进行了详细的阐述，有兴趣可以参阅一下。
 
 ## Flyway如何工作的?
-Flyway对数据库进行版本管理主要由六种命令完成，每种命令功能和解决的问题范围不一样，以下分别对这些命令进行阐述，其中的示意图都来自Flyway的官方文档。
+Flyway对数据库进行版本管理主要由Metadata表和6种命令完成，Metadata主要用于记录元数据，每种命令功能和解决的问题范围不一样，以下分别对metadata表和这些命令进行阐述，其中的示意图都来自Flyway的官方文档。
+
+#### Metadata Table
+Flyway中最核心的就是用于记录所有版本演化和状态的Metadata表，在Flyway首次启动时会创建默认名为`SCHEMA_VERSION`的元数据表，其表结构为(以MySQL为例)：
+
+| Field | Type | Null | Key | Default |
+|:-----:|:----:|:----:|:---:|:-------:|
+| version_rank   | int(11)       | NO   | MUL | NULL              |
+| installed_rank | int(11)       | NO   | MUL | NULL              |
+| version        | varchar(50)   | NO   | PRI | NULL              |
+| description    | varchar(200)  | NO   |     | NULL              |
+| type           | varchar(20)   | NO   |     | NULL              |
+| script         | varchar(1000) | NO   |     | NULL              |
+| checksum       | int(11)       | YES  |     | NULL              |
+| installed_by   | varchar(100)  | NO   |     | NULL              |
+| installed_on   | timestamp     | NO   |     | CURRENT_TIMESTAMP |
+| execution_time | int(11)       | NO   |     | NULL              |
+| success        | tinyint(1)    | NO   | MUL | NULL              |
+
+Flyway官网上提供了一个很清晰的示例[How Flyway works](https://flywaydb.org/getstarted/how)，可以参阅一下。
 
 #### Migrate
 Migrate是指把数据库Schema迁移到最新版本，是Flyway工作流的核心功能，Flyway在Migrate时会检查Metadata(元数据)表，如果不存在会创建Metadata表，Metadata表主要用于记录版本变更历史以及Checksum之类的。
@@ -231,11 +250,11 @@ bootRun.dependsOn=addFlywayDenpendency
 另外，值得一提的是Flyway的参数`ignore-failed-future-migration`默认为`true`，使用情形为：当Rollback数据库更改到旧版本，而metadata表中已存在了新版本时，Flyway会忽略此错误，只会显示警告信息。
 
 ## 结束语
-
+总得来说，Flyway可以有效改善数据库版本管理方式，如果项目中还未使用，不防尝试一下。如果有兴趣，也可以关注[MyBatis Migration](http://mybatis.github.io/migrations/)，功能支持没有Flyway多，属于更轻量级的数据库版本管理工具。如果在使用过程中遇到了问题或坑，欢迎留言一起交流讨论。
 
 ----
 References
 * [Flyway Documentation](https://flywaydb.org/documentation/)
 * [Gradle Plugin: Flyway](https://flywaydb.org/documentation/gradle/)
-* [Gradle Task: flywayMigrate](https://flywaydb.org/documentation/gradle/migrate)
 * [Spring Common application properties](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
+* [Execute Flyway database migrations on startup](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-execute-flyway-database-migrations-on-startup)
