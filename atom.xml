@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-09-06T15:42:40.000Z</updated>
+  <updated>2016-09-06T15:45:40.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -16,28 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>使用Stubby4j</title>
+    <title>使用Stubby4J</title>
     <link href="http://blog.waterstrong.me/using-stubby4j/"/>
     <id>http://blog.waterstrong.me/using-stubby4j/</id>
     <published>2016-09-05T14:29:26.000Z</published>
-    <updated>2016-09-06T15:42:40.000Z</updated>
+    <updated>2016-09-06T15:45:40.000Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;什么是stubby4j？&quot;&gt;&lt;a href=&quot;#什么是stubby4j？&quot; class=&quot;headerlink&quot; title=&quot;什么是stubby4j？&quot;&gt;&lt;/a&gt;什么是stubby4j？&lt;/h2&gt;&lt;p&gt;Stubby4J项目是由个人发起的开源项目，它是一款非常灵活可配置的基于HTTP(s)协议测试Web服务交互的工具，采用内嵌式的Jetty作为HTTP服务器，它的主要作用在于，可以在集成测试时，用来模拟第三方Web服务的API行为，比如，目前比较流行的RESTful架构风格的Web服务。&lt;/p&gt;
-&lt;p&gt;Stubby4J是由Java编写，目前使用一些第三依赖有：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;javax.servlet-api-3.1.0.jar&lt;/li&gt;
-&lt;li&gt;jetty-server-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;jetty-servlets-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;jetty-http-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;jetty-io-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;jetty-continuation-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;jetty-util-9.2.10.v20150310.jar&lt;/li&gt;
-&lt;li&gt;commons-cli-1.2.jar&lt;/li&gt;
-&lt;li&gt;snakeyaml-1.15.jar&lt;/li&gt;
-&lt;li&gt;jsonassert-1.2.3.jar&lt;/li&gt;
-&lt;li&gt;xmlunit-1.6.jar&lt;/li&gt;
-&lt;li&gt;json-20090211.jar&lt;/li&gt;
-&lt;/ul&gt;
+    <content type="html">&lt;h2 id=&quot;什么是stubby4j？&quot;&gt;&lt;a href=&quot;#什么是stubby4j？&quot; class=&quot;headerlink&quot; title=&quot;什么是stubby4j？&quot;&gt;&lt;/a&gt;什么是stubby4j？&lt;/h2&gt;&lt;p&gt;Stubby4J是基于Java编写的，该项目是由个人发起的开源项目，它是一款非常灵活可配置的基于HTTP(s)协议测试Web服务交互的工具，采用内嵌式的Jetty作为HTTP服务器，它的主要作用在于，可以在集成测试时，用来模拟第三方Web服务的API行为，比如，目前比较流行的RESTful架构风格的Web服务。&lt;/p&gt;
 &lt;h2 id=&quot;为什么使用Stubby4J？&quot;&gt;&lt;a href=&quot;#为什么使用Stubby4J？&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Stubby4J？&quot;&gt;&lt;/a&gt;为什么使用Stubby4J？&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;模拟HTTP请求，Stub第三方API的返回数据&lt;/li&gt;
 &lt;li&gt;在写集成测试时，Mock第三方API更加便捷&lt;/li&gt;
