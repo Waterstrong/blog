@@ -461,10 +461,12 @@ gsts  # git stash show --text
 gcf  # git config --list
 
 gcp  # git cherry-pick
+
+glog  # git log --oneline --decorate --color --graph  ★★★★★
 ```
 
 其中，`★★★★★`表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。
-如果需要另外再定义Alias，可以在`~/.zshrc`中加入定义的Alias，比如：`alias gau='git add -u'`。
+若需再定义Alias，可以在`~/.zshrc`中加入自定义的Alias，如：`alias gau='git add -u'`, `alias gs=gst`。
 
 另外，补充一些在PowerShell中定义常用的相同Alias，在PowerShell安装目录下新建`profile.ps1`文件，并写入以下代码：
 ```
@@ -499,6 +501,10 @@ New-Alias -Name gcmsg -Value Get-GitCommitMsg
 # gup, git pull -r
 function Get-GitPullRebase { & git pull --rebase }
 New-Alias -Name gup -Value Get-GitPullRebase
+
+# glog, git log --oneline --decorate --color --graph
+function Get-GitLogGraph { & git log --oneline --decorate --color --graph }
+New-Alias -Name glog -Value Get-GitLogGraph
 ```
 
 ## 结束语
