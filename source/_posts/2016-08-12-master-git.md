@@ -464,6 +464,42 @@ gcp  # git cherry-pick
 ```
 
 其中，`★★★★★`表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。
+如果需要另外再定义Alias，可以在`~/.zshrc`中加入定义的Alias，比如：`alias gau='git add -u'`。
+
+另外，补充一些在PowerShell中定义常用的相同Alias，在PowerShell安装目录下新建`profile.ps1`文件，并写入以下代码：
+```
+# gst, git status
+function Get-GitStatus { & git status }
+New-Alias -Name gst -Value Get-GitStatus
+
+# gb, git branch xxx
+function Get-GitBranch([string]$branch) { & git branch $branch}
+New-Alias -Name gb -Value Get-GitBranch
+
+# gba, git branch -a
+function Get-GitBranchAll { & git branch --all }
+New-Alias -Name gba -Value Get-GitBranchAll
+
+# gco, git checkout xxx
+function Get-GitCheckout([string]$param) { & git checkout $param }
+New-Alias -Name gco -Value Get-GitCheckout
+
+# gau, git add -u
+function Get-GitAddUstaged { & git add -u }
+New-Alias -Name gau -Value Get-GitAddUstaged
+
+# gaa, git add -a
+function Get-GitAddAll { & git add . }
+New-Alias -Name gaa -Value Get-GitAddAll
+
+# gcmsg, git commit -m xxx
+function Get-GitCommitMsg([string]$message) { & git commit -m $message }
+New-Alias -Name gcmsg -Value Get-GitCommitMsg
+
+# gup, git pull -r
+function Get-GitPullRebase { & git pull --rebase }
+New-Alias -Name gup -Value Get-GitPullRebase
+```
 
 ## 结束语
 
