@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/mac-rw-ntfs/</loc>
+    
+    <lastmod>2016-09-11T14:07:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/master-git/</loc>
     
     <lastmod>2016-09-09T14:34:58.000Z</lastmod>
@@ -114,6 +121,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
+    
+    <lastmod>2016-06-11T13:29:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/aws-ec2-basic/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
@@ -122,13 +136,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
-    
-    <lastmod>2016-06-11T13:29:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/aws-ec2-vpn/</loc>
     
     <lastmod>2016-06-11T13:29:32.000Z</lastmod>
     
@@ -149,21 +156,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -177,7 +170,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -185,6 +185,13 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
