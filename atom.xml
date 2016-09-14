@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-09-11T14:07:22.000Z</updated>
+  <updated>2016-09-14T15:04:47.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,17 +20,19 @@
     <link href="http://blog.waterstrong.me/mac-rw-ntfs/"/>
     <id>http://blog.waterstrong.me/mac-rw-ntfs/</id>
     <published>2016-09-11T13:10:13.000Z</published>
-    <updated>2016-09-11T14:07:22.000Z</updated>
+    <updated>2016-09-14T15:04:47.000Z</updated>
     
     <content type="html">&lt;p&gt;其实老早就遇到了Mac下写NTFS的问题，本来因为有两块移动硬盘，把其中一块500G的格式化成了Mac支持的格式，用于备份一些重要数据，而另一块1T之前已经存了不少数据，也懒得麻烦就一直放着没有管，但最近电脑数据太多，已经报警磁盘空间不足，不得不进行数据备份了，最早的硬盘已差不多满了，但又不想改磁盘格式，并且以后还可能在Win下拷贝数据，必须得想办法解决在Mac读写NTFS磁盘问题。&lt;/p&gt;
-&lt;p&gt;可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。&lt;/p&gt;
+&lt;p&gt;可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/disk_utility.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h4 id=&quot;Step1-配置fstab&quot;&gt;&lt;a href=&quot;#Step1-配置fstab&quot; class=&quot;headerlink&quot; title=&quot;Step1 配置fstab&quot;&gt;&lt;/a&gt;Step1 配置fstab&lt;/h4&gt;&lt;p&gt;在终端输入如下命令编辑&lt;code&gt;fstab&lt;/code&gt;文件，并写入&lt;code&gt;LABEL&lt;/code&gt;以及其值，若文件不存在将新建该文件。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo vim /etc/fstab&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LABEL=Datum none ntfs rw,auto,nobrowse  # 使用磁盘名方式&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LABEL=68D036FA-EE09-4B80-AC93-01E54D51059A none ntfs rw,auto,nobrowse  # 使用UUID方式&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;其中，&lt;code&gt;rw&lt;/code&gt;表示读写方式，&lt;code&gt;nobrowse&lt;/code&gt;表示默认不在finder的边栏中显示，如果不加&lt;code&gt;nobrowse&lt;/code&gt;可能在挂载后还是只读模式。&lt;code&gt;Datum&lt;/code&gt;是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开&lt;code&gt;Disk Utility&lt;/code&gt;工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;diskutil info /Volumns/Datum&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h4 id=&quot;Step2-打开磁盘&quot;&gt;&lt;a href=&quot;#Step2-打开磁盘&quot; class=&quot;headerlink&quot; title=&quot;Step2 打开磁盘&quot;&gt;&lt;/a&gt;Step2 打开磁盘&lt;/h4&gt;&lt;p&gt;由于设置了默认不在Finder边栏显示，因此需要手动打开磁盘，确保磁盘已经挂载成功，可以通过&lt;code&gt;Disk Utility&lt;/code&gt;或在命令行挂载并查看。打开硬盘磁盘的方式有两种：&lt;/p&gt;
+&lt;p&gt;其中，&lt;code&gt;rw&lt;/code&gt;表示读写方式，&lt;code&gt;nobrowse&lt;/code&gt;表示默认不在finder的边栏中显示，如果不加&lt;code&gt;nobrowse&lt;/code&gt;可能在挂载后还是只读模式。&lt;code&gt;Datum&lt;/code&gt;是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开&lt;code&gt;Disk Utility&lt;/code&gt;工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;diskutil info /Volumes/Datum&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Step2-打开磁盘&quot;&gt;&lt;a href=&quot;#Step2-打开磁盘&quot; class=&quot;headerlink&quot; title=&quot;Step2 打开磁盘&quot;&gt;&lt;/a&gt;Step2 打开磁盘&lt;/h4&gt;&lt;p&gt;由于设置了默认不在Finder边栏显示，因此需要手动打开磁盘，确保磁盘已经挂载成功，可以通过&lt;code&gt;Disk Utility&lt;/code&gt;或在命令行挂载并查看。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/drive_info.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;打开硬盘磁盘的方式有两种：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在Finder中使用快捷键&lt;code&gt;cmd+shift+g&lt;/code&gt;并输入&lt;code&gt;/Volumes/Datum&lt;/code&gt;后可进入该磁盘目录&lt;/li&gt;
 &lt;li&gt;命令行中运行&lt;code&gt;open /Volumes/Datum&lt;/code&gt;后进入该磁盘目录&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/volumes_folder.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;此时，应该可以对磁盘进行读写操作了，为了下次更加的方便，也可以直接拖拽磁盘到Finder边栏的Favorites中。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;道听途说该方式有导致磁盘损坏和数据丢失的风险，使用时可能需要留意一下，尽量保存一份副本，到时可不要来找我哦^_^。&lt;/p&gt;
 </content>
