@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/groovy-sql-batch/</loc>
+    
+    <lastmod>2016-09-17T15:07:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/mac-rw-ntfs/</loc>
     
     <lastmod>2016-09-14T15:04:47.000Z</lastmod>
@@ -156,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
+    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -170,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
+    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
