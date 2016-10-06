@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/9 | Watersrong Blog</title>
+  <title>JTA实现分布式事务 | Watersrong Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Waterstrong&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Watersrong Blog">
-<meta property="og:url" content="http://blog.waterstrong.me/archives/2016/09/index.html">
+  <meta name="description" content="如何在Spring中基于JTA实现分布式事务并实践？Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Annotation的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JTA实现分布式事务">
+<meta property="og:url" content="http://blog.waterstrong.me/xa-transactions-with-jta/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="Waterstrong&apos;s Blog">
+<meta property="og:description" content="如何在Spring中基于JTA实现分布式事务并实践？Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Annotation的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
+<meta property="og:updated_time" content="2016-09-21T15:28:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Watersrong Blog">
-<meta name="twitter:description" content="Waterstrong&apos;s Blog">
+<meta name="twitter:title" content="JTA实现分布式事务">
+<meta name="twitter:description" content="如何在Spring中基于JTA实现分布式事务并实践？Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Annotation的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
   
     <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
   
@@ -38,8 +39,8 @@
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
-          isArchive: true,
+          isPost: true,
+          isArchive: false,
           isTag: false,
           isCategory: false,
           open_in_new: false
@@ -48,8 +49,8 @@
 </head>
 <body>
   <div id="container">
-    <div class="left-col  col-pulled-smooth"
-         id="">
+    <div class="left-col left-col-pulled col-pulled-smooth"
+         id="post-left-col">
     <div class="overlay"></div>
 <div class="intrude-less">
     <header id="header" class="inner">
@@ -187,8 +188,8 @@
     </header>                
 </div>
     </div>
-    <div class="mid-col  col-pulled-smooth"
-         id="">
+    <div class="mid-col mid-col-pulled col-pulled-smooth"
+         id="post-mid-col">
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
@@ -245,163 +246,182 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-xa-transactions-with-jta" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/xa-transactions-with-jta/" class="archive-article-date">
-      <time datetime="2016-09-18T14:05:32.000Z" itemprop="datePublished">09-18</time>
+    <div class="article-meta">
+      <a href="/xa-transactions-with-jta/" class="article-date">
+      <time datetime="2016-09-18T14:05:32.000Z" itemprop="datePublished">2016-09-18</time>
 </a>
-        </div>
-         
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/xa-transactions-with-jta/">JTA实现分布式事务</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JTA实现分布式事务
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
     <div class="article-category tagcloud">
     <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
     </div>
 
 
-          
+        
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bitronix/">Bitronix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JTA/">JTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式事务/">分布式事务</a></li></ul>
     </div>
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="开门见山"><a href="#开门见山" class="headerlink" title="开门见山"></a>开门见山</h2><p>关于事务的基本概念和介绍请参阅另一篇博客<a href="transactional-mechanism-protocol">事务处理机制与协议</a>，这里着重讲解如何在Spring中基于JTA实现分布式事务并实践。</p>
+<p>Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Annotation的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有<code>Atomikos</code>和<code>Bitronix</code>，任意选择一个作为实现XA事务管理的管理器即可。</p>
+<p>接下来就分别介绍利用Spring Boot实现非XA和XA的事务处理。</p>
+<h2 id="Spring对非XA事务的实现"><a href="#Spring对非XA事务的实现" class="headerlink" title="Spring对非XA事务的实现"></a>Spring对非XA事务的实现</h2><p>使用Spring Boot实现非XA事务非常简单，只需要简单的两步即可：</p>
+<ol>
+<li>在构建脚本文件中加入依赖<code>org.springframework.boot:spring-boot-starter-jdbc</code>。</li>
+<li>无论采用基本的<code>JdbcTemplate</code>或封装的<code>JPA</code>与数据库进行交互，只需要在具体方法上加注解<code>@Transactional</code>。</li>
+</ol>
+<p>这样就将该块的操作序列当作一个事务单元进行管理，任何失败或异常都将导致所有操作序列回滚，一个具体的Demo可参见<a href="https://spring.io/guides/gs/managing-transactions/" target="_blank" rel="external">Managing Transactions</a>，另外，如果注解加在类名上，则代表该类中每个方法都将作为一个事务单元被管理。</p>
+<h2 id="采用Atomikos事务管理器"><a href="#采用Atomikos事务管理器" class="headerlink" title="采用Atomikos事务管理器"></a>采用Atomikos事务管理器</h2><h2 id="采用Bitronix事务管理器"><a href="#采用Bitronix事务管理器" class="headerlink" title="采用Bitronix事务管理器"></a>采用Bitronix事务管理器</h2><h4 id="Transaction-Manager-Configuration"><a href="#Transaction-Manager-Configuration" class="headerlink" title="Transaction Manager Configuration"></a>Transaction Manager Configuration</h4><h4 id="General-Databases"><a href="#General-Databases" class="headerlink" title="General Databases"></a>General Databases</h4><h2 id="混合XA-非XA事务的JMS连接"><a href="#混合XA-非XA事务的JMS连接" class="headerlink" title="混合XA/非XA事务的JMS连接"></a>混合XA/非XA事务的JMS连接</h2><hr>
+<p>References</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-jta.html" target="_blank" rel="external">Spring Distributed Transactions with JTA</a></li>
+<li><a href="https://www.atomikos.com/" target="_blank" rel="external">Atomikos Home</a></li>
+<li><a href="http://docs.spring.io/spring-boot/docs/1.3.3.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html" target="_blank" rel="external">Class AtomikosProperties</a></li>
+<li><a href="https://github.com/bitronix/btm" target="_blank" rel="external">Home of Bitronix JTA Transaction Manager</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/tree/v1.3.3.RELEASE/spring-boot/src/main/java/org/springframework/boot/jta" target="_blank" rel="external">Spring Boot JTA Code on GitHub</a></li>
+<li><a href="https://spring.io/guides/gs/managing-transactions/" target="_blank" rel="external">Managing Transactions</a></li>
+<li><a href="http://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html#commit_transactions" target="_blank" rel="external">Using Transactions</a></li>
+</ul>
+
+      
+    </div>
+    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/xa-transactions-with-jta/">JTA实现分布式事务</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
+        <p><span>发布时间:</span>2016-09-18 22:05</p>
+        <!--<p><span>最后更新:</span>2016-09-21 23:28</p>-->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/xa-transactions-with-jta/" title="JTA实现分布式事务">http://blog.waterstrong.me/xa-transactions-with-jta/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/xa-transactions-with-jta/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/groovy-sql-batch/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Groovy SQL Batch</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
+
+    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开门见山"><span class="toc-number">1.</span> <span class="toc-text">开门见山</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring对非XA事务的实现"><span class="toc-number">2.</span> <span class="toc-text">Spring对非XA事务的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#采用Atomikos事务管理器"><span class="toc-number">3.</span> <span class="toc-text">采用Atomikos事务管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#采用Bitronix事务管理器"><span class="toc-number">4.</span> <span class="toc-text">采用Bitronix事务管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Transaction-Manager-Configuration"><span class="toc-number">4.0.1.</span> <span class="toc-text">Transaction Manager Configuration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#General-Databases"><span class="toc-number">4.0.2.</span> <span class="toc-text">General Databases</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#混合XA-非XA事务的JMS连接"><span class="toc-number">5.</span> <span class="toc-text">混合XA/非XA事务的JMS连接</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
+       value="隐藏目录"
+       title="点击按钮隐藏或者显示文章目录">
+
+<script src="/js/require-jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    });
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/groovy-sql-batch/" class="archive-article-date">
-      <time datetime="2016-09-14T14:38:59.000Z" itemprop="datePublished">09-14</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/groovy-sql-batch/">Groovy SQL Batch</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Languages/">Languages</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Batch/">Batch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Groovy/">Groovy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/mac-rw-ntfs/" class="archive-article-date">
-      <time datetime="2016-09-11T13:10:13.000Z" itemprop="datePublished">09-11</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/mac-rw-ntfs/">Mac如何读写NTFS磁盘</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Techniques/">Techniques</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NTFS/">NTFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动硬盘/">移动硬盘</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/using-stubby4j/" class="archive-article-date">
-      <time datetime="2016-09-05T14:29:26.000Z" itemprop="datePublished">09-05</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/using-stubby4j/">在集成测试中使用Stubby4J</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mock/">Mock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stub/">Stub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集成测试/">集成测试</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="xa-transactions-with-jta/" data-title="JTA实现分布式事务" data-url="http://blog.waterstrong.me/xa-transactions-with-jta/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"waterstrong"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
 
     
 
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
@@ -486,8 +506,74 @@
 
 
 
+<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
+    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+</div>
 
-<div id="scroll" class="scroll  col-pulled-smooth">
+<script>
+    (function ($) {
+        var SidebarNav = function () {
+            this.$sidebarNavBtn = $("#switch-sidebar");
+            this.leftColPulled = "left-col-pulled";
+            this.midColPulled = "mid-col-pulled";
+            this.$leftColSelector = $("#post-left-col");
+            this.$midColSelector = $("#post-mid-col");
+            this.$navBtnSelector = $("#col-nav-button");
+            this.$homeBtnSelector = $("#home-nav-button");
+            this.$scrollSelector = $("#scroll");
+            this.$tocTitleSelector = $("#toc");
+            this.$tocButtonSelector = $("#tocButton");
+        };
+
+        SidebarNav.prototype = {
+            run: function () {
+                var self = this;
+                self.$sidebarNavBtn.click(function () {
+                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
+                });
+            },
+            showSidebar: function () {
+                var self = this;
+                self.$leftColSelector.removeClass(self.leftColPulled);
+                self.$midColSelector.removeClass(self.midColPulled);
+                self.$navBtnSelector.removeClass(self.leftColPulled);
+                self.$homeBtnSelector.removeClass(self.midColPulled);
+                self.$scrollSelector.removeClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.removeClass(self.leftColPulled);
+                    self.$tocButtonSelector.removeClass(self.leftColPulled);
+                }, 350);
+            },
+            hideSidebar: function () {
+                var self = this;
+                self.$leftColSelector.addClass(self.leftColPulled);
+                self.$midColSelector.addClass(self.midColPulled);
+                self.$navBtnSelector.addClass(self.leftColPulled);
+                self.$homeBtnSelector.addClass(self.midColPulled);
+                self.$scrollSelector.addClass(self.midColPulled);
+                setTimeout(function() {
+                    self.$tocTitleSelector.addClass(self.leftColPulled);
+                    self.$tocButtonSelector.addClass(self.leftColPulled);
+                }, 350);
+            },
+            isSidebarShown: function () {
+                var self = this;
+                return !self.$leftColSelector.hasClass(self.leftColPulled);
+            }
+        };
+
+        $(document).ready(function () {
+            new SidebarNav().run();
+        })
+    })(jQuery);
+</script>
+
+
+<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
+    <a href="/" title=""><i class="fa fa-home"></i></a>
+</div>
+
+<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
     <a href="#"><i class="fa fa-arrow-up"></i></a>
     <a href="#comments"><i class="fa fa-comments-o"></i></a>
     <a href="#footer"><i class="fa fa-arrow-down"></i></a>
@@ -499,16 +585,6 @@
         }
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="/js/require-jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
