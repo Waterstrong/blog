@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/master-git/</loc>
+    
+    <lastmod>2016-10-08T11:42:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/java-unit-intg-test/</loc>
+    
+    <lastmod>2016-10-08T11:42:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/java-code-coverage/</loc>
     
-    <lastmod>2016-10-06T09:51:52.000Z</lastmod>
+    <lastmod>2016-10-07T11:40:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/groovy-sql-batch/</loc>
+    
+    <lastmod>2016-10-07T11:36:00.000Z</lastmod>
     
   </url>
   
@@ -12,27 +33,6 @@
     <loc>http://blog.waterstrong.me/java-checkstyle/</loc>
     
     <lastmod>2016-10-06T09:51:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/master-git/</loc>
-    
-    <lastmod>2016-10-06T09:49:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/xa-transactions-with-jta/</loc>
-    
-    <lastmod>2016-09-21T15:28:23.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/groovy-sql-batch/</loc>
-    
-    <lastmod>2016-09-17T15:11:05.000Z</lastmod>
     
   </url>
   
@@ -100,13 +100,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/java-unit-intg-test/</loc>
-    
-    <lastmod>2016-07-25T16:04:12.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/ansible-practice/</loc>
     
     <lastmod>2016-07-12T14:42:33.000Z</lastmod>
@@ -170,6 +163,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -184,13 +184,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/directshow-graphics/</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -198,14 +191,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
