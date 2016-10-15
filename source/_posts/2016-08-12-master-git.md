@@ -330,7 +330,7 @@ git rebase --skip  # 跳过当前rebase过程
 * 当需要把多个提交点合并成一个commit时，可以使用`rebase`命令，比如，把`6a7c70c`之前的所有提交合并。
 ```
 $ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作
-# 通常会保留每一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出
+# 通常会保留第一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出
 
 # Commands:
 # p, pick = use commit
@@ -339,6 +339,9 @@ $ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作
 # s, squash = use commit, but meld into previous commit
 # f, fixup = like "squash", but discard this commit's log message
 # x, exec = run command (the rest of the line) using shell
+
+# 如果出现错误提示'Could not execute editor'，可以尝试配置编辑器修复此问题：
+$ git config --global core.editor /usr/bin/vim
 ```
 
 * 当出现了Infinity分支，或者需要简化分支的树，可以使用`rebase`命令，假设在release/v2上需要rebase到develop的6a7c70c点上。
@@ -386,7 +389,9 @@ git checkout test_branch  # 首先切到某个需要被补丁的分支
 git cherry-pick 46a329f  # 然后应用某个其他分支上的commit
 ```
 
-另外还有两个命令[git format-patch](https://git-scm.com/docs/git-format-patch)和[git apply](https://git-scm.com/docs/git-apply)。
+当需要生成Patch文件时，可以用命令`git diff HEAD >> xxx.patch`，然后再使用命令`git apply xxx.patch`应用该Patch。
+
+另外，可以参阅更多命令[git format-patch](https://git-scm.com/docs/git-format-patch)和[git apply](https://git-scm.com/docs/git-apply)。
 
 #### 回收垃圾
 [git gc](https://git-scm.com/docs/git-gc)和[git count-objects](https://git-scm.com/docs/git-count-objects)命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。

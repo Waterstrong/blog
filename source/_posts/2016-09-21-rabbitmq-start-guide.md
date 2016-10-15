@@ -1,5 +1,5 @@
 ---
-title: RabbitMQ入门指南
+title: RabbitMQ入门与实践
 date: 2016-09-21 22:55:14
 category: Frameworks
 tags: [AMQP, Message, Topic, Queue]

@@ -4,7 +4,7 @@ date: 2016-09-18 22:05:32
 category: Techniques
 tags: [分布式事务, JTA, Bitronix, Spring Boot]
 description: 如何在Spring中基于JTA实现分布式事务并实践？Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Annotation的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。
-published: true
+published: false
 ---
 
 ## 开门见山
