@@ -15,7 +15,7 @@ JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是E
 针对JBoss EAP5，为了实现Web容器级别的IP/域名黑白名单，需要到JBoss的server.xml文件中配置相应Valve规则并重启JBoss后生效。
 
 在文件`jboss-as/server/<instance_name>/deploy/jbossweb.sar/server.xml`中的`<Host></Host>`内添加如下配置:
-```
+``` xml
 <Engine>
     <Host>
         .....
@@ -58,12 +58,12 @@ JBoss中的work目录是工作目录，即把jsp转换为class文件的工作目
 
 一般情况下, 当停止JBoss服务时对work目录进行一次清理, 最简单快速的做法就是在JBoss相应的目录下配置自动清理选项:
 修改文件`jboss-as/server/<instance_name>/deployers/jbossweb.deployer/META-INF/war-deployers-jboss-beans.xml`中的:
-```
+``` xml
 <!--Flag to delete the Work Dir on Context Destroy -->
 <property name="deleteWorkDirOnContextDestroy">false</property>
 ```
 为
-```
+``` xml
 <!--Flag to delete the Work Dir on Context Destroy -->
 <property name="deleteWorkDirOnContextDestroy">true</property>
 ```

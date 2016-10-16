@@ -20,7 +20,7 @@ Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，
 
 #### War包安装方式
 可以直接下载自带Jetty的`*.war`包并运行，非常方便，比较推荐使用，Jenkins默认会运行在`8080`端口。
-```
+``` bash
 curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war
 java -jar jenkins.war
 ```
@@ -29,7 +29,7 @@ java -jar jenkins.war
 
 #### Docker镜像方式
 可以直接下载Docker镜像来使用，无需进行安装，但需要有docker环境。
-```
+``` bash
 docker pull jenkinsci/jenkins
 docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins
 ```
@@ -38,12 +38,12 @@ docker run -p 8080:8080 -p 50000:50000 -v /your/home:/var/jenkins_home jenkins
 
 #### Ansible安装方式
 另外，还可以通过Ansible自动化脚本安装，在另一篇博客[Ansible实践篇](/ansible-practice)中也有涉及。首先需要下载jenkins role到本地，假设下载到了`/usr/local/etc/ansible/roles/`目录下。
-```
+``` bash
 ansible-galaxy install geerlingguy.jenkins
 ```
 
 然后编写`playbook`来实现**自动化批量安装**，假设创建一个playbook名为`setup_jenkins.yml`，其中`ci-server`是`inventory`文件中的Group或Host。
-```
+``` yml
 ---
 - hosts: ci-server
   become_method: sudo
@@ -53,7 +53,7 @@ ansible-galaxy install geerlingguy.jenkins
 ```
 
 最后运行命令执行安装，稍等片刻后可访问主机的8080端口：
-```
+``` bash
 ansible-playbook -i inventory setup_jenkins.yml
 ```
 
@@ -65,7 +65,7 @@ ansible-playbook -i inventory setup_jenkins.yml
 通常有两种安装方式：1. 添加Package Repository后使用yum进行安装和升级；2. 直接下载`*.rpm`进行安装。
 
 **方式一：添加Package仓库安装**
-```
+``` bash
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
 yum install jenkins
@@ -73,7 +73,7 @@ yum install jenkins
 
 **方式二：下载`*.rpm`进行安装**
 目前最新版本是`2.7.1-1.1.noarch`，若需要指定安装版本，可到[http://pkg.jenkins-ci.org/redhat-stable/](http://pkg.jenkins-ci.org/redhat-stable/)查看并下载安装。
-```
+``` bash
 curl -O http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.1-1.1.noarch.rpm
 sudo rpm -ivh jenkins-2.7.1-1.1.noarch.rpm
 ```
@@ -82,7 +82,7 @@ sudo rpm -ivh jenkins-2.7.1-1.1.noarch.rpm
 通常也有两种安装方式：1. 添加Debian Package Repository进行安装和升级；2. 通过直接下载`*.deb`进行安装。
 
 **方式一：添加Package仓库安装**
-```
+``` bash
 wget -q -O - http://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 deb http://pkg.jenkins.io/debian-stable binary/
 sudo apt-get update
@@ -91,7 +91,7 @@ sudo apt-get install jenkins
 
 **方式二：下载`*.deb`进行安装**
 目前最新版本是`2.7.1_all`，也可以到[http://pkg.jenkins-ci.org/debian-stable/](http://pkg.jenkins-ci.org/debian-stable/)查看并下载指定版本。
-```
+``` bash
 curl -O http://pkg.jenkins-ci.org/debian-stable/binary/jenkins_2.7.1_all.deb
 sudo dpkg -i jenkins_2.7.1_all.deb
 ```
@@ -215,12 +215,12 @@ Jenkins提供了集群的能力，允许加入多个Nodes，一台Master对应�
 Jenkins提供了一个内置的命令行接口，允许通过一些脚本命令远程访问Jenkins功能，这对于自动化的任务和批量操作等非常有利。
 
 首先需要下载`jenkins-cli.jar`，假设你的Jenkins地址是`jenkins.xxx.net:8080`，可以访问以下地址下载：
-```
+``` bash
 http://jenkins.xxx.com:8080/jnlpJars/jenkins-cli.jar
 ```
 
 然后可以通过命令行查看帮助，命令为：
-```
+``` bash
 java -jar jenkins-cli.jar -s http://jenkins.xxx.net:8080/ help
 ```
 

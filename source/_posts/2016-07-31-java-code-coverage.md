@@ -53,7 +53,7 @@ Jacoco是开源的Java代码测试覆盖率检查工具，使用ASM修改字节�
 
 #### Apply Jacoco Plugin
 首先，新建一个名为[jacoco.gradle](/assets/java-code-coverage/jacoco.gradle)的文件，并加入以下脚本代码：
-```
+``` gradle
 apply plugin: 'jacoco'
 
 ext {
@@ -95,7 +95,7 @@ check.dependsOn jacocoTestReport
 
 #### Create TestCoverage Class
 另外，还需要创建一个用于测试覆盖率检查的类，可以在[jacoco.gradle](/assets/java-code-coverage/jacoco.gradle)中追加以下代码：
-```
+``` groovy
 import org.slf4j.Logger
 import static org.slf4j.LoggerFactory.getLogger
 
@@ -175,7 +175,7 @@ class TestCoverage {
 
 #### Use Custom Jacoco Script
 最后需要在`build.gradle`中引用自定义脚本和依赖：
-```
+``` gradle
 apply from: 'jacoco.gradle'
 ...
 
@@ -194,7 +194,7 @@ Cobertura是开源的Java代码测试覆盖率检查工具，它主要基于对�
 
 #### Apply Cobertura Plugin
 首先在`build.gradle`文件开始处加入构建脚本依赖并引用cobertura插件。一般有两种方式，第一种方式支持在所有版本的Gradle中使用：
-```
+``` gradle
 buildscript {
     repositories {
         jcenter()
@@ -207,14 +207,14 @@ apply plugin: 'net.saliman.cobertura'
 ```
 
 第二种方式如下，直接引用plugins DSL的机制，但只支持在Gradle 2.1及以后的版本使用，但特别注意，该script代码只能放在`buildscript`之后，其他script代码之前：
-```
+``` gradle
 plugins {
     id 'net.saliman.cobertura' version '2.3.2'
 }
 ```
 
 然后可以在同一脚本`build.gradle`文件中或另外新增一个名为[cobertura.gradle](/assets/java-code-coverage/cobertura.gradle)的脚本，并写入如下代码：
-```
+``` gradle
 cobertura {
     coverageFormats = ['html', 'xml']
     coverageEncoding = 'UTF-8'
@@ -236,7 +236,7 @@ check.dependsOn 'coberturaCheck'
 ![](/assets/java-code-coverage/cobertura_report.png)
 
 另外，如果在项目中使用cobertura作为代码测试覆盖率检查工具，但未使用[SLF4J](http://www.slf4j.org/)日志库，在运行时会报出关于slf4j的`NoClassDefFoundError`问题，只需要在`build.gradle`中添加testRuntime的依赖即可：
-```
+``` gradle
 dependencies {
 	testRuntime 'org.slf4j:slf4j-api:1.7.21'
 }

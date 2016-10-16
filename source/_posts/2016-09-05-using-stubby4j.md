@@ -22,7 +22,7 @@ Stubby4J是基于Java编写的，该项目是由个人发起的开源项目，�
 ## 如何使用Stubby4J？
 #### 命令行快速启动
 首先需要[下载JAR包](http://search.maven.org/remotecontent?filepath=by/stub/stubby4j/3.3.0/stubby4j-3.3.0.jar)，假设本地已经安装了Java，然后在本地创建一个名为`cfg.yml`的文件：
-```
+``` yml cfg.yml
 - request:
     method: GET
     url: /hello-world
@@ -34,7 +34,7 @@ Stubby4J是基于Java编写的，该项目是由个人发起的开源项目，�
 ```
 
 运行如下命令启动Stubby4J: 
-```
+``` bash
 $ java -jar stubby4j-3.3.0.jar -d cfg.yml
 
 Loaded: [GET] /hello-world
@@ -51,12 +51,12 @@ Jetty successfully started
 
 #### 集成测试中的具体应用
 首先在Gradle中配置依赖，在`build.gradle`中加入其依赖，只会在集成测试时使用，所以只需要加入`testCompile`即可：
-```
+``` gradle
 testCompile 'by.stub:stubby4j:3.3.0'
 ```
 
 然后需要在加载应用程序Context前启动Stubby4J，常用启动stubby4j的方法如下:
-```
+``` java
 startJetty("stubby4j.yml")  # localhost默认端口: Stubs(8882), Admin(8889) and SslStubs portals(7443) 
 
 startJetty(8882, "stubby4j.yml") # 可以指定Stubs端口，其它为默认值
@@ -65,7 +65,7 @@ startJetty(8882, 8889, "stubby4j.yml") # 可以指定Stubs和Admin端口，其�
 ```
 
 在集成测试启动之前执行`startJetty`，需要在其Base父类中加入以下代码：
-```
+``` java
 private static final StubbyClient API_STUB = new StubbyClient();
 
 @BeforeClass
@@ -77,7 +77,7 @@ public static void startUp() throws Exception {
 其中`api/stubby4j.yml`文件位于集成测试代码的`resources`目录下。
 
 在集成测试运行完成后需要停止stubby4j服务`stopJetty`：
-```
+``` java
 @AfterClass
 public static void shutDown() throws Exception {
 	API_STUB.stopJetty();
@@ -86,7 +86,7 @@ public static void shutDown() throws Exception {
 
 #### 基于YAML文件的示例
 示例一：模拟GET请求并返回Json格式Payload
-```
+``` yml
 - request:
     method: GET
     url: ^/users/111$
@@ -107,7 +107,7 @@ public static void shutDown() throws Exception {
 其中的`request:url`支持正则表达式，比如`^/[a-z]{3}-[a-z]{3}/[0-9]{2}/[A-Z]{2}/[a-z0-9]+$`。
 
 示例二：在request时指定多个methods
-```
+``` yml
 - request:
     url: /anything
     method: [GET, HEAD]
@@ -120,7 +120,7 @@ public static void shutDown() throws Exception {
 ```
 
 示例三：可以指定查询参数
-```
+``` yml
 - request:
     url: ^/with/parameters$
     method: GET
@@ -139,7 +139,7 @@ public static void shutDown() throws Exception {
 其中`query`中的元素会匹配`url`后的查询参数`?key1=value1&key2=value2`，并且任意顺序都可以被匹配到。
 
 示例四：POST时指定发送的Payload
-```
+``` yml
 - request:
     url: ^/path/to/something$
     method: POST
@@ -158,7 +158,7 @@ public static void shutDown() throws Exception {
 ```
 
 示例五：返回的Response是Json文件
-```
+``` yml
 - request:
     method: GET
     url: /users/456

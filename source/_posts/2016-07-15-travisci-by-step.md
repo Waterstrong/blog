@@ -37,7 +37,7 @@ Travis CI触发Build的原理是基于GitHub的Service Hook钩子实现，而需
 
 #### 配置TRAVIS YML文件
 Travis CI支持多种语言的项目，只需要在项目目录下新建文件`.travis.yml`，加入几行配置即可，比如选择[Java](https://docs.travis-ci.com/user/languages/java)项目(Gradle+Java8)，一个简单的示例配置如下：
-```
+``` yml
 language: java
 install: true
 script: ./gradlew clean build
@@ -52,7 +52,7 @@ jdk:
 ```
 
 也可以针对多个Java版本进行测试，保证项目的兼容性，只需要设置jdk即可：
-```
+``` yml
 jdk:
   - oraclejdk8
   - oraclejdk7
@@ -60,7 +60,7 @@ jdk:
 ```
 
 再比如[Javascript Node.js](https://docs.travis-ci.com/user/languages/javascript-with-nodejs)项目(NodeJs+Gulp+Bower+Redis)的简单示例配置如下：
-```
+``` yml
 language: node_js
 node_js:
   - "6"
@@ -86,7 +86,7 @@ services:
 ![](/assets/travisci-by-step/link_build_status.png)
 
 Build状态标识的Markdown格式为：
-```
+``` md
 [![Build Status](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME.svg?branch=master)](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME)
 
 # E.g. GITHUB_MAME=tw-wee, PROJECT_NAME=qas-service

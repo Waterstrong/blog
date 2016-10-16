@@ -48,7 +48,7 @@ description: 事务(Transaction)作为一个整体，其中的若干处理要么
 ### 本地事务 模型1
 设置自动提交的情况：
 
-```
+``` java
 conn = getConnection(“url","user","pwd");
 conn.setAutoCommit(true);
 try{
@@ -64,7 +64,7 @@ finally {
 ### 本地事务 模型2
 设置非自动提交情况：
 
-```
+``` java
 conn = getConnection(“url","user","pwd");
 conn.setAutoCommit(false);
 try{
@@ -88,7 +88,7 @@ finally {
 编程式事务(Programmatic Transaction)通过编程语言提供的事务API和事务服务提供者进行事务控制。通常的做法是在代码中直接加入处理事务的逻辑，显式地调用其commit()、rollback()等事务管理相关方法。
 
 ### 编程式事务 模型
-```
+``` java
 userTransaction.begin();
 try {
     doSomething();
@@ -109,7 +109,7 @@ Programmatic与Local Transaction的区别在于Programmatic把Local方式下的c
 声明式事务(Declarative Transaction)对目标方法上添加注解(Annotation)或在配置文件中定义，通过对方法前后拦截添加事务处理逻辑。虽然XML配置的方式在前几年很受欢迎，也是具有里程碑的意义，但小编我更青睐注解的方式，况且目前主流的IoC框架也都支持注解方式并且推荐使用。接下来将给出Java形式的伪代码进行解释。
 
 ### 声明式事务 模型
-```
+``` java
 @Transaction
 void doSomething() {
     process1();
@@ -119,7 +119,7 @@ void doSomething() {
 }
 ```
 其中的@Transaction就是一个注解(Annotation)，其内部实现原理通常采用的是[AOP(面向切面编程)](/aspect-oriented-programming)的方式进行方法的拦截。
-```
+``` java
 Object intercept(proxy, method, args) {
     trans.begin();
     try {
@@ -150,7 +150,7 @@ Object intercept(proxy, method, args) {
 ### JMS触发DB更新的实例
 
 #### DB+JMS 伪代码
-```
+``` java
 @JMSListener(...)
 void onMessage(...) {
     service.merge(...);
@@ -202,7 +202,7 @@ TM可以向RM查询事务的状态，RM必须要返回一系列事务的XID，�
 
 
 TM/RM初始化和XA两阶段提交伪代码如下:
-```
+``` java
 // TM/RM Init 伪代码
 TransactionManager() {
     xaResourceManager = new XAResourceManager(gtrid);
@@ -230,7 +230,6 @@ committer.commit(this, interestedResources); // All resources are ready and comm
 // 备注:
 // preparer.prepare(this) is to get the resources and check their states
 // should call resource manager: transaction.getResourceManager().getAllResources();
-
 ```
 
 ----

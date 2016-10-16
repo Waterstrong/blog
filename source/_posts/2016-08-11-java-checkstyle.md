@@ -17,7 +17,7 @@ Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能
 * 1) 在`build.gradle`中引入Checkstyle插件`apply plugin: 'checkstyle'`，默认执行check会触发编码规范检查`checkstyleMain`和`checkstyleTest`。
 * 2) 在项目目录下添加默认的文件夹`config/checkstyle`，然后新建默认配置文件`checkstyle.xml`文件，并配置编码规范检查规则，比如这里给出一个编码规范配置的示例：[checkstyle.xml](/assets/java-checkstyle/checkstyle.xml)，对于每个Module的解释可以在[Checks](http://checkstyle.sourceforge.net/checks.html)中找到。
 当然，除了使用默认文件名外，也可以在`build.gradle`中自定义规范检查的配置文件，并且可以针对Main和Test类代码的编码规范分别配置，因为通常对Test类代码的编码规范检查并没有那么严格。
-```
+``` gradle
 checkstyle {
 	configProperties.rootDir = project.projectDir
 	checkstyleMain.configFile = new File(project.projectDir, '/config/checkstyle/checkstyle-main.xml')
@@ -27,7 +27,7 @@ checkstyle {
 
 * 3) 在同一目录下新建默认忽略检查规范的文件`suppressions.xml`，可以配置忽略对某个文件的某个规则的检查，比如一个配置示例：[suppressions.xml](/assets/java-checkstyle/suppressions.xml)。
 该`suppressions.xml`需要在`checkstyle.xml`文件中配置，另外，也可以配置`class-header.txt`文件来要求每个类都包括header信息：
-```
+``` xml
 <module name="Checker">
     <module name="SuppressionFilter">
         <property name="file" value="${rootDir}/config/checkstyle/suppressions.xml" />

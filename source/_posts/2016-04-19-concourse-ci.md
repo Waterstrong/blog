@@ -166,7 +166,7 @@ Workers在自己所属机器上并没有配置重要的状态什么的，所有�
 
 首先我们在本地采用最快捷的Vagrant方式安装，运行以下命令：
 
-```
+``` bash
 vagrant init concourse/lite  # creates ./Vagrantfile
 vagrant up  # downloads the box and spins up the VM
 ```
@@ -176,7 +176,7 @@ vagrant up  # downloads the box and spins up the VM
 
 如果提示需要更新升级，可以尝试运行以下命令：
 
-```
+``` bash
 vagrant box update --box concourse/lite # gets the newest Vagrant box
 vagrant destroy                         # remove the old Vagrant box
 vagrant up                              # re-create the machine with the newer box
@@ -188,7 +188,7 @@ vagrant up                              # re-create the machine with the newer b
 
 针对Linux和Mac OS X系统，首先需要给下载的FLY CLI文件添加执行权限，然后安装到系统并添加到$PATH中：
 
-```
+``` bash
 chmod +x fly
 install fly /usr/local/bin/fly
 ```
@@ -196,7 +196,7 @@ install fly /usr/local/bin/fly
 #### Step2. Using *.yml to describe pipeline
 为了创建一个Pipeline，首先在创建名为`hello.yml`的文件，并写入以下内容:
 
-```
+``` yml
 jobs:
 - name: hello-world
   plan:
@@ -217,14 +217,14 @@ jobs:
 
 如果使用的是Vagrant安装方式，我们可以尝试登录到本地VirutalBox中：
 
-```
+``` bash
 fly -t lite login -c http://192.168.100.4:8080
 ```
 当前已经保存了名为`lite`的目标，会在以后的多个命令行中使用，`-t`代表目标名(Target Name)。
 
 当准备好`hello.yml`后，可以通过以下命令设置Pipelilne：
 
-```
+``` bash
 fly -t lite set-pipeline -p hello-world -c hello.yml
 ```
 
@@ -233,13 +233,13 @@ fly -t lite set-pipeline -p hello-world -c hello.yml
 
 该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：
 
-```
+``` bash
 fly -t lite unpause-pipeline -p hello-world
 ```
 
 也可以通过命令查看当前Pipeline的配置：
 
-```
+``` bash
 fly -t lite get-pipeline -p hello-world
 ```
 

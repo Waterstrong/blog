@@ -14,7 +14,7 @@ published: true
 
 #### Step1 配置fstab
 在终端输入如下命令编辑`fstab`文件，并写入`LABEL`以及其值，若文件不存在将新建该文件。
-``` shell
+``` bash
 $ sudo vim /etc/fstab
 
 LABEL=Datum none ntfs rw,auto,nobrowse  # 使用磁盘名方式
@@ -22,7 +22,7 @@ LABEL=68D036FA-EE09-4B80-AC93-01E54D51059A none ntfs rw,auto,nobrowse  # 使用U
 ```
 
 其中，`rw`表示读写方式，`nobrowse`表示默认不在finder的边栏中显示，如果不加`nobrowse`可能在挂载后还是只读模式。`Datum`是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开`Disk Utility`工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：
-``` shell
+``` bash
 diskutil info /Volumes/Datum
 ```
 

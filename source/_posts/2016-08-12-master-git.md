@@ -35,7 +35,7 @@ Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux
 首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门准备的步骤：
 #### Installation
 请根据操作系统下载并安装Git，请参见[Git Downloads](https://git-scm.com/downloads)。
-```
+``` bash
 git --version  # 查看安装版本
 
 git help -a  # 列出所有子命令
@@ -47,7 +47,7 @@ git help <concept>  # 查看某个概念引导，比如git help tutorial
 
 #### Configuration
 因为Git是分布式的，需要在本地配置Git用户名和邮箱作为一个标识。
-```
+``` bash
 git config --global user.name "your_name"  # 若无参数，则表示查看当前配置
 git config --global user.email "your_email"
 ```
@@ -56,7 +56,7 @@ git config --global user.email "your_email"
 
 #### Repository
 现在可以在本地创建一个Git仓库并进行版本管理，最最基础的常用命令如下：
-```
+``` bash
 git init  # 初始化一个版本库，会生成.git文件夹，可以添加.gitignore文件来标识需要忽略的项
 
 git clone git@github.com:xxx/demo.git [new_name]  # 克隆远程库，可指定新目录名，默认与远程库相同
@@ -78,7 +78,7 @@ git push origin master  # 将代码Push到远端仓库的master
 
 #### GitHub + SSH Key
 如果希望自己的代码上传到[GitHub](http://github.com/)，可以阅读Github官方Demo教程[GitHub Guides](https://guides.github.com/activities/hello-world/)，当然也可以上传到其它代码托管平台，原理步骤基本相同。另外，如果需要添加SSH Key，可以参考[Generating an SSH key](https://help.github.com/articles/generating-an-ssh-key/)。
-```
+``` bash
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"  # 生成新的SSH Key，需要替换自己的Email
 
 ssh-keygen -f ~/.ssh/id_rsa -p  # 修改已生成私钥文件的密码 
@@ -91,7 +91,7 @@ ssh-add ~/.ssh/id_rsa  # 添加已有私钥到ssh-agent中
 
 #### git config
 除了上节提到的使用[git config](https://git-scm.com/docs/git-config)命令来配置`user.name`和`user.email`外，还有一些其他常用参数。
-```
+``` bash
 git config --global -l  # --list 显示所有的全局配置
 git config --global user.name  # 显示全局配置的用户名
 
@@ -106,7 +106,7 @@ Git配置有三种级别：
 
 #### git remote
 在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，或同时指定多个源等，[git remote](https://git-scm.com/docs/git-remote)命令相当有用，特别是`add`和`set-url`还是会常用到的。
-```
+``` bash
 git remote -v  # --verbose 查看当前已添加的远程库地址
 git remote show  # 查看已添加了哪些远程库源
 git remote show origin  # 查看指定远程库源origin的详细信息
@@ -119,14 +119,14 @@ git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HT
 
 #### git pull
 在平常的Git使用过程中，[git pull](https://git-scm.com/docs/git-pull)命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：[git fetch](https://git-scm.com/docs/git-fetch)和[git merge](https://git-scm.com/docs/git-merge)。
-```
+``` bash
 git pull origin
 git pull -r  # --rebase 把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接
 ```
 
 #### git push
 另一个常用的命令就是推送[git push](https://git-scm.com/docs/git-push)，用于把本地的提交推送到远端仓库。
-```
+``` bash
 git push -u origin master  # 首次Push时需要加-u参数
 
 git push --set-upstream origin master  # 建立upstream与当前分支master的关联关系
@@ -138,7 +138,7 @@ git push -f  # --force, 强制Push
 
 #### git diff
 Git中对比命令[git diff](https://git-scm.com/docs/git-diff)用于对比提交文件或工作区文件的修改情况，通常在准备提交之前可检查一下修改，防止提交不期望的文件。
-```
+``` bash
 git diff [<filename>]  # 对比unstaged文件与HEAD的区别，可以指定特定文件
 git diff HEAD [<filename>]  # 相对最近commit对比修改前后内容，无论是否staged，可指定特定文件
 git diff --staged [<filename>]  # 对比已经加入暂存区的文件与最近commit区别，可指定特定文件
@@ -148,7 +148,7 @@ git diff --staged [<filename>]  # 对比已经加入暂存区的文件与最近c
 
 #### git branch
 通常需要查看、创建、修改或删除一个分支时需要用到[git branch](https://git-scm.com/docs/git-branch)，假设示例中使用的分支名为`feature/card1`。
-```
+``` bash
 git branch -a  # --all 列出所有分支
 git branch --list <pattern>  # 列出符合条件的分支
 git branch -r  # --remotes 列出远程分支
@@ -175,7 +175,7 @@ git branch --no-merged  # 列出未合并到当前分支的所有分支
 
 #### git checkout
 再来介绍一下检出命令[git checkout](https://git-scm.com/docs/git-checkout)，除了对分支切换操作，还可以用于丢弃修改，常用的方式如下：
-```
+``` bash
 git checkout master  # 切换到master分支
 git checkout tag1  # 切换到指定的Tag上
 
@@ -183,12 +183,11 @@ git checkout -b <new_branch>  # 基于当前分支，创建并切换到一个新
 git checkout --orphan <new_branch>  # 创建一个孤儿分支，没有父节点，属于全新的分支
 
 git checkout -- <target>  # 针对unstaged的文件丢弃其修改
-
 ```
 
 #### git merge
 通常需要在分支间进行分支合并操作，需要用到[git merge](https://git-scm.com/docs/git-merge)命令，比如把`topic`分支merge到`master`上。
-```
+``` bash
 git merge topic  # 合并topic分支到当前所在分支
 ```
 
@@ -196,7 +195,7 @@ git merge topic  # 合并topic分支到当前所在分支
 
 #### git rm
 删除命令[git rm](https://git-scm.com/docs/git-rm)用于从Git的工作树和索引中删除文件。另外，还有一个类似的[git mv](https://git-scm.com/docs/git-mv)命令，但不太常用，主要作用是改名或移动文件，只作简单了解即可。
-```
+``` bash
 git rm <target>  # 从工作树中移除对象，Git会记录该操作，相当于rm后再git add
 git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存
 ```
@@ -205,7 +204,7 @@ git rm --cached <target>  # 从Git索引管理中移除对象，若需要忽略�
 
 #### git log
 有时需要查看提交记录日志，可以使用命令[git log](https://git-scm.com/docs/git-log)。
-```
+``` bash
 git log [<options>]  # 显示提交记录，可以指定文件或regex
 git log -5  # 查看最近5条历史提交记录
 git log -p  # 按补丁格式显示每个更新之间的差异
@@ -218,7 +217,7 @@ git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref 
 
 #### git revert
 Git提供了撤销某次操作的命令[git revert](https://git-scm.com/docs/git-revert)，相当于对某次提交的回滚操作，该命令会保留之前的所有提交记录，并把撤销操作当作一次新的提交。
-```
+``` bash
 git revert HEAD  # HEAD~0 撤销最近一次提交
 git revert HEAD^  # HEAD~1 撤销上上次的提交
 git revert 6a7c70c  # 撤销该HASH对应的提交
@@ -235,7 +234,7 @@ git revert -n  # --no-commit 只在本地撤销，不自动提交，可以用于
 
 #### 数据恢复
 只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用[git reset](https://git-scm.com/docs/git-reset)命令实现回退或恢复。
-```
+``` bash
 git reset --hard HEAD~3  # 将HEAD指向HEAD~3，回退到HEAD~3的版本，即删除最近三次提交HEAD, HEAD^, HEAD~2
 git reset --hard 6a7c70c  # 回退到6a7c70c所在的版本
 git reset --hard origin/master  # 将本地版本回退到和远程相同
@@ -249,7 +248,7 @@ git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本
 * --hard: 暂存区和工作区都被reset，直接回退到指定提交
 
 为了实现回退或恢复，需要查看日志，除了`git log`命令外，还有[git reflog](https://git-scm.com/docs/git-reflog)命令查看Git的引用日志，即操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。
-```
+``` bash
 $ git reflog [--all]  # 查看所有引用日志，获取操作记录
 
 $ git reflog  # 查看到引用日志SHA值
@@ -277,7 +276,7 @@ $ git fsck --lost-found  # 文件系统检测丢失更改
 
 #### 暂存现场
 暂存命令[git stash](https://git-scm.com/docs/git-stash)用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。`stash@{0}`指最近一次暂存记录，`stash@{1}`指上上次的暂存记录，类似于压栈的操作。
-```
+``` bash
 git stash  # 把当前的工作暂存起来 等以后恢复现场后继续工作
 
 git stash list  # 查看所有被暂存的文件记录列表
@@ -296,7 +295,7 @@ git stash clear  # 清除所有暂存记录列表
 
 #### 部分提交
 通常提交是针对一个文件，要么都提交，要么都不提交，但有时候需要在修改某个文件后，只希望暂时提交其中部分已修改内容，其他修改内容打算后续再提交。针对这种对文件进行了多次修改并希望分别提交的场景，首先需要进行部分修改暂存，然后提交，再暂存其它修改，再提交。
-```
+``` bash
 $ git add -p xxx  # --patch, 可以暂存并提交部分内容
 
 Stage this hunk [y,n,q,a,d,/,e,?]? s # 输入s表示分割该块为更小块，通常是第一步
@@ -321,14 +320,14 @@ Stage this hunk [y,n,q,a,d,/,e,?]? n # 依次处理，输入n表示不暂存该�
 * 在拉取代码时加上`--rebase`参数总是好的，也推荐使用，即`git pull -r`，这样就会把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接。
 
 * 当在处理Merge或Patch时，会遇到冲突，当解决完成冲突后，会使用到`rebase`命令。
-```
+``` bash
 git rebase --continue  # 继续完成之前的操作
 git rebase --abort  # 放弃rebase过程
 git rebase --skip  # 跳过当前rebase过程
 ```
 
 * 当需要把多个提交点合并成一个commit时，可以使用`rebase`命令，比如，把`6a7c70c`之前的所有提交合并。
-```
+``` bash
 $ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作
 # 通常会保留第一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出
 
@@ -345,7 +344,7 @@ $ git config --global core.editor /usr/bin/vim
 ```
 
 * 当出现了Infinity分支，或者需要简化分支的树，可以使用`rebase`命令，假设在release/v2上需要rebase到develop的6a7c70c点上。
-```
+``` bash
 git checkout release/v2
 git rebase 6a7c70c
 git push -f
@@ -353,7 +352,7 @@ git push -f
 
 #### 使用标签
 使用[git tag](https://git-scm.com/docs/git-tag)命令可以帮助建立一系列的Tags，与Branch用法相似，但相对于分支来说更轻量级，并且很适合在workshop中使用，当然也可以作为轻量级项目管理release版本的策略。
-```
+``` bash
 git tag  # 显示本地所有标签
 git tag v1.0  # 在当前点创建名为v1.0的轻量级标签
 git tag v1.0 46a359f  # 在46a359f提交点创建轻量级标签
@@ -377,14 +376,14 @@ git push origin :refs/tags/v1.0  # 删除远程仓库中的标签
 
 #### 修改权限
 通常在管理可执行脚本时，执行权限默认不会被Git管理，比如`gradlew`在本地创建完成并且也可以运行，但在服务器上拉取代码后发现没有执行权限，因此会导致执行脚本任务失败，为了解决这一问题，需要用到[git update-index](https://git-scm.com/docs/git-update-index)命令。
-```
+``` bash
 git update-index --chmod=+x gradlew  # 添加执行权限
 git update-index --chmod=-x test.sh  # 移除执行权限
 ```
 
 #### 补丁技巧
 有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。首先介绍一下[git cherry-pick](https://git-scm.com/docs/git-cherry-pick)命令，该命令允许从其他分支上选取某一个Commit，再应用到当前分支上。
-```
+``` bash
 git checkout test_branch  # 首先切到某个需要被补丁的分支
 git cherry-pick 46a329f  # 然后应用某个其他分支上的commit
 ```
@@ -395,7 +394,7 @@ git cherry-pick 46a329f  # 然后应用某个其他分支上的commit
 
 #### 回收垃圾
 [git gc](https://git-scm.com/docs/git-gc)和[git count-objects](https://git-scm.com/docs/git-count-objects)命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。
-```
+``` bash
 git gc  # 压缩文件，回收垃圾，同时查看数据库占用空间
 git gc --auto  # 手动执行自动垃圾回收
 
@@ -406,13 +405,13 @@ git prune --expire now  # 删除过期的文件
 
 #### 谁的代码
 还有一个很有用的命令[git blame](https://git-scm.com/docs/git-blame)，可以查看到某个文件的每一行修改记录，有时需要确认是谁修改了某一行代码，该命令会很有帮助。
-```
+``` bash
 git blame xxx  #  查看文件的每一行作者、最新提交和操作时间等
 ```
 
 #### 高效别名
 为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，其中一种方式是自己在`~/.gitconfig`中配置，但不是首选推荐使用。
-```
+``` bash
 [alias]
 co = checkout
 ci = commit
@@ -427,7 +426,7 @@ dump = cat-file -p
 ```
 
 还有一种推荐使用的方式，如果你使用的[Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)+[iTerm2](http://www.iterm2.com/index.html)的命令行方案，那么你可以感受到`Oh My Zsh`带来的优势了，提供了[git plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git)并设定了统一的更加简短的别名，常用的Alias如下：
-```
+``` bash
 gst  # git status  ★★★★★
 
 ga  # git add  ★★★★★
@@ -474,7 +473,7 @@ glog  # git log --oneline --decorate --color --graph  ★★★★★
 若需再定义Alias，可以在`~/.zshrc`中加入自定义的Alias，如：`alias gau='git add -u'`, `alias gs=gst`。
 
 另外，补充一些在PowerShell中定义常用的相同Alias，在PowerShell安装目录下新建`profile.ps1`文件，并写入以下代码：
-```
+``` powershell
 # gst, git status
 function Get-GitStatus { & git status }
 New-Alias -Name gst -Value Get-GitStatus

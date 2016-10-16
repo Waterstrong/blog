@@ -15,7 +15,7 @@ description: 基于Spring Boot搭建一个Java工程，通过Gradle进行构建�
 
 Add into the source sets
 
-```
+``` gradle
 sourceSets {
     main {
         java.srcDirs = ['src/main/java']
@@ -32,7 +32,7 @@ sourceSets {
 ```
 Add into the idea intelliJ
 
-```
+``` gradle
 idea {
     module {
         testSourceDirs += sourceSets.integrationTest.java.srcDirs
@@ -42,7 +42,7 @@ idea {
 
 Apply the dependencies for integration test
 
-```
+``` gradle
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -57,7 +57,7 @@ dependencies {
 
 Create the unit and integrationTest tasks
 
-```
+``` gradle
 task unitTest(dependsOn: test)
 
 task integrationTest(type: Test) {
@@ -72,7 +72,7 @@ build.dependsOn integrationTest
 
 Add into the source sets
 
-```
+``` gradle
 sourceSets {
     main {
         java.srcDirs = ['src/main/java']
@@ -87,7 +87,7 @@ sourceSets {
 
 Exclude the test classes `*IntegrationTest.class`
 
-```
+``` gradle
 test {
     exclude '**/*IntegrationTest.class'
 }
@@ -95,7 +95,7 @@ test {
 
 Add the dependencies for test
 
-```
+``` gradle
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -106,7 +106,7 @@ dependencies {
 
 Create the unit and integrationTest tasks
 
-```
+``` gradle
 task unitTest(dependsOn: test)
 
 task integrationTest(type: Test) {
@@ -118,7 +118,7 @@ build.dependsOn integrationTest
 
 ### 集成测试实现DEMO
 
-``` ApplicationIntegrationTest.java
+``` java ApplicationIntegrationTest.java
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -128,7 +128,7 @@ public abstract class ApplicationIntegrationTest {
 }
 ```
 
-``` XXXControllerIntegrationTest.java
+``` java XXXControllerIntegrationTest.java
 public class XXXControllerIntegrationTest extends ApplicationIntegrationTest {
     @Autowired
     private XXXController xxxController;
@@ -158,7 +158,7 @@ public class XXXControllerIntegrationTest extends ApplicationIntegrationTest {
 
 单元测试采用JUnit和Mockito测试框架实现.
 
-``` DefaultXxxServiceTest.java
+``` java DefaultXxxServiceTest.java
 public class DefaultXxxServiceTest {
     @InjectMocks
     private DefaultXxxService xxxService;

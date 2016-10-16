@@ -53,7 +53,7 @@ Internet上其他类型的服务包括平台即服务(Platform as a Service, Paa
 ![](/assets/aws-ec2-basic/launch_select_key_pair.png)
 
 最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击`Instances -> 选择Instance -> Connect`查看，Shell Command如下:
-```
+``` bash
 ssh -i <key.pem> <username>@<instance-address>
 ```
 
@@ -87,7 +87,7 @@ Amazon EC2提供可创建和使用的不同资源，这些资源中的一部分�
 
 在Instance上通过以下命令实现Mount(挂载)创建的卷:
 
-```
+``` bash
 df -h  # 查看已挂载的卷
 df -T  # 可以查看挂载卷的类型
 

@@ -11,7 +11,7 @@ published: true
 
 ## Preparation
 准备阶段主要Import依赖，以及配置数据库各项属性并创建连接：
-``` groovy
+``` gradle
 import groovy.sql.Sql
 import org.springframework.test.context.jdbc.Sql
 # Also can set to project.ext.sql
@@ -73,7 +73,7 @@ def processBatchUpdate(userIds) {
 
 ## Default Task
 默认会被执行的任务，通常是入口，并且执行完毕可应关闭数据库Session：
-``` groovy
+``` gradle
 defaultTasks = ['defaultMain']
 
 # Generally dependsOn: initialiseDriver

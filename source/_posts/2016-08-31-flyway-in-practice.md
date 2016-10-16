@@ -114,7 +114,7 @@ Repeatable是指可重复加载的Migrations，其每一次的更新会影响Che
 #### 支持的数据库
 目前Flyway支持的数据库还是挺多的，包括：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix。
 目前来说，个人用得比较多的数据库是[PostgreSQL](https://flywaydb.org/documentation/database/postgresql)、[MySQL](https://flywaydb.org/documentation/database/mysql)、[H2](https://flywaydb.org/documentation/database/h2)和[Hsql](https://flywaydb.org/documentation/database/hsql)，针对每种数据库的`flyway.url`示例配置为：
-```
+``` apacheconf
 # PostgreSQL
 flyway.url = jdbc:postgresql://localhost:5432/postgres?currentSchema=myschema
 
@@ -142,7 +142,7 @@ Flyway的命令行工具支持直接在命令行中运行`Migrate`, `Clean`, `In
 #### 在Gradle中的应用
 首先需要在Gradle中引入Flyway插件，通常有两种方式：
 - 方式一：采用buildscript依赖方式。
-```
+``` gradle
 buildscript {
     repositories {
         mavenCentral()
@@ -155,7 +155,7 @@ apply plugin: 'org.flywaydb.flyway'
 ```
 
 - 方式二（推荐）：采用DSL方式引用Plugins。
-```
+``` gradle
 plugins {
     id "org.flywaydb.flyway" version "4.0.3"
 }
@@ -163,7 +163,7 @@ plugins {
 
 而在Gradle中配置Flyway Properties有两种方式：
 - 方式一：在`build.gradle`中配置Flyway Properties。
-```
+``` gradle
 flyway {
 	url = jdbc:h2:./.tmp/testdb
 	user = sa
@@ -178,14 +178,14 @@ project.ext['flyway.password'] = ''
 
 
 - 方式二：在`gradle.properties`中配置Flyway Properties。
-```
+``` apacheconf
 flyway.url = jdbc:h2:./.tmp/testdb
 flyway.user = sa
 flyway.password =
 ```
 
 如果期望在运行Gradle Clean/Build Tasks时自动执行Flyway的某些任务，可以设置`dependsOn`，若不期望隐式执行Flyway任务，可以不配置。
-```
+``` gradle
 clean.dependsOn flywayRepair  # To repair the Flyway metadata table
 build.dependsOn flywayMigrate  # To migrate the schema to the latest version
 ```
@@ -198,7 +198,7 @@ build.dependsOn flywayMigrate  # To migrate the schema to the latest version
 
 #### 与Spring Boot集成
 在Spring Boot中，如果加入Flyway的依赖，则会<u>自动引用Flyway并使用默认值</u>，但可以修改并配置[FlywayProperties](https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java)。
-```
+``` apacheconf
 flyway.baseline-description= # The description to tag an existing schema with when executing baseline.
 flyway.baseline-version=1 # Version to start migration.
 flyway.baseline-on-migrate=false # Whether to execute migration against a non-empty schema with no metadata table
@@ -210,9 +210,9 @@ flyway.ignore-failed-future-migration=true # Ignore future migrations when readi
 flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.
 flyway.locations=classpath:db/migration # locations of migrations scripts.
 flyway.out-of-order=false # Allows migrations to be run "out of order".
-flyway.placeholder-prefix=${ # The prefix of every placeholder.
+flyway.placeholder-prefix=  # The prefix of every placeholder.
 flyway.placeholder-replacement=true # Whether placeholders should be replaced.
-flyway.placeholder-suffix={ # The suffix of every placeholder.
+flyway.placeholder-suffix=} # The suffix of every placeholder.
 flyway.placeholders.*= # Placeholders to replace in Sql migrations.
 flyway.schemas= # Default schema of the connection and updating
 flyway.sql-migration-prefix=V # The file name prefix for Sql migrations
@@ -232,13 +232,12 @@ flyway.validate-on-migrate=true # Validate sql migration CRC32 checksum in class
 
 - 在运行Tests会使用内存数据库，有单独的配置文件，不使用Flyway，而在本地bootRun时会使用真实数据库，使用Flyway，毕竟不想每次Schema改后都在本地手动去执行脚本，如何实现？
 **解决方案：**设置`bootRun.dependsOn`动态添加Flyway的依赖即可：
-```
+``` gradle
 addFlywayDenpendency {
 	doLast {
 		dependencies {
 			compile('org.flywaydb:flyway-core:4.0.3')
 		}
-		
 	}
 }
 

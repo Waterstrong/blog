@@ -96,7 +96,7 @@ OOP引入封装、继承和多态来建立对象层次结构，从而模拟公�
 
 以下简单给出以Hello类为例的伪代码，通过代理对象调用实际对象的sayHello方法，并且在该方法的实际调用前后增加打印记录行为，模拟了拦截方法的过程。
 
-```
+``` java
 public interface IHello {
     void sayHello(String name);
 }
@@ -105,7 +105,7 @@ public interface IHello {
 public class Hello implements IHello {
     @Override
     public void sayHello(String name) {
-         println(“Hello "+name);
+         println("Hello "+name);
     }
 }
 
@@ -120,7 +120,6 @@ class HelloProxy implements IHello {
         println("after...."); // 实际调用后添加新的行为
     }
 }
-
 ```
 
 在回顾了代理模式后，那么进一步了解如何结合代理模式在运行时通过反射机制动态创建代理类，即动态代理技术。
@@ -128,7 +127,7 @@ class HelloProxy implements IHello {
 ### JDK动态代理
 主要针对JDK动态代理方式，使用接口实现，给出核心部分伪代码：
 
-```
+``` java
 public class DynamicProxyHello implements InvocationHandler {
     private Object target; // 目标对象
     public Object bind(Object target){
@@ -153,7 +152,7 @@ public class DynamicProxyHello implements InvocationHandler {
 ### CGLib代理
 CGLIB方式，使用继承实现：
 
-```
+``` java
 // 主要了解以下几个类, 代码在相应的库中都可以找到, 此处不再赘述
 
 MethodInterceptor // 方法拦截类, 定义的代理类需要实现该接口以调用intercept方法添加Advice
@@ -161,7 +160,6 @@ MethodInterceptor // 方法拦截类, 定义的代理类需要实现该接口以
 Enhancer // 增强类, 继承至AbstractClassGenerator, 主要用于生成目标类的子类
 
 MethodProxy // 生成的子类, 可以在intercept中通过调用proxy.invokeSuper()来调用目标对象的实际方法
-
 ```
 
 特别注意: CGLib代理基于接口和非final类代理，不能代理static方法。

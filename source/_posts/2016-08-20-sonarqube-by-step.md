@@ -15,7 +15,7 @@ SonarQube是一个开源的代码质量管理平台，它能够快速分析并�
 
 #### Install the SonarQube
 首先到[SonarQube Download](http://www.sonarqube.org/downloads/)页面下载压缩包，然后解压到`~/sonarqube`文件夹，最后运行命令启动服务，需要Java8运行环境支持。
-```
+``` bash
 $ ~/sonarqube/bin/linux-x86-64/sonar.sh start  # 启动SonarQube服务
 
 Usage: ./sonar.sh { console | start | stop | restart | status | dump }
@@ -32,7 +32,7 @@ Usage: ./sonar.sh { console | start | stop | restart | status | dump }
 
 #### Install the Scanner
 为了实现扫描项目代码并上传到SonarQube Server的目的，需要再到[SonarQube Scanner Download](http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner)页面下载压缩包并解压，如解压到`~/sonar-scanner`。
-```
+``` bash
 $ ~/sonar-scanner/bin/sonar-scanner --version
 
 INFO: Scanner configuration file: ~/sonar-scanner/conf/sonar-scanner.properties
@@ -47,7 +47,7 @@ INFO: Linux 3.10.0-327.18.2.el7.x86_64 amd64
 
 #### Database
 以配置PostgresSQL为例，首先需要确保安装了PostgresSQL数据库引擎。
-```
+``` bash
 # Database Configuration
 sonar.jdbc.username=postgres  # 好的方式是单独创建一个用户，并且授予读写库权限
 sonar.jdbc.password=postgres  # 若postgresql设置trust本机，则无需提供密码，md5时需提供密码
@@ -58,13 +58,13 @@ sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube  # 需要先创建sonarqube
 ```
 
 在命令行中登录postgresql，创建命为`sonarqube`的数据库，这里为了方便，直接使用postgres用户。
-```
+``` bash
 $ psql -U postgres
 $ CREATE DATABASE sonarqube WITH OWNER postgres ENCODING 'UTF8';
 ```
 
 假设遇到了postgresql的登录问题，需要以root权限在`/var/lib/pgsql/data/pg_hba.conf`中修改`localhost`和`127.0.0.1`的`peer`为`trust`或`md5`。
-```
+``` apacheconf
 #TYPE DATABASE  USER    ADDRESS        METHOD
 local    all    all                    trust
 host     all    all    127.0.0.1/32    trust
@@ -74,7 +74,7 @@ host     all    all    127.0.0.1/32    trust
 
 #### Web
 可以修改`sonar.properties`中的Web相关配置控制访问地址和端口。
-```
+``` apacheconf
 # The default port is "9000" and the context path is "/". 
 # These values can be changed in sonar.properties.
 sonar.web.host=0.0.0.0
@@ -83,7 +83,7 @@ sonar.web.context=/sonarqube
 ```
 
 若以`80`端口启动，可能会遇到权限的错误，需要切换为root用户运行sonar启动命令，可在`~/sonarqube/logs/sonar.log`中查看日志。
-```
+``` bash
 ...
 Failed to initialize end point associated with ProtocolHandler ["http-nio-0.0.0.0-80"]
 java.net.SocketException: Permission denied
@@ -96,7 +96,7 @@ java.net.SocketException: Permission denied
 ## Analyzing with Scanner
 #### Runner
 通常可以直接运行Runner实现对支持语言的项目代码进行扫描。假设Sonar Scanner被解压到`~/sonar-scanner`文件夹中，随意找一个项目代码，并在其中添加`sonar-project.properties`配置文件，针对Java项目的配置如下：
-```
+``` apacheconf
 # Default SonarQube server
 # sonar.host.url=http://localhost:9000
 sonar.host.url=http://192.168.56.105/sonarqube
@@ -123,7 +123,7 @@ sonar.sourceEncoding=UTF-8
 ```
 
 如果暂时自己没有适合的代码，也可以使用官方提供的[Project Samples](https://github.com/SonarSource/sonar-examples/archive/master.zip)，然后在项目代码目录下运行如下命令进行Sonar Scanner扫描代码。
-```
+``` bash
 ~/sonar-scanner/bin/sonar-scanner  # 当然也可以直接把bin目录加入环境变量中
 ```
 
@@ -134,7 +134,7 @@ sonar.sourceEncoding=UTF-8
 
 #### Gradle
 SonarQube支持Gradle 2.0以上的版本，以下来将配置`build.gradle`文件，使得支持SonarQube任务。
-```
+``` gradle
 // Uses DSL plugins resolution introduced in Gradle 2.1
 plugins {
   id "org.sonarqube" version "2.0.1"
@@ -151,7 +151,7 @@ sonarqube {
 ```
 
 还需要在`gradle.properties`中配置SonarQube地址和登录信息：
-```
+``` apacheconf
 systemProp.sonar.host.url=http://192.168.56.105/sonarqube
  
 # 当sonar.forceAuthentication被设置成true时需要提供登录信息
@@ -160,7 +160,7 @@ sonar.password=admin
 ```
 
 Gradle的Task为：`./gradlew sonarqube`，并且可以指定HOST和PASSWORD，这样就避免了把密码明文写在配置文件中。
-```
+``` bash
 ./gradlew sonarqube -Dsonar.host.url=http://xxx/sonar -Dsonar.jdbc.password=*** -Dsonar.verbose=true
 ```
 

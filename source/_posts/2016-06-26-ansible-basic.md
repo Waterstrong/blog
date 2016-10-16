@@ -33,13 +33,13 @@ Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易�
 Ansible CLI 包含以下几个常用的指令：`ansible`, `ansible-playbook`, `ansible-doc`以及`ansible-galaxy`。
 
 特别注意在使用命令行时会遇到当在`known_hosts`中新加入fingerprint时会弹出确认信息的问题，如果想要禁用确认，可以配置`/usr/local/etc/ansible/ansible.cfg`或`~/.ansible.cfg`并写入以下内容：
-```
+``` bash
 [defaults]
 host_key_checking = False
 ```
 
 或者直接在命令行中执行export命令：
-```
+``` bash
 export ANSIBLE_HOST_KEY_CHECKING=False
 ```
 可以阅读更多关于[Host Key Checking](http://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking)的介绍。接下来分别介绍一下CLI的常用指令：
@@ -48,7 +48,7 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 ansible基本指令，用于ansible基本的操作，属于指令核心部分，其主要用于执行[Ad-Hoc](http://docs.ansible.com/ansible/intro_adhoc.html)命令，即单条命令。默认命令后需要跟主机和选项部分，默认不指定模块时，使用的是command模块。
 
 以下为一些例子：
-```
+``` bash
 # ping all nodes
 $ ansible all -m ping
 
@@ -71,13 +71,13 @@ $ ansible all -a "/bin/echo hello"
 
 #### $ ansible-playbook
 ansible执行Playbook的命令，该指令使用最为频繁。
-```
+``` bash
 ansible-playbook -i inventory setup_server.yml
 ```
 
 #### $ ansible-doc
 该指令用于查看模块信息，常用参数有`-l`和`-s` ：
-```
+``` bash
 # 列出所有已安装的模块
 $ ansible-doc -l
 
@@ -87,7 +87,7 @@ $ ansible-doc -s command
 
 #### $ ansible-galaxy
 用于生成ansible最佳实践目录的命令，通常用于下载已经写好的roles，可以到[Ansible Galaxy](https://galaxy.ansible.com/)上搜索Roles，如`geerlingguy.jenkins`，然后安装。
-```
+``` bash
 ansible-galaxy install geerlingguy.jenkins
 ```
 
@@ -96,7 +96,7 @@ Inventory文件用来指定受控资源列表，也就是主机列表，可同�
 
 #### Hosts and Groups
 一个名为`hosts`的inventory文件例子，包括Hosts和Groups:
-```
+``` bash
 mail.example.com
 
 [webservers]
@@ -110,14 +110,14 @@ three.example.com
 ```
 
 ##### Host Variables
-```
+``` bash
 [atlanta]
 host1 http_port=80 maxRequestsPerChild=808
 host2 http_port=303 maxRequestsPerChild=909
 ```
 
 ##### Group Variables
-```
+``` bash
 [atlanta]
 host1
 host2
@@ -128,7 +128,7 @@ proxy=proxy.atlanta.example.com
 ```
 
 ##### Groups of Groups, and Group Variables
-```
+``` bash
 [atlanta]
 host1
 host2
@@ -162,7 +162,7 @@ Module是Ansible中实际执行的命令，是具体任务的执行单元，可�
 
 #### ping
 测试主机是否连通，Ping Module是Ansible的一个核心Modules之一，经常用来测试服务是否能连通，以及验证配置是否正确。
-```
+``` bash
 ansible -i hosts all -m ping
 ```
 
@@ -179,7 +179,7 @@ Ansible有一些预定义的变量，定义了服务器的很多状态信息，�
 
 #### shell
 运行shell脚本，比如可直接在受控资源上执行的命令:
-```
+``` bash
 shell: ps -ef | grep jenkins
 ```
 
