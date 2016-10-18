@@ -3,7 +3,8 @@ title: 在集成测试中使用Stubby4J
 date: 2016-09-05 22:29:26
 category: Tools
 tags: [Stub, Mock, HTTP, 集成测试]
-description: Stubby4J一款灵活可配置的基于HTTP(s)协议测试Web服务交互的工具，采用内嵌式的Jetty作为HTTP服务器，它的主要作用在于，可以在集成测试时，用来模拟第三方Web服务的API行为，比如，目前比较流行的RESTful架构风格的Web服务，
+thumbnailImage: /assets/common-pic/car10.jpg
+description: Stubby4J一款灵活可配置的基于HTTP(s)协议测试Web服务交互的工具，采用内嵌式的Jetty作为HTTP服务器，它的主要作用在于，可以在集成测试时，用来模拟第三方Web服务的API行为，比如，目前比较流行的RESTful架构风格的Web服务。
 published: true
 ---
 

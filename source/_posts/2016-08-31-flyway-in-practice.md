@@ -3,6 +3,7 @@ title: 快速掌握和使用Flyway
 date: 2016-08-31 21:32:16
 category: Tools
 tags: [数据库, Flyway, Migration, Gradle, Spring Boot]
+thumbnailImage: /assets/flyway-in-practice/flyway-logo-tm.png
 description: Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。
 published: true
 ---

@@ -3,7 +3,8 @@ title: Travis CI Step by Step
 date: 2016-07-15 21:57:02
 category: Tools
 tags: [DevOps, CI/CD, TravisCI, GitHub]
-description: Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。
+thumbnailImage: /assets/travisci-by-step/travis_ci_home.png
+description: Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目，主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。
 published: true
 ---
 

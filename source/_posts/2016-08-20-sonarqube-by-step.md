@@ -3,6 +3,7 @@ title: 代码质量管理SonarQube
 date: 2016-08-20 22:23:48
 category: Platforms
 tags: [Code Quality, Sonar Qube]
+thumbnailImage: /assets/sonarqube-by-step/gradle_scan_item.png
 description: SonarQube是一个开源的代码质量管理平台，它能够快速分析并定位代码中明显或潜在错误信息，目前支持20+种语言的分析，并且有很多插件可以集成。
 published: true
 ---

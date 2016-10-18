@@ -3,6 +3,7 @@ title: Ansible实践篇
 date: 2016-07-03 21:15:39
 category: Tools
 tags: [DevOps, Ansible, Workshop, Jenkins, Apache2]
+thumbnailImage: /assets/ansible-practice/rtd_monitor.png
 description: 本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！
 ---
 

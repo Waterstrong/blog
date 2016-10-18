@@ -3,6 +3,7 @@ title: MySQL在Linux下默认区分大小写
 date: 2015-12-20 22:28:42
 category: Techniques
 tags: [数据库, MySQL, Linux, Hibernate, JPA]
+thumbnailImage: /assets/mysql-case/mysql.png
 ---
 
 前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。

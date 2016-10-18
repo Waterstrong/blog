@@ -3,6 +3,7 @@ title: 优雅地使用Git
 date: 2016-08-12 22:29:48
 category: Tools
 tags: [Git, VCS, SCM, GitHub]
+thumbnailImage: https://git-scm.com/images/reset/workflow.png
 description: Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。
 published: true
 ---

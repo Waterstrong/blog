@@ -3,6 +3,7 @@ title: Mac如何读写NTFS磁盘
 date: 2016-09-11 21:10:13
 category: [Techniques]
 tags: [Mac, NTFS, 移动硬盘]
+thumbnailImage: /assets/mac-rw-ntfs/disk_utility.png
 description: 如何实现在Mac下读写NTFS磁盘，除了购买Mac读写NTFS磁盘的工具，或使用虚拟机作为媒介再Share给Mac的方式外，还可以使用更为快捷、简单、干净的Mac内置原生方式解决写NTFS硬盘的问题。
 published: true
 ---

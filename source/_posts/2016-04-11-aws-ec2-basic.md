@@ -3,6 +3,7 @@ title: AWS EC2入门篇
 date: 2016-04-11 12:00:08
 category: Platforms
 tags: [DevOps, AWS EC2, IaaS, 云服务, SSH]
+thumbnailImage: /assets/aws-ec2-basic/aws_homepage.png
 description: Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。
 ---
 

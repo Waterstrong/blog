@@ -3,7 +3,8 @@ title: Java Code Coverage in Gradle
 date: 2016-07-31 19:53:11
 category: Tools
 tags: [Java, Code Coverage, Jacoco, Cobertura]
-description: 代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。覆盖率主要用于尽可能减少代码缺陷和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心。
+thumbnailImage: /assets/code-coverage/purpose1.jpg
+description: 代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。
 published: true
 ---
 

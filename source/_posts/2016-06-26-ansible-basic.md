@@ -3,6 +3,7 @@ title: Ansible基础篇
 date: 2016-06-26 19:56:40
 category: Tools
 tags: [DevOps, Ansible, 脚本, 自动化]
+thumbnailImage: /assets/ansible-basic/logo_blue.png
 description: Ansible是一个IT自动化工具（IT Automation Tool）。它能够很容易地实现管理配置、软件部署、编排任务(如持续部署)等自动化运维工作。
 ---
 

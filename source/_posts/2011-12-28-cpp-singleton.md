@@ -3,6 +3,7 @@ title: "C++单例模式实现"
 date: 2011-12-28 21:23:50
 category: Design Patterns
 tags: [设计模式, C++, Singleton]
+thumbnailImage: /assets/common-pic/city2.jpg
 ---
 
 之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。

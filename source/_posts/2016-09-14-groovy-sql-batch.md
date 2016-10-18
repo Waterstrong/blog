@@ -3,6 +3,7 @@ title: Groovy SQL Batch
 date: 2016-09-14 22:38:59
 category: Languages
 tags: [Groovy, SQL, Batch]
+thumbnailImage: /assets/common-pic/car3.jpg
 description: 通常，如果需要写一些针对数据库临时执行特定操作的脚本时，Groovy是一个不错的选择，如果数据量比较大的情况下需要用到Batch方式，接下来将介绍使用Groovy SQL快速实现一个简单的数据库Batch操作Demo。
 published: true
 ---

@@ -3,6 +3,7 @@ title: Java Checkstyle in Gradle
 date: 2016-08-11 22:31:37
 category: Tools
 tags: [Java, Checkstyle]
+thumbnailImage: /assets/checkstyle/book.jpg
 description: Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。
 published: true
 ---
