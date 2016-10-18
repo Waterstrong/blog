@@ -1,12 +1,24 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>AWS EC2搭建VPN服务器 | Watersrong Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
-<meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>AWS EC2搭建VPN服务器 - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="AWS EC2搭建VPN服务器">
 <meta property="og:url" content="http://blog.waterstrong.me/aws-ec2-vpn/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
@@ -21,285 +33,266 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_connected.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_vpn_detail.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/6s_test_vpn.png">
-<meta property="og:updated_time" content="2016-06-11T13:29:32.000Z">
+<meta property="og:updated_time" content="2016-10-17T15:21:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AWS EC2搭建VPN服务器">
 <meta name="twitter:description" content="主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。">
 <meta name="twitter:image" content="http://blog.waterstrong.me/assets/aws-ec2-vpn/linux_pptpd_started.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/aws-ec2-vpn/assets/aws-ec2-vpn/6s_test_vpn.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/aws-ec2-vpn/assets/aws-ec2-vpn/6s_test_vpn.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
-<body>
-  <div id="container">
-    <div class="left-col left-col-pulled col-pulled-smooth"
-         id="post-left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
+        
+    
 
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">Enjoy this moment!</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <!--<li>菜单</li>-->
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
-                        
-                        
-                        <li>Motto</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="http://waterstrong.me">Home</a></li>
-                        
-                            <li><a href="/archives">Archives</a></li>
-                        
-                            <li><a href="/tags">Tag Cloud</a></li>
-                        
-                            <li><a href="/about">About</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
-                            
-                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
-                            
-                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
-                            
-                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
-                            
-                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
-                            
-                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
-                            
-                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
-                            
-                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/Flyway/" style="font-size: 10px;">Flyway</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 12.5px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 12.5px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Migration/" style="font-size: 10px;">Migration</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NTFS/" style="font-size: 10px;">NTFS</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SCM/" style="font-size: 10px;">SCM</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 12.5px;">Spring Boot</a> <a href="/tags/Stub/" style="font-size: 10px;">Stub</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VCS/" style="font-size: 10px;">VCS</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 17.5px;">数据库</a> <a href="/tags/移动硬盘/" style="font-size: 10px;">移动硬盘</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/集成测试/" style="font-size: 10px;">集成测试</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
     </div>
-    <div class="mid-col mid-col-pulled col-pulled-smooth"
-         id="post-mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
                 
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
-            </hgroup>
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
             
-            <p class="header-subtitle">Enjoy this moment!</p>
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://waterstrong.me">Home</a></li>
-                
-                    <li><a href="/archives">Archives</a></li>
-                
-                    <li><a href="/tags">Tag Cloud</a></li>
-                
-                    <li><a href="/about">About</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
+                <li class="sidebar-button">
                     
-                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
                     
-                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
                     
-                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
                     
-                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
                     
-                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
                     
-                </div>
-            </nav>
-        </header>                
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-aws-ec2-vpn" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/aws-ec2-vpn/" class="article-date">
-      <time datetime="2016-04-13T15:30:52.000Z" itemprop="datePublished">2016-04-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-      <header class="article-header">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            AWS EC2搭建VPN服务器
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-04-13T23:30:52+08:00">
+	
+		    Apr 13, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-  
-    <h1 class="article-title" itemprop="name">
-      AWS EC2搭建VPN服务器
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Platforms/">Platforms</a>
-    </div>
+    <a class="category-link" href="/categories/Platforms/">Platforms</a>
 
 
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS-EC2/">AWS EC2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PPTP/">PPTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RedHat/">RedHat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。</p>
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。虽然自己有用其他翻Wall软件，也有我司的VPN服务帐号，但还是想折腾一下，说不定还可以出售给小白同学。</p>
 <p>而且自己搭建VPN有诸多好处:</p>
 <ol>
 <li>暂时免费，只要不超出AWS免费流量和时间限制;</li>
@@ -310,50 +303,50 @@
 <p>VPN: Virtual Private Network, 虚拟专用网络，是一种远程访问技术，主要功能是在公用网络上建立专用网络，进行加密通讯，支持跨平台。<br>PPTP: Point to Point Tunneling Protocol, 点对点隧道协议，是PPP协议的基础上的增强型安全协议，支持多协议VPN，默认端口号1723。利于PPTP可以快速搭建自己的VPN，并且在很多的移动设备上也支持PPTP，同时PPTP速度也较快，资源消耗也小。</p>
 <p>简单介绍了之后，可以尝试以下步骤在服务器上搭建一个VPN服务。</p>
 <h3 id="Step1-安装PPTP"><a href="#Step1-安装PPTP" class="headerlink" title="Step1 - 安装PPTP"></a>Step1 - 安装PPTP</h3><p><strong>On Ubuntu 14.04 x64:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  # 登录服务器后切换到超级管理员</span><br><span class="line">apt-get update -y  # 更新源</span><br><span class="line">apt-get install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  <span class="comment"># 登录服务器后切换到超级管理员</span></span><br><span class="line">apt-get update -y  <span class="comment"># 更新源</span></span><br><span class="line">apt-get install pptpd -y  <span class="comment"># 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span></span><br></pre></td></tr></table></figure>
 <p><strong>On CentOS or Red Hat Linux 6.x x64:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  # 登录服务器后切换到超级管理员</span><br><span class="line">yum update -y  # 更新源</span><br><span class="line">yum install pptpd -y  # 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo su  <span class="comment"># 登录服务器后切换到超级管理员</span></span><br><span class="line">yum update -y  <span class="comment"># 更新源</span></span><br><span class="line">yum install pptpd -y  <span class="comment"># 安装pptpd, 同时会自动安装依赖组件ppp和iptables</span></span><br></pre></td></tr></table></figure>
 <p><strong>如果找不到源，返回<code>No package pptpd available</code>，如Amazon AMI Linux，可以采用以下方法解决: </strong></p>
 <ol>
 <li>方法一: 下载rpm包直接安装（推荐）</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 针对EL6.x版本:</span><br><span class="line">wget -c http://poptop.sourceforge.net/yum/stable/packages/pptpd-1.4.0-1.el6.x86_64.rpm</span><br><span class="line"># 针对EL7.x版本:</span><br><span class="line">wget -c http://dl.fedoraproject.org/pub/epel/7/x86_64/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">rpm -ivh pptpd-1.4.0-1.el6.x86_64.rpm  # 安装显示安装进度--install--verbose--hash</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 针对EL6.x版本:</span></span><br><span class="line">wget -c http://poptop.sourceforge.net/yum/stable/packages/pptpd-1.4.0-1.el6.x86_64.rpm</span><br><span class="line"><span class="comment"># 针对EL7.x版本:</span></span><br><span class="line">wget -c http://dl.fedoraproject.org/pub/epel/7/x86_64/p/pptpd-1.4.0-2.el7.x86_64.rpm</span><br><span class="line"></span><br><span class="line">rpm -ivh pptpd-1.4.0-1.el6.x86_64.rpm  <span class="comment"># 安装显示安装进度--install--verbose--hash</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>方法二: 需要添加新的源</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum repolist  # 查看yum源列表</span><br><span class="line"></span><br><span class="line"># 只针对EL7版本:</span><br><span class="line">yum localinstall http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm -y</span><br><span class="line"></span><br><span class="line">yum makecache  # 将服务器上的软件包信息下载到本地缓存, 以提高搜索和安装软件的速度</span><br><span class="line">yum repolist  # 可以再次查看新加入的列表</span><br><span class="line">yum install pptpd -y  # 再次执行安装pptpd</span><br><span class="line"></span><br><span class="line"># 可用 yum-config-manager --disable &lt;repoid&gt; 删除源</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum repolist  <span class="comment"># 查看yum源列表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只针对EL7版本:</span></span><br><span class="line">yum localinstall http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm -y</span><br><span class="line"></span><br><span class="line">yum makecache  <span class="comment"># 将服务器上的软件包信息下载到本地缓存, 以提高搜索和安装软件的速度</span></span><br><span class="line">yum repolist  <span class="comment"># 可以再次查看新加入的列表</span></span><br><span class="line">yum install pptpd -y  <span class="comment"># 再次执行安装pptpd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可用 yum-config-manager --disable &lt;repoid&gt; 删除源</span></span><br></pre></td></tr></table></figure>
 <h3 id="Step2-配置PPTP"><a href="#Step2-配置PPTP" class="headerlink" title="Step2 - 配置PPTP"></a>Step2 - 配置PPTP</h3><p>编辑<code>/etc/pptpd.conf</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pptpd.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pptpd.conf</span><br></pre></td></tr></table></figure>
 <p>搜索<code>localip</code>并去掉以下字段前的注释符<code>#</code>，保存并退出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip 192.168.0.1</span><br><span class="line">remoteip 192.168.0.234-238,192.168.0.245</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localip 192.168.0.1</span><br><span class="line">remoteip 192.168.0.234-238,192.168.0.245</span><br></pre></td></tr></table></figure>
 <p><code>localip</code>表示VPN服务器使用的地址，而<code>remoteip</code>表示分配给VPN客户端的地址范围，当然也可以自定义设置范围。</p>
 <h3 id="Step3-添加DNS解析"><a href="#Step3-添加DNS解析" class="headerlink" title="Step3 - 添加DNS解析"></a>Step3 - 添加DNS解析</h3><p>针对<code>Ubuntu</code>系统，编辑<code>/etc/ppp/pptpd-options</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/pptpd-options</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/pptpd-options</span><br></pre></td></tr></table></figure>
 <p>针对<code>CentOS/RedHat</code>，编辑<code>/etc/ppp/options.pptpd</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/options.pptpd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ppp/options.pptpd</span><br></pre></td></tr></table></figure>
 <p>在文件中搜索<code>ms-dns</code>，去掉以下字段前的注释符<code>#</code>，并修改为以下值后保存退出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ms-dns 8.8.8.8</span><br><span class="line">ms-dns 8.8.4.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ms-dns 8.8.8.8</span><br><span class="line">ms-dns 8.8.4.4</span><br></pre></td></tr></table></figure>
 <p>以上两条配置指定了使用Google Public DNS服务器。</p>
 <h3 id="Step4-添加VPN用户"><a href="#Step4-添加VPN用户" class="headerlink" title="Step4 - 添加VPN用户"></a>Step4 - 添加VPN用户</h3><p>编辑<code>/etc/ppp/chap-secrets</code>，添加用户名和密码条目，格式为<code>[username] [service] [password] [ip]</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># client	server  	secret		IP addresses</span><br><span class="line">vpnuser01	pptpd   	123456		*</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># client	server  	secret		IP addresses</span></span><br><span class="line">vpnuser01	pptpd   	123456		*</span><br></pre></td></tr></table></figure>
 <p>其中，用户名和密码可自行设置，服务名应为<code>pptpd</code>，IP表明允许登录的ip列表，如果允许所有ip可以设置为<code>*</code>。</p>
 <h3 id="Step5-开启IPv4转发"><a href="#Step5-开启IPv4转发" class="headerlink" title="Step5 - 开启IPv4转发"></a>Step5 - 开启IPv4转发</h3><p>为了支持IP数据包的转发，需要开启IPv4转发功能。<br>编辑<code>/etc/sysctl.conf</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
 <p>搜索并找到以下字段，去掉注释并修改为以下值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
 <p><code>= 1</code>表明开启了服务器内核支持IP数据包转发功能，允许通过PPTP协议在公有IP和私有IPs之间进行数据包转发。</p>
 <p>使得修改生效，需要执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
 <h3 id="Step6-创建NAT规则"><a href="#Step6-创建NAT规则" class="headerlink" title="Step6 - 创建NAT规则"></a>Step6 - 创建NAT规则</h3><p>创建网络地址转换，添加防火墙规则到iptables中，在终端执行以下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  # 将所有目标IP包转向eth0接口</span><br><span class="line">service iptables save  # 添加规则后重启会失效，所以需要保存，若不支持，可添加到rc.local文件中开机自动设置</span><br><span class="line"># 也可使用命令 iptables-save</span><br><span class="line"></span><br><span class="line">service iptables restart  # 重启iptables，貌似针对Ubuntu无效(忽略)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  <span class="comment"># 将所有目标IP包转向eth0接口</span></span><br><span class="line">service iptables save  <span class="comment"># 添加规则后重启会失效，所以需要保存，若不支持，可添加到rc.local文件中开机自动设置</span></span><br><span class="line"><span class="comment"># 也可使用命令 iptables-save</span></span><br><span class="line"></span><br><span class="line">service iptables restart  <span class="comment"># 重启iptables，貌似针对Ubuntu无效(忽略)</span></span><br></pre></td></tr></table></figure>
 <p>pptpd默认监听1723端口，可以通过以下命令查看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nap | grep pptpd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nap | grep pptpd</span><br></pre></td></tr></table></figure>
 <p>(可选)如果端口没有开启则开启相关端口:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp –dport 1723 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p tcp –dport 47 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p UDP --dport 53 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p gre -j ACCEPT</span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
-<h3 id="Step7-启动PPTP服务"><a href="#Step7-启动PPTP服务" class="headerlink" title="Step7 - 启动PPTP服务"></a>Step7 - 启动PPTP服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig pptpd on  # 设置开机启动VPN服务</span><br><span class="line">service pptpd restart  # 重启VPN服务, 当然可以用stop/start来停止/启动服务</span><br><span class="line">service pptpd status  # 查看VPN服务当前运行状态</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp –dport 1723 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p tcp –dport 47 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p UDP --dport 53 -j ACCEPT</span><br><span class="line">iptables -I INPUT -p gre -j ACCEPT</span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure>
+<h3 id="Step7-启动PPTP服务"><a href="#Step7-启动PPTP服务" class="headerlink" title="Step7 - 启动PPTP服务"></a>Step7 - 启动PPTP服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig pptpd on  <span class="comment"># 设置开机启动VPN服务</span></span><br><span class="line">service pptpd restart  <span class="comment"># 重启VPN服务, 当然可以用stop/start来停止/启动服务</span></span><br><span class="line">service pptpd status  <span class="comment"># 查看VPN服务当前运行状态</span></span><br></pre></td></tr></table></figure>
 <p>可以看到服务已经启动:<br><img src="/assets/aws-ec2-vpn/linux_pptpd_started.png" alt=""></p>
 <p>针对Ubuntu，即使运行start命令，但查看status还是显示<code>pptpd is not running</code>，可以编辑<code>/etc/init.d/pptpd</code>文件，搜索<code>status</code>找到该行<code>status_of_proc &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</code>，并添加<code>-p</code>参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_of_proc -p &quot;$PIDFILE&quot; &quot;$DAEMON&quot; &quot;$NAME&quot; &amp;&amp; exit 0 || exit $?</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_of_proc -p <span class="string">"<span class="variable">$PIDFILE</span>"</span> <span class="string">"<span class="variable">$DAEMON</span>"</span> <span class="string">"<span class="variable">$NAME</span>"</span> &amp;&amp; <span class="built_in">exit</span> 0 || <span class="built_in">exit</span> $?</span><br></pre></td></tr></table></figure>
 <p>针对VPN日志，在CentOS中，VPN服务器默认会写日志到<code>/var/log/messages</code>中; 在Ubuntu中，VPN服务器默认会写日志到<code>/var/log/syslog</code>中。</p>
 <p>以上步骤完成配置正确后，可以利用自己的终端设备连接到VPN上网了。</p>
 <h3 id="Step8-使用VPN服务"><a href="#Step8-使用VPN服务" class="headerlink" title="Step8 - 使用VPN服务"></a>Step8 - 使用VPN服务</h3><h4 id="在Mac-OS-X上配置VPN"><a href="#在Mac-OS-X上配置VPN" class="headerlink" title="在Mac OS X上配置VPN"></a>在Mac OS X上配置VPN</h4><p>System Preferences(系统设置) -&gt; Network(网络):<br><img src="/assets/aws-ec2-vpn/mac_system_network.png" alt=""></p>
@@ -368,321 +361,527 @@
 <p>测试访问Google，在手机浏览器输入<code>www.google.com</code>，使用4G数据流量，连接正常，速度没有明显差异:<br><img src="/assets/aws-ec2-vpn/6s_test_vpn.png" alt=""></p>
 <p>当然，其他设备上也是类似配置，都是一些基础的操作，也该收工了。OK, Just Enjoy~</p>
 
-      
+            
+        </div>
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/aws-ec2-vpn/">AWS EC2搭建VPN服务器</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-04-13 23:30</p>
-        <!--<p><span>最后更新:</span>2016-06-11 21:29</p>-->
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/aws-ec2-vpn/" title="AWS EC2搭建VPN服务器">http://blog.waterstrong.me/aws-ec2-vpn/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/aws-ec2-vpn/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
-        </p>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/AWS-EC2/">AWS EC2</a> <a class="tag tag--primary tag--small t-link" href="/tags/CentOS/">CentOS</a> <a class="tag tag--primary tag--small t-link" href="/tags/DevOps/">DevOps</a> <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a> <a class="tag tag--primary tag--small t-link" href="/tags/PPTP/">PPTP</a> <a class="tag tag--primary tag--small t-link" href="/tags/RedHat/">RedHat</a> <a class="tag tag--primary tag--small t-link" href="/tags/Ubuntu/">Ubuntu</a> <a class="tag tag--primary tag--small t-link" href="/tags/VPN/">VPN</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/concourse-ci/"  data-tooltip="Concourse CI 介绍">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/aws-ec2-basic/" data-tooltip="AWS EC2入门篇">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="aws-ec2-vpn/"
+     data-title="AWS EC2搭建VPN服务器" data-url="http://blog.waterstrong.me/aws-ec2-vpn/">
+</div>
+
+            
+        
     </div>
-
-
-
-<nav id="article-nav">
-  
-    <a href="/concourse-ci/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Concourse CI 介绍
-        
-      </div>
-    </a>
-  
-  
-    <a href="/aws-ec2-basic/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AWS EC2入门篇</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本介绍"><span class="toc-number">1.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step1-安装PPTP"><span class="toc-number">2.</span> <span class="toc-text">Step1 - 安装PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step2-配置PPTP"><span class="toc-number">3.</span> <span class="toc-text">Step2 - 配置PPTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step3-添加DNS解析"><span class="toc-number">4.</span> <span class="toc-text">Step3 - 添加DNS解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step4-添加VPN用户"><span class="toc-number">5.</span> <span class="toc-text">Step4 - 添加VPN用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step5-开启IPv4转发"><span class="toc-number">6.</span> <span class="toc-text">Step5 - 开启IPv4转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step6-创建NAT规则"><span class="toc-number">7.</span> <span class="toc-text">Step6 - 创建NAT规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step7-启动PPTP服务"><span class="toc-number">8.</span> <span class="toc-text">Step7 - 启动PPTP服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step8-使用VPN服务"><span class="toc-number">9.</span> <span class="toc-text">Step8 - 使用VPN服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在Mac-OS-X上配置VPN"><span class="toc-number">9.1.</span> <span class="toc-text">在Mac OS X上配置VPN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在iPhone-6s上配置VPN"><span class="toc-number">9.2.</span> <span class="toc-text">在iPhone 6s上配置VPN</span></a></li></ol></li></ol>
-</div>
-<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="隐藏目录"
-       title="点击按钮隐藏或者显示文章目录">
-
-<script src="/js/require-jquery.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    });
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
 
 
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="aws-ec2-vpn/" data-title="AWS EC2搭建VPN服务器" data-url="http://blog.waterstrong.me/aws-ec2-vpn/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waterstrong"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2016 Waterstrong
-            </div>
-            <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visited: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Visited: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
 </footer>
 
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/concourse-ci/"  data-tooltip="Concourse CI 介绍">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/aws-ec2-basic/" data-tooltip="AWS EC2入门篇">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/aws-ec2-vpn/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 0;
-            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-        })
-    </script>
-
-
-
-
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
-
-
-  <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("search").onclick = function(){
-        search();
-      }
-    };
-    function search(){
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
-                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
-    }
-  </script>
-
-
-
-
-
-
-
-<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
-    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 
-<script>
-    (function ($) {
-        var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#switch-sidebar");
-            this.leftColPulled = "left-col-pulled";
-            this.midColPulled = "mid-col-pulled";
-            this.$leftColSelector = $("#post-left-col");
-            this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#col-nav-button");
-            this.$homeBtnSelector = $("#home-nav-button");
-            this.$scrollSelector = $("#scroll");
-            this.$tocTitleSelector = $("#toc");
-            this.$tocButtonSelector = $("#tocButton");
-        };
-
-        SidebarNav.prototype = {
-            run: function () {
-                var self = this;
-                self.$sidebarNavBtn.click(function () {
-                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
-                });
-            },
-            showSidebar: function () {
-                var self = this;
-                self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.leftColPulled);
-                self.$homeBtnSelector.removeClass(self.midColPulled);
-                self.$scrollSelector.removeClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.removeClass(self.leftColPulled);
-                    self.$tocButtonSelector.removeClass(self.leftColPulled);
-                }, 350);
-            },
-            hideSidebar: function () {
-                var self = this;
-                self.$leftColSelector.addClass(self.leftColPulled);
-                self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.leftColPulled);
-                self.$homeBtnSelector.addClass(self.midColPulled);
-                self.$scrollSelector.addClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.addClass(self.leftColPulled);
-                    self.$tocButtonSelector.addClass(self.leftColPulled);
-                }, 350);
-            },
-            isSidebarShown: function () {
-                var self = this;
-                return !self.$leftColSelector.hasClass(self.leftColPulled);
-            }
-        };
-
-        $(document).ready(function () {
-            new SidebarNav().run();
-        })
-    })(jQuery);
-</script>
-
-
-<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="/" title=""><i class="fa fa-home"></i></a>
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                24 posts found
+            </p>
+        </div>
+    </div>
 </div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
 
-<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        }
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script language="text/javascript">
-        $(function() {
-            $("a[title]").each(function() {
-                var a = $(this);
-                var title = a.attr('title');
-                if (title == undefined || title == "") return;
-                a.data('title', title).removeAttr('title').hover(
-
-                        function() {
-                            var offset = a.offset();
-                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                                top: offset.top - a.outerHeight() - 15,
-                                left: offset.left + a.outerWidth()/2 + 1
-                            }).fadeIn(function() {
-                                var pop = $(this);
-                                setTimeout(function() {
-                                    pop.remove();
-                                }, pop.text().length * 800);
-                            });
-                        }, function() {
-                            $("#anchortitlecontainer").remove();
-                        });
-            });
-        });
-    </script>
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
-  </div>
-</body>
+
+    </body>
 </html>

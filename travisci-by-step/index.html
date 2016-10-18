@@ -1,16 +1,28 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>Travis CI Step by Step | Watersrong Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
-<meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>Travis CI Step by Step - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目，主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Travis CI Step by Step">
 <meta property="og:url" content="http://blog.waterstrong.me/travisci-by-step/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
+<meta property="og:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目，主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/travis_ci_home.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/integrations.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/authorize_travis_ci.png">
@@ -20,285 +32,266 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/trigger_build.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/passing_status.svg">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/travisci-by-step/link_build_status.png">
-<meta property="og:updated_time" content="2016-07-27T14:35:18.000Z">
+<meta property="og:updated_time" content="2016-10-18T15:01:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Travis CI Step by Step">
-<meta name="twitter:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，通过简单配置.travis.yml文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作。">
+<meta name="twitter:description" content="Travis CI是一款提供托管与分布式持续集成服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目，主要为开源免费提供轻量级可定制化的持续持续集成环境和服务。">
 <meta name="twitter:image" content="http://blog.waterstrong.me/assets/travisci-by-step/travis_ci_home.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/travisci-by-step/assets/travisci-by-step/travis_ci_home.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/travisci-by-step/assets/travisci-by-step/travis_ci_home.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
-<body>
-  <div id="container">
-    <div class="left-col left-col-pulled col-pulled-smooth"
-         id="post-left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
+        
+    
 
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">Enjoy this moment!</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <!--<li>菜单</li>-->
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
-                        
-                        
-                        <li>Motto</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="http://waterstrong.me">Home</a></li>
-                        
-                            <li><a href="/archives">Archives</a></li>
-                        
-                            <li><a href="/tags">Tag Cloud</a></li>
-                        
-                            <li><a href="/about">About</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
-                            
-                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
-                            
-                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
-                            
-                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
-                            
-                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
-                            
-                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
-                            
-                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
-                            
-                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/Flyway/" style="font-size: 10px;">Flyway</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 12.5px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 12.5px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Migration/" style="font-size: 10px;">Migration</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NTFS/" style="font-size: 10px;">NTFS</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SCM/" style="font-size: 10px;">SCM</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 12.5px;">Spring Boot</a> <a href="/tags/Stub/" style="font-size: 10px;">Stub</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VCS/" style="font-size: 10px;">VCS</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 17.5px;">数据库</a> <a href="/tags/移动硬盘/" style="font-size: 10px;">移动硬盘</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/集成测试/" style="font-size: 10px;">集成测试</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
     </div>
-    <div class="mid-col mid-col-pulled col-pulled-smooth"
-         id="post-mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
                 
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
-            </hgroup>
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
             
-            <p class="header-subtitle">Enjoy this moment!</p>
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://waterstrong.me">Home</a></li>
-                
-                    <li><a href="/archives">Archives</a></li>
-                
-                    <li><a href="/tags">Tag Cloud</a></li>
-                
-                    <li><a href="/about">About</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
+                <li class="sidebar-button">
                     
-                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
                     
-                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
                     
-                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
                     
-                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
                     
-                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
                     
-                </div>
-            </nav>
-        </header>                
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-travisci-by-step" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/travisci-by-step/" class="article-date">
-      <time datetime="2016-07-15T13:57:02.000Z" itemprop="datePublished">2016-07-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-      <header class="article-header">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Travis CI Step by Step
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-07-15T21:57:02+08:00">
+	
+		    Jul 15, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-  
-    <h1 class="article-title" itemprop="name">
-      Travis CI Step by Step
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    </div>
+    <a class="category-link" href="/categories/Tools/">Tools</a>
 
 
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI-CD/">CI/CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TravisCI/">TravisCI</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="Travis-CI介绍"><a href="#Travis-CI介绍" class="headerlink" title="Travis CI介绍"></a>Travis CI介绍</h2><blockquote>
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="Travis-CI介绍"><a href="#Travis-CI介绍" class="headerlink" title="Travis CI介绍"></a>Travis CI介绍</h2><blockquote>
 <p>Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.</p>
 </blockquote>
 <p>Travis CI是一款提供托管与分布式持续集成(Continuous Integration)服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。</p>
@@ -312,14 +305,14 @@
 <p>另外，若需要管理Travis CI的权限(Revoke/Grant Access)，可以在登录<a href="https://github.com/" target="_blank" rel="external">GitHub</a>后点击头像下拉菜单中的<a href="https://github.com/settings/" target="_blank" rel="external">Settings</a>，选择左边导航栏中的<a href="https://github.com/settings/applications" target="_blank" rel="external">OAuth applications</a>，进入<code>Travis CI</code>应用进行操作，对于未授权的Organization，通常需要手动点击<code>Grant access</code>确认才能授权Travis CI访问。<br><img src="/assets/travisci-by-step/oauth_travis_ci.png" alt=""></p>
 <h4 id="激活GitHub仓库"><a href="#激活GitHub仓库" class="headerlink" title="激活GitHub仓库"></a>激活GitHub仓库</h4><p>Travis CI触发Build的原理是基于GitHub的Service Hook钩子实现，而需要Travis CI应用到自己的项目，需要在Travis CI的<a href="https://travis-ci.org/profile/" target="_blank" rel="external">Profile</a> (<code>Yourname</code>-&gt;<code>Accounts</code>)中选择对应的Repository并开启Hook，若没有看到项目列出，请点击<code>Sync account</code>同步一下。<br><img src="/assets/travisci-by-step/hook_switch.png" alt=""></p>
 <p>若需要设定某些配置项或设置环境变量，可以点击齿轮状的按钮进行设置页面，更多可参阅<a href="https://docs.travis-ci.com/user/cron-jobs/" target="_blank" rel="external">Travis CI Docs</a>。<br><img src="/assets/travisci-by-step/travis_ci_settings.png" alt=""></p>
-<h4 id="配置TRAVIS-YML文件"><a href="#配置TRAVIS-YML文件" class="headerlink" title="配置TRAVIS YML文件"></a>配置TRAVIS YML文件</h4><p>Travis CI支持多种语言的项目，只需要在项目目录下新建文件<code>.travis.yml</code>，加入几行配置即可，比如选择<a href="https://docs.travis-ci.com/user/languages/java" target="_blank" rel="external">Java</a>项目(Gradle+Java8)，一个简单的示例配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">language: java</span><br><span class="line">install: true</span><br><span class="line">script: ./gradlew clean build</span><br><span class="line">before_cache:</span><br><span class="line">  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock</span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">    - $HOME/.gradle/caches/</span><br><span class="line">    - $HOME/.gradle/wrapper/</span><br><span class="line">jdk:</span><br><span class="line">  - oraclejdk8</span><br></pre></td></tr></table></figure></p>
-<p>也可以针对多个Java版本进行测试，保证项目的兼容性，只需要设置jdk即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdk:</span><br><span class="line">  - oraclejdk8</span><br><span class="line">  - oraclejdk7</span><br><span class="line">  - openjdk6</span><br></pre></td></tr></table></figure></p>
-<p>再比如<a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs" target="_blank" rel="external">Javascript Node.js</a>项目(NodeJs+Gulp+Bower+Redis)的简单示例配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line">node_js:</span><br><span class="line">  - &quot;6&quot;</span><br><span class="line">before_script:</span><br><span class="line">  - npm install -g gulp bower</span><br><span class="line">  - npm install</span><br><span class="line">  - bower install</span><br><span class="line">script: gulp</span><br><span class="line">services:</span><br><span class="line">  - redis-server</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置TRAVIS-YML文件"><a href="#配置TRAVIS-YML文件" class="headerlink" title="配置TRAVIS YML文件"></a>配置TRAVIS YML文件</h4><p>Travis CI支持多种语言的项目，只需要在项目目录下新建文件<code>.travis.yml</code>，加入几行配置即可，比如选择<a href="https://docs.travis-ci.com/user/languages/java" target="_blank" rel="external">Java</a>项目(Gradle+Java8)，一个简单的示例配置如下：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> java</span><br><span class="line"><span class="attr">install:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">script:</span> ./gradlew clean build</span><br><span class="line"><span class="attr">before_cache:</span></span><br><span class="line"><span class="bullet">  -</span> rm -f $HOME/.gradle/caches/modules<span class="bullet">-2</span>/modules<span class="bullet">-2.</span>lock</span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  directories:</span></span><br><span class="line"><span class="bullet">    -</span> $HOME/.gradle/caches/</span><br><span class="line"><span class="bullet">    -</span> $HOME/.gradle/wrapper/</span><br><span class="line"><span class="attr">jdk:</span></span><br><span class="line"><span class="bullet">  -</span> oraclejdk8</span><br></pre></td></tr></table></figure></p>
+<p>也可以针对多个Java版本进行测试，保证项目的兼容性，只需要设置jdk即可：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jdk:</span></span><br><span class="line"><span class="bullet">  -</span> oraclejdk8</span><br><span class="line"><span class="bullet">  -</span> oraclejdk7</span><br><span class="line"><span class="bullet">  -</span> openjdk6</span><br></pre></td></tr></table></figure></p>
+<p>再比如<a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs" target="_blank" rel="external">Javascript Node.js</a>项目(NodeJs+Gulp+Bower+Redis)的简单示例配置如下：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> node_js</span><br><span class="line"><span class="attr">node_js:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">"6"</span></span><br><span class="line"><span class="attr">before_script:</span></span><br><span class="line"><span class="bullet">  -</span> npm install -g gulp bower</span><br><span class="line"><span class="bullet">  -</span> npm install</span><br><span class="line"><span class="bullet">  -</span> bower install</span><br><span class="line"><span class="attr">script:</span> gulp</span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="bullet">  -</span> redis-server</span><br></pre></td></tr></table></figure></p>
 <p>另外，也支持<a href="https://docs.travis-ci.com/user/installing-dependencies/" target="_blank" rel="external">Installing Dependencies</a>, <a href="https://docs.travis-ci.com/user/database-setup/" target="_blank" rel="external">Setting up Databases</a>, <a href="https://docs.travis-ci.com/user/deployment/" target="_blank" rel="external">Deployments and Uploads</a>以及<a href="https://docs.travis-ci.com/user/notifications/" target="_blank" rel="external">Configuring Build Notifications</a>等。更多配置项详情请参阅<a href="https://docs.travis-ci.com/user/getting-started/" target="_blank" rel="external">Getting Started</a>。</p>
 <h4 id="触发Build构建"><a href="#触发Build构建" class="headerlink" title="触发Build构建"></a>触发Build构建</h4><p>当所有配置完成后，下一次提交代码时就会触发Build，可以看到Build的一些详细信息，包括Build号，Commit号，Elapsed用时，Log日志等信息，如果成功就显示绿色，失败则显示红色。<br><img src="/assets/travisci-by-step/trigger_build.png" alt=""></p>
 <p>除了查看Current当前的Build，也可以选择查看Branches分支状态或Build History历史记录等。</p>
 <h4 id="关联Build状态"><a href="#关联Build状态" class="headerlink" title="关联Build状态"></a>关联Build状态</h4><p>为了显示指明项目与Travis CI的关系与状态，可以在项目README.md中关联Build状态图标，点击项目右边的状态图片<img src="/assets/travisci-by-step/passing_status.svg" alt="">，然后会弹出一个Status Image链接的页面，选择Markdown格式，然后复制链接到项目的README.md中即可。<br><img src="/assets/travisci-by-step/link_build_status.png" alt=""></p>
-<p>Build状态标识的Markdown格式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[![Build Status](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME.svg?branch=master)](https://travis-ci.org/GITHUB_NAME/PROJECT_NAME)</span><br><span class="line"></span><br><span class="line"># E.g. GITHUB_MAME=tw-wee, PROJECT_NAME=qas-service</span><br><span class="line">[![Build Status](https://travis-ci.org/tw-wee/qas-service.svg?branch=master)](https://travis-ci.org/tw-wee/qas-service)</span><br></pre></td></tr></table></figure></p>
+<p>Build状态标识的Markdown格式为：<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">![Build Status</span>](<span class="link">https://travis-ci.org/GITHUB_NAME/PROJECT_NAME.svg?branch=master</span>)](<span class="link">https://travis-ci.org/GITHUB_NAME/PROJECT_NAME</span>)</span><br><span class="line"></span><br><span class="line"><span class="section"># E.g. GITHUB_MAME=tw-wee, PROJECT_NAME=qas-service</span></span><br><span class="line">[<span class="string">![Build Status</span>](<span class="link">https://travis-ci.org/tw-wee/qas-service.svg?branch=master</span>)](<span class="link">https://travis-ci.org/tw-wee/qas-service</span>)</span><br></pre></td></tr></table></figure></p>
 <h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>总体说来，对于公司或企业项目，更倾向于选择GoCD或Jenkins这样的产品，个人或社区开源项目建议采用Travis CI来快速实现持续集成服务。</p>
 <hr>
 <p>References</p>
@@ -328,321 +321,527 @@
 <li><a href="https://en.wikipedia.org/wiki/Travis_CI" target="_blank" rel="external">Travis CI Wiki</a></li>
 </ul>
 
-      
+            
+        </div>
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/travisci-by-step/">Travis CI Step by Step</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-07-15 21:57</p>
-        <!--<p><span>最后更新:</span>2016-07-27 22:35</p>-->
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/travisci-by-step/" title="Travis CI Step by Step">http://blog.waterstrong.me/travisci-by-step/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/travisci-by-step/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
-        </p>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/CI-CD/">CI/CD</a> <a class="tag tag--primary tag--small t-link" href="/tags/DevOps/">DevOps</a> <a class="tag tag--primary tag--small t-link" href="/tags/GitHub/">GitHub</a> <a class="tag tag--primary tag--small t-link" href="/tags/TravisCI/">TravisCI</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/java-code-coverage/"  data-tooltip="Java Code Coverage in Gradle">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/jenkins-by-step/" data-tooltip="Jenkins Step by Step">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="travisci-by-step/"
+     data-title="Travis CI Step by Step" data-url="http://blog.waterstrong.me/travisci-by-step/">
+</div>
+
+            
+        
     </div>
-
-
-
-<nav id="article-nav">
-  
-    <a href="/java-code-coverage/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Java Code Coverage in Gradle
-        
-      </div>
-    </a>
-  
-  
-    <a href="/jenkins-by-step/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Jenkins Step by Step</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Travis-CI介绍"><span class="toc-number">1.</span> <span class="toc-text">Travis CI介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Travis-CI集成"><span class="toc-number">2.</span> <span class="toc-text">Travis CI集成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub登录授权"><span class="toc-number">2.0.1.</span> <span class="toc-text">GitHub登录授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#激活GitHub仓库"><span class="toc-number">2.0.2.</span> <span class="toc-text">激活GitHub仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置TRAVIS-YML文件"><span class="toc-number">2.0.3.</span> <span class="toc-text">配置TRAVIS YML文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#触发Build构建"><span class="toc-number">2.0.4.</span> <span class="toc-text">触发Build构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关联Build状态"><span class="toc-number">2.0.5.</span> <span class="toc-text">关联Build状态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-End"><span class="toc-number">3.</span> <span class="toc-text">The End</span></a></li></ol>
-</div>
-<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="隐藏目录"
-       title="点击按钮隐藏或者显示文章目录">
-
-<script src="/js/require-jquery.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    });
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
 
 
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="travisci-by-step/" data-title="Travis CI Step by Step" data-url="http://blog.waterstrong.me/travisci-by-step/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waterstrong"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2016 Waterstrong
-            </div>
-            <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visited: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Visited: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
 </footer>
 
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/java-code-coverage/"  data-tooltip="Java Code Coverage in Gradle">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/jenkins-by-step/" data-tooltip="Jenkins Step by Step">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/travisci-by-step/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 0;
-            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-        })
-    </script>
-
-
-
-
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
-
-
-  <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("search").onclick = function(){
-        search();
-      }
-    };
-    function search(){
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
-                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
-    }
-  </script>
-
-
-
-
-
-
-
-<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
-    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 
-<script>
-    (function ($) {
-        var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#switch-sidebar");
-            this.leftColPulled = "left-col-pulled";
-            this.midColPulled = "mid-col-pulled";
-            this.$leftColSelector = $("#post-left-col");
-            this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#col-nav-button");
-            this.$homeBtnSelector = $("#home-nav-button");
-            this.$scrollSelector = $("#scroll");
-            this.$tocTitleSelector = $("#toc");
-            this.$tocButtonSelector = $("#tocButton");
-        };
-
-        SidebarNav.prototype = {
-            run: function () {
-                var self = this;
-                self.$sidebarNavBtn.click(function () {
-                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
-                });
-            },
-            showSidebar: function () {
-                var self = this;
-                self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.leftColPulled);
-                self.$homeBtnSelector.removeClass(self.midColPulled);
-                self.$scrollSelector.removeClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.removeClass(self.leftColPulled);
-                    self.$tocButtonSelector.removeClass(self.leftColPulled);
-                }, 350);
-            },
-            hideSidebar: function () {
-                var self = this;
-                self.$leftColSelector.addClass(self.leftColPulled);
-                self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.leftColPulled);
-                self.$homeBtnSelector.addClass(self.midColPulled);
-                self.$scrollSelector.addClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.addClass(self.leftColPulled);
-                    self.$tocButtonSelector.addClass(self.leftColPulled);
-                }, 350);
-            },
-            isSidebarShown: function () {
-                var self = this;
-                return !self.$leftColSelector.hasClass(self.leftColPulled);
-            }
-        };
-
-        $(document).ready(function () {
-            new SidebarNav().run();
-        })
-    })(jQuery);
-</script>
-
-
-<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="/" title=""><i class="fa fa-home"></i></a>
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                24 posts found
+            </p>
+        </div>
+    </div>
 </div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
 
-<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        }
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script language="text/javascript">
-        $(function() {
-            $("a[title]").each(function() {
-                var a = $(this);
-                var title = a.attr('title');
-                if (title == undefined || title == "") return;
-                a.data('title', title).removeAttr('title').hover(
-
-                        function() {
-                            var offset = a.offset();
-                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                                top: offset.top - a.outerHeight() - 15,
-                                left: offset.left + a.outerWidth()/2 + 1
-                            }).fadeIn(function() {
-                                var pop = $(this);
-                                setTimeout(function() {
-                                    pop.remove();
-                                }, pop.text().length * 800);
-                            });
-                        }, function() {
-                            $("#anchortitlecontainer").remove();
-                        });
-            });
-        });
-    </script>
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
-  </div>
-</body>
+
+    </body>
 </html>

@@ -1,296 +1,289 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>优雅地使用Git | Watersrong Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
-<meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>优雅地使用Git - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="优雅地使用Git">
 <meta property="og:url" content="http://blog.waterstrong.me/master-git/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/areas.png">
-<meta property="og:updated_time" content="2016-10-15T04:27:16.000Z">
+<meta property="og:updated_time" content="2016-10-16T16:12:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优雅地使用Git">
 <meta name="twitter:description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，解决与其他贡献者协同开发的问题，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
 <meta name="twitter:image" content="http://blog.waterstrong.me/assets/master-git/areas.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="https://git-scm.com/images/reset/workflow.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://git-scm.com/images/reset/workflow.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
-<body>
-  <div id="container">
-    <div class="left-col left-col-pulled col-pulled-smooth"
-         id="post-left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
+        
+    
 
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">Enjoy this moment!</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <!--<li>菜单</li>-->
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
-                        
-                        
-                        <li>Motto</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="http://waterstrong.me">Home</a></li>
-                        
-                            <li><a href="/archives">Archives</a></li>
-                        
-                            <li><a href="/tags">Tag Cloud</a></li>
-                        
-                            <li><a href="/about">About</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
-                            
-                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
-                            
-                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
-                            
-                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
-                            
-                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
-                            
-                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
-                            
-                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
-                            
-                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/Flyway/" style="font-size: 10px;">Flyway</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 12.5px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 12.5px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Migration/" style="font-size: 10px;">Migration</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NTFS/" style="font-size: 10px;">NTFS</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SCM/" style="font-size: 10px;">SCM</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 12.5px;">Spring Boot</a> <a href="/tags/Stub/" style="font-size: 10px;">Stub</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VCS/" style="font-size: 10px;">VCS</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 17.5px;">数据库</a> <a href="/tags/移动硬盘/" style="font-size: 10px;">移动硬盘</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/集成测试/" style="font-size: 10px;">集成测试</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
     </div>
-    <div class="mid-col mid-col-pulled col-pulled-smooth"
-         id="post-mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
                 
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
-            </hgroup>
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
             
-            <p class="header-subtitle">Enjoy this moment!</p>
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://waterstrong.me">Home</a></li>
-                
-                    <li><a href="/archives">Archives</a></li>
-                
-                    <li><a href="/tags">Tag Cloud</a></li>
-                
-                    <li><a href="/about">About</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
+                <li class="sidebar-button">
                     
-                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
                     
-                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
                     
-                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
                     
-                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
                     
-                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
                     
-                </div>
-            </nav>
-        </header>                
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-master-git" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/master-git/" class="article-date">
-      <time datetime="2016-08-12T14:29:48.000Z" itemprop="datePublished">2016-08-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-      <header class="article-header">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            优雅地使用Git
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-08-12T22:29:48+08:00">
+	
+		    Aug 12, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-  
-    <h1 class="article-title" itemprop="name">
-      优雅地使用Git
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    </div>
+    <a class="category-link" href="/categories/Tools/">Tools</a>
 
 
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SCM/">SCM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VCS/">VCS</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>前几天遇到一些关于权限和rebase的问题，另外，之前也有被多次问到在某某情况下怎么处理，某某操作是什么命令，某某命令怎么用等等的问题，当然，还有一些其他不常用的Git命令，但真正需要的时候又比较棘手，估计大部分人只会使用一些简单常规并且在正常流程下的命令，鉴于此，觉得还是有必要分享一下。</p>
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>前几天遇到一些关于权限和rebase的问题，另外，之前也有被多次问到在某某情况下怎么处理，某某操作是什么命令，某某命令怎么用等等的问题，当然，还有一些其他不常用的Git命令，但真正需要的时候又比较棘手，估计大部分人只会使用一些简单常规并且在正常流程下的命令，鉴于此，觉得还是有必要分享一下。</p>
 <p>如果你已经是Git高手了，这篇博客对你意义不大，不过可以下方留言，补充更多的信息。如果你是从来没有使用过Git的，这篇博客也不太适合你，不过我会给出一些简单说明和入门教程的链接，如果你有兴趣学习的话，想必能够帮到你。如果你是Git新用户，或者使用Git有一段时间了，但经常会遇到一些棘手问题不知所措，那本博客应该会对你有一些帮助。</p>
 <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><blockquote>
 <p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p>
@@ -310,46 +303,46 @@
 </ol>
 <p>更多细节和原理介绍可以阅读<a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control" target="_blank" rel="external">Git官网介绍</a>，这里就不再赘述。</p>
 <h2 id="Git准备"><a href="#Git准备" class="headerlink" title="Git准备"></a>Git准备</h2><p>首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门准备的步骤：</p>
-<h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>请根据操作系统下载并安装Git，请参见<a href="https://git-scm.com/downloads" target="_blank" rel="external">Git Downloads</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git --version  # 查看安装版本</span><br><span class="line"></span><br><span class="line">git help -a  # 列出所有子命令</span><br><span class="line">git help &lt;command&gt;  # 查看某个子命令的帮助</span><br><span class="line"></span><br><span class="line">git help -g  # 列出一些概念引导</span><br><span class="line">git help &lt;concept&gt;  # 查看某个概念引导，比如git help tutorial</span><br></pre></td></tr></table></figure></p>
-<h4 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h4><p>因为Git是分布式的，需要在本地配置Git用户名和邮箱作为一个标识。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your_name&quot;  # 若无参数，则表示查看当前配置</span><br><span class="line">git config --global user.email &quot;your_email&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>请根据操作系统下载并安装Git，请参见<a href="https://git-scm.com/downloads" target="_blank" rel="external">Git Downloads</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git --version  <span class="comment"># 查看安装版本</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">help</span> <span class="_">-a</span>  <span class="comment"># 列出所有子命令</span></span><br><span class="line">git <span class="built_in">help</span> &lt;<span class="built_in">command</span>&gt;  <span class="comment"># 查看某个子命令的帮助</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">help</span> -g  <span class="comment"># 列出一些概念引导</span></span><br><span class="line">git <span class="built_in">help</span> &lt;concept&gt;  <span class="comment"># 查看某个概念引导，比如git help tutorial</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h4><p>因为Git是分布式的，需要在本地配置Git用户名和邮箱作为一个标识。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"your_name"</span>  <span class="comment"># 若无参数，则表示查看当前配置</span></span><br><span class="line">git config --global user.email <span class="string">"your_email"</span></span><br></pre></td></tr></table></figure></p>
 <p>加上<code>--global</code>参数表明所有Project都使用这一配置，如果需要针对某个单独Project进行设置，可以在指定的Project中输入上述命令，但不需要<code>--global</code>参数。</p>
-<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>现在可以在本地创建一个Git仓库并进行版本管理，最最基础的常用命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git init  # 初始化一个版本库，会生成.git文件夹，可以添加.gitignore文件来标识需要忽略的项</span><br><span class="line"></span><br><span class="line">git clone git@github.com:xxx/demo.git [new_name]  # 克隆远程库，可指定新目录名，默认与远程库相同</span><br><span class="line"></span><br><span class="line">git status  # 查看状态，该命令会非常频繁地用到，建议每一步都check一下状态，确保操作都正确了</span><br><span class="line"></span><br><span class="line">git add xxx  # 添加指定的文件到暂存区，可以用Regex匹配，如&apos;*.txt&apos;，对于新增文件可以直接指定</span><br><span class="line">git add -u  # 添加已版本管理并修改了的文件，新增文件不会加入，相对保险，建议使用</span><br><span class="line">git add .  # 添加当前目录下所有新增或修改的文件，可能会无意加入其他不想加入的文件</span><br><span class="line">git add -A  # --all 添加全部文件</span><br><span class="line"></span><br><span class="line">git commit -m &quot;here is the comment&quot;  # 提交并加入必要的注释说明</span><br><span class="line">git commit --amend  # 重新编辑当前提交的注释信息</span><br><span class="line">git commit --amend -m &quot;new message&quot;  # 覆盖已提交的注释信息</span><br><span class="line"></span><br><span class="line">git pull origin master  # 从远端仓库拉取master代码，需要设置origin</span><br><span class="line">git push origin master  # 将代码Push到远端仓库的master</span><br></pre></td></tr></table></figure></p>
-<h4 id="GitHub-SSH-Key"><a href="#GitHub-SSH-Key" class="headerlink" title="GitHub + SSH Key"></a>GitHub + SSH Key</h4><p>如果希望自己的代码上传到<a href="http://github.com/" target="_blank" rel="external">GitHub</a>，可以阅读Github官方Demo教程<a href="https://guides.github.com/activities/hello-world/" target="_blank" rel="external">GitHub Guides</a>，当然也可以上传到其它代码托管平台，原理步骤基本相同。另外，如果需要添加SSH Key，可以参考<a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Generating an SSH key</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;  # 生成新的SSH Key，需要替换自己的Email</span><br><span class="line"></span><br><span class="line">ssh-keygen -f ~/.ssh/id_rsa -p  # 修改已生成私钥文件的密码 </span><br><span class="line"></span><br><span class="line">ssh-add ~/.ssh/id_rsa  # 添加已有私钥到ssh-agent中</span><br></pre></td></tr></table></figure></p>
+<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>现在可以在本地创建一个Git仓库并进行版本管理，最最基础的常用命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">git init  <span class="comment"># 初始化一个版本库，会生成.git文件夹，可以添加.gitignore文件来标识需要忽略的项</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">clone</span> git@github.com:xxx/demo.git [new_name]  <span class="comment"># 克隆远程库，可指定新目录名，默认与远程库相同</span></span><br><span class="line"></span><br><span class="line">git status  <span class="comment"># 查看状态，该命令会非常频繁地用到，建议每一步都check一下状态，确保操作都正确了</span></span><br><span class="line"></span><br><span class="line">git add xxx  <span class="comment"># 添加指定的文件到暂存区，可以用Regex匹配，如'*.txt'，对于新增文件可以直接指定</span></span><br><span class="line">git add -u  <span class="comment"># 添加已版本管理并修改了的文件，新增文件不会加入，相对保险，建议使用</span></span><br><span class="line">git add .  <span class="comment"># 添加当前目录下所有新增或修改的文件，可能会无意加入其他不想加入的文件</span></span><br><span class="line">git add -A  <span class="comment"># --all 添加全部文件</span></span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">"here is the comment"</span>  <span class="comment"># 提交并加入必要的注释说明</span></span><br><span class="line">git commit --amend  <span class="comment"># 重新编辑当前提交的注释信息</span></span><br><span class="line">git commit --amend -m <span class="string">"new message"</span>  <span class="comment"># 覆盖已提交的注释信息</span></span><br><span class="line"></span><br><span class="line">git pull origin master  <span class="comment"># 从远端仓库拉取master代码，需要设置origin</span></span><br><span class="line">git push origin master  <span class="comment"># 将代码Push到远端仓库的master</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="GitHub-SSH-Key"><a href="#GitHub-SSH-Key" class="headerlink" title="GitHub + SSH Key"></a>GitHub + SSH Key</h4><p>如果希望自己的代码上传到<a href="http://github.com/" target="_blank" rel="external">GitHub</a>，可以阅读Github官方Demo教程<a href="https://guides.github.com/activities/hello-world/" target="_blank" rel="external">GitHub Guides</a>，当然也可以上传到其它代码托管平台，原理步骤基本相同。另外，如果需要添加SSH Key，可以参考<a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Generating an SSH key</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">"your_email@example.com"</span>  <span class="comment"># 生成新的SSH Key，需要替换自己的Email</span></span><br><span class="line"></span><br><span class="line">ssh-keygen <span class="_">-f</span> ~/.ssh/id_rsa -p  <span class="comment"># 修改已生成私钥文件的密码 </span></span><br><span class="line"></span><br><span class="line">ssh-add ~/.ssh/id_rsa  <span class="comment"># 添加已有私钥到ssh-agent中</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="Git初阶"><a href="#Git初阶" class="headerlink" title="Git初阶"></a>Git初阶</h2><p>除了熟练掌握上述的一些基本命令外，还不能顺畅地使用Git，还需要对更多的命令进行掌握才能达到流畅使用Git的程度，除了<a href="https://git-scm.com/docs/git-init" target="_blank" rel="external">init</a>,<a href="https://git-scm.com/docs/git-clone" target="_blank" rel="external">clone</a>,<a href="https://git-scm.com/docs/git-status" target="_blank" rel="external">status</a>,<a href="https://git-scm.com/docs/git-add" target="_blank" rel="external">add</a>和<a href="https://git-scm.com/docs/git-commit" target="_blank" rel="external">commit</a>命令外，接下来会分别介绍一些其他的常用命令及参数。</p>
-<h4 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h4><p>除了上节提到的使用<a href="https://git-scm.com/docs/git-config" target="_blank" rel="external">git config</a>命令来配置<code>user.name</code>和<code>user.email</code>外，还有一些其他常用参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l  # --list 显示所有的全局配置</span><br><span class="line">git config --global user.name  # 显示全局配置的用户名</span><br><span class="line"></span><br><span class="line">git config --global push.default simple  # 配置push的默认方式为simple匹配</span><br><span class="line">git config --global alias.s status  # 配置status的别名为s</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-config"><a href="#git-config" class="headerlink" title="git config"></a>git config</h4><p>除了上节提到的使用<a href="https://git-scm.com/docs/git-config" target="_blank" rel="external">git config</a>命令来配置<code>user.name</code>和<code>user.email</code>外，还有一些其他常用参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global <span class="_">-l</span>  <span class="comment"># --list 显示所有的全局配置</span></span><br><span class="line">git config --global user.name  <span class="comment"># 显示全局配置的用户名</span></span><br><span class="line"></span><br><span class="line">git config --global push.default simple  <span class="comment"># 配置push的默认方式为simple匹配</span></span><br><span class="line">git config --global alias.s status  <span class="comment"># 配置status的别名为s</span></span><br></pre></td></tr></table></figure></p>
 <p>Git配置有三种级别：</p>
 <ul>
 <li>System: <code>--system</code>，一般很少会修改系统级配置，对应的系统配置在<code>/etc/gitconfig</code>中。</li>
 <li>Global: <code>--global</code>，通常会修改全局配置，对应的全局配置在<code>~/.gitconfig</code>或<code>~/.config/git/config</code>中。</li>
 <li>Local: <code>--local</code>默认值，需要对某个项目单独配置时使用，对应的配置在项目目录下的<code>.git/config</code>中。</li>
 </ul>
-<h4 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h4><p>在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，或同时指定多个源等，<a href="https://git-scm.com/docs/git-remote" target="_blank" rel="external">git remote</a>命令相当有用，特别是<code>add</code>和<code>set-url</code>还是会常用到的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git remote -v  # --verbose 查看当前已添加的远程库地址</span><br><span class="line">git remote show  # 查看已添加了哪些远程库源</span><br><span class="line">git remote show origin  # 查看指定远程库源origin的详细信息</span><br><span class="line"></span><br><span class="line">git remote add origin https://github.com/xxx/demo.git  # 添加origin并指定其远程库地址，通常默认为origin</span><br><span class="line">git remote set-url origin git@github.com:xxx/demo.git  # 修改origin，使用HTTPS或SSH，取决于你的权限</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h4><p>在初始化新项目时，可能需要添加远程库链接，或是在现有项目中修改远程库链接，或同时指定多个源等，<a href="https://git-scm.com/docs/git-remote" target="_blank" rel="external">git remote</a>命令相当有用，特别是<code>add</code>和<code>set-url</code>还是会常用到的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git remote -v  <span class="comment"># --verbose 查看当前已添加的远程库地址</span></span><br><span class="line">git remote show  <span class="comment"># 查看已添加了哪些远程库源</span></span><br><span class="line">git remote show origin  <span class="comment"># 查看指定远程库源origin的详细信息</span></span><br><span class="line"></span><br><span class="line">git remote add origin https://github.com/xxx/demo.git  <span class="comment"># 添加origin并指定其远程库地址，通常默认为origin</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin git@github.com:xxx/demo.git  <span class="comment"># 修改origin，使用HTTPS或SSH，取决于你的权限</span></span><br></pre></td></tr></table></figure></p>
 <p>当然还有更多的用法和参数，更多特殊场景用途可以参数官方的文档说明，但个人认为以上用法足够应对平时使用了。</p>
-<h4 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h4><p>在平常的Git使用过程中，<a href="https://git-scm.com/docs/git-pull" target="_blank" rel="external">git pull</a>命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：<a href="https://git-scm.com/docs/git-fetch" target="_blank" rel="external">git fetch</a>和<a href="https://git-scm.com/docs/git-merge" target="_blank" rel="external">git merge</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin</span><br><span class="line">git pull -r  # --rebase 把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接</span><br></pre></td></tr></table></figure></p>
-<h4 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h4><p>另一个常用的命令就是推送<a href="https://git-scm.com/docs/git-push" target="_blank" rel="external">git push</a>，用于把本地的提交推送到远端仓库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master  # 首次Push时需要加-u参数</span><br><span class="line"></span><br><span class="line">git push --set-upstream origin master  # 建立upstream与当前分支master的关联关系</span><br><span class="line"></span><br><span class="line">git push  # 建立关联关系后默认会推送到对应分支</span><br><span class="line"></span><br><span class="line">git push -f  # --force, 强制Push</span><br></pre></td></tr></table></figure></p>
-<h4 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h4><p>Git中对比命令<a href="https://git-scm.com/docs/git-diff" target="_blank" rel="external">git diff</a>用于对比提交文件或工作区文件的修改情况，通常在准备提交之前可检查一下修改，防止提交不期望的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff [&lt;filename&gt;]  # 对比unstaged文件与HEAD的区别，可以指定特定文件</span><br><span class="line">git diff HEAD [&lt;filename&gt;]  # 相对最近commit对比修改前后内容，无论是否staged，可指定特定文件</span><br><span class="line">git diff --staged [&lt;filename&gt;]  # 对比已经加入暂存区的文件与最近commit区别，可指定特定文件</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h4><p>在平常的Git使用过程中，<a href="https://git-scm.com/docs/git-pull" target="_blank" rel="external">git pull</a>命令使用相当频繁，用于从远端仓库拉取代码，其实是包括了两个命令：<a href="https://git-scm.com/docs/git-fetch" target="_blank" rel="external">git fetch</a>和<a href="https://git-scm.com/docs/git-merge" target="_blank" rel="external">git merge</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin</span><br><span class="line">git pull -r  <span class="comment"># --rebase 把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h4><p>另一个常用的命令就是推送<a href="https://git-scm.com/docs/git-push" target="_blank" rel="external">git push</a>，用于把本地的提交推送到远端仓库。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master  <span class="comment"># 首次Push时需要加-u参数</span></span><br><span class="line"></span><br><span class="line">git push --set-upstream origin master  <span class="comment"># 建立upstream与当前分支master的关联关系</span></span><br><span class="line"></span><br><span class="line">git push  <span class="comment"># 建立关联关系后默认会推送到对应分支</span></span><br><span class="line"></span><br><span class="line">git push <span class="_">-f</span>  <span class="comment"># --force, 强制Push</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h4><p>Git中对比命令<a href="https://git-scm.com/docs/git-diff" target="_blank" rel="external">git diff</a>用于对比提交文件或工作区文件的修改情况，通常在准备提交之前可检查一下修改，防止提交不期望的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff [&lt;filename&gt;]  <span class="comment"># 对比unstaged文件与HEAD的区别，可以指定特定文件</span></span><br><span class="line">git diff HEAD [&lt;filename&gt;]  <span class="comment"># 相对最近commit对比修改前后内容，无论是否staged，可指定特定文件</span></span><br><span class="line">git diff --staged [&lt;filename&gt;]  <span class="comment"># 对比已经加入暂存区的文件与最近commit区别，可指定特定文件</span></span><br></pre></td></tr></table></figure></p>
 <p>通常大家更倾向于使用IDE来对比修改，这一点倒觉得没什么问题，毕竟IDE界面上的对比有更强的视觉感，在某种程度上会减少出错的概率。</p>
-<h4 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h4><p>通常需要查看、创建、修改或删除一个分支时需要用到<a href="https://git-scm.com/docs/git-branch" target="_blank" rel="external">git branch</a>，假设示例中使用的分支名为<code>feature/card1</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">git branch -a  # --all 列出所有分支</span><br><span class="line">git branch --list &lt;pattern&gt;  # 列出符合条件的分支</span><br><span class="line">git branch -r  # --remotes 列出远程分支</span><br><span class="line">git branch -vv  # 查看分支情况，显示sha1, commit和upstream分支信息</span><br><span class="line"></span><br><span class="line">git branch feature/card1  # 创建一个新分支</span><br><span class="line">git checkout feature/card1  # 切换到该分支</span><br><span class="line">git checkout -b feature/card1  # 创建并切换到该分支</span><br><span class="line"></span><br><span class="line">git branch -m feature/renamed  # --move 修改所在分支的名字</span><br><span class="line">git branch -M feature/renamed  # --move --force 强制修改所在分支的名字</span><br><span class="line"></span><br><span class="line">git branch -d feature/card1  # --delete 删除本地分支，不能删除当前所在分支</span><br><span class="line">git branch -D feature/card1  # --delete --force 强制删除本地分支，不能删除当前所在分支</span><br><span class="line">git branch -dr origin/feature/card1  # --delete --remotes 删除远程仓库分支Tracking</span><br><span class="line">git push origin :feature/card1  # 把空分支push到远端，相当于删除远程仓库分支</span><br><span class="line"></span><br><span class="line">git branch --set-upstream-to=origin/&lt;branch&gt; master  # 把远程分支和本地分支关联起来</span><br><span class="line">git branch --unset-upstream [&lt;branchname&gt;]  # 移除关联的上游分支，默认针对当前分支</span><br><span class="line"></span><br><span class="line">git branch --merged  # 列出已经合并到当前分支的所有分支</span><br><span class="line">git branch --no-merged  # 列出未合并到当前分支的所有分支</span><br></pre></td></tr></table></figure></p>
-<h4 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h4><p>再来介绍一下检出命令<a href="https://git-scm.com/docs/git-checkout" target="_blank" rel="external">git checkout</a>，除了对分支切换操作，还可以用于丢弃修改，常用的方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master  # 切换到master分支</span><br><span class="line">git checkout tag1  # 切换到指定的Tag上</span><br><span class="line"></span><br><span class="line">git checkout -b &lt;new_branch&gt;  # 基于当前分支，创建并切换到一个新分支</span><br><span class="line">git checkout --orphan &lt;new_branch&gt;  # 创建一个孤儿分支，没有父节点，属于全新的分支</span><br><span class="line"></span><br><span class="line">git checkout -- &lt;target&gt;  # 针对unstaged的文件丢弃其修改</span><br></pre></td></tr></table></figure></p>
-<h4 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h4><p>通常需要在分支间进行分支合并操作，需要用到<a href="https://git-scm.com/docs/git-merge" target="_blank" rel="external">git merge</a>命令，比如把<code>topic</code>分支merge到<code>master</code>上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge topic  # 合并topic分支到当前所在分支</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h4><p>通常需要查看、创建、修改或删除一个分支时需要用到<a href="https://git-scm.com/docs/git-branch" target="_blank" rel="external">git branch</a>，假设示例中使用的分支名为<code>feature/card1</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">git branch <span class="_">-a</span>  <span class="comment"># --all 列出所有分支</span></span><br><span class="line">git branch --list &lt;pattern&gt;  <span class="comment"># 列出符合条件的分支</span></span><br><span class="line">git branch -r  <span class="comment"># --remotes 列出远程分支</span></span><br><span class="line">git branch -vv  <span class="comment"># 查看分支情况，显示sha1, commit和upstream分支信息</span></span><br><span class="line"></span><br><span class="line">git branch feature/card1  <span class="comment"># 创建一个新分支</span></span><br><span class="line">git checkout feature/card1  <span class="comment"># 切换到该分支</span></span><br><span class="line">git checkout -b feature/card1  <span class="comment"># 创建并切换到该分支</span></span><br><span class="line"></span><br><span class="line">git branch -m feature/renamed  <span class="comment"># --move 修改所在分支的名字</span></span><br><span class="line">git branch -M feature/renamed  <span class="comment"># --move --force 强制修改所在分支的名字</span></span><br><span class="line"></span><br><span class="line">git branch <span class="_">-d</span> feature/card1  <span class="comment"># --delete 删除本地分支，不能删除当前所在分支</span></span><br><span class="line">git branch -D feature/card1  <span class="comment"># --delete --force 强制删除本地分支，不能删除当前所在分支</span></span><br><span class="line">git branch -dr origin/feature/card1  <span class="comment"># --delete --remotes 删除远程仓库分支Tracking</span></span><br><span class="line">git push origin :feature/card1  <span class="comment"># 把空分支push到远端，相当于删除远程仓库分支</span></span><br><span class="line"></span><br><span class="line">git branch --set-upstream-to=origin/&lt;branch&gt; master  <span class="comment"># 把远程分支和本地分支关联起来</span></span><br><span class="line">git branch --unset-upstream [&lt;branchname&gt;]  <span class="comment"># 移除关联的上游分支，默认针对当前分支</span></span><br><span class="line"></span><br><span class="line">git branch --merged  <span class="comment"># 列出已经合并到当前分支的所有分支</span></span><br><span class="line">git branch --no-merged  <span class="comment"># 列出未合并到当前分支的所有分支</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h4><p>再来介绍一下检出命令<a href="https://git-scm.com/docs/git-checkout" target="_blank" rel="external">git checkout</a>，除了对分支切换操作，还可以用于丢弃修改，常用的方式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master  <span class="comment"># 切换到master分支</span></span><br><span class="line">git checkout tag1  <span class="comment"># 切换到指定的Tag上</span></span><br><span class="line"></span><br><span class="line">git checkout -b &lt;new_branch&gt;  <span class="comment"># 基于当前分支，创建并切换到一个新分支</span></span><br><span class="line">git checkout --orphan &lt;new_branch&gt;  <span class="comment"># 创建一个孤儿分支，没有父节点，属于全新的分支</span></span><br><span class="line"></span><br><span class="line">git checkout -- &lt;target&gt;  <span class="comment"># 针对unstaged的文件丢弃其修改</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h4><p>通常需要在分支间进行分支合并操作，需要用到<a href="https://git-scm.com/docs/git-merge" target="_blank" rel="external">git merge</a>命令，比如把<code>topic</code>分支merge到<code>master</code>上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge topic  <span class="comment"># 合并topic分支到当前所在分支</span></span><br></pre></td></tr></table></figure></p>
 <p>当然，也可以指定一些其他参数或是合并策略等，用法非常灵活。在merge时通常会遇到合并冲突问题，如果遇到，在自己熟悉的编辑方式下解决冲突，然后运行添加命令<code>git add -u</code>，最后根据提示运行<code>git rebase --continue</code>即可，<strong>切记勿再commit</strong>。</p>
-<h4 id="git-rm"><a href="#git-rm" class="headerlink" title="git rm"></a>git rm</h4><p>删除命令<a href="https://git-scm.com/docs/git-rm" target="_blank" rel="external">git rm</a>用于从Git的工作树和索引中删除文件。另外，还有一个类似的<a href="https://git-scm.com/docs/git-mv" target="_blank" rel="external">git mv</a>命令，但不太常用，主要作用是改名或移动文件，只作简单了解即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;target&gt;  # 从工作树中移除对象，Git会记录该操作，相当于rm后再git add</span><br><span class="line">git rm --cached &lt;target&gt;  # 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-rm"><a href="#git-rm" class="headerlink" title="git rm"></a>git rm</h4><p>删除命令<a href="https://git-scm.com/docs/git-rm" target="_blank" rel="external">git rm</a>用于从Git的工作树和索引中删除文件。另外，还有一个类似的<a href="https://git-scm.com/docs/git-mv" target="_blank" rel="external">git mv</a>命令，但不太常用，主要作用是改名或移动文件，只作简单了解即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;target&gt;  <span class="comment"># 从工作树中移除对象，Git会记录该操作，相当于rm后再git add</span></span><br><span class="line">git rm --cached &lt;target&gt;  <span class="comment"># 从Git索引管理中移除对象，若需要忽略已提交的文件时应使用此命令删除缓存</span></span><br></pre></td></tr></table></figure></p>
 <p><code>--cached</code>参数相当有用的，通常的使用场景是，当某个文件已经被添加到Git管理，但后来又需要在<code>.gitignore</code>中忽略。</p>
-<h4 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h4><p>有时需要查看提交记录日志，可以使用命令<a href="https://git-scm.com/docs/git-log" target="_blank" rel="external">git log</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git log [&lt;options&gt;]  # 显示提交记录，可以指定文件或regex</span><br><span class="line">git log -5  # 查看最近5条历史提交记录</span><br><span class="line">git log -p  # 按补丁格式显示每个更新之间的差异</span><br><span class="line">git log --stat  # 显示每次提交文件的变更统计</span><br><span class="line">git log --graph  # 显示ASCII字符图形表示的每个提交所在的分支及其衍合情况</span><br><span class="line">git log --graph --oneline --all  # 以更详细的信息展示</span><br><span class="line">git log --pretty=oneline  # 以单行的格式显示提交记录，只显示哈希值和提交注释</span><br><span class="line">git log --decorate[=short|full|auto|no]  # 显示出更多的信息，包括ref name等</span><br></pre></td></tr></table></figure></p>
-<h4 id="git-revert"><a href="#git-revert" class="headerlink" title="git revert"></a>git revert</h4><p>Git提供了撤销某次操作的命令<a href="https://git-scm.com/docs/git-revert" target="_blank" rel="external">git revert</a>，相当于对某次提交的回滚操作，该命令会保留之前的所有提交记录，并把撤销操作当作一次新的提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD  # HEAD~0 撤销最近一次提交</span><br><span class="line">git revert HEAD^  # HEAD~1 撤销上上次的提交</span><br><span class="line">git revert 6a7c70c  # 撤销该HASH对应的提交</span><br><span class="line"></span><br><span class="line">git revert [--edit]  # 撤销操作时需要编程注释，默认参数</span><br><span class="line">git revert --no-edit  # 撤销操作时使用默认的注释</span><br><span class="line">git revert -n  # --no-commit 只在本地撤销，不自动提交，可以用于Revert多个commits</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h4><p>有时需要查看提交记录日志，可以使用命令<a href="https://git-scm.com/docs/git-log" target="_blank" rel="external">git log</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> [&lt;options&gt;]  <span class="comment"># 显示提交记录，可以指定文件或regex</span></span><br><span class="line">git <span class="built_in">log</span> -5  <span class="comment"># 查看最近5条历史提交记录</span></span><br><span class="line">git <span class="built_in">log</span> -p  <span class="comment"># 按补丁格式显示每个更新之间的差异</span></span><br><span class="line">git <span class="built_in">log</span> --stat  <span class="comment"># 显示每次提交文件的变更统计</span></span><br><span class="line">git <span class="built_in">log</span> --graph  <span class="comment"># 显示ASCII字符图形表示的每个提交所在的分支及其衍合情况</span></span><br><span class="line">git <span class="built_in">log</span> --graph --oneline --all  <span class="comment"># 以更详细的信息展示</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=oneline  <span class="comment"># 以单行的格式显示提交记录，只显示哈希值和提交注释</span></span><br><span class="line">git <span class="built_in">log</span> --decorate[=short|full|auto|no]  <span class="comment"># 显示出更多的信息，包括ref name等</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="git-revert"><a href="#git-revert" class="headerlink" title="git revert"></a>git revert</h4><p>Git提供了撤销某次操作的命令<a href="https://git-scm.com/docs/git-revert" target="_blank" rel="external">git revert</a>，相当于对某次提交的回滚操作，该命令会保留之前的所有提交记录，并把撤销操作当作一次新的提交。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD  <span class="comment"># HEAD~0 撤销最近一次提交</span></span><br><span class="line">git revert HEAD^  <span class="comment"># HEAD~1 撤销上上次的提交</span></span><br><span class="line">git revert 6a7c70c  <span class="comment"># 撤销该HASH对应的提交</span></span><br><span class="line"></span><br><span class="line">git revert [--edit]  <span class="comment"># 撤销操作时需要编程注释，默认参数</span></span><br><span class="line">git revert --no-edit  <span class="comment"># 撤销操作时使用默认的注释</span></span><br><span class="line">git revert -n  <span class="comment"># --no-commit 只在本地撤销，不自动提交，可以用于Revert多个commits</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>以上就是一些常用命令，需要自己练习进行掌握，可以花15分钟在<a href="https://try.github.io/" target="_blank" rel="external">Try Git</a>进行简单学习，另外，<a href="http://learngitbranching.js.org/" target="_blank" rel="external">Learn Git Branching</a>提供了交互式动画教学和动手实践结合的学习方式，有兴趣可以学习下，同时，也推荐一篇<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTA1MDUyMA==&amp;mid=201723758&amp;idx=1&amp;sn=e5b7c27caec76992c348bf30e4bd30e8&amp;scene=2&amp;from=timeline&amp;isappinstalled=0" target="_blank" rel="external">《手把手教你用Git》</a>，练习完成一系列教程后基本就可以流畅地使用Git的常用功能了。</strong></p>
 <h2 id="Git进阶"><a href="#Git进阶" class="headerlink" title="Git进阶"></a>Git进阶</h2><p>除了掌握常用的命令外，还需要在实践中不断地练习，在真正遇到一些问题并解决后才能提升，踩了坑才能更深有体会，正所谓在实践中学习，在跌倒中成长。</p>
-<h4 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h4><p>只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用<a href="https://git-scm.com/docs/git-reset" target="_blank" rel="external">git reset</a>命令实现回退或恢复。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~3  # 将HEAD指向HEAD~3，回退到HEAD~3的版本，即删除最近三次提交HEAD, HEAD^, HEAD~2</span><br><span class="line">git reset --hard 6a7c70c  # 回退到6a7c70c所在的版本</span><br><span class="line">git reset --hard origin/master  # 将本地版本回退到和远程相同</span><br><span class="line">git reset --hard HEAD  # 回退到最近提交的版本</span><br><span class="line">git reset --hard HEAD^ xxx  # 回退xxx文件到上一个版本</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h4><p>只要在Git管理过的对象几乎总是可以恢复的，即使通过回退到了之前的版本，或者执行了一系列的错误操作，看似某些提交被丢失了，但可以通过查看到操作记录日志，并使用<a href="https://git-scm.com/docs/git-reset" target="_blank" rel="external">git reset</a>命令实现回退或恢复。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~3  <span class="comment"># 将HEAD指向HEAD~3，回退到HEAD~3的版本，即删除最近三次提交HEAD, HEAD^, HEAD~2</span></span><br><span class="line">git reset --hard 6a7c70c  <span class="comment"># 回退到6a7c70c所在的版本</span></span><br><span class="line">git reset --hard origin/master  <span class="comment"># 将本地版本回退到和远程相同</span></span><br><span class="line">git reset --hard HEAD  <span class="comment"># 回退到最近提交的版本</span></span><br><span class="line">git reset --hard HEAD^ xxx  <span class="comment"># 回退xxx文件到上一个版本</span></span><br></pre></td></tr></table></figure></p>
 <p>除了<code>--hard</code>参数外，还有另外两个参数，分别进行解释说明：</p>
 <ul>
 <li>–soft: 暂存区和工作区都不会被改变，被reset的文件会在暂存区等待新的提交</li>
 <li>–mixed: 默认选项，暂存区会被reset，但工作区不受影响</li>
 <li>–hard: 暂存区和工作区都被reset，直接回退到指定提交</li>
 </ul>
-<p>为了实现回退或恢复，需要查看日志，除了<code>git log</code>命令外，还有<a href="https://git-scm.com/docs/git-reflog" target="_blank" rel="external">git reflog</a>命令查看Git的引用日志，即操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog [--all]  # 查看所有引用日志，获取操作记录</span><br><span class="line"></span><br><span class="line">$ git reflog  # 查看到引用日志SHA值</span><br><span class="line">6a7c70c HEAD@&#123;0&#125;: checkout: moving from master to develop</span><br><span class="line">627d359 HEAD@&#123;1&#125;: checkout: moving from testbranch1 to master</span><br><span class="line">6811ed6 HEAD@&#123;2&#125;: checkout: moving from release/v2 to testbranch</span><br><span class="line">6811ed6 HEAD@&#123;3&#125;: rebase finished: returning to refs/heads/release/v2</span><br><span class="line">6811ed6 HEAD@&#123;4&#125;: rebase: checkout 6811ed6f7b0128b293ecf17ad365508620d92116</span><br><span class="line">b632cfd HEAD@&#123;5&#125;: checkout: moving from develop to release/v2</span><br><span class="line">6a7c70c HEAD@&#123;6&#125;: rebase finished: returning to refs/heads/develop</span><br><span class="line">6a7c70c HEAD@&#123;7&#125;: pull -r: checkout 6a7c70c3f852da407980147d710850c1b5150ddc</span><br><span class="line">938f88d HEAD@&#123;8&#125;: checkout: moving from feature/card6 to develop</span><br><span class="line">fe9366d HEAD@&#123;9&#125;: commit: feature card 6</span><br><span class="line"></span><br><span class="line">$ git log -g  # 以标准格式显示提交和引用</span><br><span class="line"></span><br><span class="line">$ git reset --hard 8a0c223  # 恢复到之前的操作</span><br><span class="line"></span><br><span class="line">$ git branch recovery fe9366d  # 创建一个新恢复分支，并且指向某个引用日志记录</span><br><span class="line"></span><br><span class="line">$ git fsck --full  # 若无reflog了，可用fsck命令显示所有未被其它对象指向的对象，fsck会检查数据库的完整性</span><br><span class="line"></span><br><span class="line">$ git fsck --lost-found  # 文件系统检测丢失更改</span><br></pre></td></tr></table></figure></p>
-<h4 id="暂存现场"><a href="#暂存现场" class="headerlink" title="暂存现场"></a>暂存现场</h4><p>暂存命令<a href="https://git-scm.com/docs/git-stash" target="_blank" rel="external">git stash</a>用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。<code>stash@{0}</code>指最近一次暂存记录，<code>stash@{1}</code>指上上次的暂存记录，类似于压栈的操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git stash  # 把当前的工作暂存起来 等以后恢复现场后继续工作</span><br><span class="line"></span><br><span class="line">git stash list  # 查看所有被暂存的文件记录列表</span><br><span class="line">git stash show -p stash@&#123;0&#125;  # 查看最近一次的暂存的内容</span><br><span class="line"></span><br><span class="line">git stash apply  # 恢复最近一次被暂存的文件，但不删除该暂存记录与内容</span><br><span class="line">git stash apply stash@&#123;1&#125;  # 指定恢复指定的暂存记录</span><br><span class="line">git stash pop  # Warning，恢复被暂存的文件同时，也删除该暂存文件与记录</span><br><span class="line"></span><br><span class="line">git stash drop  # 删除最近一次被暂存的所有文件与记录</span><br><span class="line">git stash drop stash@&#123;1&#125;  # 删除指定的暂存记录</span><br><span class="line">git stash clear  # 清除所有暂存记录列表</span><br></pre></td></tr></table></figure></p>
+<p>为了实现回退或恢复，需要查看日志，除了<code>git log</code>命令外，还有<a href="https://git-scm.com/docs/git-reflog" target="_blank" rel="external">git reflog</a>命令查看Git的引用日志，即操作记录，该命令非常有用，可以检查丢失提交，或查看操作记录Hash并用于重置及撤销等操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog [--all]  <span class="comment"># 查看所有引用日志，获取操作记录</span></span><br><span class="line"></span><br><span class="line">$ git reflog  <span class="comment"># 查看到引用日志SHA值</span></span><br><span class="line">6a7c70c HEAD@&#123;0&#125;: checkout: moving from master to develop</span><br><span class="line">627d359 HEAD@&#123;1&#125;: checkout: moving from testbranch1 to master</span><br><span class="line">6811ed6 HEAD@&#123;2&#125;: checkout: moving from release/v2 to testbranch</span><br><span class="line">6811ed6 HEAD@&#123;3&#125;: rebase finished: returning to refs/heads/release/v2</span><br><span class="line">6811ed6 HEAD@&#123;4&#125;: rebase: checkout 6811ed6f7b0128b293ecf17ad365508620d92116</span><br><span class="line">b632cfd HEAD@&#123;5&#125;: checkout: moving from develop to release/v2</span><br><span class="line">6a7c70c HEAD@&#123;6&#125;: rebase finished: returning to refs/heads/develop</span><br><span class="line">6a7c70c HEAD@&#123;7&#125;: pull -r: checkout 6a7c70c3f852da407980147d710850c1b5150ddc</span><br><span class="line">938f88d HEAD@&#123;8&#125;: checkout: moving from feature/card6 to develop</span><br><span class="line">fe9366d HEAD@&#123;9&#125;: commit: feature card 6</span><br><span class="line"></span><br><span class="line">$ git <span class="built_in">log</span> -g  <span class="comment"># 以标准格式显示提交和引用</span></span><br><span class="line"></span><br><span class="line">$ git reset --hard 8a0c223  <span class="comment"># 恢复到之前的操作</span></span><br><span class="line"></span><br><span class="line">$ git branch recovery fe9366d  <span class="comment"># 创建一个新恢复分支，并且指向某个引用日志记录</span></span><br><span class="line"></span><br><span class="line">$ git fsck --full  <span class="comment"># 若无reflog了，可用fsck命令显示所有未被其它对象指向的对象，fsck会检查数据库的完整性</span></span><br><span class="line"></span><br><span class="line">$ git fsck --lost-found  <span class="comment"># 文件系统检测丢失更改</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="暂存现场"><a href="#暂存现场" class="headerlink" title="暂存现场"></a>暂存现场</h4><p>暂存命令<a href="https://git-scm.com/docs/git-stash" target="_blank" rel="external">git stash</a>用于保存工作区的修改现场，以便快速切换到其他工作，再在适当时机恢复之前的工作。<code>stash@{0}</code>指最近一次暂存记录，<code>stash@{1}</code>指上上次的暂存记录，类似于压栈的操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git stash  <span class="comment"># 把当前的工作暂存起来 等以后恢复现场后继续工作</span></span><br><span class="line"></span><br><span class="line">git stash list  <span class="comment"># 查看所有被暂存的文件记录列表</span></span><br><span class="line">git stash show -p stash@&#123;0&#125;  <span class="comment"># 查看最近一次的暂存的内容</span></span><br><span class="line"></span><br><span class="line">git stash apply  <span class="comment"># 恢复最近一次被暂存的文件，但不删除该暂存记录与内容</span></span><br><span class="line">git stash apply stash@&#123;1&#125;  <span class="comment"># 指定恢复指定的暂存记录</span></span><br><span class="line">git stash pop  <span class="comment"># Warning，恢复被暂存的文件同时，也删除该暂存文件与记录</span></span><br><span class="line"></span><br><span class="line">git stash drop  <span class="comment"># 删除最近一次被暂存的所有文件与记录</span></span><br><span class="line">git stash drop stash@&#123;1&#125;  <span class="comment"># 删除指定的暂存记录</span></span><br><span class="line">git stash clear  <span class="comment"># 清除所有暂存记录列表</span></span><br></pre></td></tr></table></figure></p>
 <p><strong>特别注意：</strong>在使用<code>stash pop</code>时要小心了，万一出现误操作，Pop出来的代码与现有代码出现大量冲突，这会导致本来只需要Pull就可以自动解决所有冲突的情况变得复杂，而且代码一旦被Pop出来就没办法恢复了，就只能慢慢一行行解决冲突吧，只能呵呵达了。</p>
-<h4 id="部分提交"><a href="#部分提交" class="headerlink" title="部分提交"></a>部分提交</h4><p>通常提交是针对一个文件，要么都提交，要么都不提交，但有时候需要在修改某个文件后，只希望暂时提交其中部分已修改内容，其他修改内容打算后续再提交。针对这种对文件进行了多次修改并希望分别提交的场景，首先需要进行部分修改暂存，然后提交，再暂存其它修改，再提交。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git add -p xxx  # --patch, 可以暂存并提交部分内容</span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? s # 输入s表示分割该块为更小块，通常是第一步</span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? y # 依次处理，输入y表示暂存该块</span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? n # 依次处理，输入n表示不暂存该块</span><br></pre></td></tr></table></figure></p>
+<h4 id="部分提交"><a href="#部分提交" class="headerlink" title="部分提交"></a>部分提交</h4><p>通常提交是针对一个文件，要么都提交，要么都不提交，但有时候需要在修改某个文件后，只希望暂时提交其中部分已修改内容，其他修改内容打算后续再提交。针对这种对文件进行了多次修改并希望分别提交的场景，首先需要进行部分修改暂存，然后提交，再暂存其它修改，再提交。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git add -p xxx  <span class="comment"># --patch, 可以暂存并提交部分内容</span></span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? s <span class="comment"># 输入s表示分割该块为更小块，通常是第一步</span></span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? y <span class="comment"># 依次处理，输入y表示暂存该块</span></span><br><span class="line"></span><br><span class="line">Stage this hunk [y,n,q,a,d,/,e,?]? n <span class="comment"># 依次处理，输入n表示不暂存该块</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>输入s表示分割该块为更小块</li>
 <li>输入y表示暂存该块</li>
@@ -366,26 +359,26 @@
 <li><p>在拉取代码时加上<code>--rebase</code>参数总是好的，也推荐使用，即<code>git pull -r</code>，这样就会把当前分支衍合到upstream的顶端，使得Network保持一条线，更加清晰直接。</p>
 </li>
 <li><p>当在处理Merge或Patch时，会遇到冲突，当解决完成冲突后，会使用到<code>rebase</code>命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rebase --continue  # 继续完成之前的操作</span><br><span class="line">git rebase --abort  # 放弃rebase过程</span><br><span class="line">git rebase --skip  # 跳过当前rebase过程</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rebase --continue  <span class="comment"># 继续完成之前的操作</span></span><br><span class="line">git rebase --abort  <span class="comment"># 放弃rebase过程</span></span><br><span class="line">git rebase --skip  <span class="comment"># 跳过当前rebase过程</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>当需要把多个提交点合并成一个commit时，可以使用<code>rebase</code>命令，比如，把<code>6a7c70c</code>之前的所有提交合并。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i 6a7c70c  # --interactive, 以交互的方式进行rebase操作</span><br><span class="line"># 通常会保留第一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出</span><br><span class="line"></span><br><span class="line"># Commands:</span><br><span class="line"># p, pick = use commit</span><br><span class="line"># r, reword = use commit, but edit the commit message</span><br><span class="line"># e, edit = use commit, but stop for amending</span><br><span class="line"># s, squash = use commit, but meld into previous commit</span><br><span class="line"># f, fixup = like &quot;squash&quot;, but discard this commit&apos;s log message</span><br><span class="line"># x, exec = run command (the rest of the line) using shell</span><br><span class="line"></span><br><span class="line"># 如果出现错误提示&apos;Could not execute editor&apos;，可以尝试配置编辑器修复此问题：</span><br><span class="line">$ git config --global core.editor /usr/bin/vim</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i 6a7c70c  <span class="comment"># --interactive, 以交互的方式进行rebase操作</span></span><br><span class="line"><span class="comment"># 通常会保留第一个为pick，其他改为squash，千万不要移除中间的任何一次提交，保存退出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Commands:</span></span><br><span class="line"><span class="comment"># p, pick = use commit</span></span><br><span class="line"><span class="comment"># r, reword = use commit, but edit the commit message</span></span><br><span class="line"><span class="comment"># e, edit = use commit, but stop for amending</span></span><br><span class="line"><span class="comment"># s, squash = use commit, but meld into previous commit</span></span><br><span class="line"><span class="comment"># f, fixup = like "squash", but discard this commit's log message</span></span><br><span class="line"><span class="comment"># x, exec = run command (the rest of the line) using shell</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果出现错误提示'Could not execute editor'，可以尝试配置编辑器修复此问题：</span></span><br><span class="line">$ git config --global core.editor /usr/bin/vim</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>当出现了Infinity分支，或者需要简化分支的树，可以使用<code>rebase</code>命令，假设在release/v2上需要rebase到develop的6a7c70c点上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout release/v2</span><br><span class="line">git rebase 6a7c70c</span><br><span class="line">git push -f</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout release/v2</span><br><span class="line">git rebase 6a7c70c</span><br><span class="line">git push <span class="_">-f</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="使用标签"><a href="#使用标签" class="headerlink" title="使用标签"></a>使用标签</h4><p>使用<a href="https://git-scm.com/docs/git-tag" target="_blank" rel="external">git tag</a>命令可以帮助建立一系列的Tags，与Branch用法相似，但相对于分支来说更轻量级，并且很适合在workshop中使用，当然也可以作为轻量级项目管理release版本的策略。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git tag  # 显示本地所有标签</span><br><span class="line">git tag v1.0  # 在当前点创建名为v1.0的轻量级标签</span><br><span class="line">git tag v1.0 46a359f  # 在46a359f提交点创建轻量级标签</span><br><span class="line">git tag -a v1.0 -m “message here&quot;  # --annotate, --message, 在当前点创建带注释的新标签</span><br><span class="line">git tag -a v1.2 46a359f  # 在某个commit点添加Tag，会弹出输入注释编辑框</span><br><span class="line"></span><br><span class="line">git tag -l ‘v1.*’  # --list 列出匹配模式的标签</span><br><span class="line">git tag -ln  # --list, --num, 显示当前所有的标签</span><br><span class="line">git show v1.0  # 显示标签的详细信息</span><br><span class="line"></span><br><span class="line">git push v1.0  # 把指定的标签push到远程库，可指定remote</span><br><span class="line">git push --tags  # 把所有标签push到远程仓库，可指定remote</span><br><span class="line"></span><br><span class="line">git checkout v1.0  # 切换到标签v1.0</span><br><span class="line">git checkout -b relese1.0 v1.0  # 为标签v1.0创建一个新的分支release1.0</span><br><span class="line"></span><br><span class="line">git tag -d v1.0  # --delete 删除本地指定的标签</span><br><span class="line">git push -d origin v1.0  # --delete 删除origin中的标签</span><br><span class="line">git push origin :refs/tags/v1.0  # 删除远程仓库中的标签</span><br></pre></td></tr></table></figure></p>
-<h4 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h4><p>通常在管理可执行脚本时，执行权限默认不会被Git管理，比如<code>gradlew</code>在本地创建完成并且也可以运行，但在服务器上拉取代码后发现没有执行权限，因此会导致执行脚本任务失败，为了解决这一问题，需要用到<a href="https://git-scm.com/docs/git-update-index" target="_blank" rel="external">git update-index</a>命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git update-index --chmod=+x gradlew  # 添加执行权限</span><br><span class="line">git update-index --chmod=-x test.sh  # 移除执行权限</span><br></pre></td></tr></table></figure></p>
-<h4 id="补丁技巧"><a href="#补丁技巧" class="headerlink" title="补丁技巧"></a>补丁技巧</h4><p>有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。首先介绍一下<a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="external">git cherry-pick</a>命令，该命令允许从其他分支上选取某一个Commit，再应用到当前分支上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout test_branch  # 首先切到某个需要被补丁的分支</span><br><span class="line">git cherry-pick 46a329f  # 然后应用某个其他分支上的commit</span><br></pre></td></tr></table></figure></p>
+<h4 id="使用标签"><a href="#使用标签" class="headerlink" title="使用标签"></a>使用标签</h4><p>使用<a href="https://git-scm.com/docs/git-tag" target="_blank" rel="external">git tag</a>命令可以帮助建立一系列的Tags，与Branch用法相似，但相对于分支来说更轻量级，并且很适合在workshop中使用，当然也可以作为轻量级项目管理release版本的策略。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">git tag  <span class="comment"># 显示本地所有标签</span></span><br><span class="line">git tag v1.0  <span class="comment"># 在当前点创建名为v1.0的轻量级标签</span></span><br><span class="line">git tag v1.0 46a359f  <span class="comment"># 在46a359f提交点创建轻量级标签</span></span><br><span class="line">git tag <span class="_">-a</span> v1.0 -m “message here<span class="string">"  # --annotate, --message, 在当前点创建带注释的新标签</span><br><span class="line">git tag -a v1.2 46a359f  # 在某个commit点添加Tag，会弹出输入注释编辑框</span><br><span class="line"></span><br><span class="line">git tag -l ‘v1.*’  # --list 列出匹配模式的标签</span><br><span class="line">git tag -ln  # --list, --num, 显示当前所有的标签</span><br><span class="line">git show v1.0  # 显示标签的详细信息</span><br><span class="line"></span><br><span class="line">git push v1.0  # 把指定的标签push到远程库，可指定remote</span><br><span class="line">git push --tags  # 把所有标签push到远程仓库，可指定remote</span><br><span class="line"></span><br><span class="line">git checkout v1.0  # 切换到标签v1.0</span><br><span class="line">git checkout -b relese1.0 v1.0  # 为标签v1.0创建一个新的分支release1.0</span><br><span class="line"></span><br><span class="line">git tag -d v1.0  # --delete 删除本地指定的标签</span><br><span class="line">git push -d origin v1.0  # --delete 删除origin中的标签</span><br><span class="line">git push origin :refs/tags/v1.0  # 删除远程仓库中的标签</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h4><p>通常在管理可执行脚本时，执行权限默认不会被Git管理，比如<code>gradlew</code>在本地创建完成并且也可以运行，但在服务器上拉取代码后发现没有执行权限，因此会导致执行脚本任务失败，为了解决这一问题，需要用到<a href="https://git-scm.com/docs/git-update-index" target="_blank" rel="external">git update-index</a>命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git update-index --chmod=+x gradlew  <span class="comment"># 添加执行权限</span></span><br><span class="line">git update-index --chmod=-x test.sh  <span class="comment"># 移除执行权限</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="补丁技巧"><a href="#补丁技巧" class="headerlink" title="补丁技巧"></a>补丁技巧</h4><p>有时会需要在某个分支上针对某个commit打patch，然后再应用到另一个分支上，作为一种补丁的形式出现。首先介绍一下<a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="external">git cherry-pick</a>命令，该命令允许从其他分支上选取某一个Commit，再应用到当前分支上。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout <span class="built_in">test</span>_branch  <span class="comment"># 首先切到某个需要被补丁的分支</span></span><br><span class="line">git cherry-pick 46a329f  <span class="comment"># 然后应用某个其他分支上的commit</span></span><br></pre></td></tr></table></figure></p>
 <p>当需要生成Patch文件时，可以用命令<code>git diff HEAD &gt;&gt; xxx.patch</code>，然后再使用命令<code>git apply xxx.patch</code>应用该Patch。</p>
 <p>另外，可以参阅更多命令<a href="https://git-scm.com/docs/git-format-patch" target="_blank" rel="external">git format-patch</a>和<a href="https://git-scm.com/docs/git-apply" target="_blank" rel="external">git apply</a>。</p>
-<h4 id="回收垃圾"><a href="#回收垃圾" class="headerlink" title="回收垃圾"></a>回收垃圾</h4><p><a href="https://git-scm.com/docs/git-gc" target="_blank" rel="external">git gc</a>和<a href="https://git-scm.com/docs/git-count-objects" target="_blank" rel="external">git count-objects</a>命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git gc  # 压缩文件，回收垃圾，同时查看数据库占用空间</span><br><span class="line">git gc --auto  # 手动执行自动垃圾回收</span><br><span class="line"></span><br><span class="line">git count-objects -v  # 查看对象数量和占用空间</span><br><span class="line"></span><br><span class="line">git prune --expire now  # 删除过期的文件</span><br></pre></td></tr></table></figure></p>
-<h4 id="谁的代码"><a href="#谁的代码" class="headerlink" title="谁的代码"></a>谁的代码</h4><p>还有一个很有用的命令<a href="https://git-scm.com/docs/git-blame" target="_blank" rel="external">git blame</a>，可以查看到某个文件的每一行修改记录，有时需要确认是谁修改了某一行代码，该命令会很有帮助。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git blame xxx  #  查看文件的每一行作者、最新提交和操作时间等</span><br></pre></td></tr></table></figure></p>
-<h4 id="高效别名"><a href="#高效别名" class="headerlink" title="高效别名"></a>高效别名</h4><p>为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，其中一种方式是自己在<code>~/.gitconfig</code>中配置，但不是首选推荐使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line">co = checkout</span><br><span class="line">ci = commit</span><br><span class="line">pl = pull</span><br><span class="line">ps = push</span><br><span class="line">s = status</span><br><span class="line">st = stash</span><br><span class="line">b = branch</span><br><span class="line">formatlog = log --pretty=format:\&quot;%h %ad | %s%d [%an]\&quot; --graph --date=short</span><br><span class="line">type = cat-file -t</span><br><span class="line">dump = cat-file -p</span><br></pre></td></tr></table></figure></p>
-<p>还有一种推荐使用的方式，如果你使用的<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">Oh My Zsh</a>+<a href="http://www.iterm2.com/index.html" target="_blank" rel="external">iTerm2</a>的命令行方案，那么你可以感受到<code>Oh My Zsh</code>带来的优势了，提供了<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git plugin</a>并设定了统一的更加简短的别名，常用的Alias如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">gst  # git status  ★★★★★</span><br><span class="line"></span><br><span class="line">ga  # git add  ★★★★★</span><br><span class="line">gaa  # git add --all</span><br><span class="line"></span><br><span class="line">gb  # git branch  ★★★★★</span><br><span class="line">gba  # git branch -a</span><br><span class="line"></span><br><span class="line">gl  # git pull  ★★★★★</span><br><span class="line">gup  # git pull --rebase  ★★★</span><br><span class="line">gupv  # git pull --rebase -v</span><br><span class="line"></span><br><span class="line">gp  # git push  ★★★★★</span><br><span class="line"></span><br><span class="line">gc  # git commit -v  ★★★★★</span><br><span class="line">gc!  # git commit -v --amend  ★★★★★</span><br><span class="line">gcmsg # git commit -m  ★★★</span><br><span class="line">gca  # git commit -v -a</span><br><span class="line">gcam  # git commit -a -m</span><br><span class="line">gca!  # git commit -v -a --amend</span><br><span class="line"></span><br><span class="line">gco  # git checkout  ★★★★★</span><br><span class="line">gcm  # git checkout master  ★★★</span><br><span class="line">gcb  # git checkout -b</span><br><span class="line"></span><br><span class="line">gd  # git diff  ★★★★★</span><br><span class="line">gdca  # git diff --cached  ★★★</span><br><span class="line"></span><br><span class="line">gsta  # git stash  ★★★★★</span><br><span class="line">gstaa  # git stash apply</span><br><span class="line">gstd  # git stash drop</span><br><span class="line">gstl  # git stash list</span><br><span class="line">gstp  # git stash pop</span><br><span class="line">gsts  # git stash show --text</span><br><span class="line"></span><br><span class="line">gcf  # git config --list</span><br><span class="line"></span><br><span class="line">gcp  # git cherry-pick</span><br><span class="line"></span><br><span class="line">glog  # git log --oneline --decorate --color --graph  ★★★★★</span><br></pre></td></tr></table></figure></p>
+<h4 id="回收垃圾"><a href="#回收垃圾" class="headerlink" title="回收垃圾"></a>回收垃圾</h4><p><a href="https://git-scm.com/docs/git-gc" target="_blank" rel="external">git gc</a>和<a href="https://git-scm.com/docs/git-count-objects" target="_blank" rel="external">git count-objects</a>命令用于回收垃圾和查看数据库占用空间的。如果有太多松散对象和大文件对象，占用了太多空间，可以尝试手动运行一些命令减少空间占用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git gc  <span class="comment"># 压缩文件，回收垃圾，同时查看数据库占用空间</span></span><br><span class="line">git gc --auto  <span class="comment"># 手动执行自动垃圾回收</span></span><br><span class="line"></span><br><span class="line">git count-objects -v  <span class="comment"># 查看对象数量和占用空间</span></span><br><span class="line"></span><br><span class="line">git prune --expire now  <span class="comment"># 删除过期的文件</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="谁的代码"><a href="#谁的代码" class="headerlink" title="谁的代码"></a>谁的代码</h4><p>还有一个很有用的命令<a href="https://git-scm.com/docs/git-blame" target="_blank" rel="external">git blame</a>，可以查看到某个文件的每一行修改记录，有时需要确认是谁修改了某一行代码，该命令会很有帮助。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git blame xxx  <span class="comment">#  查看文件的每一行作者、最新提交和操作时间等</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="高效别名"><a href="#高效别名" class="headerlink" title="高效别名"></a>高效别名</h4><p>为了提升Git命令的操作效率，通常会配置Git别名来简化命令输入，其中一种方式是自己在<code>~/.gitconfig</code>中配置，但不是首选推荐使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">alias</span>]</span><br><span class="line">co = checkout</span><br><span class="line">ci = commit</span><br><span class="line">pl = pull</span><br><span class="line">ps = push</span><br><span class="line">s = status</span><br><span class="line">st = stash</span><br><span class="line">b = branch</span><br><span class="line">formatlog = <span class="built_in">log</span> --pretty=format:\<span class="string">"%h %ad | %s%d [%an]\" --graph --date=short</span><br><span class="line">type = cat-file -t</span><br><span class="line">dump = cat-file -p</span></span><br></pre></td></tr></table></figure></p>
+<p>还有一种推荐使用的方式，如果你使用的<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">Oh My Zsh</a>+<a href="http://www.iterm2.com/index.html" target="_blank" rel="external">iTerm2</a>的命令行方案，那么你可以感受到<code>Oh My Zsh</code>带来的优势了，提供了<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git" target="_blank" rel="external">git plugin</a>并设定了统一的更加简短的别名，常用的Alias如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">gst  <span class="comment"># git status  ★★★★★</span></span><br><span class="line"></span><br><span class="line">ga  <span class="comment"># git add  ★★★★★</span></span><br><span class="line">gaa  <span class="comment"># git add --all</span></span><br><span class="line"></span><br><span class="line">gb  <span class="comment"># git branch  ★★★★★</span></span><br><span class="line">gba  <span class="comment"># git branch -a</span></span><br><span class="line"></span><br><span class="line">gl  <span class="comment"># git pull  ★★★★★</span></span><br><span class="line">gup  <span class="comment"># git pull --rebase  ★★★</span></span><br><span class="line">gupv  <span class="comment"># git pull --rebase -v</span></span><br><span class="line"></span><br><span class="line">gp  <span class="comment"># git push  ★★★★★</span></span><br><span class="line"></span><br><span class="line">gc  <span class="comment"># git commit -v  ★★★★★</span></span><br><span class="line">gc!  <span class="comment"># git commit -v --amend  ★★★★★</span></span><br><span class="line">gcmsg <span class="comment"># git commit -m  ★★★</span></span><br><span class="line">gca  <span class="comment"># git commit -v -a</span></span><br><span class="line">gcam  <span class="comment"># git commit -a -m</span></span><br><span class="line">gca!  <span class="comment"># git commit -v -a --amend</span></span><br><span class="line"></span><br><span class="line">gco  <span class="comment"># git checkout  ★★★★★</span></span><br><span class="line">gcm  <span class="comment"># git checkout master  ★★★</span></span><br><span class="line">gcb  <span class="comment"># git checkout -b</span></span><br><span class="line"></span><br><span class="line">gd  <span class="comment"># git diff  ★★★★★</span></span><br><span class="line">gdca  <span class="comment"># git diff --cached  ★★★</span></span><br><span class="line"></span><br><span class="line">gsta  <span class="comment"># git stash  ★★★★★</span></span><br><span class="line">gstaa  <span class="comment"># git stash apply</span></span><br><span class="line">gstd  <span class="comment"># git stash drop</span></span><br><span class="line">gstl  <span class="comment"># git stash list</span></span><br><span class="line">gstp  <span class="comment"># git stash pop</span></span><br><span class="line">gsts  <span class="comment"># git stash show --text</span></span><br><span class="line"></span><br><span class="line">gcf  <span class="comment"># git config --list</span></span><br><span class="line"></span><br><span class="line">gcp  <span class="comment"># git cherry-pick</span></span><br><span class="line"></span><br><span class="line">glog  <span class="comment"># git log --oneline --decorate --color --graph  ★★★★★</span></span><br></pre></td></tr></table></figure></p>
 <p>其中，<code>★★★★★</code>表示强烈推荐使用的项，太多Alias会导致记忆混乱，个人觉得记住基本命令的简写即可，参数由自己显示决定，另外，还是需要掌握全称更好，毕竟不是每台电脑的配置都和你的一样，但自己使用确实会方便快捷很多。<br>若需再定义Alias，可以在<code>~/.zshrc</code>中加入自定义的Alias，如：<code>alias gau=&#39;git add -u&#39;</code>, <code>alias gs=gst</code>。</p>
-<p>另外，补充一些在PowerShell中定义常用的相同Alias，在PowerShell安装目录下新建<code>profile.ps1</code>文件，并写入以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># gst, git status</span><br><span class="line">function Get-GitStatus &#123; &amp; git status &#125;</span><br><span class="line">New-Alias -Name gst -Value Get-GitStatus</span><br><span class="line"></span><br><span class="line"># gb, git branch xxx</span><br><span class="line">function Get-GitBranch([string]$branch) &#123; &amp; git branch $branch&#125;</span><br><span class="line">New-Alias -Name gb -Value Get-GitBranch</span><br><span class="line"></span><br><span class="line"># gba, git branch -a</span><br><span class="line">function Get-GitBranchAll &#123; &amp; git branch --all &#125;</span><br><span class="line">New-Alias -Name gba -Value Get-GitBranchAll</span><br><span class="line"></span><br><span class="line"># gco, git checkout xxx</span><br><span class="line">function Get-GitCheckout([string]$param) &#123; &amp; git checkout $param &#125;</span><br><span class="line">New-Alias -Name gco -Value Get-GitCheckout</span><br><span class="line"></span><br><span class="line"># gau, git add -u</span><br><span class="line">function Get-GitAddUstaged &#123; &amp; git add -u &#125;</span><br><span class="line">New-Alias -Name gau -Value Get-GitAddUstaged</span><br><span class="line"></span><br><span class="line"># gaa, git add -a</span><br><span class="line">function Get-GitAddAll &#123; &amp; git add . &#125;</span><br><span class="line">New-Alias -Name gaa -Value Get-GitAddAll</span><br><span class="line"></span><br><span class="line"># gcmsg, git commit -m xxx</span><br><span class="line">function Get-GitCommitMsg([string]$message) &#123; &amp; git commit -m $message &#125;</span><br><span class="line">New-Alias -Name gcmsg -Value Get-GitCommitMsg</span><br><span class="line"></span><br><span class="line"># gup, git pull -r</span><br><span class="line">function Get-GitPullRebase &#123; &amp; git pull --rebase &#125;</span><br><span class="line">New-Alias -Name gup -Value Get-GitPullRebase</span><br><span class="line"></span><br><span class="line"># glog, git log --oneline --decorate --color --graph</span><br><span class="line">function Get-GitLogGraph &#123; &amp; git log --oneline --decorate --color --graph &#125;</span><br><span class="line">New-Alias -Name glog -Value Get-GitLogGraph</span><br></pre></td></tr></table></figure></p>
+<p>另外，补充一些在PowerShell中定义常用的相同Alias，在PowerShell安装目录下新建<code>profile.ps1</code>文件，并写入以下代码：<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gst, git status</span></span><br><span class="line"><span class="keyword">function</span> Get-GitStatus &#123; &amp; git status &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gst -Value Get-GitStatus</span><br><span class="line"></span><br><span class="line"><span class="comment"># gb, git branch xxx</span></span><br><span class="line"><span class="keyword">function</span> Get-GitBranch([string]<span class="variable">$branch</span>) &#123; &amp; git branch <span class="variable">$branch</span>&#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gb -Value Get-GitBranch</span><br><span class="line"></span><br><span class="line"><span class="comment"># gba, git branch -a</span></span><br><span class="line"><span class="keyword">function</span> Get-GitBranchAll &#123; &amp; git branch --all &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gba -Value Get-GitBranchAll</span><br><span class="line"></span><br><span class="line"><span class="comment"># gco, git checkout xxx</span></span><br><span class="line"><span class="keyword">function</span> Get-GitCheckout([string]<span class="variable">$param</span>) &#123; &amp; git checkout <span class="variable">$param</span> &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gco -Value Get-GitCheckout</span><br><span class="line"></span><br><span class="line"><span class="comment"># gau, git add -u</span></span><br><span class="line"><span class="keyword">function</span> Get-GitAddUstaged &#123; &amp; git add -u &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gau -Value Get-GitAddUstaged</span><br><span class="line"></span><br><span class="line"><span class="comment"># gaa, git add -a</span></span><br><span class="line"><span class="keyword">function</span> Get-GitAddAll &#123; &amp; git add . &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gaa -Value Get-GitAddAll</span><br><span class="line"></span><br><span class="line"><span class="comment"># gcmsg, git commit -m xxx</span></span><br><span class="line"><span class="keyword">function</span> Get-GitCommitMsg([string]<span class="variable">$message</span>) &#123; &amp; git commit -m <span class="variable">$message</span> &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gcmsg -Value Get-GitCommitMsg</span><br><span class="line"></span><br><span class="line"><span class="comment"># gup, git pull -r</span></span><br><span class="line"><span class="keyword">function</span> Get-GitPullRebase &#123; &amp; git pull --rebase &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name gup -Value Get-GitPullRebase</span><br><span class="line"></span><br><span class="line"><span class="comment"># glog, git log --oneline --decorate --color --graph</span></span><br><span class="line"><span class="keyword">function</span> Get-GitLogGraph &#123; &amp; git log --oneline --decorate --color --graph &#125;</span><br><span class="line"><span class="built_in">New-Alias</span> -Name glog -Value Get-GitLogGraph</span><br></pre></td></tr></table></figure></p>
 <h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>对于Git初阶部分，都是平常自己使用的一些命令，对于Git进阶部分，除了补充一些命令外，也是自己使用Git的一些心得体会和技巧，无论怎样，只有通过自己亲身实践，不断练习才能真正掌握。以上所有都只是作为一名普通Git用户的实践方式，如果需要开发一些基于Git的应用等，那就需要了解更深层次的底层命令和原理了。</p>
 <hr>
 <p>References</p>
@@ -398,321 +391,527 @@
 <li><a href="http://blog.jobbole.com/tag/git/" target="_blank" rel="external">更多Git相关文章</a></li>
 </ul>
 
-      
+            
+        </div>
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/master-git/">优雅地使用Git</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-08-12 22:29</p>
-        <!--<p><span>最后更新:</span>2016-10-15 12:27</p>-->
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/master-git/" title="优雅地使用Git">http://blog.waterstrong.me/master-git/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/master-git/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
-        </p>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Git/">Git</a> <a class="tag tag--primary tag--small t-link" href="/tags/GitHub/">GitHub</a> <a class="tag tag--primary tag--small t-link" href="/tags/SCM/">SCM</a> <a class="tag tag--primary tag--small t-link" href="/tags/VCS/">VCS</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/sonarqube-by-step/"  data-tooltip="代码质量管理SonarQube">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/java-checkstyle/" data-tooltip="Java Checkstyle in Gradle">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="master-git/"
+     data-title="优雅地使用Git" data-url="http://blog.waterstrong.me/master-git/">
+</div>
+
+            
+        
     </div>
-
-
-
-<nav id="article-nav">
-  
-    <a href="/sonarqube-by-step/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          代码质量管理SonarQube
-        
-      </div>
-    </a>
-  
-  
-    <a href="/java-checkstyle/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java Checkstyle in Gradle</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#序"><span class="toc-number">1.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本介绍"><span class="toc-number">2.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git准备"><span class="toc-number">3.</span> <span class="toc-text">Git准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Installation"><span class="toc-number">3.0.1.</span> <span class="toc-text">Installation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Configuration"><span class="toc-number">3.0.2.</span> <span class="toc-text">Configuration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Repository"><span class="toc-number">3.0.3.</span> <span class="toc-text">Repository</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub-SSH-Key"><span class="toc-number">3.0.4.</span> <span class="toc-text">GitHub + SSH Key</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git初阶"><span class="toc-number">4.</span> <span class="toc-text">Git初阶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#git-config"><span class="toc-number">4.0.1.</span> <span class="toc-text">git config</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-remote"><span class="toc-number">4.0.2.</span> <span class="toc-text">git remote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-pull"><span class="toc-number">4.0.3.</span> <span class="toc-text">git pull</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-push"><span class="toc-number">4.0.4.</span> <span class="toc-text">git push</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-diff"><span class="toc-number">4.0.5.</span> <span class="toc-text">git diff</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-branch"><span class="toc-number">4.0.6.</span> <span class="toc-text">git branch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-checkout"><span class="toc-number">4.0.7.</span> <span class="toc-text">git checkout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-merge"><span class="toc-number">4.0.8.</span> <span class="toc-text">git merge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-rm"><span class="toc-number">4.0.9.</span> <span class="toc-text">git rm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-log"><span class="toc-number">4.0.10.</span> <span class="toc-text">git log</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-revert"><span class="toc-number">4.0.11.</span> <span class="toc-text">git revert</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git进阶"><span class="toc-number">5.</span> <span class="toc-text">Git进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据恢复"><span class="toc-number">5.0.1.</span> <span class="toc-text">数据恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#暂存现场"><span class="toc-number">5.0.2.</span> <span class="toc-text">暂存现场</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#部分提交"><span class="toc-number">5.0.3.</span> <span class="toc-text">部分提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分支衍合"><span class="toc-number">5.0.4.</span> <span class="toc-text">分支衍合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用标签"><span class="toc-number">5.0.5.</span> <span class="toc-text">使用标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改权限"><span class="toc-number">5.0.6.</span> <span class="toc-text">修改权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#补丁技巧"><span class="toc-number">5.0.7.</span> <span class="toc-text">补丁技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#回收垃圾"><span class="toc-number">5.0.8.</span> <span class="toc-text">回收垃圾</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#谁的代码"><span class="toc-number">5.0.9.</span> <span class="toc-text">谁的代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高效别名"><span class="toc-number">5.0.10.</span> <span class="toc-text">高效别名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">6.</span> <span class="toc-text">结束语</span></a></li></ol>
-</div>
-<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="隐藏目录"
-       title="点击按钮隐藏或者显示文章目录">
-
-<script src="/js/require-jquery.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    });
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
 
 
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="master-git/" data-title="优雅地使用Git" data-url="http://blog.waterstrong.me/master-git/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waterstrong"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2016 Waterstrong
-            </div>
-            <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visited: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Visited: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
 </footer>
 
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/sonarqube-by-step/"  data-tooltip="代码质量管理SonarQube">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/java-checkstyle/" data-tooltip="Java Checkstyle in Gradle">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/master-git/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 0;
-            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-        })
-    </script>
-
-
-
-
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
-
-
-  <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("search").onclick = function(){
-        search();
-      }
-    };
-    function search(){
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
-                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
-    }
-  </script>
-
-
-
-
-
-
-
-<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
-    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 
-<script>
-    (function ($) {
-        var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#switch-sidebar");
-            this.leftColPulled = "left-col-pulled";
-            this.midColPulled = "mid-col-pulled";
-            this.$leftColSelector = $("#post-left-col");
-            this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#col-nav-button");
-            this.$homeBtnSelector = $("#home-nav-button");
-            this.$scrollSelector = $("#scroll");
-            this.$tocTitleSelector = $("#toc");
-            this.$tocButtonSelector = $("#tocButton");
-        };
-
-        SidebarNav.prototype = {
-            run: function () {
-                var self = this;
-                self.$sidebarNavBtn.click(function () {
-                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
-                });
-            },
-            showSidebar: function () {
-                var self = this;
-                self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.leftColPulled);
-                self.$homeBtnSelector.removeClass(self.midColPulled);
-                self.$scrollSelector.removeClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.removeClass(self.leftColPulled);
-                    self.$tocButtonSelector.removeClass(self.leftColPulled);
-                }, 350);
-            },
-            hideSidebar: function () {
-                var self = this;
-                self.$leftColSelector.addClass(self.leftColPulled);
-                self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.leftColPulled);
-                self.$homeBtnSelector.addClass(self.midColPulled);
-                self.$scrollSelector.addClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.addClass(self.leftColPulled);
-                    self.$tocButtonSelector.addClass(self.leftColPulled);
-                }, 350);
-            },
-            isSidebarShown: function () {
-                var self = this;
-                return !self.$leftColSelector.hasClass(self.leftColPulled);
-            }
-        };
-
-        $(document).ready(function () {
-            new SidebarNav().run();
-        })
-    })(jQuery);
-</script>
-
-
-<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="/" title=""><i class="fa fa-home"></i></a>
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                24 posts found
+            </p>
+        </div>
+    </div>
 </div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
 
-<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        }
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script language="text/javascript">
-        $(function() {
-            $("a[title]").each(function() {
-                var a = $(this);
-                var title = a.attr('title');
-                if (title == undefined || title == "") return;
-                a.data('title', title).removeAttr('title').hover(
-
-                        function() {
-                            var offset = a.offset();
-                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                                top: offset.top - a.outerHeight() - 15,
-                                left: offset.left + a.outerWidth()/2 + 1
-                            }).fadeIn(function() {
-                                var pop = $(this);
-                                setTimeout(function() {
-                                    pop.remove();
-                                }, pop.text().length * 800);
-                            });
-                        }, function() {
-                            $("#anchortitlecontainer").remove();
-                        });
-            });
-        });
-    </script>
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
-  </div>
-</body>
+
+    </body>
 </html>

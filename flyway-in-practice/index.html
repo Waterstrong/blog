@@ -1,12 +1,24 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>快速掌握和使用Flyway | Watersrong Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。">
-<meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>快速掌握和使用Flyway - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="快速掌握和使用Flyway">
 <meta property="og:url" content="http://blog.waterstrong.me/flyway-in-practice/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
@@ -20,285 +32,266 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/sql_migration_base_dir.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/sql_migration_naming.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/cli_directory_structure.png">
-<meta property="og:updated_time" content="2016-09-04T10:40:16.000Z">
+<meta property="og:updated_time" content="2016-10-16T15:52:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速掌握和使用Flyway">
 <meta name="twitter:description" content="Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，不仅支持命令行和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库。">
 <meta name="twitter:image" content="http://blog.waterstrong.me/assets/flyway-in-practice/command_migrate.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/flyway-in-practice/assets/flyway-in-practice/flyway-logo-tm.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/flyway-in-practice/assets/flyway-in-practice/flyway-logo-tm.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
-<body>
-  <div id="container">
-    <div class="left-col left-col-pulled col-pulled-smooth"
-         id="post-left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
+        
+    
 
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">Enjoy this moment!</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <!--<li>菜单</li>-->
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
-                        
-                        
-                        <li>Motto</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="http://waterstrong.me">Home</a></li>
-                        
-                            <li><a href="/archives">Archives</a></li>
-                        
-                            <li><a href="/tags">Tag Cloud</a></li>
-                        
-                            <li><a href="/about">About</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
-                            
-                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
-                            
-                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
-                            
-                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
-                            
-                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
-                            
-                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
-                            
-                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
-                            
-                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/Flyway/" style="font-size: 10px;">Flyway</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 12.5px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 12.5px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Migration/" style="font-size: 10px;">Migration</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NTFS/" style="font-size: 10px;">NTFS</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SCM/" style="font-size: 10px;">SCM</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 12.5px;">Spring Boot</a> <a href="/tags/Stub/" style="font-size: 10px;">Stub</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VCS/" style="font-size: 10px;">VCS</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 17.5px;">数据库</a> <a href="/tags/移动硬盘/" style="font-size: 10px;">移动硬盘</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/集成测试/" style="font-size: 10px;">集成测试</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
     </div>
-    <div class="mid-col mid-col-pulled col-pulled-smooth"
-         id="post-mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
                 
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
-            </hgroup>
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
             
-            <p class="header-subtitle">Enjoy this moment!</p>
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://waterstrong.me">Home</a></li>
-                
-                    <li><a href="/archives">Archives</a></li>
-                
-                    <li><a href="/tags">Tag Cloud</a></li>
-                
-                    <li><a href="/about">About</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
+                <li class="sidebar-button">
                     
-                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
                     
-                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
                     
-                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
                     
-                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
                     
-                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
                     
-                </div>
-            </nav>
-        </header>                
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-flyway-in-practice" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/flyway-in-practice/" class="article-date">
-      <time datetime="2016-08-31T13:32:16.000Z" itemprop="datePublished">2016-08-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-      <header class="article-header">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            快速掌握和使用Flyway
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-08-31T21:32:16+08:00">
+	
+		    Aug 31, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-  
-    <h1 class="article-title" itemprop="name">
-      快速掌握和使用Flyway
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    </div>
+    <a class="category-link" href="/categories/Tools/">Tools</a>
 
 
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flyway/">Flyway</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Migration/">Migration</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="什么是Flyway"><a href="#什么是Flyway" class="headerlink" title="什么是Flyway?"></a>什么是Flyway?</h2><blockquote>
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="什么是Flyway"><a href="#什么是Flyway" class="headerlink" title="什么是Flyway?"></a>什么是Flyway?</h2><blockquote>
 <p>Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration.</p>
 </blockquote>
 <p>Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，Migrations可以写成SQL脚本，也可以写在Java代码中，不仅支持Command Line和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地升级数据库，同时也支持失败恢复等。</p>
@@ -436,7 +429,7 @@
 <li>suffix: 可配置，后续标识，默认为<code>.sql</code></li>
 </ul>
 <p>另外，关于如何使用基于Java的Migrations，有兴趣可以参考<a href="https://flywaydb.org/documentation/migration/java" target="_blank" rel="external">Java-based migrations</a>。</p>
-<h4 id="支持的数据库"><a href="#支持的数据库" class="headerlink" title="支持的数据库"></a>支持的数据库</h4><p>目前Flyway支持的数据库还是挺多的，包括：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix。<br>目前来说，个人用得比较多的数据库是<a href="https://flywaydb.org/documentation/database/postgresql" target="_blank" rel="external">PostgreSQL</a>、<a href="https://flywaydb.org/documentation/database/mysql" target="_blank" rel="external">MySQL</a>、<a href="https://flywaydb.org/documentation/database/h2" target="_blank" rel="external">H2</a>和<a href="https://flywaydb.org/documentation/database/hsql" target="_blank" rel="external">Hsql</a>，针对每种数据库的<code>flyway.url</code>示例配置为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># PostgreSQL</span><br><span class="line">flyway.url = jdbc:postgresql://localhost:5432/postgres?currentSchema=myschema</span><br><span class="line"></span><br><span class="line"># MySQL</span><br><span class="line">flyway.url = jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&amp;useSSL=true</span><br><span class="line"></span><br><span class="line"># H2</span><br><span class="line">flyway.url = jdbc:h2:./.tmp/testdb</span><br><span class="line"></span><br><span class="line"># Hsql</span><br><span class="line">flyway.url = jdbc:hsqldb:hsql//localhost:1476/testdb</span><br></pre></td></tr></table></figure></p>
+<h4 id="支持的数据库"><a href="#支持的数据库" class="headerlink" title="支持的数据库"></a>支持的数据库</h4><p>目前Flyway支持的数据库还是挺多的，包括：Oracle, SQL Server, SQL Azure, DB2, DB2 z/OS, MySQL(including Amazon RDS), MariaDB, Google Cloud SQL, PostgreSQL(including Amazon RDS and Heroku), Redshift, Vertica, H2, Hsql, Derby, SQLite, SAP HANA, solidDB, Sybase ASE and Phoenix。<br>目前来说，个人用得比较多的数据库是<a href="https://flywaydb.org/documentation/database/postgresql" target="_blank" rel="external">PostgreSQL</a>、<a href="https://flywaydb.org/documentation/database/mysql" target="_blank" rel="external">MySQL</a>、<a href="https://flywaydb.org/documentation/database/h2" target="_blank" rel="external">H2</a>和<a href="https://flywaydb.org/documentation/database/hsql" target="_blank" rel="external">Hsql</a>，针对每种数据库的<code>flyway.url</code>示例配置为：<br><figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PostgreSQL</span></span><br><span class="line"><span class="attribute">flyway</span>.url = jdbc:postgresql://localhost:5432/postgres?currentSchema=myschema</span><br><span class="line"></span><br><span class="line"><span class="comment"># MySQL</span></span><br><span class="line"><span class="attribute">flyway</span>.url = jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC&amp;useSSL=true</span><br><span class="line"></span><br><span class="line"><span class="comment"># H2</span></span><br><span class="line"><span class="attribute">flyway</span>.url = jdbc:h2:./.tmp/testdb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Hsql</span></span><br><span class="line"><span class="attribute">flyway</span>.url = jdbc:hsqldb:hsql//localhost:1476/testdb</span><br></pre></td></tr></table></figure></p>
 <h4 id="Flyway命令行"><a href="#Flyway命令行" class="headerlink" title="Flyway命令行"></a>Flyway命令行</h4><p>Flyway的命令行工具支持直接在命令行中运行<code>Migrate</code>, <code>Clean</code>, <code>Info</code>, <code>Validate</code>, <code>Baseline</code>和<code>Repair</code>6种命令，不需要借助其他Build工具，不需要应用程序运行在JVM中，只需要单纯的命令行即可，但需要根据不同的操作系统<a href="https://flywaydb.org/documentation/commandline/" target="_blank" rel="external">下载</a>并安装该命令行工具。Flyway会依次搜索以下配置文件，越靠后的配置会覆盖靠前的配置：</p>
 <ul>
 <li><install-dir>/conf/flyway.conf</install-dir></li>
@@ -448,32 +441,32 @@
 <h4 id="在Gradle中的应用"><a href="#在Gradle中的应用" class="headerlink" title="在Gradle中的应用"></a>在Gradle中的应用</h4><p>首先需要在Gradle中引入Flyway插件，通常有两种方式：</p>
 <ul>
 <li><p>方式一：采用buildscript依赖方式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath(&quot;org.flywaydb:flyway-gradle-plugin:4.0.3&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">apply plugin: &apos;org.flywaydb.flyway&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span>(<span class="string">"org.flywaydb:flyway-gradle-plugin:4.0.3"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">apply plugin: <span class="string">'org.flywaydb.flyway'</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>方式二（推荐）：采用DSL方式引用Plugins。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id &quot;org.flywaydb.flyway&quot; version &quot;4.0.3&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">"org.flywaydb.flyway"</span> version <span class="string">"4.0.3"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>而在Gradle中配置Flyway Properties有两种方式：</p>
 <ul>
 <li><p>方式一：在<code>build.gradle</code>中配置Flyway Properties。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flyway &#123;</span><br><span class="line">	url = jdbc:h2:./.tmp/testdb</span><br><span class="line">	user = sa</span><br><span class="line">	password = </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 或者写成：</span><br><span class="line">project.ext[&apos;flyway.url&apos;] = &apos;jdbc:h2:./.tmp/testdb&apos;</span><br><span class="line">project.ext[&apos;flyway.user&apos;] = &apos;sa&apos;</span><br><span class="line">project.ext[&apos;flyway.password&apos;] = &apos;&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flyway &#123;</span><br><span class="line">	url = jdbc:h2:.<span class="regexp">/.tmp/</span>testdb</span><br><span class="line">	user = sa</span><br><span class="line">	password = </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 或者写成：</span><br><span class="line"><span class="keyword">project</span>.ext[<span class="string">'flyway.url'</span>] = <span class="string">'jdbc:h2:./.tmp/testdb'</span></span><br><span class="line"><span class="keyword">project</span>.ext[<span class="string">'flyway.user'</span>] = <span class="string">'sa'</span></span><br><span class="line"><span class="keyword">project</span>.ext[<span class="string">'flyway.password'</span>] = <span class="string">''</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>方式二：在<code>gradle.properties</code>中配置Flyway Properties。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flyway.url = jdbc:h2:./.tmp/testdb</span><br><span class="line">flyway.user = sa</span><br><span class="line">flyway.password =</span><br></pre></td></tr></table></figure>
+<figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flyway</span>.url = jdbc:h2:./.tmp/testdb</span><br><span class="line"><span class="attribute">flyway</span>.user = sa</span><br><span class="line"><span class="attribute">flyway</span>.password =</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>如果期望在运行Gradle Clean/Build Tasks时自动执行Flyway的某些任务，可以设置<code>dependsOn</code>，若不期望隐式执行Flyway任务，可以不配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean.dependsOn flywayRepair  # To repair the Flyway metadata table</span><br><span class="line">build.dependsOn flywayMigrate  # To migrate the schema to the latest version</span><br></pre></td></tr></table></figure></p>
+<p>如果期望在运行Gradle Clean/Build Tasks时自动执行Flyway的某些任务，可以设置<code>dependsOn</code>，若不期望隐式执行Flyway任务，可以不配置。<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean.dependsOn flywayRepair  # To repair the Flyway metadata table</span><br><span class="line">build.dependsOn flywayMigrate  # To migrate the schema to the latest version</span><br></pre></td></tr></table></figure></p>
 <p>另外，其它Tasks：<code>flywayInfo</code>, <code>flywayValidate</code>, <code>flywayBaseline</code>分别对应到Flyway的命令。在使用Spring Boot时，运行<code>./gradlew bootRun</code>会自动检查并加载最新的db.migration脚本。</p>
 <p><strong>特别注意：</strong>在Production环境中不应执行<code>./gradlew flywayClean</code>，除非你知道自己的行为和目的，因为该命令会清除所有的数据库对象，相当危险。</p>
 <p>更多关于Flyway在Gradle中的使用请参阅<a href="https://flywaydb.org/documentation/gradle/migrate" target="_blank" rel="external">Flyway Gradle Plugin</a>。</p>
-<h4 id="与Spring-Boot集成"><a href="#与Spring-Boot集成" class="headerlink" title="与Spring Boot集成"></a>与Spring Boot集成</h4><p>在Spring Boot中，如果加入Flyway的依赖，则会<u>自动引用Flyway并使用默认值</u>，但可以修改并配置<a href="https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java" target="_blank" rel="external">FlywayProperties</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">flyway.baseline-description= # The description to tag an existing schema with when executing baseline.</span><br><span class="line">flyway.baseline-version=1 # Version to start migration.</span><br><span class="line">flyway.baseline-on-migrate=false # Whether to execute migration against a non-empty schema with no metadata table</span><br><span class="line">flyway.check-location=false # Check that migration scripts location exists.</span><br><span class="line">flyway.clean-on-validation-error=false # will clean all objects. Warning! Do NOT enable in production!</span><br><span class="line">flyway.enabled=true # Enable flyway.</span><br><span class="line">flyway.encoding=UTF-8 # The encoding of migrations.</span><br><span class="line">flyway.ignore-failed-future-migration=true # Ignore future migrations when reading the metadata table.</span><br><span class="line">flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.</span><br><span class="line">flyway.locations=classpath:db/migration # locations of migrations scripts.</span><br><span class="line">flyway.out-of-order=false # Allows migrations to be run &quot;out of order&quot;.</span><br><span class="line">flyway.placeholder-prefix=$&#123; # The prefix of every placeholder.</span><br><span class="line">flyway.placeholder-replacement=true # Whether placeholders should be replaced.</span><br><span class="line">flyway.placeholder-suffix=&#123; # The suffix of every placeholder.</span><br><span class="line">flyway.placeholders.*= # Placeholders to replace in Sql migrations.</span><br><span class="line">flyway.schemas= # Default schema of the connection and updating</span><br><span class="line">flyway.sql-migration-prefix=V # The file name prefix for Sql migrations</span><br><span class="line">flyway.sql-migration-separator=__ # The file name separator for Sql migrations</span><br><span class="line">flyway.sql-migration-suffix=.sql # The file name suffix for Sql migrations</span><br><span class="line">flyway.table=schema_version # The name of Flyway&apos;s metadata table.</span><br><span class="line">flyway.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.</span><br><span class="line">flyway.user= # Login user of the database to migrate. If not set, use spring.datasource.username value.</span><br><span class="line">flyway.password= # JDBC password if you want Flyway to create its own DataSource.</span><br><span class="line">flyway.validate-on-migrate=true # Validate sql migration CRC32 checksum in classpath.</span><br></pre></td></tr></table></figure></p>
+<h4 id="与Spring-Boot集成"><a href="#与Spring-Boot集成" class="headerlink" title="与Spring Boot集成"></a>与Spring Boot集成</h4><p>在Spring Boot中，如果加入Flyway的依赖，则会<u>自动引用Flyway并使用默认值</u>，但可以修改并配置<a href="https://github.com/spring-projects/spring-boot/tree/v1.4.0.RELEASE/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/flyway/FlywayProperties.java" target="_blank" rel="external">FlywayProperties</a>。<br><figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flyway</span>.baseline-description= # The description to tag an existing schema with when executing baseline.</span><br><span class="line"><span class="attribute">flyway</span>.baseline-version=1 # Version to start migration.</span><br><span class="line"><span class="attribute">flyway</span>.baseline-<span class="literal">on</span>-migrate=false # Whether to execute migration against a non-empty schema with no metadata table</span><br><span class="line"><span class="attribute">flyway</span>.check-location=false # Check that migration scripts location exists.</span><br><span class="line"><span class="attribute">flyway</span>.clean-<span class="literal">on</span>-validation-error=false # will clean <span class="literal">all</span> objects. Warning! Do NOT enable in production!</span><br><span class="line"><span class="attribute">flyway</span>.enabled=true # Enable flyway.</span><br><span class="line"><span class="attribute">flyway</span>.encoding=UTF-8 # The encoding of migrations.</span><br><span class="line"><span class="attribute">flyway</span>.ignore-failed-future-migration=true # Ignore future migrations when reading the metadata table.</span><br><span class="line"><span class="attribute">flyway</span>.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.</span><br><span class="line"><span class="attribute">flyway</span>.locations=classpath:db/migration # locations of migrations scripts.</span><br><span class="line"><span class="attribute">flyway</span>.out-of-order=false # Allows migrations to be run <span class="string">"out of order"</span>.</span><br><span class="line"><span class="attribute">flyway</span>.placeholder-prefix=  # The prefix of every placeholder.</span><br><span class="line"><span class="attribute">flyway</span>.placeholder-replacement=true # Whether placeholders should be replaced.</span><br><span class="line"><span class="attribute">flyway</span>.placeholder-suffix=&#125; # The suffix of every placeholder.</span><br><span class="line"><span class="attribute">flyway</span>.placeholders.*= # Placeholders to replace in Sql migrations.</span><br><span class="line"><span class="attribute">flyway</span>.schemas= # Default schema of the connection and updating</span><br><span class="line"><span class="attribute">flyway</span>.sql-migration-prefix=V # The file name prefix for Sql migrations</span><br><span class="line"><span class="attribute">flyway</span>.sql-migration-separator=__ # The file name separator for Sql migrations</span><br><span class="line"><span class="attribute">flyway</span>.sql-migration-suffix=.sql # The file name suffix for Sql migrations</span><br><span class="line"><span class="attribute">flyway</span>.table=schema_version # The name of Flyway's metadata table.</span><br><span class="line"><span class="attribute">flyway</span>.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.</span><br><span class="line"><span class="attribute">flyway</span>.user= # Login user of the database to migrate. If not set, use spring.datasource.username value.</span><br><span class="line"><span class="attribute">flyway</span>.password= # JDBC password if you want Flyway to create its own DataSource.</span><br><span class="line"><span class="attribute">flyway</span>.validate-<span class="literal">on</span>-migrate=true # Validate sql migration CRC32 checksum in classpath.</span><br></pre></td></tr></table></figure></p>
 <p>若使用Gradle，通常在<code>build.gradle</code>引入<code>org.flywaydb:flyway-core:4.0.3</code>依赖后即可使用。可能会有以下几种需求：</p>
 <ul>
 <li><p>在本地Run和Tests都会使用内存数据库，其中的<code>spring.jpa.hibernate.ddl-auto</code>都设置为<code>validate</code>，Schema不需要Hibernate自动生成，并期望使用Flyway，而在线上环境会使用真实数据库，并不期望使用Flyway，如何实现呢？<br><strong>解决方案：</strong>可以在<code>common.properties</code>中配置<code>flyway.enabled=false</code>，然后在local或dev的配置中启用Flyway即可。通常推荐使用此模式，毕竟可以对不同的环境进行控制，另外本地Run不会依赖真实数据库，又能保证数据库Schema是按脚本创建的。</p>
 </li>
 <li><p>在运行Tests会使用内存数据库，有单独的配置文件，不使用Flyway，而在本地bootRun时会使用真实数据库，使用Flyway，毕竟不想每次Schema改后都在本地手动去执行脚本，如何实现？<br><strong>解决方案：</strong>设置<code>bootRun.dependsOn</code>动态添加Flyway的依赖即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">addFlywayDenpendency &#123;</span><br><span class="line">	doLast &#123;</span><br><span class="line">		dependencies &#123;</span><br><span class="line">			compile(&apos;org.flywaydb:flyway-core:4.0.3&apos;)</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bootRun.dependsOn=addFlywayDenpendency</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">addFlywayDenpendency &#123;</span><br><span class="line">	<span class="keyword">doLast</span> &#123;</span><br><span class="line">		<span class="keyword">dependencies</span> &#123;</span><br><span class="line">			<span class="keyword">compile</span>(<span class="string">'org.flywaydb:flyway-core:4.0.3'</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bootRun.dependsOn=addFlywayDenpendency</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>若项目有多个团队同时开发不同的功能，需要新建多个分支，并且都会涉及到数据库Schema更改，当后期Merge时，Migration的版本如何控制并且不会产生数据库更改的冲突呢？<br><strong>解决方案：</strong>如果两个分支的数据库更改有冲突，要么最初数据库设计不合理，要么目前数据库更改不合理，所以需要团队进行全局考虑和协调。而针对数据库在同一段时间有修改，但不会造成冲突的情况，通常实际项目中主要存在这样的情况，那可以设置<code>flyway.out-of-order=true</code>，这样允许当v1和v3已经被应用后，v2出现时同样也可以被应用。其实在本地使用内存数据库不会存在该问题，因为数据库所有对象会自动清除掉，而在local或dev中使用真实数据库时可遇到这样的问题，因此需要注意一下了。<br>另外，值得一提的是Flyway的参数<code>ignore-failed-future-migration</code>默认为<code>true</code>，使用情形为：当Rollback数据库更改到旧版本，而metadata表中已存在了新版本时，Flyway会忽略此错误，只会显示警告信息。</p>
 </li>
@@ -488,321 +481,527 @@
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-execute-flyway-database-migrations-on-startup" target="_blank" rel="external">Execute Flyway database migrations on startup</a></li>
 </ul>
 
-      
+            
+        </div>
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/flyway-in-practice/">快速掌握和使用Flyway</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-08-31 21:32</p>
-        <!--<p><span>最后更新:</span>2016-09-04 18:40</p>-->
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/flyway-in-practice/" title="快速掌握和使用Flyway">http://blog.waterstrong.me/flyway-in-practice/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/flyway-in-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
-        </p>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Flyway/">Flyway</a> <a class="tag tag--primary tag--small t-link" href="/tags/Gradle/">Gradle</a> <a class="tag tag--primary tag--small t-link" href="/tags/Migration/">Migration</a> <a class="tag tag--primary tag--small t-link" href="/tags/Spring-Boot/">Spring Boot</a> <a class="tag tag--primary tag--small t-link" href="/tags/数据库/">数据库</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/using-stubby4j/"  data-tooltip="在集成测试中使用Stubby4J">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/sonarqube-by-step/" data-tooltip="代码质量管理SonarQube">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="flyway-in-practice/"
+     data-title="快速掌握和使用Flyway" data-url="http://blog.waterstrong.me/flyway-in-practice/">
+</div>
+
+            
+        
     </div>
-
-
-
-<nav id="article-nav">
-  
-    <a href="/using-stubby4j/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          在集成测试中使用Stubby4J
-        
-      </div>
-    </a>
-  
-  
-    <a href="/sonarqube-by-step/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">代码质量管理SonarQube</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Flyway"><span class="toc-number">1.</span> <span class="toc-text">什么是Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么使用Flyway"><span class="toc-number">2.</span> <span class="toc-text">为什么使用Flyway?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flyway如何工作的"><span class="toc-number">3.</span> <span class="toc-text">Flyway如何工作的?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Metadata-Table"><span class="toc-number">3.0.1.</span> <span class="toc-text">Metadata Table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Migrate"><span class="toc-number">3.0.2.</span> <span class="toc-text">Migrate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clean"><span class="toc-number">3.0.3.</span> <span class="toc-text">Clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Info"><span class="toc-number">3.0.4.</span> <span class="toc-text">Info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Validate"><span class="toc-number">3.0.5.</span> <span class="toc-text">Validate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Baseline"><span class="toc-number">3.0.6.</span> <span class="toc-text">Baseline</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Repair"><span class="toc-number">3.0.7.</span> <span class="toc-text">Repair</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何使用Flyway"><span class="toc-number">4.</span> <span class="toc-text">如何使用Flyway?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正确创建Migrations"><span class="toc-number">4.0.1.</span> <span class="toc-text">正确创建Migrations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持的数据库"><span class="toc-number">4.0.2.</span> <span class="toc-text">支持的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flyway命令行"><span class="toc-number">4.0.3.</span> <span class="toc-text">Flyway命令行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在Gradle中的应用"><span class="toc-number">4.0.4.</span> <span class="toc-text">在Gradle中的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#与Spring-Boot集成"><span class="toc-number">4.0.5.</span> <span class="toc-text">与Spring Boot集成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">5.</span> <span class="toc-text">结束语</span></a></li></ol>
-</div>
-<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="隐藏目录"
-       title="点击按钮隐藏或者显示文章目录">
-
-<script src="/js/require-jquery.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    });
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
 
 
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="flyway-in-practice/" data-title="快速掌握和使用Flyway" data-url="http://blog.waterstrong.me/flyway-in-practice/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waterstrong"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2016 Waterstrong
-            </div>
-            <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visited: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Visited: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
 </footer>
 
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/using-stubby4j/"  data-tooltip="在集成测试中使用Stubby4J">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/sonarqube-by-step/" data-tooltip="代码质量管理SonarQube">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/flyway-in-practice/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 0;
-            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-        })
-    </script>
-
-
-
-
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
-
-
-  <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("search").onclick = function(){
-        search();
-      }
-    };
-    function search(){
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
-                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
-    }
-  </script>
-
-
-
-
-
-
-
-<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
-    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 
-<script>
-    (function ($) {
-        var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#switch-sidebar");
-            this.leftColPulled = "left-col-pulled";
-            this.midColPulled = "mid-col-pulled";
-            this.$leftColSelector = $("#post-left-col");
-            this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#col-nav-button");
-            this.$homeBtnSelector = $("#home-nav-button");
-            this.$scrollSelector = $("#scroll");
-            this.$tocTitleSelector = $("#toc");
-            this.$tocButtonSelector = $("#tocButton");
-        };
-
-        SidebarNav.prototype = {
-            run: function () {
-                var self = this;
-                self.$sidebarNavBtn.click(function () {
-                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
-                });
-            },
-            showSidebar: function () {
-                var self = this;
-                self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.leftColPulled);
-                self.$homeBtnSelector.removeClass(self.midColPulled);
-                self.$scrollSelector.removeClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.removeClass(self.leftColPulled);
-                    self.$tocButtonSelector.removeClass(self.leftColPulled);
-                }, 350);
-            },
-            hideSidebar: function () {
-                var self = this;
-                self.$leftColSelector.addClass(self.leftColPulled);
-                self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.leftColPulled);
-                self.$homeBtnSelector.addClass(self.midColPulled);
-                self.$scrollSelector.addClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.addClass(self.leftColPulled);
-                    self.$tocButtonSelector.addClass(self.leftColPulled);
-                }, 350);
-            },
-            isSidebarShown: function () {
-                var self = this;
-                return !self.$leftColSelector.hasClass(self.leftColPulled);
-            }
-        };
-
-        $(document).ready(function () {
-            new SidebarNav().run();
-        })
-    })(jQuery);
-</script>
-
-
-<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="/" title=""><i class="fa fa-home"></i></a>
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                24 posts found
+            </p>
+        </div>
+    </div>
 </div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
 
-<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        }
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script language="text/javascript">
-        $(function() {
-            $("a[title]").each(function() {
-                var a = $(this);
-                var title = a.attr('title');
-                if (title == undefined || title == "") return;
-                a.data('title', title).removeAttr('title').hover(
-
-                        function() {
-                            var offset = a.offset();
-                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                                top: offset.top - a.outerHeight() - 15,
-                                left: offset.left + a.outerWidth()/2 + 1
-                            }).fadeIn(function() {
-                                var pop = $(this);
-                                setTimeout(function() {
-                                    pop.remove();
-                                }, pop.text().length * 800);
-                            });
-                        }, function() {
-                            $("#anchortitlecontainer").remove();
-                        });
-            });
-        });
-    </script>
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
-  </div>
-</body>
+
+    </body>
 </html>

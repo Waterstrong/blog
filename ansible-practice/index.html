@@ -1,350 +1,343 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>Ansible实践篇 | Watersrong Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
-<meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>Ansible实践篇 - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Ansible实践篇">
 <meta property="og:url" content="http://blog.waterstrong.me/ansible-practice/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/ansible-practice/page_demo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/ansible-practice/jenkins.png">
-<meta property="og:updated_time" content="2016-07-12T14:42:33.000Z">
+<meta property="og:updated_time" content="2016-10-17T15:11:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ansible实践篇">
 <meta name="twitter:description" content="本文是一篇Workshop演练指南，Ansible Workshop Step by Step，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！">
 <meta name="twitter:image" content="http://blog.waterstrong.me/assets/ansible-practice/page_demo.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Watersrong Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/ansible-practice/assets/ansible-practice/rtd_monitor.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/ansible-practice/assets/ansible-practice/rtd_monitor.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
 </head>
-<body>
-  <div id="container">
-    <div class="left-col left-col-pulled col-pulled-smooth"
-         id="post-left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
             
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
+        
+    
 
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi buddy, how are you ^_^">Waterstrong</a></h1>
-        </hgroup>
-
-        
-        <p class="header-subtitle">Enjoy this moment!</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
-            </form>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <!--<li>菜单</li>-->
-                        <li>Menu</li>
-                        <li>Tags</li>
-                        
-                        <li>Friends</li>
-                        
-                        
-                        <li>Motto</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="http://waterstrong.me">Home</a></li>
-                        
-                            <li><a href="/archives">Archives</a></li>
-                        
-                            <li><a href="/tags">Tag Cloud</a></li>
-                        
-                            <li><a href="/about">About</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
-                            
-                                <a class="fl Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
-                            
-                                <a class="fl Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
-                            
-                                <a class="fl Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
-                            
-                                <a class="fl Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
-                            
-                                <a class="fl StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
-                            
-                                <a class="fl LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
-                            
-                                <a class="fl RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ACID特性/" style="font-size: 10px;">ACID特性</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/AWS-EC2/" style="font-size: 12.5px;">AWS EC2</a> <a href="/tags/Ansible/" style="font-size: 12.5px;">Ansible</a> <a href="/tags/Apache2/" style="font-size: 10px;">Apache2</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CGLib/" style="font-size: 10px;">CGLib</a> <a href="/tags/CI-CD/" style="font-size: 15px;">CI/CD</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Checkstyle/" style="font-size: 10px;">Checkstyle</a> <a href="/tags/Cobertura/" style="font-size: 10px;">Cobertura</a> <a href="/tags/Code-Coverage/" style="font-size: 10px;">Code Coverage</a> <a href="/tags/Code-Quality/" style="font-size: 10px;">Code Quality</a> <a href="/tags/ConcourseCI/" style="font-size: 10px;">ConcourseCI</a> <a href="/tags/DevOps/" style="font-size: 20px;">DevOps</a> <a href="/tags/DirectX/" style="font-size: 10px;">DirectX</a> <a href="/tags/EJB/" style="font-size: 10px;">EJB</a> <a href="/tags/Flyway/" style="font-size: 10px;">Flyway</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub/" style="font-size: 12.5px;">GitHub</a> <a href="/tags/GoCD/" style="font-size: 10px;">GoCD</a> <a href="/tags/Gradle/" style="font-size: 12.5px;">Gradle</a> <a href="/tags/Groovy/" style="font-size: 10px;">Groovy</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hibernate/" style="font-size: 10px;">Hibernate</a> <a href="/tags/IaaS/" style="font-size: 10px;">IaaS</a> <a href="/tags/Integration-Test/" style="font-size: 10px;">Integration Test</a> <a href="/tags/IoC/" style="font-size: 10px;">IoC</a> <a href="/tags/JBoss/" style="font-size: 10px;">JBoss</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/JSP/" style="font-size: 10px;">JSP</a> <a href="/tags/Jacoco/" style="font-size: 10px;">Jacoco</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Jenkins/" style="font-size: 15px;">Jenkins</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Migration/" style="font-size: 10px;">Migration</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NTFS/" style="font-size: 10px;">NTFS</a> <a href="/tags/OpenCV/" style="font-size: 10px;">OpenCV</a> <a href="/tags/PPTP/" style="font-size: 10px;">PPTP</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/RedHat/" style="font-size: 10px;">RedHat</a> <a href="/tags/SCM/" style="font-size: 10px;">SCM</a> <a href="/tags/SOLID原则/" style="font-size: 10px;">SOLID原则</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Servlet/" style="font-size: 10px;">Servlet</a> <a href="/tags/Singleton/" style="font-size: 10px;">Singleton</a> <a href="/tags/Sonar-Qube/" style="font-size: 10px;">Sonar Qube</a> <a href="/tags/Spring-Boot/" style="font-size: 12.5px;">Spring Boot</a> <a href="/tags/Stub/" style="font-size: 10px;">Stub</a> <a href="/tags/Transaction/" style="font-size: 10px;">Transaction</a> <a href="/tags/TravisCI/" style="font-size: 12.5px;">TravisCI</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unit-Test/" style="font-size: 10px;">Unit Test</a> <a href="/tags/VCS/" style="font-size: 10px;">VCS</a> <a href="/tags/VPN/" style="font-size: 10px;">VPN</a> <a href="/tags/Web容器/" style="font-size: 10px;">Web容器</a> <a href="/tags/Workshop/" style="font-size: 10px;">Workshop</a> <a href="/tags/XA协议/" style="font-size: 10px;">XA协议</a> <a href="/tags/云服务/" style="font-size: 10px;">云服务</a> <a href="/tags/代理模式/" style="font-size: 10px;">代理模式</a> <a href="/tags/依赖倒置/" style="font-size: 10px;">依赖倒置</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/分布式事务/" style="font-size: 10px;">分布式事务</a> <a href="/tags/动态SQL/" style="font-size: 10px;">动态SQL</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/图形图像/" style="font-size: 10px;">图形图像</a> <a href="/tags/持久层框架/" style="font-size: 10px;">持久层框架</a> <a href="/tags/控制反转/" style="font-size: 10px;">控制反转</a> <a href="/tags/数据库/" style="font-size: 17.5px;">数据库</a> <a href="/tags/移动硬盘/" style="font-size: 10px;">移动硬盘</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/行版本控制/" style="font-size: 10px;">行版本控制</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/锁机制/" style="font-size: 10px;">锁机制</a> <a href="/tags/集成测试/" style="font-size: 10px;">集成测试</a> <a href="/tags/面向切面编程/" style="font-size: 10px;">面向切面编程</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://koly.me/">Koly</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.jimmylv.info/">Jimmylv</a>
-                    
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">Luuman</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">I&#39;m Waterstrong! The man who has made up his mind to win will never say &quot;Impossible&quot;!</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
     </div>
-    <div class="mid-col mid-col-pulled col-pulled-smooth"
-         id="post-mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Waterstrong</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
                 
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
                 
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Waterstrong</a></h1>
-            </hgroup>
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
             
-            <p class="header-subtitle">Enjoy this moment!</p>
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
             
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://waterstrong.me">Home</a></li>
-                
-                    <li><a href="/archives">Archives</a></li>
-                
-                    <li><a href="/tags">Tag Cloud</a></li>
-                
-                    <li><a href="/about">About</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
+                <li class="sidebar-button">
                     
-                        <a class="Email" target="_blank" href="mailto:sqlin@thoughtworks.com" title="Email">Email</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
                     
-                        <a class="Github" target="_blank" href="http://github.com/waterstrong" title="Github">Github</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Wechat" target="_blank" href="/img/qrcode.png" title="Wechat">Wechat</a>
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
                     
-                        <a class="Weibo" target="_blank" href="http://weibo.com/waterstrong" title="Weibo">Weibo</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="Facebook" target="_blank" href="https://www.facebook.com/linshuiqiang" title="Facebook">Facebook</a>
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
                     
-                        <a class="StackOverflow" target="_blank" href="http://stackoverflow.com/users/6448085/waterstrong" title="StackOverflow">StackOverflow</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
                     
-                        <a class="LinkedIn" target="_blank" href="https://cn.linkedin.com/in/shuiqiang-lin-191a0a112" title="LinkedIn">LinkedIn</a>
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
                     
-                        <a class="RSS" target="_blank" href="/atom.xml" title="RSS">RSS</a>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
                     
-                </div>
-            </nav>
-        </header>                
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-ansible-practice" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/ansible-practice/" class="article-date">
-      <time datetime="2016-07-03T13:15:39.000Z" itemprop="datePublished">2016-07-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-      <header class="article-header">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Ansible实践篇
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-07-03T21:15:39+08:00">
+	
+		    Jul 03, 2016
+    	
+    </time>
+    
+        <span>in </span>
         
-  
-    <h1 class="article-title" itemprop="name">
-      Ansible实践篇
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    </div>
+    <a class="category-link" href="/categories/Tools/">Tools</a>
 
 
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ansible/">Ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache2/">Apache2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/">Jenkins</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Workshop/">Workshop</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>本文是一篇Workshop演练指南，<a href="https://github.com/Waterstrong/ansible-workshop" target="_blank" rel="external">Ansible Workshop Step by Step</a>，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！</p>
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>本文是一篇Workshop演练指南，<a href="https://github.com/Waterstrong/ansible-workshop" target="_blank" rel="external">Ansible Workshop Step by Step</a>，旨在通过Workshop形式快速掌握Ansible的常用命令和基本用法，俗话说得好：Practice Makes Perfect！</p>
 <p>注：所有操作均在Mac系统，Linux系统类似。</p>
 <hr>
-<h2 id="Step-1-Set-up-the-environment-on-Mac"><a href="#Step-1-Set-up-the-environment-on-Mac" class="headerlink" title="Step 1. Set up the environment on Mac"></a>Step 1. Set up the environment on Mac</h2><h3 id="Install-Ansible"><a href="#Install-Ansible" class="headerlink" title="Install Ansible"></a>Install Ansible</h3><h4 id="Brew-Install"><a href="#Brew-Install" class="headerlink" title="Brew Install"></a>Brew Install</h4><p>可以采用<a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a>进行安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install ansible # 安装Ansible</span><br><span class="line"></span><br><span class="line">brew install --upgrade ansible # 以后可更新版本</span><br></pre></td></tr></table></figure></p>
-<h4 id="Pip-Install"><a href="#Pip-Install" class="headerlink" title="Pip Install"></a>Pip Install</h4><p>还可采用Python的<a href="https://pip.pypa.io/en/stable/installing/" target="_blank" rel="external">pip</a>包管理工具安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install ansible # 安装Ansible</span><br><span class="line"></span><br><span class="line">sudo pip install --upgrade ansible # 以后可更新版本</span><br></pre></td></tr></table></figure></p>
-<h3 id="Install-VirtualBox-if-not-have-one"><a href="#Install-VirtualBox-if-not-have-one" class="headerlink" title="Install VirtualBox if not have one"></a>Install VirtualBox if not have one</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install Caskroom/cask/virtualbox</span><br></pre></td></tr></table></figure>
+<h2 id="Step-1-Set-up-the-environment-on-Mac"><a href="#Step-1-Set-up-the-environment-on-Mac" class="headerlink" title="Step 1. Set up the environment on Mac"></a>Step 1. Set up the environment on Mac</h2><h3 id="Install-Ansible"><a href="#Install-Ansible" class="headerlink" title="Install Ansible"></a>Install Ansible</h3><h4 id="Brew-Install"><a href="#Brew-Install" class="headerlink" title="Brew Install"></a>Brew Install</h4><p>可以采用<a href="http://brew.sh/" target="_blank" rel="external">Homebrew</a>进行安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install ansible <span class="comment"># 安装Ansible</span></span><br><span class="line"></span><br><span class="line">brew install --upgrade ansible <span class="comment"># 以后可更新版本</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Pip-Install"><a href="#Pip-Install" class="headerlink" title="Pip Install"></a>Pip Install</h4><p>还可采用Python的<a href="https://pip.pypa.io/en/stable/installing/" target="_blank" rel="external">pip</a>包管理工具安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install ansible <span class="comment"># 安装Ansible</span></span><br><span class="line"></span><br><span class="line">sudo pip install --upgrade ansible <span class="comment"># 以后可更新版本</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Install-VirtualBox-if-not-have-one"><a href="#Install-VirtualBox-if-not-have-one" class="headerlink" title="Install VirtualBox if not have one"></a>Install VirtualBox if not have one</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install Caskroom/cask/virtualbox</span><br></pre></td></tr></table></figure>
 <p>或在<a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">VirtualBox官网下载</a>进行安装。</p>
-<h3 id="Install-Vagrant-if-not-have-one"><a href="#Install-Vagrant-if-not-have-one" class="headerlink" title="Install Vagrant if not have one"></a>Install Vagrant if not have one</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install vagrant</span><br></pre></td></tr></table></figure>
+<h3 id="Install-Vagrant-if-not-have-one"><a href="#Install-Vagrant-if-not-have-one" class="headerlink" title="Install Vagrant if not have one"></a>Install Vagrant if not have one</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install vagrant</span><br></pre></td></tr></table></figure>
 <p>或在<a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="external">Vagrant官网下载</a>进行安装。</p>
-<h3 id="Vagrant-up-base-on-existing-Vagrantfile"><a href="#Vagrant-up-base-on-existing-Vagrantfile" class="headerlink" title="Vagrant up base on existing Vagrantfile"></a>Vagrant up base on existing <code>Vagrantfile</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Waterstrong/ansible-workshop.git</span><br><span class="line">git checkout step1</span><br><span class="line">cd ansible-workshop/vagrant</span><br><span class="line">vagrant up</span><br></pre></td></tr></table></figure>
-<p>验证登录虚拟机成功后退出:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant ssh</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
-<h3 id="Test-Ansible-Connection"><a href="#Test-Ansible-Connection" class="headerlink" title="Test Ansible Connection"></a>Test Ansible Connection</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">ansible -i inventory all -m ping</span><br></pre></td></tr></table></figure>
-<p>若连接成功返回:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | SUCCESS =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false,</span><br><span class="line">    &quot;ping&quot;: &quot;pong&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Unreachable-Solution"><a href="#Unreachable-Solution" class="headerlink" title="Unreachable Solution"></a>Unreachable Solution</h4><p>如果连接不成功返回:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false,</span><br><span class="line">    &quot;msg&quot;: &quot;Failed to connect to the host via ssh.&quot;,</span><br><span class="line">    &quot;unreachable&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可能原因是之前已经在<code>~/.ssh/known_hosts</code>中有相同的记录，可以通过ssh命令确认:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i vagrant/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.33.100</span><br></pre></td></tr></table></figure></p>
-<p>如果确实报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</span><br><span class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</span><br><span class="line">It is also possible that a host key has just been changed.</span><br><span class="line">The fingerprint for the ECDSA key sent by the remote host is</span><br><span class="line">SHA256:JIdGdnPGRJcOZd1ZMiisaPesCr3I0/o00agtrOGNYYA.</span><br><span class="line">Please contact your system administrator.</span><br><span class="line">Add correct host key in /Users/sqlin/.ssh/known_hosts to get rid of this message.</span><br><span class="line">Offending ECDSA key in /Users/sqlin/.ssh/known_hosts:50</span><br><span class="line">ECDSA host key for 192.168.33.100 has changed and you have requested strict checking.</span><br><span class="line">Host key verification failed.</span><br></pre></td></tr></table></figure></p>
-<p>可通过执行以下命令解决:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R 192.168.33.100</span><br></pre></td></tr></table></figure></p>
-<p>或者可直接修改known_hosts文件，找到该记录并删除:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~/.ssh/known_hosts # 找到192.168.33.100记录并删除行后保存</span><br></pre></td></tr></table></figure></p>
-<h3 id="Environment-Ready"><a href="#Environment-Ready" class="headerlink" title="Environment Ready"></a>Environment Ready</h3><p>环境搭建完成，准备工作结束，关闭虚拟机:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd vagrant</span><br><span class="line">vagrant halt</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vagrant-up-base-on-existing-Vagrantfile"><a href="#Vagrant-up-base-on-existing-Vagrantfile" class="headerlink" title="Vagrant up base on existing Vagrantfile"></a>Vagrant up base on existing <code>Vagrantfile</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Waterstrong/ansible-workshop.git</span><br><span class="line">git checkout step1</span><br><span class="line"><span class="built_in">cd</span> ansible-workshop/vagrant</span><br><span class="line">vagrant up</span><br></pre></td></tr></table></figure>
+<p>验证登录虚拟机成功后退出:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant ssh</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Test-Ansible-Connection"><a href="#Test-Ansible-Connection" class="headerlink" title="Test Ansible Connection"></a>Test Ansible Connection</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">ansible -i inventory all -m ping</span><br></pre></td></tr></table></figure>
+<p>若连接成功返回:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Unreachable-Solution"><a href="#Unreachable-Solution" class="headerlink" title="Unreachable Solution"></a>Unreachable Solution</h4><p>如果连接不成功返回:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"Failed to connect to the host via ssh."</span>,</span><br><span class="line">    <span class="string">"unreachable"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可能原因是之前已经在<code>~/.ssh/known_hosts</code>中有相同的记录，可以通过ssh命令确认:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i vagrant/.vagrant/machines/default/virtualbox/private_key vagrant@192.168.33.100</span><br></pre></td></tr></table></figure></p>
+<p>如果确实报错:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</span><br><span class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</span><br><span class="line">It is also possible that a host key has just been changed.</span><br><span class="line">The fingerprint <span class="keyword">for</span> the ECDSA key sent by the remote host is</span><br><span class="line">SHA256:JIdGdnPGRJcOZd1ZMiisaPesCr3I0/o00agtrOGNYYA.</span><br><span class="line">Please contact your system administrator.</span><br><span class="line">Add correct host key <span class="keyword">in</span> /Users/sqlin/.ssh/known_hosts to get rid of this message.</span><br><span class="line">Offending ECDSA key <span class="keyword">in</span> /Users/sqlin/.ssh/known_hosts:50</span><br><span class="line">ECDSA host key <span class="keyword">for</span> 192.168.33.100 has changed and you have requested strict checking.</span><br><span class="line">Host key verification failed.</span><br></pre></td></tr></table></figure></p>
+<p>可通过执行以下命令解决:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -R 192.168.33.100</span><br></pre></td></tr></table></figure></p>
+<p>或者可直接修改known_hosts文件，找到该记录并删除:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim ~/.ssh/known_hosts <span class="comment"># 找到192.168.33.100记录并删除行后保存</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Environment-Ready"><a href="#Environment-Ready" class="headerlink" title="Environment Ready"></a>Environment Ready</h3><p>环境搭建完成，准备工作结束，关闭虚拟机:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vagrant</span><br><span class="line">vagrant halt</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="Step-2-Inventory-Practice"><a href="#Step-2-Inventory-Practice" class="headerlink" title="Step 2. Inventory Practice"></a>Step 2. Inventory Practice</h2><p>当前工作目录为<code>ansible-workshop</code>，演示使用Inventory文件来指定受控资源列表。</p>
-<h4 id="配置虚拟机Host2"><a href="#配置虚拟机Host2" class="headerlink" title="配置虚拟机Host2"></a>配置虚拟机Host2</h4><p>现在可以再加入一台虚拟机，随后会在inventory中进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir vagrant2</span><br><span class="line">cd vagrant2</span><br><span class="line">vagrant init ubuntu/trusty64</span><br></pre></td></tr></table></figure></p>
-<p>修改Vagrantfile并加入以下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.101&quot;</span><br><span class="line"></span><br><span class="line">config.vm.provider &quot;virtualbox&quot; do |vb|</span><br><span class="line">    vb.name = &quot;ansible-workshop-host2&quot;</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
-<p>启动第二台虚拟机后再回到上一级目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant up</span><br><span class="line"></span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置Inventory加入新Host2"><a href="#配置Inventory加入新Host2" class="headerlink" title="配置Inventory加入新Host2"></a>配置Inventory加入新Host2</h4><p>创建名为<code>hosts</code>的文件，配置虚拟机的Host和Group：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ubuntu]</span><br><span class="line">192.168.33.100 ansible_ssh_user=vagrant ansible_ssh_private_key_file=vagrant/.vagrant/machines/default/virtualbox/private_key</span><br><span class="line"></span><br><span class="line">[ubuntu2]</span><br><span class="line">192.168.33.101 ansible_ssh_user=vagrant ansible_ssh_private_key_file=vagrant2/.vagrant/machines/default/virtualbox/private_key</span><br><span class="line"></span><br><span class="line">[myserver:children]</span><br><span class="line">ubuntu</span><br><span class="line">ubunt2</span><br></pre></td></tr></table></figure></p>
-<h4 id="测试是否ping得通"><a href="#测试是否ping得通" class="headerlink" title="测试是否ping得通"></a>测试是否ping得通</h4><p>测试一下应该两台都可以正常访问：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts myserver -m ping</span><br></pre></td></tr></table></figure></p>
-<p>可能需要多次输入<code>yes</code>回车确认加入key fingerprint，当然也可在ansible.cfg中配置参数关闭提示。当连接成功结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | SUCCESS =&gt; &#123;</span><br><span class="line">        &quot;changed&quot;: false,</span><br><span class="line">            &quot;ping&quot;: &quot;pong&quot;</span><br><span class="line">&#125;</span><br><span class="line">192.168.33.101 | SUCCESS =&gt; &#123;</span><br><span class="line">        &quot;changed&quot;: false,</span><br><span class="line">            &quot;ping&quot;: &quot;pong&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>也可以单独ping某台虚拟机：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts ubuntu2 -m ping</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置虚拟机Host2"><a href="#配置虚拟机Host2" class="headerlink" title="配置虚拟机Host2"></a>配置虚拟机Host2</h4><p>现在可以再加入一台虚拟机，随后会在inventory中进行配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir vagrant2</span><br><span class="line"><span class="built_in">cd</span> vagrant2</span><br><span class="line">vagrant init ubuntu/trusty64</span><br></pre></td></tr></table></figure></p>
+<p>修改Vagrantfile并加入以下配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config.vm.network <span class="string">"private_network"</span>, ip: <span class="string">"192.168.33.101"</span></span><br><span class="line"></span><br><span class="line">config.vm.provider <span class="string">"virtualbox"</span> <span class="keyword">do</span> |vb|</span><br><span class="line">    vb.name = <span class="string">"ansible-workshop-host2"</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>启动第二台虚拟机后再回到上一级目录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant up</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置Inventory加入新Host2"><a href="#配置Inventory加入新Host2" class="headerlink" title="配置Inventory加入新Host2"></a>配置Inventory加入新Host2</h4><p>创建名为<code>hosts</code>的文件，配置虚拟机的Host和Group：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ubuntu]</span><br><span class="line">192.168.33.100 ansible_ssh_user=vagrant ansible_ssh_private_key_file=vagrant/.vagrant/machines/default/virtualbox/private_key</span><br><span class="line"></span><br><span class="line">[ubuntu2]</span><br><span class="line">192.168.33.101 ansible_ssh_user=vagrant ansible_ssh_private_key_file=vagrant2/.vagrant/machines/default/virtualbox/private_key</span><br><span class="line"></span><br><span class="line">[myserver:children]</span><br><span class="line">ubuntu</span><br><span class="line">ubunt2</span><br></pre></td></tr></table></figure></p>
+<h4 id="测试是否ping得通"><a href="#测试是否ping得通" class="headerlink" title="测试是否ping得通"></a>测试是否ping得通</h4><p>测试一下应该两台都可以正常访问：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts myserver -m ping</span><br></pre></td></tr></table></figure></p>
+<p>可能需要多次输入<code>yes</code>回车确认加入key fingerprint，当然也可在ansible.cfg中配置参数关闭提示。当连接成功结果为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">192.168.33.100 | SUCCESS =&gt; &#123;</span><br><span class="line">        <span class="string">"changed"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br><span class="line">192.168.33.101 | SUCCESS =&gt; &#123;</span><br><span class="line">        <span class="string">"changed"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以单独ping某台虚拟机：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible -i hosts ubuntu2 -m ping</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="Step-3-Playbooks-Roles-and-Tasks-Practice"><a href="#Step-3-Playbooks-Roles-and-Tasks-Practice" class="headerlink" title="Step 3. Playbooks, Roles and Tasks Practice"></a>Step 3. Playbooks, Roles and Tasks Practice</h2><h4 id="创建playbooks"><a href="#创建playbooks" class="headerlink" title="创建playbooks"></a>创建playbooks</h4><p>写一个Playbook,命名为<code>setup_server.yml</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: myserver</span><br><span class="line">  become_method: sudo</span><br><span class="line">  become: yes</span><br><span class="line"></span><br><span class="line">  roles:</span><br><span class="line">    - install_tools</span><br></pre></td></tr></table></figure></p>
-<h4 id="创建roles和tasks"><a href="#创建roles和tasks" class="headerlink" title="创建roles和tasks"></a>创建roles和tasks</h4><p>在ansible-workshop目录下创建文件<code>roles/install_tools/tasks/main.yml</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: Ensure update cache</span><br><span class="line">  run_once: no</span><br><span class="line">  apt:</span><br><span class="line">    update_cache: yes</span><br><span class="line">- name: Ensure serveral components installed</span><br><span class="line">  apt:</span><br><span class="line">    name: &quot;&#123;&#123;item.value&#125;&#125;&quot;</span><br><span class="line">    state: installed</span><br><span class="line">  with_items: &quot;&#123;&#123;packages&#125;&#125;&quot;</span><br></pre></td></tr></table></figure></p>
-<p>在ansible-workshop目录下创建文件<code>roles/install_tools/vars/main.yml</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">packages:</span><br><span class="line">  - &#123; name: &apos;Git&apos;, value: git &#125;</span><br></pre></td></tr></table></figure></p>
-<p>当前目录结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── hosts</span><br><span class="line">├── roles</span><br><span class="line">│   └── install_tools</span><br><span class="line">│       ├── tasks</span><br><span class="line">│       │   └── main.yml</span><br><span class="line">│       └── vars</span><br><span class="line">│           └── main.yml</span><br><span class="line">└── setup_server.yml</span><br></pre></td></tr></table></figure></p>
-<h4 id="运行playbooks安装Git"><a href="#运行playbooks安装Git" class="headerlink" title="运行playbooks安装Git"></a>运行playbooks安装Git</h4><p>运行Playbooks命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_server.yml</span><br></pre></td></tr></table></figure></p>
-<p>最后执行完成显示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PLAY [myserver] ****************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [192.168.33.100]</span><br><span class="line">ok: [192.168.33.101]</span><br><span class="line"></span><br><span class="line">TASK [install_tools : Ensure update cache] *************************************</span><br><span class="line">ok: [192.168.33.100]</span><br><span class="line"></span><br><span class="line">TASK [install_tools : Ensure serveral components installed] ********************</span><br><span class="line">ok: [192.168.33.100] =&gt; (item=&#123;u&apos;name&apos;: u&apos;Git&apos;, u&apos;value&apos;: u&apos;git&apos;&#125;)</span><br><span class="line">ok: [192.168.33.101] =&gt; (item=&#123;u&apos;name&apos;: u&apos;Git&apos;, u&apos;value&apos;: u&apos;git&apos;&#125;)</span><br><span class="line"></span><br><span class="line">PLAY RECAP *********************************************************************</span><br><span class="line">192.168.33.100             : ok=3    changed=0    unreachable=0    failed=0</span><br><span class="line">192.168.33.101             : ok=2    changed=0    unreachable=0    failed=0</span><br></pre></td></tr></table></figure></p>
+<h2 id="Step-3-Playbooks-Roles-and-Tasks-Practice"><a href="#Step-3-Playbooks-Roles-and-Tasks-Practice" class="headerlink" title="Step 3. Playbooks, Roles and Tasks Practice"></a>Step 3. Playbooks, Roles and Tasks Practice</h2><h4 id="创建playbooks"><a href="#创建playbooks" class="headerlink" title="创建playbooks"></a>创建playbooks</h4><p>写一个Playbook,命名为<code>setup_server.yml</code>：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> myserver</span><br><span class="line"><span class="attr">  become_method:</span> sudo</span><br><span class="line"><span class="attr">  become:</span> <span class="literal">yes</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  roles:</span></span><br><span class="line"><span class="bullet">    -</span> install_tools</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建roles和tasks"><a href="#创建roles和tasks" class="headerlink" title="创建roles和tasks"></a>创建roles和tasks</h4><p>在ansible-workshop目录下创建文件<code>roles/install_tools/tasks/main.yml</code><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- name:</span> Ensure update cache</span><br><span class="line"><span class="attr">  run_once:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">  apt:</span></span><br><span class="line"><span class="attr">    update_cache:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">- name:</span> Ensure serveral components installed</span><br><span class="line"><span class="attr">  apt:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">"<span class="template-variable">&#123;&#123;item.value&#125;&#125;</span>"</span></span><br><span class="line"><span class="attr">    state:</span> installed</span><br><span class="line"><span class="attr">  with_items:</span> <span class="string">"<span class="template-variable">&#123;&#123;packages&#125;&#125;</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>在ansible-workshop目录下创建文件<code>roles/install_tools/vars/main.yml</code><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">packages:</span></span><br><span class="line"><span class="bullet">  -</span> &#123; name: <span class="string">'Git'</span>, value: git &#125;</span><br></pre></td></tr></table></figure></p>
+<p>当前目录结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── hosts</span><br><span class="line">├── roles</span><br><span class="line">│   └── install_tools</span><br><span class="line">│       ├── tasks</span><br><span class="line">│       │   └── main.yml</span><br><span class="line">│       └── vars</span><br><span class="line">│           └── main.yml</span><br><span class="line">└── setup_server.yml</span><br></pre></td></tr></table></figure></p>
+<h4 id="运行playbooks安装Git"><a href="#运行playbooks安装Git" class="headerlink" title="运行playbooks安装Git"></a>运行playbooks安装Git</h4><p>运行Playbooks命令如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_server.yml</span><br></pre></td></tr></table></figure></p>
+<p>最后执行完成显示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PLAY [myserver] ****************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [192.168.33.100]</span><br><span class="line">ok: [192.168.33.101]</span><br><span class="line"></span><br><span class="line">TASK [install_tools : Ensure update cache] *************************************</span><br><span class="line">ok: [192.168.33.100]</span><br><span class="line"></span><br><span class="line">TASK [install_tools : Ensure serveral components installed] ********************</span><br><span class="line">ok: [192.168.33.100] =&gt; (item=&#123;u<span class="string">'name'</span>: u<span class="string">'Git'</span>, u<span class="string">'value'</span>: u<span class="string">'git'</span>&#125;)</span><br><span class="line">ok: [192.168.33.101] =&gt; (item=&#123;u<span class="string">'name'</span>: u<span class="string">'Git'</span>, u<span class="string">'value'</span>: u<span class="string">'git'</span>&#125;)</span><br><span class="line"></span><br><span class="line">PLAY RECAP *********************************************************************</span><br><span class="line">192.168.33.100             : ok=3    changed=0    unreachable=0    failed=0</span><br><span class="line">192.168.33.101             : ok=2    changed=0    unreachable=0    failed=0</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="Step-4-Install-Apache2-Server-Practice"><a href="#Step-4-Install-Apache2-Server-Practice" class="headerlink" title="Step 4. Install Apache2 Server Practice"></a>Step 4. Install Apache2 Server Practice</h2><h4 id="安装Apache2"><a href="#安装Apache2" class="headerlink" title="安装Apache2"></a>安装Apache2</h4><p>修改文件<code>roles/install_tools/vars/main.yml</code>并添加一行安装Apache2的条目：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">packages:</span><br><span class="line">  - &#123; name: &apos;Git&apos;, value: git &#125;</span><br><span class="line">  - &#123; name: &apos;Apache2&apos;, value: apache2 &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Git下载代码"><a href="#Git下载代码" class="headerlink" title="Git下载代码"></a>Git下载代码</h4><p>通过git clone下载静态页面代码测试服务器，首先创建一个role的task文件<code>roles/git_clone_file/tasks/main.yml</code>并写以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: Ensure repo clone and update to apache directory</span><br><span class="line">  git:</span><br><span class="line">    repo: &quot;https://github.com/Waterstrong/ansible-workshop.git&quot; </span><br><span class="line">    version: &quot;page&quot;</span><br><span class="line">    dest: &quot;/var/www/html/page&quot;</span><br><span class="line">    update: yes</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置重启Apache服务"><a href="#配置重启Apache服务" class="headerlink" title="配置重启Apache服务"></a>配置重启Apache服务</h4><p>创建一个role的task文件<code>roles/start_apache2/tasks/main.yml</code>并配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- name: enabled mod_rewrite</span><br><span class="line">  apache2_module:</span><br><span class="line">    name: rewrite</span><br><span class="line">    state: present</span><br><span class="line"></span><br><span class="line">- name: restart apache2</span><br><span class="line">  service:</span><br><span class="line">    name: apache2</span><br><span class="line">    state: restarted</span><br></pre></td></tr></table></figure></p>
-<p>当前目录树结构为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── hosts</span><br><span class="line">├── roles</span><br><span class="line">│   ├── git_clone_file</span><br><span class="line">│   │   └── tasks</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   ├── install_tools</span><br><span class="line">│   │   ├── tasks</span><br><span class="line">│   │   │   └── main.yml</span><br><span class="line">│   │   └── vars</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   └── start_apache2</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── main.yml</span><br><span class="line">└── setup_server.yml</span><br></pre></td></tr></table></figure></p>
-<h4 id="运行playbook并测试服务器"><a href="#运行playbook并测试服务器" class="headerlink" title="运行playbook并测试服务器"></a>运行playbook并测试服务器</h4><p>在目录<code>ansible-workshop</code>目录下运行命令测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_server.yml</span><br></pre></td></tr></table></figure></p>
+<h2 id="Step-4-Install-Apache2-Server-Practice"><a href="#Step-4-Install-Apache2-Server-Practice" class="headerlink" title="Step 4. Install Apache2 Server Practice"></a>Step 4. Install Apache2 Server Practice</h2><h4 id="安装Apache2"><a href="#安装Apache2" class="headerlink" title="安装Apache2"></a>安装Apache2</h4><p>修改文件<code>roles/install_tools/vars/main.yml</code>并添加一行安装Apache2的条目：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">packages:</span></span><br><span class="line"><span class="bullet">  -</span> &#123; name: <span class="string">'Git'</span>, value: git &#125;</span><br><span class="line"><span class="bullet">  -</span> &#123; name: <span class="string">'Apache2'</span>, value: apache2 &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Git下载代码"><a href="#Git下载代码" class="headerlink" title="Git下载代码"></a>Git下载代码</h4><p>通过git clone下载静态页面代码测试服务器，首先创建一个role的task文件<code>roles/git_clone_file/tasks/main.yml</code>并写以下内容：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- name:</span> Ensure repo clone and update to apache directory</span><br><span class="line"><span class="attr">  git:</span></span><br><span class="line"><span class="attr">    repo:</span> <span class="string">"https://github.com/Waterstrong/ansible-workshop.git"</span> </span><br><span class="line"><span class="attr">    version:</span> <span class="string">"page"</span></span><br><span class="line"><span class="attr">    dest:</span> <span class="string">"/var/www/html/page"</span></span><br><span class="line"><span class="attr">    update:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="配置重启Apache服务"><a href="#配置重启Apache服务" class="headerlink" title="配置重启Apache服务"></a>配置重启Apache服务</h4><p>创建一个role的task文件<code>roles/start_apache2/tasks/main.yml</code>并配置：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- name:</span> enabled mod_rewrite</span><br><span class="line"><span class="attr">  apache2_module:</span></span><br><span class="line"><span class="attr">    name:</span> rewrite</span><br><span class="line"><span class="attr">    state:</span> present</span><br><span class="line"></span><br><span class="line"><span class="attr">- name:</span> restart apache2</span><br><span class="line"><span class="attr">  service:</span></span><br><span class="line"><span class="attr">    name:</span> apache2</span><br><span class="line"><span class="attr">    state:</span> restarted</span><br></pre></td></tr></table></figure></p>
+<p>当前目录树结构为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── hosts</span><br><span class="line">├── roles</span><br><span class="line">│   ├── git_<span class="built_in">clone</span>_file</span><br><span class="line">│   │   └── tasks</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   ├── install_tools</span><br><span class="line">│   │   ├── tasks</span><br><span class="line">│   │   │   └── main.yml</span><br><span class="line">│   │   └── vars</span><br><span class="line">│   │       └── main.yml</span><br><span class="line">│   └── start_apache2</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── main.yml</span><br><span class="line">└── setup_server.yml</span><br></pre></td></tr></table></figure></p>
+<h4 id="运行playbook并测试服务器"><a href="#运行playbook并测试服务器" class="headerlink" title="运行playbook并测试服务器"></a>运行playbook并测试服务器</h4><p>在目录<code>ansible-workshop</code>目录下运行命令测试：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_server.yml</span><br></pre></td></tr></table></figure></p>
 <p>成功执行完成后可访问<a href="http://192.168.33.100/page" target="_blank" rel="external">http://192.168.33.100/page</a>和<a href="http://192.168.33.101/page" target="_blank" rel="external">http://192.168.33.101/page</a>测试是否部署页面成功。</p>
 <p><img src="/assets/ansible-practice/page_demo.png" alt=""></p>
 <hr>
 <h2 id="Step-5-Ansible-Galaxy-Practice"><a href="#Step-5-Ansible-Galaxy-Practice" class="headerlink" title="Step 5. Ansible Galaxy Practice"></a>Step 5. Ansible Galaxy Practice</h2><p>通过Ansible Galaxy快速安装Jenkins。在<a href="https://galaxy.ansible.com/list#/roles" target="_blank" rel="external">Ansible Galaxy</a>上搜索找到Jenkins对应的Role，比如选择<a href="https://galaxy.ansible.com/geerlingguy/jenkins/" target="_blank" rel="external">geerlingguy.jenkins</a>。</p>
-<h4 id="下载Jenkins的role到本地"><a href="#下载Jenkins的role到本地" class="headerlink" title="下载Jenkins的role到本地"></a>下载Jenkins的role到本地</h4><p>首先下载role到本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
-<p>下载role安装成功后得到以下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- downloading role &apos;jenkins&apos;, owned by geerlingguy</span><br><span class="line">- downloading role from https://github.com/geerlingguy/ansible-role-jenkins/archive/2.1.1.tar.gz</span><br><span class="line">- extracting geerlingguy.jenkins to /usr/local/etc/ansible/roles/geerlingguy.jenkins</span><br><span class="line">- geerlingguy.jenkins was installed successfully</span><br><span class="line">- adding dependency: geerlingguy.java</span><br><span class="line">- downloading role &apos;java&apos;, owned by geerlingguy</span><br><span class="line">- downloading role from https://github.com/geerlingguy/ansible-role-java/archive/1.4.0.tar.gz</span><br><span class="line">- extracting geerlingguy.java to /usr/local/etc/ansible/roles/geerlingguy.java</span><br><span class="line">- geerlingguy.java was installed successfully</span><br></pre></td></tr></table></figure></p>
+<h4 id="下载Jenkins的role到本地"><a href="#下载Jenkins的role到本地" class="headerlink" title="下载Jenkins的role到本地"></a>下载Jenkins的role到本地</h4><p>首先下载role到本地：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-galaxy install geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<p>下载role安装成功后得到以下信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- downloading role <span class="string">'jenkins'</span>, owned by geerlingguy</span><br><span class="line">- downloading role from https://github.com/geerlingguy/ansible-role-jenkins/archive/2.1.1.tar.gz</span><br><span class="line">- extracting geerlingguy.jenkins to /usr/<span class="built_in">local</span>/etc/ansible/roles/geerlingguy.jenkins</span><br><span class="line">- geerlingguy.jenkins was installed successfully</span><br><span class="line">- adding dependency: geerlingguy.java</span><br><span class="line">- downloading role <span class="string">'java'</span>, owned by geerlingguy</span><br><span class="line">- downloading role from https://github.com/geerlingguy/ansible-role-java/archive/1.4.0.tar.gz</span><br><span class="line">- extracting geerlingguy.java to /usr/<span class="built_in">local</span>/etc/ansible/roles/geerlingguy.java</span><br><span class="line">- geerlingguy.java was installed successfully</span><br></pre></td></tr></table></figure></p>
 <p>特别注意其中的路径<code>/usr/local/etc/ansible/roles/geerlingguy.jenkins</code>，会在接下来的role中用到。 </p>
-<h4 id="创建安装Jenkins的playbook"><a href="#创建安装Jenkins的playbook" class="headerlink" title="创建安装Jenkins的playbook"></a>创建安装Jenkins的playbook</h4><p>在<code>ansible-workshop</code>目录创建一个安装jenkins的playbook <code>setup_jenkins.yml</code>，目前只把第一台虚拟机作为CI服务器:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: ubuntu</span><br><span class="line">  become_method: sudo</span><br><span class="line">  become: yes</span><br><span class="line">  roles:</span><br><span class="line">    - /usr/local/etc/ansible/roles/geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建安装Jenkins的playbook"><a href="#创建安装Jenkins的playbook" class="headerlink" title="创建安装Jenkins的playbook"></a>创建安装Jenkins的playbook</h4><p>在<code>ansible-workshop</code>目录创建一个安装jenkins的playbook <code>setup_jenkins.yml</code>，目前只把第一台虚拟机作为CI服务器:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">- hosts:</span> ubuntu</span><br><span class="line"><span class="attr">  become_method:</span> sudo</span><br><span class="line"><span class="attr">  become:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">  roles:</span></span><br><span class="line"><span class="bullet">    -</span> /usr/local/etc/ansible/roles/geerlingguy.jenkins</span><br></pre></td></tr></table></figure></p>
 <p>其中的role为之前安装的文件路径。</p>
-<h4 id="运行命令执行安装"><a href="#运行命令执行安装" class="headerlink" title="运行命令执行安装"></a>运行命令执行安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_jenkins.yml</span><br></pre></td></tr></table></figure>
+<h4 id="运行命令执行安装"><a href="#运行命令执行安装" class="headerlink" title="运行命令执行安装"></a>运行命令执行安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts setup_jenkins.yml</span><br></pre></td></tr></table></figure>
 <p>可能会花较长的时间，请耐心等待。安装成功后可以访问Jenkins Home页面<a href="http://192.168.33.100:8080" target="_blank" rel="external">http://192.168.33.100:8080</a>或Jenkins CLI页面<a href="http://192.168.33.100:8080/cli" target="_blank" rel="external">http://192.168.33.100:8080/cli</a>，然后可以开始使用Jenkins了。<br>用户名: <code>admin</code>   密码: <code>admin</code></p>
 <p><img src="/assets/ansible-practice/jenkins.png" alt=""></p>
-<h4 id="Workshop结束语"><a href="#Workshop结束语" class="headerlink" title="Workshop结束语"></a>Workshop结束语</h4><p>Thanks everyone! You can halt your virtual machines and destroy them to reduce your computer resoures.<br>Make sure your are in <code>ansible-workshop</code> directory and execute the below commands:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd vagrant</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br><span class="line"></span><br><span class="line">cd ../vagrant2</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br></pre></td></tr></table></figure></p>
+<h4 id="Workshop结束语"><a href="#Workshop结束语" class="headerlink" title="Workshop结束语"></a>Workshop结束语</h4><p>Thanks everyone! You can halt your virtual machines and destroy them to reduce your computer resoures.<br>Make sure your are in <code>ansible-workshop</code> directory and execute the below commands:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vagrant</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ../vagrant2</span><br><span class="line">vagrant halt</span><br><span class="line">vagrant destroy</span><br></pre></td></tr></table></figure></p>
 <hr>
 <p>References</p>
 <ul>
@@ -360,321 +353,527 @@
 <li><a href="https://pip.pypa.io/en/stable/installing/" target="_blank" rel="external">Pip</a></li>
 </ul>
 
-      
+            
+        </div>
     </div>
-    
-  </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/ansible-practice/">Ansible实践篇</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Waterstrong 的个人博客">Waterstrong</a></p>
-        <p><span>发布时间:</span>2016-07-03 21:15</p>
-        <!--<p><span>最后更新:</span>2016-07-12 22:42</p>-->
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/ansible-practice/" title="Ansible实践篇">http://blog.waterstrong.me/ansible-practice/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://blog.waterstrong.me/ansible-practice/　　作者: Waterstrong" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">CC</a> 转载请保留原文链接及作者
-        </p>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Ansible/">Ansible</a> <a class="tag tag--primary tag--small t-link" href="/tags/Apache2/">Apache2</a> <a class="tag tag--primary tag--small t-link" href="/tags/DevOps/">DevOps</a> <a class="tag tag--primary tag--small t-link" href="/tags/Jenkins/">Jenkins</a> <a class="tag tag--primary tag--small t-link" href="/tags/Workshop/">Workshop</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/jenkins-by-step/"  data-tooltip="Jenkins Step by Step">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/ansible-basic/" data-tooltip="Ansible基础篇">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="ansible-practice/"
+     data-title="Ansible实践篇" data-url="http://blog.waterstrong.me/ansible-practice/">
+</div>
+
+            
+        
     </div>
-
-
-
-<nav id="article-nav">
-  
-    <a href="/jenkins-by-step/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Jenkins Step by Step
-        
-      </div>
-    </a>
-  
-  
-    <a href="/ansible-basic/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Ansible基础篇</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-    <div id="toc" class="toc-article left-col-pulled toc-pulled-smooth">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-1-Set-up-the-environment-on-Mac"><span class="toc-number">1.</span> <span class="toc-text">Step 1. Set up the environment on Mac</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-Ansible"><span class="toc-number">1.1.</span> <span class="toc-text">Install Ansible</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Brew-Install"><span class="toc-number">1.1.1.</span> <span class="toc-text">Brew Install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pip-Install"><span class="toc-number">1.1.2.</span> <span class="toc-text">Pip Install</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-VirtualBox-if-not-have-one"><span class="toc-number">1.2.</span> <span class="toc-text">Install VirtualBox if not have one</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-Vagrant-if-not-have-one"><span class="toc-number">1.3.</span> <span class="toc-text">Install Vagrant if not have one</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vagrant-up-base-on-existing-Vagrantfile"><span class="toc-number">1.4.</span> <span class="toc-text">Vagrant up base on existing Vagrantfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Test-Ansible-Connection"><span class="toc-number">1.5.</span> <span class="toc-text">Test Ansible Connection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unreachable-Solution"><span class="toc-number">1.5.1.</span> <span class="toc-text">Unreachable Solution</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Environment-Ready"><span class="toc-number">1.6.</span> <span class="toc-text">Environment Ready</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-2-Inventory-Practice"><span class="toc-number">2.</span> <span class="toc-text">Step 2. Inventory Practice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置虚拟机Host2"><span class="toc-number">2.0.1.</span> <span class="toc-text">配置虚拟机Host2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置Inventory加入新Host2"><span class="toc-number">2.0.2.</span> <span class="toc-text">配置Inventory加入新Host2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试是否ping得通"><span class="toc-number">2.0.3.</span> <span class="toc-text">测试是否ping得通</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-3-Playbooks-Roles-and-Tasks-Practice"><span class="toc-number">3.</span> <span class="toc-text">Step 3. Playbooks, Roles and Tasks Practice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建playbooks"><span class="toc-number">3.0.1.</span> <span class="toc-text">创建playbooks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建roles和tasks"><span class="toc-number">3.0.2.</span> <span class="toc-text">创建roles和tasks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行playbooks安装Git"><span class="toc-number">3.0.3.</span> <span class="toc-text">运行playbooks安装Git</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-4-Install-Apache2-Server-Practice"><span class="toc-number">4.</span> <span class="toc-text">Step 4. Install Apache2 Server Practice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Apache2"><span class="toc-number">4.0.1.</span> <span class="toc-text">安装Apache2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git下载代码"><span class="toc-number">4.0.2.</span> <span class="toc-text">Git下载代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置重启Apache服务"><span class="toc-number">4.0.3.</span> <span class="toc-text">配置重启Apache服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行playbook并测试服务器"><span class="toc-number">4.0.4.</span> <span class="toc-text">运行playbook并测试服务器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step-5-Ansible-Galaxy-Practice"><span class="toc-number">5.</span> <span class="toc-text">Step 5. Ansible Galaxy Practice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下载Jenkins的role到本地"><span class="toc-number">5.0.1.</span> <span class="toc-text">下载Jenkins的role到本地</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建安装Jenkins的playbook"><span class="toc-number">5.0.2.</span> <span class="toc-text">创建安装Jenkins的playbook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行命令执行安装"><span class="toc-number">5.0.3.</span> <span class="toc-text">运行命令执行安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Workshop结束语"><span class="toc-number">5.0.4.</span> <span class="toc-text">Workshop结束语</span></a></li></ol></li></ol></li></ol>
-</div>
-<input type="button" id="tocButton" class="left-col-pulled toc-pulled-smooth"
-       value="隐藏目录"
-       title="点击按钮隐藏或者显示文章目录">
-
-<script src="/js/require-jquery.min.js"></script>
-<script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    });
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
-</script>
 
 
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="ansible-practice/" data-title="Ansible实践篇" data-url="http://blog.waterstrong.me/ansible-practice/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waterstrong"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2016 Waterstrong
-            </div>
-            <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme <a href="https://github.com/waterstrong/hexo-theme-styka" target="_blank">styka</a> by Waterstrong
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >Site Visited: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">Page Visited: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
 </footer>
 
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/jenkins-by-step/"  data-tooltip="Jenkins Step by Step">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/ansible-basic/" data-tooltip="Ansible基础篇">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/ansible-practice/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
     </div>
-    <script src="/js/require-jquery.min.js"></script>
-<script src="/js/main.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 0;
-            var backgroundimg = "url(/background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "left"});
-        })
-    </script>
-
-
-
-
-	<script>
-	var _hmt = _hmt || [];
-	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
-	})();
-	</script>
-
-
-  <script type="text/javascript">
-    window.onload = function(){
-      document.getElementById("search").onclick = function(){
-        search();
-      }
-    };
-    function search(){
-      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function() {
-                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-      _st('install','kWrco8T5WiVvGAF--sSf','2.0.0');
-    }
-  </script>
-
-
-
-
-
-
-
-<div class="scroll left-col-pulled col-pulled-smooth" id="col-nav-button">
-    <a id="switch-sidebar"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 </div>
 
-<script>
-    (function ($) {
-        var SidebarNav = function () {
-            this.$sidebarNavBtn = $("#switch-sidebar");
-            this.leftColPulled = "left-col-pulled";
-            this.midColPulled = "mid-col-pulled";
-            this.$leftColSelector = $("#post-left-col");
-            this.$midColSelector = $("#post-mid-col");
-            this.$navBtnSelector = $("#col-nav-button");
-            this.$homeBtnSelector = $("#home-nav-button");
-            this.$scrollSelector = $("#scroll");
-            this.$tocTitleSelector = $("#toc");
-            this.$tocButtonSelector = $("#tocButton");
-        };
-
-        SidebarNav.prototype = {
-            run: function () {
-                var self = this;
-                self.$sidebarNavBtn.click(function () {
-                    self.isSidebarShown() ? self.hideSidebar() : self.showSidebar();
-                });
-            },
-            showSidebar: function () {
-                var self = this;
-                self.$leftColSelector.removeClass(self.leftColPulled);
-                self.$midColSelector.removeClass(self.midColPulled);
-                self.$navBtnSelector.removeClass(self.leftColPulled);
-                self.$homeBtnSelector.removeClass(self.midColPulled);
-                self.$scrollSelector.removeClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.removeClass(self.leftColPulled);
-                    self.$tocButtonSelector.removeClass(self.leftColPulled);
-                }, 350);
-            },
-            hideSidebar: function () {
-                var self = this;
-                self.$leftColSelector.addClass(self.leftColPulled);
-                self.$midColSelector.addClass(self.midColPulled);
-                self.$navBtnSelector.addClass(self.leftColPulled);
-                self.$homeBtnSelector.addClass(self.midColPulled);
-                self.$scrollSelector.addClass(self.midColPulled);
-                setTimeout(function() {
-                    self.$tocTitleSelector.addClass(self.leftColPulled);
-                    self.$tocButtonSelector.addClass(self.leftColPulled);
-                }, 350);
-            },
-            isSidebarShown: function () {
-                var self = this;
-                return !self.$leftColSelector.hasClass(self.leftColPulled);
-            }
-        };
-
-        $(document).ready(function () {
-            new SidebarNav().run();
-        })
-    })(jQuery);
-</script>
-
-
-<div id="home-nav-button" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="/" title=""><i class="fa fa-home"></i></a>
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                24 posts found
+            </p>
+        </div>
+    </div>
 </div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
 
-<div id="scroll" class="scroll mid-col-pulled col-pulled-smooth">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        }
-    })
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <script language="text/javascript">
-        $(function() {
-            $("a[title]").each(function() {
-                var a = $(this);
-                var title = a.attr('title');
-                if (title == undefined || title == "") return;
-                a.data('title', title).removeAttr('title').hover(
-
-                        function() {
-                            var offset = a.offset();
-                            $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                                top: offset.top - a.outerHeight() - 15,
-                                left: offset.left + a.outerWidth()/2 + 1
-                            }).fadeIn(function() {
-                                var pop = $(this);
-                                setTimeout(function() {
-                                    pop.remove();
-                                }, pop.text().length * 800);
-                            });
-                        }, function() {
-                            $("#anchortitlecontainer").remove();
-                        });
-            });
-        });
-    </script>
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
-  </div>
-</body>
+
+    </body>
 </html>
