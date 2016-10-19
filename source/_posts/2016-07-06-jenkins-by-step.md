@@ -3,7 +3,7 @@ title: Jenkins Step by Step
 date: 2016-07-06 21:30:44
 category: Tools
 tags: [DevOps, CI/CD, Jenkins]
-thumbnailImage: /assets/jenkins-by-step/download.png
+thumbnailImage: /assets/jenkins-by-step/download.jpg
 description: Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。
 published: true
 ---
@@ -15,7 +15,7 @@ Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integra
 
 ## Jenkins Installation
 Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到[Jenkins官网](https://jenkins.io/)下载需要的版本并安装。
-![](/assets/jenkins-by-step/download.png)
+![](/assets/jenkins-by-step/download.jpg)
 
 以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。
 
