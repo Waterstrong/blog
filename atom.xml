@@ -59,10 +59,10 @@
     <link href="http://blog.waterstrong.me/mac-rw-ntfs/"/>
     <id>http://blog.waterstrong.me/mac-rw-ntfs/</id>
     <published>2016-09-11T13:10:13.000Z</published>
-    <updated>2016-10-16T15:49:52.000Z</updated>
+    <updated>2016-10-19T14:04:39.000Z</updated>
     
     <content type="html">&lt;p&gt;其实老早就遇到了Mac下写NTFS的问题，本来因为有两块移动硬盘，把其中一块500G的格式化成了Mac支持的格式，用于备份一些重要数据，而另一块1T之前已经存了不少数据，也懒得麻烦就一直放着没有管，但最近电脑数据太多，已经报警磁盘空间不足，不得不进行数据备份了，最早的硬盘已差不多满了，但又不想改磁盘格式，并且以后还可能在Win下拷贝数据，必须得想办法解决在Mac读写NTFS磁盘问题。&lt;/p&gt;
-&lt;p&gt;可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/disk_utility.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/disk_utility.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h4 id=&quot;Step1-配置fstab&quot;&gt;&lt;a href=&quot;#Step1-配置fstab&quot; class=&quot;headerlink&quot; title=&quot;Step1 配置fstab&quot;&gt;&lt;/a&gt;Step1 配置fstab&lt;/h4&gt;&lt;p&gt;在终端输入如下命令编辑&lt;code&gt;fstab&lt;/code&gt;文件，并写入&lt;code&gt;LABEL&lt;/code&gt;以及其值，若文件不存在将新建该文件。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo vim /etc/fstab&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LABEL=Datum none ntfs rw,auto,nobrowse  &lt;span class=&quot;comment&quot;&gt;# 使用磁盘名方式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LABEL=68D036FA-EE09-4B80-AC93-01E54D51059A none ntfs rw,auto,nobrowse  &lt;span class=&quot;comment&quot;&gt;# 使用UUID方式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;其中，&lt;code&gt;rw&lt;/code&gt;表示读写方式，&lt;code&gt;nobrowse&lt;/code&gt;表示默认不在finder的边栏中显示，如果不加&lt;code&gt;nobrowse&lt;/code&gt;可能在挂载后还是只读模式。&lt;code&gt;Datum&lt;/code&gt;是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开&lt;code&gt;Disk Utility&lt;/code&gt;工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;diskutil info /Volumes/Datum&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&quot;Step2-打开磁盘&quot;&gt;&lt;a href=&quot;#Step2-打开磁盘&quot; class=&quot;headerlink&quot; title=&quot;Step2 打开磁盘&quot;&gt;&lt;/a&gt;Step2 打开磁盘&lt;/h4&gt;&lt;p&gt;由于设置了默认不在Finder边栏显示，因此需要手动打开磁盘，确保磁盘已经挂载成功，可以通过&lt;code&gt;Disk Utility&lt;/code&gt;或在命令行挂载并查看。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/drive_info.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -621,7 +621,7 @@
     <link href="http://blog.waterstrong.me/java-code-coverage/"/>
     <id>http://blog.waterstrong.me/java-code-coverage/</id>
     <published>2016-07-31T11:53:11.000Z</published>
-    <updated>2016-10-18T15:30:14.000Z</updated>
+    <updated>2016-10-19T14:16:09.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Code-Coverage介绍&quot;&gt;&lt;a href=&quot;#Code-Coverage介绍&quot; class=&quot;headerlink&quot; title=&quot;Code Coverage介绍&quot;&gt;&lt;/a&gt;Code Coverage介绍&lt;/h2&gt;&lt;h3 id=&quot;什么是代码覆盖率？&quot;&gt;&lt;a href=&quot;#什么是代码覆盖率？&quot; class=&quot;headerlink&quot; title=&quot;什么是代码覆盖率？&quot;&gt;&lt;/a&gt;什么是代码覆盖率？&lt;/h3&gt;&lt;p&gt;代码覆盖率是用于衡量源代码被测试粒度和程度的，在一定程序上能够衡量代码质量，通常作为发现未被测试覆盖的代码的一种手段，可以直接反映部分测试遗漏点。&lt;/p&gt;
 &lt;p&gt;覆盖率主要用于尽可能减少代码Defects和Bugs及降低出错风险，较高的测试覆盖率能够增加开发人员的信心，但并不代表代码测试覆盖率越高越好，也不需要实现100%的覆盖率，并且这也很难实现，通常对核心逻辑才会增加测试粒度，根据经验值，覆盖率在85%左右为宜，即增加团队成员信心，也减少不必要的工作量。&lt;/p&gt;
@@ -735,14 +735,14 @@
     <link href="http://blog.waterstrong.me/travisci-by-step/"/>
     <id>http://blog.waterstrong.me/travisci-by-step/</id>
     <published>2016-07-15T13:57:02.000Z</published>
-    <updated>2016-10-18T15:01:50.000Z</updated>
+    <updated>2016-10-19T14:19:50.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Travis-CI介绍&quot;&gt;&lt;a href=&quot;#Travis-CI介绍&quot; class=&quot;headerlink&quot; title=&quot;Travis CI介绍&quot;&gt;&lt;/a&gt;Travis CI介绍&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;Travis CI is a hosted, distributed continuous integration service used to build and test software projects hosted at GitHub.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Travis CI是一款提供托管与分布式持续集成(Continuous Integration)服务的CI工具，与GitHub高度集成，能够构建和测试托管在GitHub上的软件项目。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/travisci-by-step/travis_ci_home.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;Travis CI主要为开源免费提供轻量级可定制化的持续持续集成环境和服务，而对于非开源项目，会按照相应的标准收取一定的费用。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，与GitHub集成度很好，支持Pull Request等。一般通过简单配置&lt;code&gt;.travis.yml&lt;/code&gt;文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作，但它不支持pipeline，只能支持简单的构建。&lt;/p&gt;
-&lt;h2 id=&quot;Travis-CI集成&quot;&gt;&lt;a href=&quot;#Travis-CI集成&quot; class=&quot;headerlink&quot; title=&quot;Travis CI集成&quot;&gt;&lt;/a&gt;Travis CI集成&lt;/h2&gt;&lt;p&gt;Travis CI与GitHub集成只需要简单的几步即可，通过访问&lt;a href=&quot;https://github.com/integrations&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Integrations&lt;/a&gt;搜索&lt;code&gt;Travis CI&lt;/code&gt;选择进入子页面，可以看到对Travis CI的集成的基本介绍。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/integrations.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/travisci-by-step/travis_ci_home.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;Travis CI主要为开源免费提供轻量级可定制化的持续持续集成环境和服务，而对于非开源项目，会按照相应的标准收取一定的费用。Travis CI不仅支持多种语言，而且支持在容器中运行Builds，与GitHub集成度很好，支持Pull Request等。一般通过简单配置&lt;code&gt;.travis.yml&lt;/code&gt;文件即可使用，也省去了自己搭建和维护CI服务器的繁琐工作，但它不支持pipeline，只能支持简单的构建。&lt;/p&gt;
+&lt;h2 id=&quot;Travis-CI集成&quot;&gt;&lt;a href=&quot;#Travis-CI集成&quot; class=&quot;headerlink&quot; title=&quot;Travis CI集成&quot;&gt;&lt;/a&gt;Travis CI集成&lt;/h2&gt;&lt;p&gt;Travis CI与GitHub集成只需要简单的几步即可，通过访问&lt;a href=&quot;https://github.com/integrations&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub Integrations&lt;/a&gt;搜索&lt;code&gt;Travis CI&lt;/code&gt;选择进入子页面，可以看到对Travis CI的集成的基本介绍。&lt;br&gt;&lt;img src=&quot;/assets/travisci-by-step/integrations.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h4 id=&quot;GitHub登录授权&quot;&gt;&lt;a href=&quot;#GitHub登录授权&quot; class=&quot;headerlink&quot; title=&quot;GitHub登录授权&quot;&gt;&lt;/a&gt;GitHub登录授权&lt;/h4&gt;&lt;p&gt;Travis CI与GitHub集成需要登录GitHub帐号，一般有两种入口方式：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在&lt;a href=&quot;https://github.com/integrations/travis-ci&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis CI Integration&lt;/a&gt;页面中点击&lt;code&gt;Add to GitHub&lt;/code&gt;-&amp;gt;&lt;code&gt;Authorize application&lt;/code&gt;进行授权。&lt;/li&gt;
@@ -792,10 +792,10 @@
     <link href="http://blog.waterstrong.me/jenkins-by-step/"/>
     <id>http://blog.waterstrong.me/jenkins-by-step/</id>
     <published>2016-07-06T13:30:44.000Z</published>
-    <updated>2016-10-17T14:48:58.000Z</updated>
+    <updated>2016-10-19T14:17:30.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;Jenkins-Introduction&quot;&gt;&lt;a href=&quot;#Jenkins-Introduction&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Introduction&quot;&gt;&lt;/a&gt;Jenkins Introduction&lt;/h2&gt;&lt;p&gt;Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。&lt;br&gt;下图摘自官网，展示了持续交付场景下应用示例一般流程。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/pipeline_flow.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Jenkins-Installation&quot;&gt;&lt;a href=&quot;#Jenkins-Installation&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Installation&quot;&gt;&lt;/a&gt;Jenkins Installation&lt;/h2&gt;&lt;p&gt;Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins官网&lt;/a&gt;下载需要的版本并安装。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/download.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Jenkins-Installation&quot;&gt;&lt;a href=&quot;#Jenkins-Installation&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Installation&quot;&gt;&lt;/a&gt;Jenkins Installation&lt;/h2&gt;&lt;p&gt;Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到&lt;a href=&quot;https://jenkins.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Jenkins官网&lt;/a&gt;下载需要的版本并安装。&lt;br&gt;&lt;img src=&quot;/assets/jenkins-by-step/download.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。&lt;/p&gt;
 &lt;h4 id=&quot;War包安装方式&quot;&gt;&lt;a href=&quot;#War包安装方式&quot; class=&quot;headerlink&quot; title=&quot;War包安装方式&quot;&gt;&lt;/a&gt;War包安装方式&lt;/h4&gt;&lt;p&gt;可以直接下载自带Jetty的&lt;code&gt;*.war&lt;/code&gt;包并运行，非常方便，比较推荐使用，Jenkins默认会运行在&lt;code&gt;8080&lt;/code&gt;端口。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java -jar jenkins.war&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;也可以下载最新版本的&lt;a href=&quot;http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jenkins.war&lt;/a&gt;。&lt;/p&gt;

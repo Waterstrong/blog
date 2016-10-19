@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_flow.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/download.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/download.jpg">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/login.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/customize_jenkins.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/suggested_plugins.png">
@@ -50,7 +50,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/all_nodes.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/jenkins_cli.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/manage_jenkins.png">
-<meta property="og:updated_time" content="2016-10-17T14:48:58.000Z">
+<meta property="og:updated_time" content="2016-10-19T14:17:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins Step by Step">
 <meta name="twitter:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
@@ -64,8 +64,8 @@
         <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
     
     
-        <meta property="og:image" content="http://blog.waterstrong.me/jenkins-by-step/assets/jenkins-by-step/download.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/jenkins-by-step/assets/jenkins-by-step/download.png" />
+        <meta property="og:image" content="http://blog.waterstrong.me/jenkins-by-step/assets/jenkins-by-step/download.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/jenkins-by-step/assets/jenkins-by-step/download.jpg" />
     
     
     
@@ -100,7 +100,7 @@
         
     
 
-<header id="header" data-behavior="6">
+<header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">Watersrong Blog</a>
@@ -124,7 +124,7 @@
         
     
 
-<nav id="sidebar" data-behavior="6">
+<nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -276,7 +276,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="6"
+            <div id="main" data-behavior="5"
                  class="
                         hasCoverMetaIn
                         ">
@@ -310,7 +310,7 @@
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
             <h2 id="Jenkins-Introduction"><a href="#Jenkins-Introduction" class="headerlink" title="Jenkins Introduction"></a>Jenkins Introduction</h2><p>Jenkins是一款开源的跨平台的可扩展的持续集成(Continuous Integration)工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快，当然Jenkins的优势还有很多，之前的项目上都一直在使用Jenkins，对于大多项目来说是完全满足条件的。这里以Jenkins 2.x为例演示如何安装、配置和使用Jenkins。<br>下图摘自官网，展示了持续交付场景下应用示例一般流程。<br><img src="/assets/jenkins-by-step/pipeline_flow.png" alt=""></p>
-<h2 id="Jenkins-Installation"><a href="#Jenkins-Installation" class="headerlink" title="Jenkins Installation"></a>Jenkins Installation</h2><p>Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到<a href="https://jenkins.io/" target="_blank" rel="external">Jenkins官网</a>下载需要的版本并安装。<br><img src="/assets/jenkins-by-step/download.png" alt=""></p>
+<h2 id="Jenkins-Installation"><a href="#Jenkins-Installation" class="headerlink" title="Jenkins Installation"></a>Jenkins Installation</h2><p>Jenkins由Java编写的开源产品，支持跨平台，安装也非常方便，可以到<a href="https://jenkins.io/" target="_blank" rel="external">Jenkins官网</a>下载需要的版本并安装。<br><img src="/assets/jenkins-by-step/download.jpg" alt=""></p>
 <p>以下大致列举出几种常用的安装和使用方式，在安装之前请确保已经安装了Java运行环境。</p>
 <h4 id="War包安装方式"><a href="#War包安装方式" class="headerlink" title="War包安装方式"></a>War包安装方式</h4><p>可以直接下载自带Jetty的<code>*.war</code>包并运行，非常方便，比较推荐使用，Jenkins默认会运行在<code>8080</code>端口。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://ftp.tsukuba.wide.ad.jp/software/jenkins/war-stable/2.7.1/jenkins.war</span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure></p>
 <p>也可以下载最新版本的<a href="http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war" target="_blank" rel="external">jenkins.war</a>。</p>
@@ -487,7 +487,7 @@
 
             </div>
             
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
                     <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -549,7 +549,7 @@
 
 
                 </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
     <ul class="share-options">
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/jenkins-by-step/">
