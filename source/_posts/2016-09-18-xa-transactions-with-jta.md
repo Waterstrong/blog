@@ -27,7 +27,9 @@ Spring Boot除了对非XA的事务进行了封装处理，并提供了注解Anno
 
 
 ## 采用Bitronix事务管理器
+Bitronix是一款JTA事务管理器的开源库，可以通过添加依赖`spring-boot-starter-jta-bitronix`，然后Spring Boot会自动配置Bitronix，默认的事务日志文件会被写在项目下的`transaction-logs`文件目录下的`part1.btm`和`part2.btm`中，可以通过配置`spring.jta.log-dir`来指定日志目录。可以设置`spring.jta.bitronix.properties`读取相应的配置文件，相当于自定义配置`bitronix.tm.configuration`实例。
 
+为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Bitronix实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置`spring.jta.transaction-manager-id`为不同的值。
 
 #### Transaction Manager Configuration
 
