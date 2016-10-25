@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me//404.html</loc>
+    
+    <lastmod>2016-10-25T14:44:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/jenkins-by-step/</loc>
     
     <lastmod>2016-10-24T15:24:57.000Z</lastmod>
@@ -166,13 +173,6 @@
     <loc>http://blog.waterstrong.me/flyway-in-practice/</loc>
     
     <lastmod>2016-10-16T15:52:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me//404.html</loc>
-    
-    <lastmod>2016-08-30T15:16:44.000Z</lastmod>
     
   </url>
   
