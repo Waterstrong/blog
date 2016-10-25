@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/jenkins-by-step/</loc>
+    
+    <lastmod>2016-10-24T15:24:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/mysql-case-sensitive-linux/</loc>
     
     <lastmod>2016-10-19T14:30:35.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://blog.waterstrong.me/travisci-by-step/</loc>
     
     <lastmod>2016-10-19T14:19:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/jenkins-by-step/</loc>
-    
-    <lastmod>2016-10-19T14:17:30.000Z</lastmod>
     
   </url>
   
@@ -184,6 +184,13 @@
   </url>
   
   <url>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -192,13 +199,6 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

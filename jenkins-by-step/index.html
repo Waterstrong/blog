@@ -44,13 +44,14 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/config_pipeline_view.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view1.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/pipeline_view2.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/build_monitor.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/plugins_manager.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/new_node.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/add_credential.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/all_nodes.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/jenkins_cli.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/jenkins-by-step/manage_jenkins.png">
-<meta property="og:updated_time" content="2016-10-19T14:17:30.000Z">
+<meta property="og:updated_time" content="2016-10-24T15:24:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins Step by Step">
 <meta name="twitter:description" content="Jenkins是一款开源的跨平台的可扩展的持续集成工具。作为目前使用最广泛，用户量最大的CI工具，无论是在GUI操作上，插件生态系统管理，稳定性、可靠性、功能性以及扩展性等方面都表现得较为出色，而且简单易学，入门上手快。">
@@ -100,7 +101,7 @@
         
     
 
-<header id="header" data-behavior="6">
+<header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">Watersrong Blog</a>
@@ -124,7 +125,7 @@
         
     
 
-<nav id="sidebar" data-behavior="6">
+<nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -276,7 +277,7 @@
 </nav>
 
             
-            <div id="main" data-behavior="6"
+            <div id="main" data-behavior="5"
                  class="
                         hasCoverMetaIn
                         ">
@@ -357,6 +358,7 @@
 <p>配置完成后保存，可以到刚创建的View中查看，可以根据项目需要定义Pipeline Flow，正确配置Job的执行顺序和依赖关系即可。<br><em>直接Build情况的Pipeline View示例(仅供参考)：</em><br><img src="/assets/jenkins-by-step/pipeline_view1.png" alt=""></p>
 <p><em>存在参数化情况的Pipeline View示例(仅供参考)：</em><br><img src="/assets/jenkins-by-step/pipeline_view2.png" alt=""></p>
 <p>通常会用颜色来表示Job的状态：绿色代表Pass，黄色代表Building或Unstable，蓝色代表N/A未操作，红色代表Fail。如果需要查看某次Build的Log，可以点击Build编号(或在Build History查看)查看左边栏中的<code>Console Output</code>。</p>
+<p><em>除此之外，还可通过安装插件实现Monitor View，这样可以通过TV显示出当前Build的状态了：</em><br><img src="/assets/jenkins-by-step/build_monitor.png" alt=""></p>
 <h2 id="Manage-Jenkins-管理"><a href="#Manage-Jenkins-管理" class="headerlink" title="Manage Jenkins 管理"></a>Manage Jenkins 管理</h2><h5 id="Jenkins-Plugins-插件管理"><a href="#Jenkins-Plugins-插件管理" class="headerlink" title="Jenkins Plugins 插件管理"></a>Jenkins Plugins 插件管理</h5><p>Jenkins的插件生态系统管理得很好，通常需要在Workspace中安装很多的插件来实现需要的功能。可以通过<code>Manage Jenkins</code>-&gt;<code>Manage Plugins</code>进入到插件管理页面，可以执行安装、升级、删除插件等操作，通常需要重启Jenkins服务来生效你的修改。<br><img src="/assets/jenkins-by-step/plugins_manager.png" alt=""></p>
 <p>以下补充罗列一些常用的插件：</p>
 <ul>
@@ -370,6 +372,7 @@
 <li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Authorize+Project+plugin" target="_blank" rel="external">Authorize Project Plugin</a></li>
 <li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin" target="_blank" rel="external">Checkstyle Plugin</a></li>
 <li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin" target="_blank" rel="external">Parameterized Trigger Plugin</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+Monitor+Plugin" target="_blank" rel="external">Build Monitor Plugin</a></li>
 </ul>
 <h4 id="Manage-Nodes-管理节点"><a href="#Manage-Nodes-管理节点" class="headerlink" title="Manage Nodes 管理节点"></a>Manage Nodes 管理节点</h4><p>Jenkins提供了集群的能力，允许加入多个Nodes，一台Master对应多个Nodes，Master通常负责Job的Schedule和资源协调，Node通常是执行Master发放的Job并返回结果，这种模型也称Master/Slave模型。<br>当项目的Build/Deploy较多时，可以并行地执行Job任务，减少等待时间，另外，还可以根据Job依赖的环境来指定对应操作系统和构建环境的节点机器。在<code>Manage Jenkins</code>-&gt;<code>Manage Nodes</code>页面可以管理节点，首先来创建一个节点<code>New Node</code>，填写相应的<code>Remote root directory</code>和<code>Labels</code>信息，这里Launch method选择SSH方式，指定Host和Credentials，当然也可以选择其他的登录授权方式。<br><img src="/assets/jenkins-by-step/new_node.png" alt=""></p>
 <p><img src="/assets/jenkins-by-step/add_credential.png" alt=""></p>
@@ -381,8 +384,8 @@
 <p>然后可以通过命令行查看帮助，命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins-cli.jar <span class="_">-s</span> http://jenkins.xxx.net:8080/ <span class="built_in">help</span></span><br></pre></td></tr></table></figure></p>
 <p>当然也可以通过界面查看每个命令的使用帮助，在<code>Manage Jenkins</code>-&gt;<code>Jenkins CLI</code>页面查看到所有Available的命令。<br><img src="/assets/jenkins-by-step/jenkins_cli.png" alt=""></p>
 <p>如何需要了解更多，可以参考<a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI" target="_blank" rel="external">Jenkins CLI Wiki</a>。</p>
-<h4 id="其他配置管理"><a href="#其他配置管理" class="headerlink" title="其他配置管理"></a>其他配置管理</h4><p>Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择<code>Manage Jenkins</code>进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，相对也比较简单易懂，这里就不再一一列举了。<br><img src="/assets/jenkins-by-step/manage_jenkins.png" alt=""></p>
-<h2 id="Pipeline-as-Code"><a href="#Pipeline-as-Code" class="headerlink" title="Pipeline as Code"></a>Pipeline as Code</h2><p>Jenkins 2.x推出了<code>Jenkinsfile</code>来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下</p>
+<h4 id="其他配置管理"><a href="#其他配置管理" class="headerlink" title="其他配置管理"></a>其他配置管理</h4><p>Jenkins除了对插件和节点进行管理，还有系统管理、安全管理、权限配置、命令行工具、用户管理等。在主页选择<code>Manage Jenkins</code>进入到Jenkins管理页面，可以选择相应的功能进行配置，每项功能进入后都会有相关的说明，相对也比较简单易懂，这里就不再一一列举了。另外，Jenkins的默认配置文件路径为<code>/var/lib/jenkins/config.xml</code>，修改文件后可重启生效，可通过访问<code>/restart</code>路径或者在Server上执行命令<code>sudo service jenkins restart</code>。<br><img src="/assets/jenkins-by-step/manage_jenkins.png" alt=""></p>
+<h2 id="Pipeline-as-Code"><a href="#Pipeline-as-Code" class="headerlink" title="Pipeline as Code"></a>Pipeline as Code</h2><p>Jenkins 2.x推出了<code>Jenkinsfile</code>来实现将pipeline定义为代码形式目标，即Pipeline as Code，特别是在集群管理时提升了效率，但会存在一个缺点，问题在于这可能造成在GUI上进行了修改而未修改Jenkinsfile的不一致性，而且无法追踪到这样的修改，所以，如果没有特别的需求，请谨慎选择使用。有兴趣的同学可以研究一下，另外Jenkins CLI也可以尝试一下。</p>
 <h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>总得来说，Jenkins在常规的项目中使用是不错的选择，强烈推荐使用。另外，后续有时间会写一些关于GoCD，<a href="/travisci-by-step">Travis CI</a>以及Concourse CI的简单使用教程，敬请期待。</p>
 <hr>
 <p>References</p>
@@ -487,7 +490,7 @@
 
             </div>
             
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
                     <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -549,7 +552,7 @@
 
 
                 </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
     <ul class="share-options">
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/jenkins-by-step/">
