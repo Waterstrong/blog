@@ -51,25 +51,31 @@ permalink: /404
 		text-align: center;
 		margin: 0;
 	}
-	#container .article-info-post.article-info {
+	.post .post-content img {
+		height: 220px;
+		display: inline;
+		margin-bottom: -60px;
+	}
+	#container .article-info-post.article-info,
+	.post-footer, .post-meta {
   	    display: none;
   	}
 	#container .article .article-title {
 	    padding: 0;
 	}
+
 </style>
 
 ***
 
 <div class="pic">
-    <img src="/img/running.gif" title="Running">
+    <img src="/assets/images/running.gif" title="Running">
+    <p class="center">Oops!!! Page Not Found - 该页无法显示!</p>
 </div>
 
-<p class="center">Oops!!! Page Not Found - 该页无法显示!</p>
-
-<p class="center"><a href="/">Blog Home</a> · <a href="/archives">Archives</a> · <a href="/about">About</a></p>
+<p class="center"><a href="/">Blog Home</a> · <a href="/all-categories">Categories</a> · <a href="/all-tags">Tags</a> · <a href="/about">About</a></p>
 
 <div style="text-align: center">
 Enjoy the Music  (♥◠‿◠)ﾉ
-<embed src="http://music.163.com/style/swf/widget.swf?sid=27890306&type=2&auto=1&width=320&height=66" width="340" height="86" allowNetworking="all"></embed>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=240 src="http://music.163.com/outchain/player?type=0&id=497417446&auto=1&height=430"></iframe>
 </div>
