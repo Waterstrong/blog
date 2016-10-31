@@ -148,7 +148,22 @@ spring.jta.bitronix.properties.warn-about-zero-resource-transaction=true # Log a
 一个具体的Bitronix分布式事务管理示例可参见[Bitronix Demo](https://github.com/Waterstrong/spring-bitronix/tree/master/src/main/java/ws/xa/bitronix/demo)。
 
 ## 混合XA/非XA事务的JMS连接
+当使用JTA时，默认情况下，主要的JMS`ConnectionFactory`实例会被自动加入到XA资源中，并参与XA事务。如果在某些情况下，如JMS处理时间较长，超过了XA的Timeout时间，则需要在处理JMS时不使用XA的`ConnectionFactory`，只需在注入时使用`nonXaJmsConnectionFactory`即可，以下是代码示例：
+``` java
+// Inject the primary (XA aware) ConnectionFactory
+@Autowired
+private ConnectionFactory defaultConnectionFactory;
 
+// Inject the XA aware ConnectionFactory (uses the alias and injects the same as above)
+@Autowired
+@Qualifier("xaJmsConnectionFactory")
+private ConnectionFactory xaConnectionFactory;
+
+// Inject the non-XA aware ConnectionFactory
+@Autowired
+@Qualifier("nonXaJmsConnectionFactory")
+private ConnectionFactory nonXaConnectionFactory;
+```
 
 ## General Databases
 针对不同的数据库可能需要设置一些不同的参数开启XA功能，比如Postgresql，需要设置参数`max_prepared_transactions`，整型值，它决定能够同时处于prepared状态的事务的最大数目，0表示关闭prepared事务的特性，该值通常应该和max_connections的值一样大。
