@@ -25,17 +25,60 @@ Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Tra
 
 
 ## 采用Atomikos事务管理器
+Atomikos是一款JTA事务管理器的开源库，能够Embedded到Spring Boot中，可以通过添加依赖`spring-boot-starter-jta-atomikos`，然后Spring Boot会自动配置Atomikos并下载其依赖库，默认的事务日志文件会被写在项目下的`transaction-logs`文件目录下的日志文件中，可以通过配置`spring.jta.log-dir`来指定日志目录。可以设置`spring.jta.atomikos.properties`读取相应的配置文件。可以参阅完成的详细信息[AtomikosProperties Javadoc](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html)。
 
+为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Atomikos实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置`spring.jta.transaction-manager-id`为不同的值。
+
+在Spring Boot中，可以自定义在应用程序配置文件中配置[AtomikosProperties](https://github.com/spring-projects/spring-boot/tree/v1.4.1.RELEASE/spring-boot/src/main/java/org/springframework/boot/jta/atomikos/AtomikosProperties.java)参数：
+``` bash
+spring.jta.atomikos.connectionfactory.borrow-connection-timeout=30 # Timeout, in seconds, for borrowing connections from the pool.
+spring.jta.atomikos.connectionfactory.ignore-session-transacted-flag=true # Whether or not to ignore the transacted flag when creating session.
+spring.jta.atomikos.connectionfactory.local-transaction-mode=false # Whether or not local transactions are desired.
+spring.jta.atomikos.connectionfactory.maintenance-interval=60 # The time, in seconds, between runs of the pool's maintenance thread.
+spring.jta.atomikos.connectionfactory.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.
+spring.jta.atomikos.connectionfactory.max-lifetime=0 # The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.
+spring.jta.atomikos.connectionfactory.max-pool-size=1 # The maximum size of the pool.
+spring.jta.atomikos.connectionfactory.min-pool-size=1 # The minimum size of the pool.
+spring.jta.atomikos.connectionfactory.reap-timeout=0 # The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.
+spring.jta.atomikos.connectionfactory.unique-resource-name=jmsConnectionFactory # The unique name used to identify the resource during recovery.
+spring.jta.atomikos.datasource.borrow-connection-timeout=30 # Timeout, in seconds, for borrowing connections from the pool.
+spring.jta.atomikos.datasource.default-isolation-level= # Default isolation level of connections provided by the pool.
+spring.jta.atomikos.datasource.login-timeout= # Timeout, in seconds, for establishing a database connection.
+spring.jta.atomikos.datasource.maintenance-interval=60 # The time, in seconds, between runs of the pool's maintenance thread.
+spring.jta.atomikos.datasource.max-idle-time=60 # The time, in seconds, after which connections are cleaned up from the pool.
+spring.jta.atomikos.datasource.max-lifetime=0 # The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.
+spring.jta.atomikos.datasource.max-pool-size=1 # The maximum size of the pool.
+spring.jta.atomikos.datasource.min-pool-size=1 # The minimum size of the pool.
+spring.jta.atomikos.datasource.reap-timeout=0 # The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.
+spring.jta.atomikos.datasource.test-query= # SQL query or statement used to validate a connection before returning it.
+spring.jta.atomikos.datasource.unique-resource-name=dataSource # The unique name used to identify the resource during recovery.
+spring.jta.atomikos.properties.checkpoint-interval=500 # Interval between checkpoints.
+spring.jta.atomikos.properties.console-file-count=1 # Number of debug logs files that can be created.
+spring.jta.atomikos.properties.console-file-limit=-1 # How many bytes can be stored at most in debug logs files.
+spring.jta.atomikos.properties.console-file-name=tm.out # Debug logs file name.
+spring.jta.atomikos.properties.console-log-level= # Console log level.
+spring.jta.atomikos.properties.default-jta-timeout=10000 # Default timeout for JTA transactions.
+spring.jta.atomikos.properties.enable-logging=true # Enable disk logging.
+spring.jta.atomikos.properties.force-shutdown-on-vm-exit=false # Specify if a VM shutdown should trigger forced shutdown of the transaction core.
+spring.jta.atomikos.properties.log-base-dir= # Directory in which the log files should be stored.
+spring.jta.atomikos.properties.log-base-name=tmlog # Transactions log file base name.
+spring.jta.atomikos.properties.max-actives=50 # Maximum number of active transactions.
+spring.jta.atomikos.properties.max-timeout=300000 # Maximum timeout (in milliseconds) that can be allowed for transactions.
+spring.jta.atomikos.properties.output-dir= # Directory in which to store the debug log files.
+spring.jta.atomikos.properties.serial-jta-transactions=true # Specify if sub-transactions should be joined when possible.
+spring.jta.atomikos.properties.service= # Transaction manager implementation that should be started.
+spring.jta.atomikos.properties.threaded-two-phase-commit=true # Use different (and concurrent) threads for two-phase commit on the participating resources.
+spring.jta.atomikos.properties.transaction-manager-unique-name= # Transaction manager's unique name.
+```
+
+一个具体的Atomikos分布式事务管理示例可参见[Atomikos Demo](https://github.com/Waterstrong/spring-atomikos)。
 
 ## 采用Bitronix事务管理器
 Bitronix是一款JTA事务管理器的开源库，可以通过添加依赖`spring-boot-starter-jta-bitronix`，然后Spring Boot会自动配置Bitronix，默认的事务日志文件会被写在项目下的`transaction-logs`文件目录下的`part1.btm`和`part2.btm`中，可以通过配置`spring.jta.log-dir`来指定日志目录。可以设置`spring.jta.bitronix.properties`读取相应的配置文件，相当于自定义配置`bitronix.tm.configuration`实例。
 
 为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Bitronix实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置`spring.jta.transaction-manager-id`为不同的值。
 
-一个具体的Bitronix分布式事务管理示例可参见[Bitronix Demo](https://github.com/Waterstrong/spring-bitronix/tree/master/src/main/java/ws/xa/bitronix/demo)。
-
-#### Transaction Manager Configuration
-可以根据自定义需求在应用程序配置文件中配置以下参数：
+在Spring Boot集成应用中，可以根据自定义需求在应用程序配置文件中配置以下参数：
 ``` bash
 spring.jta.bitronix.connectionfactory.acquire-increment=1 # Number of connections to create when growing the pool.
 spring.jta.bitronix.connectionfactory.acquisition-interval=1 # Time, in seconds, to wait before trying to acquire a connection again after an invalid connection was acquired.
@@ -102,16 +145,18 @@ spring.jta.bitronix.properties.skip-corrupted-logs=false # Skip corrupted transa
 spring.jta.bitronix.properties.warn-about-zero-resource-transaction=true # Log a warning for transactions executed without a single
 ```
 
-#### General Databases
+一个具体的Bitronix分布式事务管理示例可参见[Bitronix Demo](https://github.com/Waterstrong/spring-bitronix/tree/master/src/main/java/ws/xa/bitronix/demo)。
+
+## 混合XA/非XA事务的JMS连接
+
+
+## General Databases
 针对不同的数据库可能需要设置一些不同的参数开启XA功能，比如Postgresql，需要设置参数`max_prepared_transactions`，整型值，它决定能够同时处于prepared状态的事务的最大数目，0表示关闭prepared事务的特性，该值通常应该和max_connections的值一样大。
 ``` apacheconf postgresql.conf
 max_prepared_transactions=30
 ```
 
 如果使用AWS的Postgresql RDS数据库，则需要在Parameter Group中设置该值，否则默认会为0，表示关闭XA功能。
-
-## 混合XA/非XA事务的JMS连接
-
 
 ----
 References
