@@ -1,0 +1,840 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>JTA实现分布式事务 - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JTA实现分布式事务">
+<meta property="og:url" content="http://blog.waterstrong.me/xa-transactions-with-jta/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
+<meta property="og:updated_time" content="2016-10-31T15:47:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JTA实现分布式事务">
+<meta name="twitter:description" content="Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/xa-transactions-with-jta/assets/common-pic/vintage1.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/xa-transactions-with-jta/assets/common-pic/vintage1.jpg" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            JTA实现分布式事务
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2016-10-18T22:05:32+08:00">
+	
+		    Oct 18, 2016
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Techniques/">Techniques</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="开门见山"><a href="#开门见山" class="headerlink" title="开门见山"></a>开门见山</h2><p>关于事务的基本概念和介绍请参阅另一篇博客<a href="/transactional-mechanism-protocol">事务处理机制与协议</a>，这里着重讲解如何在Spring中基于JTA(Java Transaction API)实现分布式事务并实践。</p>
+<p>Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有<code>Atomikos</code>和<code>Bitronix</code>，任意选择一个作为实现XA事务管理的管理器即可。</p>
+<p>接下来就分别介绍利用Spring Boot实现非XA和XA的事务处理。</p>
+<h2 id="Spring对非XA事务的实现"><a href="#Spring对非XA事务的实现" class="headerlink" title="Spring对非XA事务的实现"></a>Spring对非XA事务的实现</h2><p>使用Spring Boot实现<strong>非XA事务</strong>非常简单，只需要简单的两步即可：</p>
+<ol>
+<li>在构建脚本文件中加入依赖<code>org.springframework.boot:spring-boot-starter-jdbc</code>。</li>
+<li>无论采用基本的<code>JdbcTemplate</code>或封装的<code>JPA</code>与数据库进行交互，只需要在具体方法上加注解<code>@Transactional(org.springframework.transaction.annotation.Transactional)</code>。</li>
+</ol>
+<p>这样就将该块的操作序列当作一个事务单元进行管理，任何失败或异常都将导致所有操作序列回滚，一个具体的简单Demo可参见<a href="https://github.com/Waterstrong/spring-bitronix/tree/master/src/main/java/ws/transaction/demo" target="_blank" rel="external">Transaction Demo</a>，另外，如果注解加在类名上，则代表该类中每个方法都将作为一个事务单元被管理。</p>
+<h2 id="采用Atomikos事务管理器"><a href="#采用Atomikos事务管理器" class="headerlink" title="采用Atomikos事务管理器"></a>采用Atomikos事务管理器</h2><p>Atomikos是一款JTA事务管理器的开源库，能够Embedded到Spring Boot中，可以通过添加依赖<code>spring-boot-starter-jta-atomikos</code>，然后Spring Boot会自动配置Atomikos并下载其依赖库，默认的事务日志文件会被写在项目下的<code>transaction-logs</code>文件目录下的日志文件中，可以通过配置<code>spring.jta.log-dir</code>来指定日志目录。可以设置<code>spring.jta.atomikos.properties</code>读取相应的配置文件。可以参阅完成的详细信息AtomikosProperties<a href="http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html" target="_blank" rel="external">Javadoc</a>。</p>
+<p>为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Atomikos实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置<code>spring.jta.transaction-manager-id</code>为不同的值。</p>
+<p>在Spring Boot中，可以自定义在应用程序配置文件中配置<a href="https://github.com/spring-projects/spring-boot/tree/v1.4.1.RELEASE/spring-boot/src/main/java/org/springframework/boot/jta/atomikos/AtomikosProperties.java" target="_blank" rel="external">AtomikosProperties</a>参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">spring.jta.atomikos.connectionfactory.borrow-connection-timeout=30 <span class="comment"># Timeout, in seconds, for borrowing connections from the pool.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.ignore-session-transacted-flag=<span class="literal">true</span> <span class="comment"># Whether or not to ignore the transacted flag when creating session.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.local-transaction-mode=<span class="literal">false</span> <span class="comment"># Whether or not local transactions are desired.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.maintenance-interval=60 <span class="comment"># The time, in seconds, between runs of the pool's maintenance thread.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.max-idle-time=60 <span class="comment"># The time, in seconds, after which connections are cleaned up from the pool.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.max-lifetime=0 <span class="comment"># The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.max-pool-size=1 <span class="comment"># The maximum size of the pool.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.min-pool-size=1 <span class="comment"># The minimum size of the pool.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.reap-timeout=0 <span class="comment"># The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.</span></span><br><span class="line">spring.jta.atomikos.connectionfactory.unique-resource-name=jmsConnectionFactory <span class="comment"># The unique name used to identify the resource during recovery.</span></span><br><span class="line">spring.jta.atomikos.datasource.borrow-connection-timeout=30 <span class="comment"># Timeout, in seconds, for borrowing connections from the pool.</span></span><br><span class="line">spring.jta.atomikos.datasource.default-isolation-level= <span class="comment"># Default isolation level of connections provided by the pool.</span></span><br><span class="line">spring.jta.atomikos.datasource.login-timeout= <span class="comment"># Timeout, in seconds, for establishing a database connection.</span></span><br><span class="line">spring.jta.atomikos.datasource.maintenance-interval=60 <span class="comment"># The time, in seconds, between runs of the pool's maintenance thread.</span></span><br><span class="line">spring.jta.atomikos.datasource.max-idle-time=60 <span class="comment"># The time, in seconds, after which connections are cleaned up from the pool.</span></span><br><span class="line">spring.jta.atomikos.datasource.max-lifetime=0 <span class="comment"># The time, in seconds, that a connection can be pooled for before being destroyed. 0 denotes no limit.</span></span><br><span class="line">spring.jta.atomikos.datasource.max-pool-size=1 <span class="comment"># The maximum size of the pool.</span></span><br><span class="line">spring.jta.atomikos.datasource.min-pool-size=1 <span class="comment"># The minimum size of the pool.</span></span><br><span class="line">spring.jta.atomikos.datasource.reap-timeout=0 <span class="comment"># The reap timeout, in seconds, for borrowed connections. 0 denotes no limit.</span></span><br><span class="line">spring.jta.atomikos.datasource.test-query= <span class="comment"># SQL query or statement used to validate a connection before returning it.</span></span><br><span class="line">spring.jta.atomikos.datasource.unique-resource-name=dataSource <span class="comment"># The unique name used to identify the resource during recovery.</span></span><br><span class="line">spring.jta.atomikos.properties.checkpoint-interval=500 <span class="comment"># Interval between checkpoints.</span></span><br><span class="line">spring.jta.atomikos.properties.console-file-count=1 <span class="comment"># Number of debug logs files that can be created.</span></span><br><span class="line">spring.jta.atomikos.properties.console-file-limit=-1 <span class="comment"># How many bytes can be stored at most in debug logs files.</span></span><br><span class="line">spring.jta.atomikos.properties.console-file-name=tm.out <span class="comment"># Debug logs file name.</span></span><br><span class="line">spring.jta.atomikos.properties.console-log-level= <span class="comment"># Console log level.</span></span><br><span class="line">spring.jta.atomikos.properties.default-jta-timeout=10000 <span class="comment"># Default timeout for JTA transactions.</span></span><br><span class="line">spring.jta.atomikos.properties.enable-logging=<span class="literal">true</span> <span class="comment"># Enable disk logging.</span></span><br><span class="line">spring.jta.atomikos.properties.force-shutdown-on-vm-exit=<span class="literal">false</span> <span class="comment"># Specify if a VM shutdown should trigger forced shutdown of the transaction core.</span></span><br><span class="line">spring.jta.atomikos.properties.log-base-dir= <span class="comment"># Directory in which the log files should be stored.</span></span><br><span class="line">spring.jta.atomikos.properties.log-base-name=tmlog <span class="comment"># Transactions log file base name.</span></span><br><span class="line">spring.jta.atomikos.properties.max-actives=50 <span class="comment"># Maximum number of active transactions.</span></span><br><span class="line">spring.jta.atomikos.properties.max-timeout=300000 <span class="comment"># Maximum timeout (in milliseconds) that can be allowed for transactions.</span></span><br><span class="line">spring.jta.atomikos.properties.output-dir= <span class="comment"># Directory in which to store the debug log files.</span></span><br><span class="line">spring.jta.atomikos.properties.serial-jta-transactions=<span class="literal">true</span> <span class="comment"># Specify if sub-transactions should be joined when possible.</span></span><br><span class="line">spring.jta.atomikos.properties.service= <span class="comment"># Transaction manager implementation that should be started.</span></span><br><span class="line">spring.jta.atomikos.properties.threaded-two-phase-commit=<span class="literal">true</span> <span class="comment"># Use different (and concurrent) threads for two-phase commit on the participating resources.</span></span><br><span class="line">spring.jta.atomikos.properties.transaction-manager-unique-name= <span class="comment"># Transaction manager's unique name.</span></span><br></pre></td></tr></table></figure></p>
+<p>一个具体的Atomikos分布式事务管理示例可参见<a href="https://github.com/Waterstrong/spring-atomikos" target="_blank" rel="external">Atomikos Demo</a>。</p>
+<h2 id="采用Bitronix事务管理器"><a href="#采用Bitronix事务管理器" class="headerlink" title="采用Bitronix事务管理器"></a>采用Bitronix事务管理器</h2><p>Bitronix是一款JTA事务管理器的开源库，可以通过添加依赖<code>spring-boot-starter-jta-bitronix</code>，然后Spring Boot会自动配置Bitronix，默认的事务日志文件会被写在项目下的<code>transaction-logs</code>文件目录下的<code>part1.btm</code>和<code>part2.btm</code>中，可以通过配置<code>spring.jta.log-dir</code>来指定日志目录。可以设置<code>spring.jta.bitronix.properties</code>读取相应的配置文件，相当于自定义配置<code>bitronix.tm.configuration</code>实例。</p>
+<p>为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Bitronix实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置<code>spring.jta.transaction-manager-id</code>为不同的值。</p>
+<p>在Spring Boot集成应用中，可以根据自定义需求在应用程序配置文件中配置以下参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">spring.jta.bitronix.connectionfactory.acquire-increment=1 <span class="comment"># Number of connections to create when growing the pool.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.acquisition-interval=1 <span class="comment"># Time, in seconds, to wait before trying to acquire a connection again after an invalid connection was acquired.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.acquisition-timeout=30 <span class="comment"># Timeout, in seconds, for acquiring connections from the pool.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.allow-local-transactions=<span class="literal">true</span> <span class="comment"># Whether or not the transaction manager should allow mixing XA and non-XA transactions.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.apply-transaction-timeout=<span class="literal">false</span> <span class="comment"># Whether or not the transaction timeout should be set on the XAResource when it is enlisted.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.automatic-enlisting-enabled=<span class="literal">true</span> <span class="comment"># Whether or not resources should be enlisted and delisted automatically.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.cache-producers-consumers=<span class="literal">true</span> <span class="comment"># Whether or not produces and consumers should be cached.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.defer-connection-release=<span class="literal">true</span> <span class="comment"># Whether or not the provider can run many transactions on the same connection and supports transaction interleaving.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.ignore-recovery-failures=<span class="literal">false</span> <span class="comment"># Whether or not recovery failures should be ignored.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.max-idle-time=60 <span class="comment"># The time, in seconds, after which connections are cleaned up from the pool.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.max-pool-size=10 <span class="comment"># The maximum size of the pool. 0 denotes no limit.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.min-pool-size=0 <span class="comment"># The minimum size of the pool.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.password= <span class="comment"># The password to use to connect to the JMS provider.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.share-transaction-connections=<span class="literal">false</span> <span class="comment">#  Whether or not connections in the ACCESSIBLE state can be shared within the context of a transaction.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.test-connections=<span class="literal">true</span> <span class="comment"># Whether or not connections should be tested when acquired from the pool.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.two-pc-ordering-position=1 <span class="comment"># The position that this resource should take during two-phase commit (always first is Integer.MIN_VALUE, always last is Integer.MAX_VALUE).</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.unique-name=jmsConnectionFactory <span class="comment"># The unique name used to identify the resource during recovery.</span></span><br><span class="line">spring.jta.bitronix.connectionfactory.use-tm-join=<span class="literal">true</span> Whether or not TMJOIN should be used when starting XAResources.</span><br><span class="line">spring.jta.bitronix.connectionfactory.user= <span class="comment"># The user to use to connect to the JMS provider.</span></span><br><span class="line">spring.jta.bitronix.datasource.acquire-increment=1 <span class="comment"># Number of connections to create when growing the pool.</span></span><br><span class="line">spring.jta.bitronix.datasource.acquisition-interval=1 <span class="comment"># Time, in seconds, to wait before trying to acquire a connection again after an invalid connection was acquired.</span></span><br><span class="line">spring.jta.bitronix.datasource.acquisition-timeout=30 <span class="comment"># Timeout, in seconds, for acquiring connections from the pool.</span></span><br><span class="line">spring.jta.bitronix.datasource.allow-local-transactions=<span class="literal">true</span> <span class="comment"># Whether or not the transaction manager should allow mixing XA and non-XA transactions.</span></span><br><span class="line">spring.jta.bitronix.datasource.apply-transaction-timeout=<span class="literal">false</span> <span class="comment"># Whether or not the transaction timeout should be set on the XAResource when it is enlisted.</span></span><br><span class="line">spring.jta.bitronix.datasource.automatic-enlisting-enabled=<span class="literal">true</span> <span class="comment"># Whether or not resources should be enlisted and delisted automatically.</span></span><br><span class="line">spring.jta.bitronix.datasource.cursor-holdability= <span class="comment"># The default cursor holdability for connections.</span></span><br><span class="line">spring.jta.bitronix.datasource.defer-connection-release=<span class="literal">true</span> <span class="comment"># Whether or not the database can run many transactions on the same connection and supports transaction interleaving.</span></span><br><span class="line">spring.jta.bitronix.datasource.enable-jdbc4-connection-test= <span class="comment"># Whether or not Connection.isValid() is called when acquiring a connection from the pool.</span></span><br><span class="line">spring.jta.bitronix.datasource.ignore-recovery-failures=<span class="literal">false</span> <span class="comment"># Whether or not recovery failures should be ignored.</span></span><br><span class="line">spring.jta.bitronix.datasource.isolation-level= <span class="comment"># The default isolation level for connections.</span></span><br><span class="line">spring.jta.bitronix.datasource.local-auto-commit= <span class="comment"># The default auto-commit mode for local transactions.</span></span><br><span class="line">spring.jta.bitronix.datasource.login-timeout= <span class="comment"># Timeout, in seconds, for establishing a database connection.</span></span><br><span class="line">spring.jta.bitronix.datasource.max-idle-time=60 <span class="comment"># The time, in seconds, after which connections are cleaned up from the pool.</span></span><br><span class="line">spring.jta.bitronix.datasource.max-pool-size=10 <span class="comment"># The maximum size of the pool. 0 denotes no limit.</span></span><br><span class="line">spring.jta.bitronix.datasource.min-pool-size=0 <span class="comment"># The minimum size of the pool.</span></span><br><span class="line">spring.jta.bitronix.datasource.prepared-statement-cache-size=0 <span class="comment"># The target size of the prepared statement cache. 0 disables the cache.</span></span><br><span class="line">spring.jta.bitronix.datasource.share-transaction-connections=<span class="literal">false</span> <span class="comment">#  Whether or not connections in the ACCESSIBLE state can be shared within the context of a transaction.</span></span><br><span class="line">spring.jta.bitronix.datasource.test-query= <span class="comment"># SQL query or statement used to validate a connection before returning it.</span></span><br><span class="line">spring.jta.bitronix.datasource.two-pc-ordering-position=1 <span class="comment"># The position that this resource should take during two-phase commit (always first is Integer.MIN_VALUE, always last is Integer.MAX_VALUE).</span></span><br><span class="line">spring.jta.bitronix.datasource.unique-name=dataSource <span class="comment"># The unique name used to identify the resource during recovery.</span></span><br><span class="line">spring.jta.bitronix.datasource.use-tm-join=<span class="literal">true</span> Whether or not TMJOIN should be used when starting XAResources.</span><br><span class="line">spring.jta.bitronix.properties.allow-multiple-lrc=<span class="literal">false</span> <span class="comment"># Allow multiple LRC resources to be enlisted into the same transaction.</span></span><br><span class="line">spring.jta.bitronix.properties.asynchronous2-pc=<span class="literal">false</span> <span class="comment"># Enable asynchronously execution of two phase commit.</span></span><br><span class="line">spring.jta.bitronix.properties.background-recovery-interval-seconds=60 <span class="comment"># Interval in seconds at which to run the recovery process in the background.</span></span><br><span class="line">spring.jta.bitronix.properties.current-node-only-recovery=<span class="literal">true</span> <span class="comment"># Recover only the current node.</span></span><br><span class="line">spring.jta.bitronix.properties.debug-zero-resource-transaction=<span class="literal">false</span> <span class="comment"># Log the creation and commit call stacks of transactions executed without a single enlisted resource.</span></span><br><span class="line">spring.jta.bitronix.properties.default-transaction-timeout=60 <span class="comment"># Default transaction timeout in seconds.</span></span><br><span class="line">spring.jta.bitronix.properties.disable-jmx=<span class="literal">false</span> <span class="comment"># Enable JMX support.</span></span><br><span class="line">spring.jta.bitronix.properties.exception-analyzer= <span class="comment"># Set the fully qualified name of the exception analyzer implementation to use.</span></span><br><span class="line">spring.jta.bitronix.properties.filter-log-status=<span class="literal">false</span> <span class="comment"># Enable filtering of logs so that only mandatory logs are written.</span></span><br><span class="line">spring.jta.bitronix.properties.force-batching-enabled=<span class="literal">true</span> <span class="comment">#  Set if disk forces are batched.</span></span><br><span class="line">spring.jta.bitronix.properties.forced-write-enabled=<span class="literal">true</span> <span class="comment"># Set if logs are forced to disk.</span></span><br><span class="line">spring.jta.bitronix.properties.graceful-shutdown-interval=60 <span class="comment"># Maximum amount of seconds the TM will wait for transactions to get done before aborting them at shutdown time.</span></span><br><span class="line">spring.jta.bitronix.properties.jndi-transaction-synchronization-registry-name= <span class="comment"># JNDI name of the TransactionSynchronizationRegistry.</span></span><br><span class="line">spring.jta.bitronix.properties.jndi-user-transaction-name= <span class="comment"># JNDI name of the UserTransaction.</span></span><br><span class="line">spring.jta.bitronix.properties.journal=disk <span class="comment"># Name of the journal. Can be 'disk', 'null' or a class name.</span></span><br><span class="line">spring.jta.bitronix.properties.log-part1-filename=btm1.tlog <span class="comment"># Name of the first fragment of the journal.</span></span><br><span class="line">spring.jta.bitronix.properties.log-part2-filename=btm2.tlog <span class="comment"># Name of the second fragment of the journal.</span></span><br><span class="line">spring.jta.bitronix.properties.max-log-size-in-mb=2 <span class="comment"># Maximum size in megabytes of the journal fragments.</span></span><br><span class="line">spring.jta.bitronix.properties.resource-configuration-filename= <span class="comment"># ResourceLoader configuration file name.</span></span><br><span class="line">spring.jta.bitronix.properties.server-id= <span class="comment"># ASCII ID that must uniquely identify this TM instance. Default to the machine's IP address.</span></span><br><span class="line">spring.jta.bitronix.properties.skip-corrupted-logs=<span class="literal">false</span> <span class="comment"># Skip corrupted transactions log entries.</span></span><br><span class="line">spring.jta.bitronix.properties.warn-about-zero-resource-transaction=<span class="literal">true</span> <span class="comment"># Log a warning for transactions executed without a single</span></span><br></pre></td></tr></table></figure></p>
+<p>一个具体的Bitronix分布式事务管理示例可参见<a href="https://github.com/Waterstrong/spring-bitronix/tree/master/src/main/java/ws/xa/bitronix/demo" target="_blank" rel="external">Bitronix Demo</a>。</p>
+<h2 id="混合XA-非XA事务的JMS连接"><a href="#混合XA-非XA事务的JMS连接" class="headerlink" title="混合XA/非XA事务的JMS连接"></a>混合XA/非XA事务的JMS连接</h2><p>当使用JTA时，默认情况下，主要的JMS<code>ConnectionFactory</code>实例会被自动加入到XA资源中，并参与XA事务。如果在某些情况下，如JMS处理时间较长，超过了XA的Timeout时间，则需要在处理JMS时不使用XA的<code>ConnectionFactory</code>，只需在注入时使用<code>nonXaJmsConnectionFactory</code>即可，以下是代码示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Inject the primary (XA aware) ConnectionFactory</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ConnectionFactory defaultConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Inject the XA aware ConnectionFactory (uses the alias and injects the same as above)</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"xaJmsConnectionFactory"</span>)</span><br><span class="line"><span class="keyword">private</span> ConnectionFactory xaConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Inject the non-XA aware ConnectionFactory</span></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"nonXaJmsConnectionFactory"</span>)</span><br><span class="line"><span class="keyword">private</span> ConnectionFactory nonXaConnectionFactory;</span><br></pre></td></tr></table></figure></p>
+<h2 id="General-Databases"><a href="#General-Databases" class="headerlink" title="General Databases"></a>General Databases</h2><p>针对不同的数据库可能需要设置一些不同的参数开启XA功能，比如Postgresql，需要设置参数<code>max_prepared_transactions</code>，整型值，它决定能够同时处于prepared状态的事务的最大数目，0表示关闭prepared事务的特性，该值通常应该和max_connections的值一样大。<br><figure class="highlight apacheconf"><figcaption><span>postgresql.conf</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">max_prepared_transactions</span>=30</span><br></pre></td></tr></table></figure></p>
+<p>如果使用AWS的Postgresql RDS数据库，则需要在Parameter Group中设置该值，否则默认会为0，表示关闭XA功能。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-jta.html" target="_blank" rel="external">Spring Distributed Transactions with JTA</a></li>
+<li><a href="https://www.atomikos.com/" target="_blank" rel="external">Atomikos Home</a></li>
+<li><a href="http://docs.spring.io/spring-boot/docs/1.3.3.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html" target="_blank" rel="external">Class AtomikosProperties</a></li>
+<li><a href="https://github.com/bitronix/btm" target="_blank" rel="external">Home of Bitronix JTA Transaction Manager</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/tree/v1.3.3.RELEASE/spring-boot/src/main/java/org/springframework/boot/jta" target="_blank" rel="external">Spring Boot JTA Code on GitHub</a></li>
+<li><a href="https://spring.io/guides/gs/managing-transactions/" target="_blank" rel="external">Managing Transactions</a></li>
+<li><a href="http://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html#commit_transactions" target="_blank" rel="external">Using Transactions</a></li>
+<li><a href="http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html" target="_blank" rel="external">Common application properties</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Atomikos/">Atomikos</a> <a class="tag tag--primary tag--small t-link" href="/tags/Bitronix/">Bitronix</a> <a class="tag tag--primary tag--small t-link" href="/tags/JTA/">JTA</a> <a class="tag tag--primary tag--small t-link" href="/tags/Spring-Boot/">Spring Boot</a> <a class="tag tag--primary tag--small t-link" href="/tags/分布式事务/">分布式事务</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/groovy-sql-batch/" data-tooltip="Groovy SQL Batch">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="xa-transactions-with-jta/"
+     data-title="JTA实现分布式事务" data-url="http://blog.waterstrong.me/xa-transactions-with-jta/">
+</div>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/groovy-sql-batch/" data-tooltip="Groovy SQL Batch">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.waterstrong.me/xa-transactions-with-jta/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                25 posts found
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
+
+
+
+    </body>
+</html>

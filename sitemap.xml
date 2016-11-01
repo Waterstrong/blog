@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/xa-transactions-with-jta/</loc>
+    
+    <lastmod>2016-10-31T15:47:31.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me//404.html</loc>
     
-    <lastmod>2016-10-30T11:23:29.000Z</lastmod>
+    <lastmod>2016-10-30T11:23:56.000Z</lastmod>
     
   </url>
   
@@ -191,14 +198,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
