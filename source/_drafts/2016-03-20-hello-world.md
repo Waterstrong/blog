@@ -26,3 +26,21 @@ Categories:
 - Libraries
 
 Which category should database be assigned to?
+
+```
+apacheconf
+bash
+java
+gradle
+groovy
+xml
+cpp
+c
+javascript
+markdown
+json
+python
+scale
+yaml
+sql
+```

@@ -2,7 +2,7 @@
 title: JTA实现分布式事务
 date: 2016-10-18 22:05:32
 category: Techniques
-tags: [分布式事务, JTA, Bitronix, Spring Boot]
+tags: [分布式事务, JTA, Bitronix, Atomikos, Spring Boot]
 thumbnailImage: /assets/common-pic/vintage1.jpg
 description: Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。
 published: true
@@ -25,7 +25,7 @@ Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Tra
 
 
 ## 采用Atomikos事务管理器
-Atomikos是一款JTA事务管理器的开源库，能够Embedded到Spring Boot中，可以通过添加依赖`spring-boot-starter-jta-atomikos`，然后Spring Boot会自动配置Atomikos并下载其依赖库，默认的事务日志文件会被写在项目下的`transaction-logs`文件目录下的日志文件中，可以通过配置`spring.jta.log-dir`来指定日志目录。可以设置`spring.jta.atomikos.properties`读取相应的配置文件。可以参阅完成的详细信息[AtomikosProperties Javadoc](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html)。
+Atomikos是一款JTA事务管理器的开源库，能够Embedded到Spring Boot中，可以通过添加依赖`spring-boot-starter-jta-atomikos`，然后Spring Boot会自动配置Atomikos并下载其依赖库，默认的事务日志文件会被写在项目下的`transaction-logs`文件目录下的日志文件中，可以通过配置`spring.jta.log-dir`来指定日志目录。可以设置`spring.jta.atomikos.properties`读取相应的配置文件。可以参阅完成的详细信息AtomikosProperties [Javadoc](http://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html)。
 
 为了保证多个事务管理器能够正常安全地协调相同的资源管理器，每一个Atomikos实例必须配置一个唯一的ID，默认值为当前所在机器IP，通常在产品环境中，可以为每个应用程序实例配置`spring.jta.transaction-manager-id`为不同的值。
 
