@@ -176,6 +176,7 @@ max_prepared_transactions=30
 ----
 References
 
+* [Transaction Management](http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/transaction.html)
 * [Spring Distributed Transactions with JTA](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-jta.html)
 * [Atomikos Home](https://www.atomikos.com/)
 * [Class AtomikosProperties](http://docs.spring.io/spring-boot/docs/1.3.3.RELEASE/api/org/springframework/boot/jta/atomikos/AtomikosProperties.html)
