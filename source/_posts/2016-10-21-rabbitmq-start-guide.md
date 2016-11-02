@@ -9,21 +9,13 @@ published: true
 ---
 
 ## RabbitMQ基本介绍
-#### 什么是RabbitMQ？
 RabbitMQ(Rabbit Message Queue)，即Rabbit消息队列，它是一款开源消息队列系统，采用Erlang语言开发，RabbitMQ是[AMQP(Advanced Message Queueing Protocol)](https://spring.io/understanding/AMQP)的标准实现。
 
 AMQP是一个公开发布的异步消息的规范，是提供统一消息服务的应用层标准**高级消息队列协议**，为面向消息的中间件设计，相对于[JMS(Java Message Service)](https://en.wikipedia.org/wiki/Java_Message_Service)规范来说，JMS使用的是特定的APIs，而消息格式可自由定义，而AMQP对消息的格式和传输是有要求的，但实现不会受操作系统、开发语言以及平台等的限制。
 
 JMS和AMQP还有一个较大的区别：JMS有队列(Queues)和主题(Topics)两种形式，发送到JMS队列的消息最多只能被一个Client消费，发送到JMS主题的消息可能会被多个Clients消费；AMQP只有队列(Queues)，队列的消息只能被单个接受者消费，发送者并不直接把消息发送到队列中，而是发送到Exchange中，该Exchage会与一个或多个队列绑定，能够实现与JMS队列和主题同样的功能。
-#### 为什么用RabbitMQ？
 
-
-#### 什么场景用RabbitMQ？
-
-
-优点缺点
-应用场景
-使用范围
+RabbitMQ的主要宣传点在于其健壮性好、易于使用、高性能、高并发、集群易扩展以及强大的开源社区支持，鉴于些，在实际项目中使用还是比较可靠有价值的。接下来就介绍一下RabbitMQ从安装到简单示例的入门教程。
 
 ## RabbitMQ下载安装
 这里提供三种方式下载并安装RabbitMQ Server：
@@ -48,20 +40,19 @@ rabbitmq:
 
 ## RabbitMQ入门使用
 
-以Java为例集成RabbitMQ，并使用其各项功能，以下大部分入门示例都出自[官网教程](http://www.rabbitmq.com/getstarted.html)。
+以Java为例集成RabbitMQ，针对不同的应用场景使用其对应的功能，以下大部分入门示例都出自[官网教程](http://www.rabbitmq.com/getstarted.html)。
 
-#### Simple Queue
+#### 应用场景一：Simple Queue “Hello Word”
 
-#### Work Queues
+#### 应用场景二：Work Queues
 
-#### Publish/Subscribe
+#### 应用场景三：Publish/Subscribe
 
-#### Routing
+#### 应用场景四：Routing
 
-#### Topics
+#### 应用场景五：Topics
 
-#### RPC
-RPC(Remote procedure call)
+#### 应用场景六：RPC(Remote procedure call)
 
 
 fanout, headers, topic, direct
