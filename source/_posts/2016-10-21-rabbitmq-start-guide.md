@@ -9,6 +9,17 @@ published: true
 ---
 
 ## RabbitMQ基本介绍
+#### 什么是RabbitMQ？
+RabbitMQ(Rabbit Message Queue)，即Rabbit消息队列，它是一款开源消息队列系统，采用Erlang语言开发，RabbitMQ是[AMQP(Advanced Message Queueing Protocol)](https://spring.io/understanding/AMQP)的标准实现。
+
+AMQP是一个公开发布的异步消息的规范，是提供统一消息服务的应用层标准**高级消息队列协议**，为面向消息的中间件设计，相对于[JMS(Java Message Service)](https://en.wikipedia.org/wiki/Java_Message_Service)规范来说，JMS使用的是特定的APIs，而消息格式可自由定义，而AMQP对消息的格式和传输是有要求的，但实现不会受操作系统、开发语言以及平台等的限制。
+
+JMS和AMQP还有一个较大的区别：JMS有队列(Queues)和主题(Topics)两种形式，发送到JMS队列的消息最多只能被一个Client消费，发送到JMS主题的消息可能会被多个Clients消费；AMQP只有队列(Queues)，队列的消息只能被单个接受者消费，发送者并不直接把消息发送到队列中，而是发送到Exchange中，该Exchage会与一个或多个队列绑定，能够实现与JMS队列和主题同样的功能。
+#### 为什么用RabbitMQ？
+
+
+#### 什么场景用RabbitMQ？
+
 
 优点缺点
 应用场景
@@ -33,6 +44,7 @@ rabbitmq:
     - "15672:15672"
 ```
 
+在安装完成并启动服务后，可通过访问[http://localhost:15672](http://localhost:15672)测试，默认用户名和密码是`guest`。
 
 ## RabbitMQ入门使用
 
@@ -58,10 +70,12 @@ Durability: Durable/Transient
 
 
 ## The End 结束语
-
+本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客[RabbitMQ进阶指南](/rabbitmq-prfessional)了解更多精彩内容。
 
 ----
 References
 
-* [RabbitMQ官网](http://www.rabbitmq.com/)
-* [RabbitMQ教程](http://www.rabbitmq.com/getstarted.html)
+* [RabbitMQ Home](http://www.rabbitmq.com/)
+* [RabbitMQ Tutorials](http://www.rabbitmq.com/getstarted.html)
+* [Understanding AMQP](https://spring.io/understanding/AMQP)
+* [Messaging with RabbitMQ](https://spring.io/guides/gs/messaging-rabbitmq/)
