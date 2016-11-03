@@ -3,8 +3,8 @@ title: RabbitMQ项目实践应用 - 发布订阅模式
 date: 2016-11-01 23:26:31
 category: Frameworks
 tags: [AMQP, RabbitMQ, Message, Topic, Exchange, Queue]
-thumbnailImage: /assets/rabbitmq-guide/rabbitmq_logo.png
-description: 利用RabbitMQ解决项目中实际需求问题
+thumbnailImage: /assets/rabbitmq-guide/publish_thumbnail.png
+description: 当前有一个源系统G，主要存储大量数据，每条数据以唯一的ID标识，该系统每天会不定时处理一些合并数据的操作，出于某些需求原因，同时还有若干下游子系统A。
 published: true
 ---
 
@@ -240,9 +240,9 @@ rabbitmq:
 ##### 全局事务处理
 既然这里涉及到消息机制和数据库的操作，必定需要考虑全局事务提交和回滚的情况，如果对事务还不太了解可以参阅之前的博客 [JTA实现分布式事务](/xa-transactions-with-jta) 和 [事务处理机制与协议](/transactional-mechanism-protocol)。在Spring Boot项目中，除了添加`spring-boot-starter-amqp`和`spring-boot-starter-data-jpa`依赖支持RabbitMQ消息和JPA数据库操作外，还需要添加`spring-boot-starter-jta-bitronix`依赖引入`Bitronix`支持全局事务机制，这样`DataSource`和`ConnectionFactory`会默认被加入到XA资源管理中。
 
-当子系统收到消息处理后，在准备保存数据库时发生了异常，消息和数据库都会被回滚，如果配置了`DefaultRequeueRejected`为`false`，消息会被立即丢弃或转到其他Queue上，当然可以在丢弃之前记录下消息日志或进行异常处理，若该值默认为`true`，假设没有特殊的配置，消息都会一直保留在当前Queue中，应用程序会一直不停地读取消息，这样会阻塞后续的消息，因此必须设置消息在一定的重试次数后才被丢弃，一种常用的手段是为当前Queue配置`dead-letter-exchange`和`message-ttl`：
+当子系统收到消息处理后，在准备保存数据库时发生了异常，消息和数据库都会被回滚，如果配置了`DefaultRequeueRejected`为`false`，消息会被立即丢弃或转到其他Queue上，当然可以在丢弃之前记录下日志或进行异常处理，该值默认会为`true`，假设没有特殊配置，消息都会一直保留在当前Queue中，应用程序会一直不停读取消息，这样会阻塞后续的消息，因此必须设置消息在一定的重试次数后应被丢弃，一种常用的手段是为当前Queue配置`message-ttl`和`dead-letter-exchange`实现消息的超时和转发。
+- message-ttl：一个消息在Queue上可以停留的时间，如果消息在规定时间内未消费将被视为超时过期并丢弃，时间单位为毫秒。
 - dead-letter-exchange：可以为当前Queue配置某个Exchange或Queue，当消息被拒绝或过期时，消息会被转发到配置的Exchange上。
-- message-ttl：一个消息在Queue上可以停留的时间，如果消息在规定时间内未消费将被视为过期并丢弃，时间单位为毫秒。
 
 如果配置了`dead-letter-exchange`，那么可以设置在一定时间后再将消息以同样的形式返回到当前的Queue中，这样就实现了重试的机制，但该方法需要在消息头中记录重试的次数并用程序判断次数，以防止无限循环。
 

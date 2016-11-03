@@ -3,7 +3,7 @@ title: RabbitMQ入门指南
 date: 2016-10-21 22:55:14
 category: Frameworks
 tags: [AMQP, RabbitMQ, Message, Topic, Exchange, Queue]
-thumbnailImage: /assets/rabbitmq-guide/rabbitmq_logo.png
+thumbnailImage: /assets/rabbitmq-guide/overview_thumbnail.png
 description: RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。
 published: true
 ---
@@ -37,6 +37,7 @@ rabbitmq:
 ```
 
 在安装完成并启动服务后，可通过访问[http://localhost:15672](http://localhost:15672)测试，默认用户名和密码是`guest`。
+![](/assets/rabbitmq-guide/overview_totals.png)
 
 ### RabbitMQ入门使用
 
