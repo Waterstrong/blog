@@ -23,17 +23,18 @@
 <meta property="og:url" content="http://blog.waterstrong.me/rabbitmq-start-guide/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
 <meta property="og:description" content="RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/overview_totals.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/simple_queue.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/work_queues.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/publish_subscribe.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/routing.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/topics.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/rpc.png">
-<meta property="og:updated_time" content="2016-11-02T17:18:21.000Z">
+<meta property="og:updated_time" content="2016-11-03T15:35:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ入门指南">
 <meta name="twitter:description" content="RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。">
-<meta name="twitter:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/simple_queue.png">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/overview_totals.png">
 <meta name="twitter:creator" content="@shuiqianglin">
     
     
@@ -43,8 +44,8 @@
         <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
     
     
-        <meta property="og:image" content="http://blog.waterstrong.me/rabbitmq-start-guide/assets/rabbitmq-guide/rabbitmq_logo.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/rabbitmq-start-guide/assets/rabbitmq-guide/rabbitmq_logo.png" />
+        <meta property="og:image" content="http://blog.waterstrong.me/rabbitmq-start-guide/assets/rabbitmq-guide/overview_thumbnail.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/rabbitmq-start-guide/assets/rabbitmq-guide/overview_thumbnail.png" />
     
     
     
@@ -303,7 +304,7 @@
 <figure class="highlight yml"><figcaption><span>docker-compose.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line"><span class="attr">  image:</span> rabbitmq:management</span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"5672:5672"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"15672:15672"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>在安装完成并启动服务后，可通过访问<a href="http://localhost:15672" target="_blank" rel="external">http://localhost:15672</a>测试，默认用户名和密码是<code>guest</code>。</p>
+<p>在安装完成并启动服务后，可通过访问<a href="http://localhost:15672" target="_blank" rel="external">http://localhost:15672</a>测试，默认用户名和密码是<code>guest</code>。<br><img src="/assets/rabbitmq-guide/overview_totals.png" alt=""></p>
 <h3 id="RabbitMQ入门使用"><a href="#RabbitMQ入门使用" class="headerlink" title="RabbitMQ入门使用"></a>RabbitMQ入门使用</h3><p>以Java为例集成RabbitMQ，针对不同应用场景使用其对应的功能，以下入门示例都出自<a href="http://www.rabbitmq.com/getstarted.html" target="_blank" rel="external">官网教程</a>。</p>
 <h5 id="应用场景一：Simple-Queue-“Hello-Word”"><a href="#应用场景一：Simple-Queue-“Hello-Word”" class="headerlink" title="应用场景一：Simple Queue “Hello Word”"></a>应用场景一：Simple Queue “Hello Word”</h5><p>一个<strong>P</strong>roducer发送消息到Queue中，一个<strong>C</strong>onsumer从Queue读取消息并打印。<br><img src="/assets/rabbitmq-guide/simple_queue.png" alt=""><br>有兴趣可参阅示例代码：<a href="https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/helloWorld" target="_blank" rel="external">Hello World Demo</a>。</p>
 <h5 id="应用场景二：Work-Queues"><a href="#应用场景二：Work-Queues" class="headerlink" title="应用场景二：Work Queues"></a>应用场景二：Work Queues</h5><p>将消息分配给多个Consumer进行处理，可以避免在执行资源密集性任务时同步处理导致阻塞等待的问题，从而在一定程度上提升并行能力，通常称该类Consumer为Work，多个Work在后台接收分配到的任务并处理。<br><img src="/assets/rabbitmq-guide/work_queues.png" alt=""></p>
@@ -338,7 +339,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/AMQP/">AMQP</a> <a class="tag tag--primary tag--small t-link" href="/tags/Message/">Message</a> <a class="tag tag--primary tag--small t-link" href="/tags/Queue/">Queue</a> <a class="tag tag--primary tag--small t-link" href="/tags/RabbitMQ/">RabbitMQ</a> <a class="tag tag--primary tag--small t-link" href="/tags/Topic/">Topic</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/AMQP/">AMQP</a> <a class="tag tag--primary tag--small t-link" href="/tags/Exchange/">Exchange</a> <a class="tag tag--primary tag--small t-link" href="/tags/Message/">Message</a> <a class="tag tag--primary tag--small t-link" href="/tags/Queue/">Queue</a> <a class="tag tag--primary tag--small t-link" href="/tags/RabbitMQ/">RabbitMQ</a> <a class="tag tag--primary tag--small t-link" href="/tags/Topic/">Topic</a>
 
             </div>
         
@@ -347,7 +348,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/rabbitmq-in-project/"  data-tooltip="RabbitMQ项目实践应用 - 发布订阅模式">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -429,7 +430,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/rabbitmq-in-project/"  data-tooltip="RabbitMQ项目实践应用 - 发布订阅模式">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -822,7 +823,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                26 posts found
+                27 posts found
             </p>
         </div>
     </div>

@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/rabbitmq-in-project/</loc>
+    
+    <lastmod>2016-11-03T15:41:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/rabbitmq-start-guide/</loc>
     
-    <lastmod>2016-11-02T17:18:21.000Z</lastmod>
+    <lastmod>2016-11-03T15:35:51.000Z</lastmod>
     
   </url>
   
