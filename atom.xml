@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-11-04T00:58:31.000Z</updated>
+  <updated>2016-11-04T03:47:57.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/rabbitmq-in-project/"/>
     <id>http://blog.waterstrong.me/rabbitmq-in-project/</id>
     <published>2016-11-01T15:26:31.000Z</published>
-    <updated>2016-11-04T00:58:31.000Z</updated>
+    <updated>2016-11-04T03:47:57.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;一、需求描述&quot;&gt;&lt;a href=&quot;#一、需求描述&quot; class=&quot;headerlink&quot; title=&quot;一、需求描述&quot;&gt;&lt;/a&gt;一、需求描述&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;背景&lt;/strong&gt;&lt;br&gt;&lt;em&gt;当前有一个源系统G，主要存储大量数据，每条数据以唯一的ID标识，该系统每天会不定时处理一些合并数据的操作，出于某些需求原因，同时还有若干下游子系统A，其中保存了源系统数据的主键ID。&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;需求&lt;/strong&gt;&lt;/p&gt;
@@ -32,7 +32,7 @@
 &lt;h3 id=&quot;二、解决方案&quot;&gt;&lt;a href=&quot;#二、解决方案&quot; class=&quot;headerlink&quot; title=&quot;二、解决方案&quot;&gt;&lt;/a&gt;二、解决方案&lt;/h3&gt;&lt;p&gt;考虑到解耦，比较理想的方案是采用消息机制来实现，可以通过将源系统G的合并操作转化为消息发送给一个Exchange，然后由Exchange分发给每个下游子系统对应的Queue，由子系统各自独立处理并维护队列消息，这样，当增加一个子系统时，只需要添加一个Queue并绑定到Exchange上即可，很符合发布订阅模式，可以参阅之前博客 &lt;a href=&quot;/rabbitmq-start-guide&quot;&gt;RabbitMQ入门指南&lt;/a&gt; 中的场景三。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/publish_subscribe.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;三、方案实施&quot;&gt;&lt;a href=&quot;#三、方案实施&quot; class=&quot;headerlink&quot; title=&quot;三、方案实施&quot;&gt;&lt;/a&gt;三、方案实施&lt;/h3&gt;&lt;h5 id=&quot;管理RabbitMQ服务&quot;&gt;&lt;a href=&quot;#管理RabbitMQ服务&quot; class=&quot;headerlink&quot; title=&quot;管理RabbitMQ服务&quot;&gt;&lt;/a&gt;管理RabbitMQ服务&lt;/h5&gt;&lt;p&gt;在完成安装RabbitMQ后即可开始使用，这里采用虚拟机中Docker启动服务的方式，当前的虚拟机IP地址为&lt;code&gt;192.168.56.105&lt;/code&gt;，在后续的配置和访问中都会用到。通常在程序中用代码实现创建并绑定Exchange和Queue，但为了将Queue的管理和访问权限分离开来，这里采用事先创建Exchange和Queue，然后程序只负责配置连接访问对应的Exchange和Queue的方式。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;首先登录到&lt;a href=&quot;http://192.168.99.100:15672&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.99.100:15672&lt;/a&gt;，默认用户名和密码为&lt;code&gt;guest&lt;/code&gt;。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/overview_totals2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;首先登录到&lt;a href=&quot;http://192.168.99.100:15672&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.56.105:15672&lt;/a&gt;，默认用户名和密码为&lt;code&gt;guest&lt;/code&gt;。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/overview_totals2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;选择【channel】页，创建多个Queues，分别命名为&lt;code&gt;DEV.MESSAGE.QUEUE.APP1&lt;/code&gt;, &lt;code&gt;...APP2&lt;/code&gt;和&lt;code&gt;...APP3&lt;/code&gt;。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/queues.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
