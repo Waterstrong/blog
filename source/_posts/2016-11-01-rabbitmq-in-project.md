@@ -22,8 +22,21 @@ published: true
 ![](/assets/rabbitmq-guide/publish_subscribe.png)
 
 ### 三、方案实施
-##### 配置RabbitMQ服务器
+##### 管理RabbitMQ服务
+在完成安装RabbitMQ后即可开始使用，这里采用虚拟机中Docker启动服务的方式，当前的虚拟机IP地址为`192.168.56.105`，在后续的配置和访问中都会用到。通常在程序中用代码实现创建并绑定Exchange和Queue，但为了将Queue的管理和访问权限分离开来，这里采用事先创建Exchange和Queue，然后程序只负责配置连接访问对应的Exchange和Queue的方式。
+1. 首先登录到[http://192.168.99.100:15672](http://192.168.99.100:15672)，默认用户名和密码为`guest`。
+![](/assets/rabbitmq-guide/overview_totals2.png)
 
+2. 选择【channel】页，创建多个Queues，分别命名为`DEV.MESSAGE.QUEUE.APP1`, `...APP2`和`...APP3`。
+![](/assets/rabbitmq-guide/queues.png)
+
+3. 选择【exchanges】页，创建`topic`类型的Exchange，命名为`DEV.MESSAGE.TOPIC.MAIN`。
+![](/assets/rabbitmq-guide/exchanges.png)
+
+4. 选择并点击【DEV.MESSAGE.TOPIC.MAIN】条目，进入详细页面，选择【Bindings】，将步骤2中的Queues绑定到该Exchange上。
+![](/assets/rabbitmq-guide/exchanges_topic.png)
+
+这样，Exchange和Queue的创建及绑定工作就完成了，接下来需要分别完成发送者和接收者的代码。
 
 ##### 源系统发送消息
 发送消息需要配置`ConnectionFactory`关联到RabbitMQ服务，然后通过`RabbitTemplate`发送消息到连接的Exchange中，这里选取`topic`类型作为示例讲解，如果只是单纯的广播，采用最基本的`fanout`类型也可以满足当前需求的，请根据项目的实际情况选用Exchange类型。
