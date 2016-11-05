@@ -74,7 +74,7 @@ rabbitmq:
 有兴趣可参阅示例代码：[Topics Demo](https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/topics)。
 
 ##### 应用场景六：RPC(Remote procedure call)
-在前面的场景二中，能够实现使用*Work Queues*分发处理运算任务，但如果需要将任务发送到远程服务器上执行处理，然后等待返回运算结果呢？那就需要RPC远程过程回调了。这里描述的场景将和之前的完全不一样，需要构建一个Client和RPC Server，Client作为远程调用的发时携起者发送请求到`rpc_queue`上，RPC Server接收到请求后执行处理函数并将运算结果返回给`Callback Queue`，Client就可以接收到对应`correlationId`的返回结果了。
+在前面的场景二中，能够实现使用*Work Queues*分发处理运算任务，但如果需要将任务发送到远程服务器上执行处理，然后等待返回运算结果呢？那就需要RPC远程过程回调了。这里描述的场景将和之前的完全不一样，需要构建一个Client和RPC Server，Client作为远程调用的发起者携带一些如`reply_to`,`correlation_id`等的特定信息发送请求到`rpc_queue`上，RPC Server接收到请求后执行处理函数并将运算结果返回给`Callback Queue`，Client就可以接收到对应`correlationId`的返回结果了。
 ![](/assets/rabbitmq-guide/rpc.png)
 
 
