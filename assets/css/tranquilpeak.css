@@ -2293,6 +2293,20 @@ a.fancybox {
 .post-actions-wrap .bdshare-button-style2-24 a:hover {
   opacity: 1; }
 
+.share-options-bar .bdshare-button-style2-24 a, .share-options-bar .bdshare-button-style2-24 .bds_more {
+  float: none;
+  line-height: 26px;
+  padding: 8px 15px;
+  font-size: 16px;
+  height: auto;
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+  background-image: none; }
+
+.share-options-bar .bdshare-button-style2-24 a:hover {
+  opacity: 1; }
+
 a.tag,
 .tag {
   display: inline-block;
