@@ -79,7 +79,7 @@ rabbitmq:
 
 
 ### The End 结束语
-本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客[RabbitMQ进阶指南](/rabbitmq-prfessional)了解更多精彩内容。
+本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客[RabbitMQ进阶指南](/rabbitmq-professional)了解更多精彩内容。
 
 ----
 References

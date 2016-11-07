@@ -23,7 +23,7 @@ published: true
 
 ### 三、方案实施
 ##### 管理RabbitMQ服务
-在完成安装RabbitMQ后即可开始使用，这里采用虚拟机中Docker启动服务的方式，当前的虚拟机IP地址为`192.168.56.105`，在后续的配置和访问中都会用到。通常在程序中用代码实现创建并绑定Exchange和Queue，但为了将Queue的管理和访问权限分离开来，这里采用事先创建Exchange和Queue，然后程序只负责配置连接访问对应的Exchange和Queue的方式。
+在完成安装RabbitMQ后即可开始使用，这里采用虚拟机中Docker启动服务的方式，当前的虚拟机IP地址为`192.168.56.105`，在后续的配置和访问中都会用到。通常在程序中用代码实现创建并绑定Exchange和Queue，但为了将Queue的管理和访问权限分离开来，这里采用事先创建Exchange和Queue，然后程序只负责配置连接访问对应的Exchange和Queue的方式。如果对RabbitMQ的相关配置和应用还不太了解，可以参阅另一篇博客 [RabbitMQ进阶指南](/rabbitmq-professional)。
 1. 首先登录到[http://192.168.56.105:15672](http://192.168.56.105:15672)，默认用户名和密码为`guest`。
 ![](/assets/rabbitmq-guide/overview_totals2.png)
 
