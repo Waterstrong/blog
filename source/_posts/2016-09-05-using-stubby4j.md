@@ -85,6 +85,8 @@ public static void shutDown() throws Exception {
 }
 ```
 
+具体示例可参阅GitHub Demo: [service-stubmock stubby4j](https://github.com/Waterstrong/service-stubmock/tree/master/src/main/java/ws/stubby4j/demo)。
+
 #### 基于YAML文件的示例
 示例一：模拟GET请求并返回Json格式Payload
 ``` yml
