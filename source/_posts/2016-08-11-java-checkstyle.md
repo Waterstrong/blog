@@ -31,20 +31,20 @@ checkstyle {
 ``` xml
 <module name="Checker">
     <module name="SuppressionFilter">
-        <property name="file" value="${rootDir}/config/checkstyle/suppressions.xml" />
+        <property name="file" value="${projectDir}/config/checkstyle/suppressions.xml" />
     </module>
 
     <module name="RegexpHeader">
-    	<property name="headerFile" value="${rootDir}/config/checkstyle/class-header.txt" />
+    	<property name="headerFile" value="${projectDir}/config/checkstyle/class-header.txt" />
     </module>
 
     <module name="TreeWalker">
-    	<property name="cacheFile" value="${rootDir}/config/checkstyle/main.cache" />
+    	<property name="cacheFile" value="${projectDir}/config/checkstyle/main.cache" />
 
     	...
 
     	<module name="ImportControl">
-    		<property name="file" value="${rootDir}/config/checkstyle/import-control.xml" />
+    		<property name="file" value="${projectDir}/config/checkstyle/import-control.xml" />
     	</module>
     </module>
     ...
