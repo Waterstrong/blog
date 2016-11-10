@@ -443,13 +443,15 @@ blockquote {
   color: #9eabb3;
   font-size: 1.3rem;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 35px;
   height: auto;
   padding: 20px 20px; }
   #footer .left, #footer .figure.fig-20, #footer .figure.fig-25, #footer .figure.fig-33, #footer .figure.fig-50, #footer .figure.fig-75 {
     float: left; }
   #footer .right {
     float: right; }
+  #footer .visit {
+    white-space: nowrap; }
   #footer #busuanzi_value_site_uv, #footer #busuanzi_value_page_pv {
     color: #349ef3;
     opacity: 0.8; }
