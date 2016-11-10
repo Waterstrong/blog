@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/routing.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/topics.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/rabbitmq-guide/rpc.png">
-<meta property="og:updated_time" content="2016-11-04T00:58:29.000Z">
+<meta property="og:updated_time" content="2016-11-07T14:53:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ入门指南">
 <meta name="twitter:description" content="RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。">
@@ -321,7 +321,7 @@
 <h5 id="应用场景五：Topics"><a href="#应用场景五：Topics" class="headerlink" title="应用场景五：Topics"></a>应用场景五：Topics</h5><p>在以上场景中，使用<code>direct</code>类型的Exchange可以实现对不同消息的路由，但只是支持单一的条件，为了支持多种条件，比如不仅针对Log的级别，还要针对其来源进行分发消息，这时候可以使用Topic来实现了，其中的逻辑和<code>direct</code>的类似，只是<code>routing_key</code>支持多个用点<code>.</code>分隔的值用于匹配路由信息，其中路由Key可以使用<code>*</code>替代一个词，<code>#</code>匹配0个或多个词。<br><img src="/assets/rabbitmq-guide/topics.png" alt=""></p>
 <p>有兴趣可参阅示例代码：<a href="https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/topics" target="_blank" rel="external">Topics Demo</a>。</p>
 <h5 id="应用场景六：RPC-Remote-procedure-call"><a href="#应用场景六：RPC-Remote-procedure-call" class="headerlink" title="应用场景六：RPC(Remote procedure call)"></a>应用场景六：RPC(Remote procedure call)</h5><p>在前面的场景二中，能够实现使用<em>Work Queues</em>分发处理运算任务，但如果需要将任务发送到远程服务器上执行处理，然后等待返回运算结果呢？那就需要RPC远程过程回调了。这里描述的场景将和之前的完全不一样，需要构建一个Client和RPC Server，Client作为远程调用的发起者携带一些如<code>reply_to</code>,<code>correlation_id</code>等的特定信息发送请求到<code>rpc_queue</code>上，RPC Server接收到请求后执行处理函数并将运算结果返回给<code>Callback Queue</code>，Client就可以接收到对应<code>correlationId</code>的返回结果了。<br><img src="/assets/rabbitmq-guide/rpc.png" alt=""></p>
-<h3 id="The-End-结束语"><a href="#The-End-结束语" class="headerlink" title="The End 结束语"></a>The End 结束语</h3><p>本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客<a href="/rabbitmq-prfessional">RabbitMQ进阶指南</a>了解更多精彩内容。</p>
+<h3 id="The-End-结束语"><a href="#The-End-结束语" class="headerlink" title="The End 结束语"></a>The End 结束语</h3><p>本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客<a href="/rabbitmq-professional">RabbitMQ进阶指南</a>了解更多精彩内容。</p>
 <hr>
 <p>References</p>
 <ul>
@@ -431,8 +431,27 @@
 
 
                 <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-        Copyrights &copy; 2016 Waterstrong. All Rights Reserved.
+    <span class="copyrights left">
+        &copy; 2016 <a href="https://github.com/waterstrong" target="_blank">Waterstrong</a>
+    </span>
+    
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="visit">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="site-visit">Site Visited:
+            <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </span>
+    <span>, </span>
+    <span id="busuanzi_container_page_pv" style='display:none'>
+        <span id="page-visit">Page Visited:
+            <span id="busuanzi_value_page_pv"></span>
+        </span>
+    </span>
+</span>
+
+    <span class="copyrights right">
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </span>
 </footer>
 

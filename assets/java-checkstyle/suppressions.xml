@@ -6,4 +6,5 @@
 
 <suppressions>
     <suppress files="SimpleCORSFilter" checks="RedundantThrows" />
+    <suppress files="DESUtil" checks="[a-zA-Z0-9]*" />
 </suppressions>
