@@ -62,3 +62,4 @@ References
 * [Sourceforge Checkstyle](http://checkstyle.sourceforge.net/)
 * [Google Java Style](http://checkstyle.sourceforge.net/reports/google-java-style.html)
 * [The Checkstyle Plugin](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
+* [详解CheckStyle的检查规则（共138条规则）](http://blog.csdn.net/yang1982_0907/article/details/18086693)

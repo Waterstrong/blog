@@ -2,7 +2,7 @@
 title: JTA实现分布式事务
 date: 2016-10-18 22:05:32
 category: Techniques
-tags: [分布式事务, JTA, Bitronix, Atomikos, Spring Boot]
+tags: [分布式事务, JTA, Transaction, Bitronix, Atomikos, Spring Boot]
 thumbnailImage: /assets/common-pic/vintage1.jpg
 description: Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。
 published: true
