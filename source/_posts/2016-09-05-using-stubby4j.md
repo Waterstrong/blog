@@ -88,16 +88,16 @@ public static void shutDown() throws Exception {
 具体示例可参阅GitHub Demo: [service-stubmock stubby4j](https://github.com/Waterstrong/service-stubmock/tree/master/src/main/java/ws/stubby4j/demo)。
 
 #### 基于YAML文件的示例
-示例一：模拟GET请求并返回Json格式Payload
+**示例一：模拟GET请求并返回Json格式Payload**
 ``` yml
 - request:
     method: GET
     url: ^/users/111$
   response:
     status: 200
-	headers:
+    headers:
         content-type: application/json
-	body: >
+    body: >
         {"userId": 111, "userName": "Peter"}
 
 - request:
@@ -109,7 +109,7 @@ public static void shutDown() throws Exception {
 
 其中的`request:url`支持正则表达式，比如`^/[a-z]{3}-[a-z]{3}/[0-9]{2}/[A-Z]{2}/[a-z0-9]+$`。
 
-示例二：在request时指定多个methods
+**示例二：在request时指定多个methods**
 ``` yml
 - request:
     url: /anything
@@ -122,7 +122,7 @@ public static void shutDown() throws Exception {
         - HEAD
 ```
 
-示例三：可以指定查询参数
+**示例三：可以指定查询参数**
 ``` yml
 - request:
     url: ^/with/parameters$
@@ -130,7 +130,14 @@ public static void shutDown() throws Exception {
     query:
         search: search terms
         filter: month
+```
 
+其中`query`中的元素会匹配`url`后的查询参数`?key1=value1&key2=value2`，并且任意顺序都可以被匹配到，以下两组URL都会被匹配到：
+- `/with/parameters?search=search+terms&filter=month`
+- `/with/parameters?filter=month&search=search+terms`
+
+如果查询参数只有KEY没有VALUE，则匹配时URL需要给定KEY，Payload如下：
+``` yml
 - request:
     url: ^/with/parameters$
     method: GET
@@ -139,9 +146,11 @@ public static void shutDown() throws Exception {
         filter: month
 ```
 
-其中`query`中的元素会匹配`url`后的查询参数`?key1=value1&key2=value2`，并且任意顺序都可以被匹配到。
+则以下两组URL都会被匹配到：
+- `/with/parameters?search&filter=month`
+- `/with/parameters?search=&filter=month`
 
-示例四：POST时指定发送的Payload
+**示例四：POST时指定发送的Payload**
 ``` yml
 - request:
     url: ^/path/to/something$
@@ -160,7 +169,7 @@ public static void shutDown() throws Exception {
 
 ```
 
-示例五：返回的Response是Json文件
+**示例五：返回的Response是Json文件**
 ``` yml
 - request:
     method: GET
