@@ -217,9 +217,9 @@
       <category term="Techniques" scheme="http://blog.waterstrong.me/categories/Techniques/"/>
     
     
-      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
-    
       <category term="Transaction" scheme="http://blog.waterstrong.me/tags/Transaction/"/>
+    
+      <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
     
       <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
     
@@ -314,7 +314,7 @@
     <link href="http://blog.waterstrong.me/using-stubby4j/"/>
     <id>http://blog.waterstrong.me/using-stubby4j/</id>
     <published>2016-09-05T14:29:26.000Z</published>
-    <updated>2016-11-17T15:47:53.000Z</updated>
+    <updated>2016-11-20T14:32:50.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;什么是stubby4j？&quot;&gt;&lt;a href=&quot;#什么是stubby4j？&quot; class=&quot;headerlink&quot; title=&quot;什么是stubby4j？&quot;&gt;&lt;/a&gt;什么是stubby4j？&lt;/h2&gt;&lt;p&gt;Stubby4J是基于Java编写的，该项目是由个人发起的开源项目，它是一款非常灵活可配置的基于HTTP(s)协议测试Web服务交互的工具，采用内嵌式的Jetty作为HTTP服务器，它的主要作用在于，可以在集成测试时，用来模拟第三方Web服务的API行为，比如，目前比较流行的RESTful架构风格的Web服务。&lt;/p&gt;
 &lt;h2 id=&quot;为什么使用Stubby4J？&quot;&gt;&lt;a href=&quot;#为什么使用Stubby4J？&quot; class=&quot;headerlink&quot; title=&quot;为什么使用Stubby4J？&quot;&gt;&lt;/a&gt;为什么使用Stubby4J？&lt;/h2&gt;&lt;ul&gt;
