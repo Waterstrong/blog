@@ -50,6 +50,39 @@ Jetty successfully started
 
 如果需要进入Admin Portal，可以访问[http://localhost:8889/status](http://localhost:8889/status)查看Stub的数据。
 
+更多命令行使用方式：
+``` bash
+usage:
+       java -jar stubby4j-x.x.xx.jar [-a <arg>] [-d <arg>] [-da] [-ds]
+       [-h] [-k <arg>] [-l <arg>] [-m] [-o] [-p <arg>] [-s <arg>] [-t
+       <arg>] [-v] [-w]
+ -a,--admin <arg>             Port for admin portal. Defaults to 8889.
+ -d,--data <arg>              Data file to pre-load endpoints. Valid YAML
+                              1.1 expected.
+ -da,--disable_admin_portal   Does not start Admin portal
+ -ds,--disable_ssl            Does not enable SSL connections
+ -h,--help                    This help text.
+ -k,--keystore <arg>          Keystore file for custom TLS. By default TLS
+                              is enabled using internal keystore.
+ -l,--location <arg>          Hostname at which to bind stubby.
+ -m,--mute                    Mute console output.
+ -o,--debug                   Dumps raw HTTP request to the console (if
+                              console is not muted!).
+ -p,--password <arg>          Password for the provided keystore file.
+ -s,--stubs <arg>             Port for stub portal. Defaults to 8882.
+ -t,--tls <arg>               Port for TLS connection. Defaults to 7443.
+ -v,--version                 Prints out to console stubby version.
+ -w,--watch                   Periodically scans for changes in last
+                              modification date of the main YAML and
+                              referenced external files (if any). The flag
+                              can accept an optional arg value which is
+                              the watch scan time in milliseconds. If
+                              milliseconds is not provided, the watch
+                              scans every 100ms. If last modification date
+                              changed since the last scan period, the stub
+                              configuration is reloaded
+```
+
 #### 集成测试中的具体应用
 首先在Gradle中配置依赖，在`build.gradle`中加入其依赖，只会在集成测试时使用，所以只需要加入`testCompile`即可：
 ``` gradle
@@ -85,7 +118,7 @@ public static void shutDown() throws Exception {
 }
 ```
 
-具体示例可参阅GitHub Demo: [service-stubmock stubby4j](https://github.com/Waterstrong/service-stubmock/tree/master/src/main/java/ws/stubby4j/demo)。
+具体示例可参阅GitHub Demo: [service-stubmock stubby4j](https://github.com/Waterstrong/service-stubmock/)。
 
 #### 基于YAML文件的示例
 **示例一：模拟GET请求并返回Json格式Payload**
