@@ -8,30 +8,34 @@ description: RabbitMQ进阶指南
 published: false
 ---
 
-## RabbitMQ服务配置
-#### 配置项
+本节主要介绍RabbitMQ的服务配置、客户端应用及插件管理等特性上，如果有兴趣也可以参阅另外两篇博客了解更多。
+- [RabbitMQ入门指南](/rabbitmq-start-guide)
+- [RabbitMQ项目实践应用 - 发布订阅模式](/rabbitmq-in-project)
 
-#### TLS/SSL
+### RabbitMQ服务配置
+##### 配置项
 
-#### 集群指南
+##### TLS/SSL
 
-#### 高可用
+##### 集群指南
 
-#### 权限管理
+##### 高可用
 
-
-## RabbitMQ客户端应用
-#### Java API
-
-#### JMS客户端
-
-#### 命令行工具
+##### 权限管理
 
 
-## RabbitMQ插件应用
+### RabbitMQ客户端应用
+##### Java API
+
+##### JMS客户端
+
+##### 命令行工具
 
 
-## The End 结束语
+### RabbitMQ插件应用
+
+
+### The End 结束语
 
 
 ----
