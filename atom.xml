@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2016-11-07T14:58:23.000Z</updated>
+  <updated>2017-03-03T15:58:47.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何从SVN迁移源码到Git仓库</title>
+    <link href="http://blog.waterstrong.me/svn-to-git-migration/"/>
+    <id>http://blog.waterstrong.me/svn-to-git-migration/</id>
+    <published>2017-02-10T14:51:30.000Z</published>
+    <updated>2017-03-03T15:58:47.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;这里就不再赘述关于SVN与Git的区别以及为什么要迁移源码到Git了，毕竟Git是当前的主流DVCS了，而且已经公认地非常好用，如果你还在使用SVN的话该考虑换了，是时候迁移那些遗留代码了，有兴趣可以参阅 &lt;a href=&quot;https://www.atlassian.com/git/tutorials/why-git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Why Git&lt;/a&gt; 和 &lt;a href=&quot;https://www.atlassian.com/git/tutorials/perforce-git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Perforce to Git&lt;/a&gt; 了解更多。通常来说，在项目开发过程中，难免会遇到一些老项目代码正被SVN管理着，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码？并且如何保留提交记录、分支记录以及开发成员等信息呢？笔者前一段时间就经历了这样的迁移工作，还是有必要分享一下，也是算是一种总结了。&lt;/p&gt;
+&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;迁移SVN源码到Git仓库的方法肯定不是暴力地将代码Copy再Paste到Git仓库，也不是直接在项目下git init初始化仓库的，而是应该使用&lt;a href=&quot;https://git-scm.com/docs/git-svn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;git svn&lt;/a&gt;命令操作实现迁移工作。那git-svn命令如何使用？有哪些注意事项呢？&lt;/p&gt;
+&lt;p&gt;首先，在正式开始迁移项目之前，需要做一些准备工作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;准备一台安装有最新Git环境的磁盘容量足的电脑&lt;/li&gt;
+&lt;li&gt;已经获知Git仓库的远程地址，无论是自己创建还是团队提供&lt;/li&gt;
+&lt;li&gt;确保对Git远程仓库有读写权限，无论通过用户名密码还是SSH访问都行&lt;/li&gt;
+&lt;li&gt;准备一份开发者的SVN用户名到Git全名+邮件的映射关系列表文件authors.txt，格式为：&lt;code&gt;loginname = Username &amp;lt;user@example.com&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;由于SVN对每次提交只记录开发者的用户名，而Git存储其全名和邮件地址，这意味着需要对开发者信息进行映射转换，在准备&lt;code&gt;authors.txt&lt;/code&gt;文件时，可以到团队系统数据库直接查询开发者&lt;em&gt;登录名、用户名和邮件地址&lt;/em&gt;并拼接成指定的格式，或者可下载&lt;em&gt;Atlassian&lt;/em&gt;的工具包&lt;a href=&quot;https://bitbucket.org/atlassian/svn-migration-scripts/downloads&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;svn-migration-scripts.jar&lt;/a&gt;，通过命令拉取SVN仓库的用户并生成对应的开发者信息映射文件，需要Java运行时环境支持：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -jar ~/svn-migration-scripts.jar authors https://svn.example.com &amp;gt; authors.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;转换仓库&quot;&gt;&lt;a href=&quot;#转换仓库&quot; class=&quot;headerlink&quot; title=&quot;转换仓库&quot;&gt;&lt;/a&gt;转换仓库&lt;/h2&gt;&lt;p&gt;准备工作完成后可以开始实施转移仓库了，应该注意的是，在转移SVN项目时需要根据是否是标准的SVN文件布局来确定命令行的参数。（注：以下所有示意图均来自Atlassian）&lt;/p&gt;
+&lt;h4 id=&quot;标准的SVN文件布局&quot;&gt;&lt;a href=&quot;#标准的SVN文件布局&quot; class=&quot;headerlink&quot; title=&quot;标准的SVN文件布局&quot;&gt;&lt;/a&gt;标准的SVN文件布局&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/master-git/standard_svn_repo.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;如果SVN仓库使用标准的了&lt;code&gt;/trunk&lt;/code&gt;, &lt;code&gt;/branches&lt;/code&gt;和&lt;code&gt;/tags&lt;/code&gt;的目录结构，就可在运行命令时加上参数&lt;code&gt;--stdlayout&lt;/code&gt;。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git svn clone --stdlayout --authors-file=authors.txt &amp;lt;svn-repo&amp;gt;/&amp;lt;project&amp;gt; &amp;lt;git-repo-name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git svn clone --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;非标准的的SVN文件布局&quot;&gt;&lt;a href=&quot;#非标准的的SVN文件布局&quot; class=&quot;headerlink&quot; title=&quot;非标准的的SVN文件布局&quot;&gt;&lt;/a&gt;非标准的的SVN文件布局&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/assets/master-git/nonstandard_svn_repo.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;如果SVN仓库是非标准的目录布局，那就需要分别显示指定参数&lt;code&gt;--trunk, --branches, --tags&lt;/code&gt;。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git svn clone --trunk=/trunk --branches=/branches --branches=/bugfixes --tags=/tags --authors-file=authors.txt &amp;lt;svn-repo&amp;gt;/&amp;lt;project&amp;gt; &amp;lt;git-repo-name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Authors文件的使用&quot;&gt;&lt;a href=&quot;#Authors文件的使用&quot; class=&quot;headerlink&quot; title=&quot;Authors文件的使用&quot;&gt;&lt;/a&gt;Authors文件的使用&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--authors-file&lt;/code&gt;：在之前的命令中已经提到需要添加参数&lt;code&gt;--authors-file=&amp;lt;filename&amp;gt;&lt;/code&gt;读取开发者信息映射文件，文件内容格式为&lt;code&gt;loginname = Username &amp;lt;user@example.com&amp;gt;&lt;/code&gt;，但如果在文件中不存SVN某个用户名的对应关系，那么git svn操作会被自动中止，因此，必须在&lt;code&gt;authors.txt&lt;/code&gt;文件中添加丢失的用户对应关系，然后重新运行git svn命令即可。配置其git config时的key为&lt;code&gt;svn.authorsfile&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--authors-prog&lt;/code&gt;：但如果希望在使用authors.txt文件时，即使某个SVN用户名对应关系不存在，命令也可以执行成功并自动使用默认值，可以使用该参数&lt;code&gt;--authors-prog=&amp;lt;filename&amp;gt;&lt;/code&gt;。配置其git config时的key为&lt;code&gt;svn.authorsProg&lt;/code&gt;，另外，可以在&lt;a href=&quot;https://www.atlassian.com/git/tutorials/migrating-synchronize&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tutorials - Synchronize&lt;/a&gt;中找到关于authors文件的更多使用信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;大仓库的转换策略&quot;&gt;&lt;a href=&quot;#大仓库的转换策略&quot; class=&quot;headerlink&quot; title=&quot;大仓库的转换策略&quot;&gt;&lt;/a&gt;大仓库的转换策略&lt;/h4&gt;&lt;p&gt;特别注意的是，当SVN仓库非常非常大时，据官方统计数据，若转换拥有33000个提交的400MB大小的仓库需要花12个小时来完成转换。因此，在这种情况下，可以选择找一台机器，运行命令后就不管了直到完成转换为止，或者是选择放弃保存非常老的提交历史记录，这样可以加速转换过程，如果转换时只保留部分提交历史的话可以使用以下命令：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git svn clone -r$&amp;#123;REVNUMBER&amp;#125;:HEAD --stdlayout --authors-file=authors.txt &amp;lt;svn-repo&amp;gt;/&amp;lt;project&amp;gt; &amp;lt;git-repo-name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git svn clone -r19698:HEAD --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;清理仓库&quot;&gt;&lt;a href=&quot;#清理仓库&quot; class=&quot;headerlink&quot; title=&quot;清理仓库&quot;&gt;&lt;/a&gt;清理仓库&lt;/h2&gt;&lt;p&gt;至此，SVN到Git的转换工作接近尾声，如果只是关心 &lt;strong&gt;trunk&lt;/strong&gt; 和 &lt;strong&gt;master&lt;/strong&gt; 主分支，那么可以不用在意清理仓库这一部分的内容了，可以直接跳过进入下一节，如果需要清理并将分支和标签进行本地化，则可以关注一下本节内容。&lt;/p&gt;
+&lt;p&gt;对于SVN的分支和标签，转换操作是不会将其导入到新的Git仓库中，而且在Git分支中也找不到SVN的分支branch，也找不到对应的标签tag，不过可以使用命令&lt;code&gt;git branch -r&lt;/code&gt;可以查看到所有SVN的分支和标签，这是因为在使用&lt;code&gt;git svn clone&lt;/code&gt;命令时会将SVN的分支和标签导入为Git的远程分支和标签，如下例示意图所示。&lt;br&gt;&lt;img src=&quot;/assets/master-git/svn_repo_structure.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/master-git/git_repo_structure.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;该策略主要是为SVN与Git双向同步服务的，但通常SVN单向转换到Git后都会直接使用Git了，并且会禁止SVN提交了，所以还是会对分支和标签内容进行清理以转换为Git的分支和标签。可以使用Atlassian提供的脚本工具可以快速实现对仓库分支和标签的清理工作：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -Dfile.encoding=utf-8 -jar ~/svn-migration-scripts.jar clean-git --force&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;将SVN分支和标签转换Git的本地分支和标签后结构如下图所示：&lt;br&gt;&lt;img src=&quot;/assets/master-git/local_git_repo.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;收尾工作&quot;&gt;&lt;a href=&quot;#收尾工作&quot; class=&quot;headerlink&quot; title=&quot;收尾工作&quot;&gt;&lt;/a&gt;收尾工作&lt;/h2&gt;&lt;p&gt;完成以上步骤后，迁移工作基本完成，接下来需要根据项目代码性质、团队规约等情况做一些收尾工作，需要具体情况具体分析。这里会以一个Gradle构建的Java项目(IDE使用IntelliJ)为例介绍从SVN迁移到Git后的收尾工作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;查看Git远程地址是否已经配置了，如果还没有配置，可以使用命令&lt;code&gt;git remote&lt;/code&gt;命令配置&lt;code&gt;origin&lt;/code&gt;，比较常用的两组命令为：&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git remote add origin xxx  # 添加新的远程地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git remote set-url origin xxx  # 修改origin的远程地址&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用命令&lt;code&gt;git update-index&lt;/code&gt;配置构建工具的执行权限，如果有其他执行脚本也需要配置相应权限信息：&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git update-index --chmod=+x gradlew&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git update-index --chmod=+x gradlew.bat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git update-index --chmod=+x xxx.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;添加&lt;code&gt;.gitignore&lt;/code&gt;文件，根据不同的项目写入要忽略的文件，如Java项目ignore文件会包括：&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/out&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/.idea&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.gradle&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.DS_Store&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*.iml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*.ipr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*.iws&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;更新IDE的vcs配置为Git而非Svn，在&lt;code&gt;build.gradle&lt;/code&gt;文件修改vcs配置：&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;idea.project.vcs = &amp;quot;Git&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;最后上传到Repo，并根据团队内部的约定设置相应的权限，如分支模型、分支权限、Pull Request权限、配置SVN提交通知、变更CI拉取代码的地址等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;结语&quot;&gt;&lt;a href=&quot;#结语&quot; class=&quot;headerlink&quot; title=&quot;结语&quot;&gt;&lt;/a&gt;结语&lt;/h2&gt;&lt;p&gt;总得来说，从SVN迁移源码到Git仓库包括：准备工作、转换仓库、清理仓库以及收尾工作，其中清理仓库部分可以跳过，其他部分是需要完成的，还需要注意SVN文件布局和正确地使用authors文件，同时需要考虑在遇到大仓库时应根据实际情况采用相对适合的迁移策略，最后，应与团队的约定达到一致，完成所有收尾工作。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.atlassian.com/git/tutorials/migrating-convert&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Migrate to Git from SVN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://git-scm.com/docs/git-svn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;git-svn docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+    
+    
+      <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
+    
+      <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
+    
+      <category term="SVN" scheme="http://blog.waterstrong.me/tags/SVN/"/>
+    
+  </entry>
   
   <entry>
     <title>RabbitMQ项目实践应用 - 发布订阅模式</title>
@@ -795,54 +868,6 @@
       <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
     
       <category term="SCM" scheme="http://blog.waterstrong.me/tags/SCM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java Checkstyle in Gradle</title>
-    <link href="http://blog.waterstrong.me/java-checkstyle/"/>
-    <id>http://blog.waterstrong.me/java-checkstyle/</id>
-    <published>2016-08-11T14:31:37.000Z</published>
-    <updated>2017-02-19T06:01:18.000Z</updated>
-    
-    <content type="html">&lt;p&gt;Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. It automates the process of checking Java code to spare humans of this boring (but important) task. This makes it ideal for projects that want to enforce a coding standard.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;通常的检查项目包括Javadoc注释、命名约定、Title标题、Import语句、文件大小、空白、修饰符、代码块、类设计、混合检查等。可以阅读&lt;a href=&quot;http://checkstyle.sourceforge.net/checks.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Checkstyle Checks&lt;/a&gt;了解更多。&lt;/p&gt;
-&lt;p&gt;在Gradle中，实现对Java的编码规范检查，只需要三步即可：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;1) 在&lt;code&gt;build.gradle&lt;/code&gt;中引入Checkstyle插件&lt;code&gt;apply plugin: &amp;#39;checkstyle&amp;#39;&lt;/code&gt;，默认执行check会触发编码规范检查&lt;code&gt;checkstyleMain&lt;/code&gt;和&lt;code&gt;checkstyleTest&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;2) 在项目目录下添加默认的文件夹&lt;code&gt;config/checkstyle&lt;/code&gt;，然后新建默认配置文件&lt;code&gt;checkstyle.xml&lt;/code&gt;文件，并配置编码规范检查规则，比如这里给出一个编码规范配置的示例：&lt;a href=&quot;/assets/java-checkstyle/checkstyle.xml&quot;&gt;checkstyle.xml&lt;/a&gt;，对于每个Module的解释可以在&lt;a href=&quot;http://checkstyle.sourceforge.net/checks.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Checks&lt;/a&gt;中找到。&lt;br&gt;当然，除了使用默认文件名外，也可以在&lt;code&gt;build.gradle&lt;/code&gt;中自定义规范检查的配置文件，并且可以针对Main和Test类代码的编码规范分别配置，因为通常对Test类代码的编码规范检查并没有那么严格。&lt;/p&gt;
-&lt;figure class=&quot;highlight gradle&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;checkstyle&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	configProperties.projectDir = &lt;span class=&quot;keyword&quot;&gt;project&lt;/span&gt;.projectDir&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	checkstyleMain.configFile = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;File&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;project&lt;/span&gt;.projectDir, &lt;span class=&quot;string&quot;&gt;&#39;/config/checkstyle/checkstyle-main.xml&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	checkstyleTest.configFile = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;File&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;project&lt;/span&gt;.projectDir, &lt;span class=&quot;string&quot;&gt;&#39;/config/checkstyle/checkstyle-test.xml&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;3) 在同一目录下新建默认忽略检查规范的文件&lt;code&gt;suppressions.xml&lt;/code&gt;，可以配置忽略对某个文件的某个规则的检查，比如一个配置示例：&lt;a href=&quot;/assets/java-checkstyle/suppressions.xml&quot;&gt;suppressions.xml&lt;/a&gt;。&lt;br&gt;该&lt;code&gt;suppressions.xml&lt;/code&gt;需要在&lt;code&gt;checkstyle.xml&lt;/code&gt;文件中配置，另外，也可以配置&lt;code&gt;class-header.txt&lt;/code&gt;文件来要求每个类都包括header信息：&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;Checker&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;SuppressionFilter&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;file&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;$&amp;#123;projectDir&amp;#125;/config/checkstyle/suppressions.xml&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;RegexpHeader&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;headerFile&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;$&amp;#123;projectDir&amp;#125;/config/checkstyle/class-header.txt&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;TreeWalker&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;cacheFile&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;$&amp;#123;projectDir&amp;#125;/config/checkstyle/main.cache&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;ImportControl&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;file&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;$&amp;#123;projectDir&amp;#125;/config/checkstyle/import-control.xml&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;module&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;OK，配置完成后可以放心写代码了，再也不用担心团队成员编码规范不统一的问题了，Enjoy~&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;References&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://checkstyle.sourceforge.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sourceforge Checkstyle&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://checkstyle.sourceforge.net/reports/google-java-style.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Google Java Style&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://docs.gradle.org/current/userguide/checkstyle_plugin.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;The Checkstyle Plugin&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/yang1982_0907/article/details/18086693&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;详解CheckStyle的检查规则（共138条规则）&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      Checkstyle是一个帮助Java开发者遵守某些编码规范的工具，它能够自动化代码规范检查过程，从而使得开发者从这项重要但枯燥的任务中解脱出来，Checkstyle通常适合那些需要强制执行编码规范标准的项目。
-    
-    </summary>
-    
-      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
-    
-    
-      <category term="Java" scheme="http://blog.waterstrong.me/tags/Java/"/>
-    
-      <category term="Checkstyle" scheme="http://blog.waterstrong.me/tags/Checkstyle/"/>
     
   </entry>
   

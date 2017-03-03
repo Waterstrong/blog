@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Watersrong Blog">
+    <title>如何从SVN迁移源码到Git仓库 - Watersrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.jpg">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="如何从SVN迁移源码到Git仓库">
+<meta property="og:url" content="http://blog.waterstrong.me/svn-to-git-migration/index.html">
+<meta property="og:site_name" content="Watersrong Blog">
+<meta property="og:description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/standard_svn_repo.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/nonstandard_svn_repo.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/svn_repo_structure.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/git_repo_structure.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/local_git_repo.png">
+<meta property="og:updated_time" content="2017-03-03T15:58:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何从SVN迁移源码到Git仓库">
+<meta name="twitter:description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/master-git/standard_svn_repo.png">
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://ollt923mu.bkt.clouddn.com/assets/master-git/prepare.svg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://ollt923mu.bkt.clouddn.com/assets/master-git/prepare.svg" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox-thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Watersrong Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.png"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/blogroll"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            如何从SVN迁移源码到Git仓库
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-02-10T22:51:30+08:00">
+	
+		    Feb 10, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Tools/">Tools</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>这里就不再赘述关于SVN与Git的区别以及为什么要迁移源码到Git了，毕竟Git是当前的主流DVCS了，而且已经公认地非常好用，如果你还在使用SVN的话该考虑换了，是时候迁移那些遗留代码了，有兴趣可以参阅 <a href="https://www.atlassian.com/git/tutorials/why-git" target="_blank" rel="external">Why Git</a> 和 <a href="https://www.atlassian.com/git/tutorials/perforce-git" target="_blank" rel="external">Perforce to Git</a> 了解更多。通常来说，在项目开发过程中，难免会遇到一些老项目代码正被SVN管理着，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码？并且如何保留提交记录、分支记录以及开发成员等信息呢？笔者前一段时间就经历了这样的迁移工作，还是有必要分享一下，也是算是一种总结了。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>迁移SVN源码到Git仓库的方法肯定不是暴力地将代码Copy再Paste到Git仓库，也不是直接在项目下git init初始化仓库的，而是应该使用<a href="https://git-scm.com/docs/git-svn" target="_blank" rel="external">git svn</a>命令操作实现迁移工作。那git-svn命令如何使用？有哪些注意事项呢？</p>
+<p>首先，在正式开始迁移项目之前，需要做一些准备工作：</p>
+<ol>
+<li>准备一台安装有最新Git环境的磁盘容量足的电脑</li>
+<li>已经获知Git仓库的远程地址，无论是自己创建还是团队提供</li>
+<li>确保对Git远程仓库有读写权限，无论通过用户名密码还是SSH访问都行</li>
+<li>准备一份开发者的SVN用户名到Git全名+邮件的映射关系列表文件authors.txt，格式为：<code>loginname = Username &lt;user@example.com&gt;</code></li>
+</ol>
+<p>由于SVN对每次提交只记录开发者的用户名，而Git存储其全名和邮件地址，这意味着需要对开发者信息进行映射转换，在准备<code>authors.txt</code>文件时，可以到团队系统数据库直接查询开发者<em>登录名、用户名和邮件地址</em>并拼接成指定的格式，或者可下载<em>Atlassian</em>的工具包<a href="https://bitbucket.org/atlassian/svn-migration-scripts/downloads" target="_blank" rel="external">svn-migration-scripts.jar</a>，通过命令拉取SVN仓库的用户并生成对应的开发者信息映射文件，需要Java运行时环境支持：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar ~/svn-migration-scripts.jar authors https://svn.example.com &gt; authors.txt</span><br></pre></td></tr></table></figure></p>
+<h2 id="转换仓库"><a href="#转换仓库" class="headerlink" title="转换仓库"></a>转换仓库</h2><p>准备工作完成后可以开始实施转移仓库了，应该注意的是，在转移SVN项目时需要根据是否是标准的SVN文件布局来确定命令行的参数。（注：以下所有示意图均来自Atlassian）</p>
+<h4 id="标准的SVN文件布局"><a href="#标准的SVN文件布局" class="headerlink" title="标准的SVN文件布局"></a>标准的SVN文件布局</h4><p><img src="/assets/master-git/standard_svn_repo.png" alt=""><br>如果SVN仓库使用标准的了<code>/trunk</code>, <code>/branches</code>和<code>/tags</code>的目录结构，就可在运行命令时加上参数<code>--stdlayout</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git svn clone --stdlayout --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</span><br><span class="line"></span><br><span class="line">git svn clone --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo</span><br></pre></td></tr></table></figure></p>
+<h4 id="非标准的的SVN文件布局"><a href="#非标准的的SVN文件布局" class="headerlink" title="非标准的的SVN文件布局"></a>非标准的的SVN文件布局</h4><p><img src="/assets/master-git/nonstandard_svn_repo.png" alt=""><br>如果SVN仓库是非标准的目录布局，那就需要分别显示指定参数<code>--trunk, --branches, --tags</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git svn clone --trunk=/trunk --branches=/branches --branches=/bugfixes --tags=/tags --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Authors文件的使用"><a href="#Authors文件的使用" class="headerlink" title="Authors文件的使用"></a>Authors文件的使用</h4><ul>
+<li><code>--authors-file</code>：在之前的命令中已经提到需要添加参数<code>--authors-file=&lt;filename&gt;</code>读取开发者信息映射文件，文件内容格式为<code>loginname = Username &lt;user@example.com&gt;</code>，但如果在文件中不存SVN某个用户名的对应关系，那么git svn操作会被自动中止，因此，必须在<code>authors.txt</code>文件中添加丢失的用户对应关系，然后重新运行git svn命令即可。配置其git config时的key为<code>svn.authorsfile</code>。</li>
+<li><code>--authors-prog</code>：但如果希望在使用authors.txt文件时，即使某个SVN用户名对应关系不存在，命令也可以执行成功并自动使用默认值，可以使用该参数<code>--authors-prog=&lt;filename&gt;</code>。配置其git config时的key为<code>svn.authorsProg</code>，另外，可以在<a href="https://www.atlassian.com/git/tutorials/migrating-synchronize" target="_blank" rel="external">Tutorials - Synchronize</a>中找到关于authors文件的更多使用信息。</li>
+</ul>
+<h4 id="大仓库的转换策略"><a href="#大仓库的转换策略" class="headerlink" title="大仓库的转换策略"></a>大仓库的转换策略</h4><p>特别注意的是，当SVN仓库非常非常大时，据官方统计数据，若转换拥有33000个提交的400MB大小的仓库需要花12个小时来完成转换。因此，在这种情况下，可以选择找一台机器，运行命令后就不管了直到完成转换为止，或者是选择放弃保存非常老的提交历史记录，这样可以加速转换过程，如果转换时只保留部分提交历史的话可以使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git svn clone -r$&#123;REVNUMBER&#125;:HEAD --stdlayout --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</span><br><span class="line"></span><br><span class="line">git svn clone -r19698:HEAD --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo</span><br></pre></td></tr></table></figure></p>
+<h2 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h2><p>至此，SVN到Git的转换工作接近尾声，如果只是关心 <strong>trunk</strong> 和 <strong>master</strong> 主分支，那么可以不用在意清理仓库这一部分的内容了，可以直接跳过进入下一节，如果需要清理并将分支和标签进行本地化，则可以关注一下本节内容。</p>
+<p>对于SVN的分支和标签，转换操作是不会将其导入到新的Git仓库中，而且在Git分支中也找不到SVN的分支branch，也找不到对应的标签tag，不过可以使用命令<code>git branch -r</code>可以查看到所有SVN的分支和标签，这是因为在使用<code>git svn clone</code>命令时会将SVN的分支和标签导入为Git的远程分支和标签，如下例示意图所示。<br><img src="/assets/master-git/svn_repo_structure.png" alt=""></p>
+<p><img src="/assets/master-git/git_repo_structure.png" alt=""></p>
+<p>该策略主要是为SVN与Git双向同步服务的，但通常SVN单向转换到Git后都会直接使用Git了，并且会禁止SVN提交了，所以还是会对分支和标签内容进行清理以转换为Git的分支和标签。可以使用Atlassian提供的脚本工具可以快速实现对仓库分支和标签的清理工作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dfile.encoding=utf-8 -jar ~/svn-migration-scripts.jar clean-git --force</span><br></pre></td></tr></table></figure></p>
+<p>将SVN分支和标签转换Git的本地分支和标签后结构如下图所示：<br><img src="/assets/master-git/local_git_repo.png" alt=""></p>
+<h2 id="收尾工作"><a href="#收尾工作" class="headerlink" title="收尾工作"></a>收尾工作</h2><p>完成以上步骤后，迁移工作基本完成，接下来需要根据项目代码性质、团队规约等情况做一些收尾工作，需要具体情况具体分析。这里会以一个Gradle构建的Java项目(IDE使用IntelliJ)为例介绍从SVN迁移到Git后的收尾工作：</p>
+<ol>
+<li><p>查看Git远程地址是否已经配置了，如果还没有配置，可以使用命令<code>git remote</code>命令配置<code>origin</code>，比较常用的两组命令为：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin xxx  # 添加新的远程地址</span><br><span class="line">git remote set-url origin xxx  # 修改origin的远程地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用命令<code>git update-index</code>配置构建工具的执行权限，如果有其他执行脚本也需要配置相应权限信息：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git update-index --chmod=+x gradlew</span><br><span class="line">git update-index --chmod=+x gradlew.bat</span><br><span class="line">git update-index --chmod=+x xxx.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>.gitignore</code>文件，根据不同的项目写入要忽略的文件，如Java项目ignore文件会包括：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/out</span><br><span class="line">/build</span><br><span class="line">/.idea</span><br><span class="line">.gradle</span><br><span class="line">.DS_Store</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line">*.iws</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新IDE的vcs配置为Git而非Svn，在<code>build.gradle</code>文件修改vcs配置：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">idea.project.vcs = &quot;Git&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后上传到Repo，并根据团队内部的约定设置相应的权限，如分支模型、分支权限、Pull Request权限、配置SVN提交通知、变更CI拉取代码的地址等。</p>
+</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总得来说，从SVN迁移源码到Git仓库包括：准备工作、转换仓库、清理仓库以及收尾工作，其中清理仓库部分可以跳过，其他部分是需要完成的，还需要注意SVN文件布局和正确地使用authors文件，同时需要考虑在遇到大仓库时应根据实际情况采用相对适合的迁移策略，最后，应与团队的约定达到一致，完成所有收尾工作。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://www.atlassian.com/git/tutorials/migrating-convert" target="_blank" rel="external">Migrate to Git from SVN</a></li>
+<li><a href="https://git-scm.com/docs/git-svn" target="_blank" rel="external">git-svn docs</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Git/">Git</a> <a class="tag tag--primary tag--small t-link" href="/tags/SVN/">SVN</a> <a class="tag tag--primary tag--small t-link" href="/tags/VCS/">VCS</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/rabbitmq-in-project/" data-tooltip="RabbitMQ项目实践应用 - 发布订阅模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="svn-to-git-migration/"
+     data-title="如何从SVN迁移源码到Git仓库" data-url="http://blog.waterstrong.me/svn-to-git-migration/">
+</div>
+
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights left">
+        &copy; 2017 <a href="https://github.com/waterstrong" target="_blank">Waterstrong</a>
+    </span>
+    
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="visit">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="site-visit">Site Visited:
+            <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </span>
+    <span>, </span>
+    <span id="busuanzi_container_page_pv" style='display:none'>
+        <span id="page-visit">Page Visited:
+            <span id="busuanzi_value_page_pv"></span>
+        </span>
+    </span>
+</span>
+
+    <span class="copyrights right">
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/rabbitmq-in-project/" data-tooltip="RabbitMQ项目实践应用 - 发布订阅模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options bdsharebuttonbox">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="tsina">
+                <i class="fa fa-weibo"></i>Share on Sina Weibo
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="weixin">
+                <i class="fa fa-wechat"></i>Share on Wechat
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="sqq">
+                <i class="fa fa-qq"></i>Share on QQ
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="fbook">
+                <i class="fa fa-facebook-official"></i>Share on Facebook
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="linkedin">
+                <i class="fa fa-linkedin"></i>Share on LinkedIn
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="twi">
+                <i class="fa fa-twitter"></i>Share on Twitter
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                28 posts found
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery.fancybox-thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
+
+
+
+    </body>
+</html>
