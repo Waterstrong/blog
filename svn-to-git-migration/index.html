@@ -25,10 +25,9 @@
 <meta property="og:description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/standard_svn_repo.png">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/nonstandard_svn_repo.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/svn_repo_structure.png">
-<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/git_repo_structure.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/repo_structure.jpg">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/local_git_repo.png">
-<meta property="og:updated_time" content="2017-03-04T07:12:25.000Z">
+<meta property="og:updated_time" content="2017-03-04T09:39:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何从SVN迁移源码到Git仓库">
 <meta name="twitter:description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
@@ -306,8 +305,7 @@
 </ul>
 <h4 id="大仓库的转换策略"><a href="#大仓库的转换策略" class="headerlink" title="大仓库的转换策略"></a>大仓库的转换策略</h4><p>特别注意的是，当SVN仓库非常非常大时，据官方统计数据，若转换拥有33000个提交的400MB大小的仓库需要花12个小时来完成转换。因此，在这种情况下，可以选择找一台机器，运行命令后就不管了直到完成转换为止，或者是选择放弃保存非常老的提交历史记录，这样可以加速转换过程，如果转换时只保留部分提交历史的话可以使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git svn clone -r$&#123;REVNUMBER&#125;:HEAD --stdlayout --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</span><br><span class="line"></span><br><span class="line">git svn clone -r19698:HEAD --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo</span><br></pre></td></tr></table></figure></p>
 <h2 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h2><p>至此，SVN到Git的转换工作接近尾声，如果只是关注 <strong>trunk</strong> 和 <strong>master</strong> 主分支，那么可以不用在意清理仓库这一部分的内容了，可以直接跳过进入下一节，如果需要清理并将分支和标签进行本地化，则可以关注一下本节内容。</p>
-<p>对于SVN的分支和标签，转换操作是不会将其导入到新的Git仓库中，而且在Git分支中也找不到SVN的分支branch，也找不到对应的标签tag，不过可以使用命令<code>git branch -r</code>可以查看到所有SVN的分支和标签，这是因为在使用<code>git svn clone</code>命令时会将SVN的分支和标签导入为Git的远程分支和标签，如下例示意图所示。<br><img src="/assets/master-git/svn_repo_structure.png" alt=""></p>
-<p><img src="/assets/master-git/git_repo_structure.png" alt=""></p>
+<p>对于SVN的分支和标签，转换操作是不会将其导入到新的Git仓库中，而且在Git分支中也找不到SVN的分支branch，也找不到对应的标签tag，不过可以使用命令<code>git branch -r</code>可以查看到所有SVN的分支和标签，这是因为在使用<code>git svn clone</code>命令时会将SVN的分支和标签导入为Git的远程分支和标签，如下示意图所示。<br><img src="/assets/master-git/repo_structure.jpg" alt=""></p>
 <p>该策略主要是为SVN与Git双向同步服务的，但通常SVN单向转换到Git后都会直接使用Git了，并且会禁止SVN提交了，所以还是会对分支和标签内容进行清理以转换为Git的分支和标签。可以使用Atlassian提供的脚本工具快速实现对仓库分支和标签的清理工作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dfile.encoding=utf-8 -jar svn-migration-scripts.jar clean-git --force</span><br></pre></td></tr></table></figure></p>
 <p>将SVN分支和标签转换Git的本地分支和标签后结构如下图所示：<br><img src="/assets/master-git/local_git_repo.png" alt=""></p>
 <h2 id="收尾工作"><a href="#收尾工作" class="headerlink" title="收尾工作"></a>收尾工作</h2><p>完成以上步骤后，迁移工作基本完成，接下来需要根据项目代码性质、团队约定等情况做一些收尾工作，需要具体情况具体分析。这里会以一个Gradle构建的Java项目(IDE使用IntelliJ)为例介绍从SVN迁移到Git后的收尾工作：</p>
@@ -360,7 +358,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/git-server-repository/"  data-tooltip="如何创建Git服务器仓库">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -475,7 +473,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/git-server-repository/"  data-tooltip="如何创建Git服务器仓库">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -897,7 +895,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                28 posts found
+                29 posts found
             </p>
         </div>
     </div>

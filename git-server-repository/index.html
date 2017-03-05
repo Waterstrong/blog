@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Watersrong Blog">
-    <title>Archives: 2016/4 - Watersrong Blog</title>
+    <title>如何创建Git服务器仓库 - Watersrong Blog</title>
     <meta name="author" content="Waterstrong">
     
         <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
@@ -17,15 +17,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="Waterstrong&apos;s Blog">
+    <meta name="description" content="在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，如GitHub、Bitbucket、GitLab、Coding.NET、OSChina.NET、CSDN.NET等，不过，本文中只关注使用简单的Git命令快速搭建个人私有服务器仓库。">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Watersrong Blog">
-<meta property="og:url" content="http://blog.waterstrong.me/archives/2016/04/index.html">
+<meta property="og:title" content="如何创建Git服务器仓库">
+<meta property="og:url" content="http://blog.waterstrong.me/git-server-repository/index.html">
 <meta property="og:site_name" content="Watersrong Blog">
-<meta property="og:description" content="Waterstrong&apos;s Blog">
+<meta property="og:description" content="在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，如GitHub、Bitbucket、GitLab、Coding.NET、OSChina.NET、CSDN.NET等，不过，本文中只关注使用简单的Git命令快速搭建个人私有服务器仓库。">
+<meta property="og:updated_time" content="2017-03-05T15:56:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Watersrong Blog">
-<meta name="twitter:description" content="Waterstrong&apos;s Blog">
+<meta name="twitter:title" content="如何创建Git服务器仓库">
+<meta name="twitter:description" content="在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，如GitHub、Bitbucket、GitLab、Coding.NET、OSChina.NET、CSDN.NET等，不过，本文中只关注使用简单的Git命令快速搭建个人私有服务器仓库。">
 <meta name="twitter:creator" content="@shuiqianglin">
     
     
@@ -34,6 +35,9 @@
     
         <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
     
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/git-server-repository/assets/master-git/git_logo.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/git-server-repository/assets/master-git/git_logo.png" />
     
     
     
@@ -68,7 +72,7 @@
         
     
 
-<header id="header" data-behavior="3">
+<header id="header" data-behavior="6">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">Watersrong Blog</a>
@@ -92,7 +96,7 @@
         
     
 
-<nav id="sidebar" data-behavior="3">
+<nav id="sidebar" data-behavior="6">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -244,82 +248,24 @@
 </nav>
 
             
-            <div id="main" data-behavior="3"
+            <div id="main" data-behavior="6"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-    <article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/jboss-tips/">
-                            JBoss Tips in Practice
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-04-20T22:23:50+08:00">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            如何创建Git服务器仓库
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-02-15T22:35:49+08:00">
 	
-		    Apr 20, 2016
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/Frameworks/">Frameworks</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        JBoss是众多Java EE容器中的一个，它不但是Servlet容器，而且是EJB容器，弥补了Tomcat只是一个Servlet容器的缺憾。为了实现一些特定的功能, 需要针对JBoss的一些配置, 将列出一些Tips供使用参考。 </br>
-                    
-
-                    
-                        <a href="/jboss-tips/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/jboss-tips/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="/assets/common-pic/car2.jpg"/>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/concourse-ci/">
-                            Concourse CI 介绍
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-04-19T13:02:02+08:00">
-	
-		    Apr 19, 2016
+		    Feb 15, 2017
     	
     </time>
     
@@ -331,147 +277,122 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar? </br>
-                    
-
-                    
-                        <a href="/concourse-ci/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/concourse-ci/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="/assets/concourse-ci/pipeline_cover.png"/>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/aws-ec2-vpn/">
-                            AWS EC2搭建VPN服务器
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-04-13T23:30:52+08:00">
-	
-		    Apr 13, 2016
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/Platforms/">Platforms</a>
-
-
-    
 </div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，比如目前最流行的面向开源及私有软件项目的托管平台是<a href="https://github.com/" target="_blank" rel="external">GitHub</a>，还有一些其他优秀的平台，如Atlassian的<a href="https://bitbucket.org/" target="_blank" rel="external">Bitbucket</a>、<a href="https://gitlab.com" target="_blank" rel="external">GitLab</a>、<a href="https://coding.net" target="_blank" rel="external">Coding.NET</a>、开源中国的<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>、<a href="https://code.csdn.net/" target="_blank" rel="external">CSDN.NET</a>等，不仅可以使用Public和Private服务，还可以付费搭建定制服务，不过有些跑题了，本文中只关注使用简单的命令快速搭建个人私有服务器仓库。另外，关于Git的使用，可以参阅<a href="http://blog.waterstrong.me/master-git/">优雅地使用Git</a>了解更多内容，这里也不会再涉及Git命令细节。</p>
+<h2 id="创建服务器仓库"><a href="#创建服务器仓库" class="headerlink" title="创建服务器仓库"></a>创建服务器仓库</h2><p>先创建一个文件夹名为<code>demo.git</code>，在其中使用命令创建裸仓库(作为服务器仓库)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init --bare</span><br><span class="line"></span><br><span class="line"># &gt; ls</span><br><span class="line"># HEAD  branches  config  description  hooks  info  objects  refs</span><br></pre></td></tr></table></figure></p>
+<p>与使用<code>git init</code>命令创建的目录不太一样，其中并没有<code>.git</code>目录，而多出了很多其他的目录，并且可以查看到<code>config</code>中的内容<code>bare=true</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br></pre></td></tr></table></figure></p>
+<p>如果期望将普通的Git仓库转换为服务器仓库，可以使用如下命令进行转换，克隆出<code>.git</code>内容作为服务器仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare xxx</span><br></pre></td></tr></table></figure></p>
+<p>其中，bare仓库不包含工作区，不能直接在bare仓库上直接提交变更。</p>
+<h2 id="连接服务器仓库"><a href="#连接服务器仓库" class="headerlink" title="连接服务器仓库"></a>连接服务器仓库</h2><p>假设在本地文件系统中创建，目录位置为<code>~/Documents/git-server/demo.git</code>，则可以使用以下命令克隆或关联服务器仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone ~/Documents/git-server/demo.git  # 直接clone代码，本地可不用加user@localhost</span><br><span class="line"></span><br><span class="line">git remote add origin ~/Documents/git-server/demo.git  # 或是添加为远程origin</span><br></pre></td></tr></table></figure></p>
+<p>如果是使用AWS的EC2这样的服务，若文件目录位置为<code>/home/ec2-user/projects/git-repo.git</code>，服务器地址为<code>aws.waterstrong.me</code>，用户名为<code>ec2-user</code>，则同样可以克隆或关联远程仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone ec2-user@aws.waterstrong.me:/home/ec2-user/projects/git-repo.git  # 直接clone</span><br><span class="line"></span><br><span class="line">git remote add origin ec2-user@aws.waterstrong.me:/home/ec2-user/projects/git-repo.git  # 或添加origin</span><br></pre></td></tr></table></figure></p>
+<p>在创建bare仓库时，可以在给文件目录命名时加上<code>.git</code>后缀，也符合平常使用Git地址的习惯，这样，就可以像平常一样使用Git操作了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>平时在使用<code>git init</code>命令时，是初始化一个普通的Git本地仓库，而为了创建服务器仓库，可以使用<code>git init --bare &lt;repo&gt;</code>命令，bare仓库没有工作区，不能对其直接提交变更，但可以被正常地clone, push, pull等操作。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://git-scm.com/docs/git-init" target="_blank" rel="external">git document</a></li>
+<li><a href="https://about.gitlab.com/downloads/" target="_blank" rel="external">GitLab CE Package</a></li>
+</ul>
 
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        主要介绍如何在12个月免费的AWS EC2中搭建基于PPTP协议的VPN服务用于翻越GFW，平时Google搜索一下也很方便，会涉及CentOS, RedHat和Ubuntu操作系统。 </br>
-                    
-
-                    
-                        <a href="/aws-ec2-vpn/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
             
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-            <a href="/aws-ec2-vpn/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="/assets/aws-ec2-vpn/6s_test_vpn.png"/>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-left" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/aws-ec2-basic/">
-                            AWS EC2入门篇
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-04-11T12:00:08+08:00">
-	
-		    Apr 11, 2016
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/Platforms/">Platforms</a>
-
-
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Git/">Git</a> <a class="tag tag--primary tag--small t-link" href="/tags/Repository/">Repository</a> <a class="tag tag--primary tag--small t-link" href="/tags/VCS/">VCS</a>
 
             </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    
-                        Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。 </br>
-                    
-
-                    
-                        <a href="/aws-ec2-basic/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
         
-            <a href="/aws-ec2-basic/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="/assets/aws-ec2-basic/aws_homepage.png"/>
-                </div>
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/svn-to-git-migration/" data-tooltip="如何从SVN迁移源码到Git仓库">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
             </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
             
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">page 1 of 1</li>
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+        
+            
+                <div id="ds-thread" class="ds-thread" data-thread-key="git-server-repository/"
+     data-title="如何创建Git服务器仓库" data-url="http://blog.waterstrong.me/git-server-repository/">
+</div>
+
+            
+        
+    </div>
+</article>
 
 
 
@@ -501,6 +422,119 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/svn-to-git-migration/" data-tooltip="如何从SVN迁移源码到Git仓库">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#ds-thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options bdsharebuttonbox">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="tsina">
+                <i class="fa fa-weibo"></i>Share on Sina Weibo
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="weixin">
+                <i class="fa fa-wechat"></i>Share on Wechat
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="sqq">
+                <i class="fa fa-qq"></i>Share on QQ
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="fbook">
+                <i class="fa fa-facebook-official"></i>Share on Facebook
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="linkedin">
+                <i class="fa fa-linkedin"></i>Share on LinkedIn
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="twi">
+                <i class="fa fa-twitter"></i>Share on Twitter
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
             
         </div>
         
@@ -830,6 +864,20 @@
 <script src="/assets/js/jquery.fancybox-thumbs.js"></script>
 <script src="/assets/js/tranquilpeak.js"></script>
 <!--SCRIPTS END-->
+
+    
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:'waterstrong'};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    
 
 
 
