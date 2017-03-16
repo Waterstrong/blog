@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Watersrong Blog</title>
+  <title>Waterstrong Blog</title>
   <subtitle>Enjoy this moment!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -713,13 +713,13 @@
     
       <category term="数据库" scheme="http://blog.waterstrong.me/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Flyway" scheme="http://blog.waterstrong.me/tags/Flyway/"/>
-    
-      <category term="Migration" scheme="http://blog.waterstrong.me/tags/Migration/"/>
+      <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
     
       <category term="Gradle" scheme="http://blog.waterstrong.me/tags/Gradle/"/>
     
-      <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
+      <category term="Flyway" scheme="http://blog.waterstrong.me/tags/Flyway/"/>
+    
+      <category term="Migration" scheme="http://blog.waterstrong.me/tags/Migration/"/>
     
   </entry>
   
