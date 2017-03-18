@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.waterstrong.me/git-server-repository/</loc>
+    <loc>http://blog.waterstrong.me/master-git/</loc>
     
-    <lastmod>2017-03-06T15:01:48.000Z</lastmod>
+    <lastmod>2017-03-18T15:51:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/master-git/</loc>
+    <loc>http://blog.waterstrong.me/git-server-repository/</loc>
     
-    <lastmod>2017-03-04T14:23:03.000Z</lastmod>
+    <lastmod>2017-03-18T15:42:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/about/index.html</loc>
+    
+    <lastmod>2017-03-18T15:17:29.000Z</lastmod>
     
   </url>
   
@@ -212,13 +219,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/about/index.html</loc>
-    
-    <lastmod>2016-06-26T11:55:49.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -233,14 +233,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
