@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/about/index.html</loc>
+    
+    <lastmod>2017-03-19T07:00:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me//404.html</loc>
+    
+    <lastmod>2017-03-19T05:48:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
+    
+    <lastmod>2017-03-18T17:25:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/master-git/</loc>
     
     <lastmod>2017-03-18T15:51:10.000Z</lastmod>
@@ -12,13 +33,6 @@
     <loc>http://blog.waterstrong.me/git-server-repository/</loc>
     
     <lastmod>2017-03-18T15:42:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/about/index.html</loc>
-    
-    <lastmod>2017-03-18T15:17:29.000Z</lastmod>
     
   </url>
   
@@ -82,13 +96,6 @@
     <loc>http://blog.waterstrong.me/rabbitmq-start-guide/</loc>
     
     <lastmod>2016-11-07T14:53:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me//404.html</loc>
-    
-    <lastmod>2016-10-30T11:23:56.000Z</lastmod>
     
   </url>
   
@@ -226,21 +233,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
