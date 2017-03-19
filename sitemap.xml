@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
+    
+    <lastmod>2017-03-19T09:01:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/about/index.html</loc>
     
-    <lastmod>2017-03-19T07:00:14.000Z</lastmod>
+    <lastmod>2017-03-19T07:47:39.000Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2017-03-19T05:48:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
-    
-    <lastmod>2017-03-18T17:25:02.000Z</lastmod>
     
   </url>
   
@@ -226,13 +226,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -241,6 +234,13 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
