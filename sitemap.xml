@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
-    
-    <lastmod>2017-03-19T10:04:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/about/index.html</loc>
     
-    <lastmod>2017-03-19T07:47:39.000Z</lastmod>
+    <lastmod>2017-03-19T10:35:42.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.waterstrong.me//404.html</loc>
     
-    <lastmod>2017-03-19T05:48:14.000Z</lastmod>
+    <lastmod>2017-03-19T10:12:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/blogroll/index.html</loc>
+    
+    <lastmod>2017-03-19T10:10:07.000Z</lastmod>
     
   </url>
   
@@ -233,14 +233,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
