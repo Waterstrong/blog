@@ -33,21 +33,6 @@
         e.preventDefault();
         self.playBack();
       });
-      self.$about.keypress(function (e) {
-          e.preventDefault();
-          alert('esc');
-        if (e.which === 27){
-          self.playBack();
-        }
-      });
-
-        self.$aboutCard.keypress(function (e) {
-            e.preventDefault();
-            alert('esc2');
-            if (e.which === 27){
-                self.playBack();
-            }
-        });
     },
 
     /**
