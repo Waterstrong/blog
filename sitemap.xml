@@ -9,13 +9,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/docker-networking/</loc>
-    
-    <lastmod>2017-03-19T14:49:25.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/about/index.html</loc>
     
     <lastmod>2017-03-19T10:35:42.000Z</lastmod>
@@ -233,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -247,7 +240,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
