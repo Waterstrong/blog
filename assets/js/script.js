@@ -12322,7 +12322,7 @@ return jQuery;
         html += '<div class="media">';
         if (post.thumbnailImageUrl) {
           html += '<div class="media-left">';
-          html += '<a class="link-unstyled" href="' + (post.link || post.permalink) +'">';
+          html += '<a class="link-unstyled" href="' + (post.link || post.permalink) + '">';
           html += '<img class="media-image" ' +
             'src="' + post.thumbnailImageUrl + '" ' +
             'width="90" height="90"/>';
@@ -12331,7 +12331,7 @@ return jQuery;
         }
 
         html += '<div class="media-body">';
-        html += '<a class="link-unstyled" href="' + (post.link || post.permalink) +'">';
+        html += '<a class="link-unstyled" href="' + (post.link || post.permalink) + '">';
         html += '<h3 class="media-heading">' + post.title + '</h3>';
         html += '</a>';
         html += '<span class="media-meta">';
@@ -12744,6 +12744,24 @@ return jQuery;
   $(document).ready(function() {
     var tabbedCodeBlocks = new TabbedCodeBlock('.codeblock--tabbed');
     tabbedCodeBlocks.run();
+  });
+})(jQuery);
+;(function($) {
+  'use strict';
+
+  var TableBlock = function(element) {
+    this.$tableBlock = $(element);
+  };
+
+  TableBlock.prototype = {
+    wrap: function() {
+      var self = this;
+      self.$tableBlock.wrap("<div style='overflow: auto'>");
+    }
+  };
+
+  $(document).ready(function() {
+    new TableBlock(".post-content .main-content-wrap > table").wrap();
   });
 })(jQuery);
 ;(function($) {
