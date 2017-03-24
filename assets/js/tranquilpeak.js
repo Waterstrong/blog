@@ -638,6 +638,30 @@
   });
 })(jQuery);
 ;(function($) {
+    'use strict';
+
+    var ImageFancyBox = function(element) {
+        this.$image = $(element);
+    };
+
+    ImageFancyBox.prototype = {
+        run: function() {
+            var self = this;
+            self.$image.addClass(function () {
+                return 'fig-img';
+            });
+            self.$image.wrap(function() {
+                var src = $(this)[0].src;
+                return "<div class='figure center'><a class='fancybox' href='" + src + "'></a></div>";
+            });
+        }
+    };
+
+    $(document).ready(function() {
+        new ImageFancyBox(".post-content .main-content-wrap p > img").run();
+    });
+})(jQuery);
+;(function($) {
   'use strict';
 
   // Resize all images of an image-gallery
