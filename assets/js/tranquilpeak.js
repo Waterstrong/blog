@@ -638,28 +638,36 @@
   });
 })(jQuery);
 ;(function($) {
-    'use strict';
+  'use strict';
 
-    var ImageFancyBox = function(element) {
-        this.$image = $(element);
-    };
+  const MAX_WIDTH = 479;
+  const MIN_THRES = 0.1;
+  var ImageFancyBox = function(element) {
+    this.$image = $(element);
+    this.$threshold = (MAX_WIDTH - screen.width) / 65 * 0.05 + 0.2;
+  };
 
-    ImageFancyBox.prototype = {
-        run: function() {
-            var self = this;
-            self.$image.addClass(function () {
-                return 'fig-img';
-            });
-            self.$image.wrap(function() {
-                var src = $(this)[0].src;
-                return "<div class='figure center'><a class='fancybox' href='" + src + "'></a></div>";
-            });
-        }
-    };
+  ImageFancyBox.prototype = {
+    run: function() {
+      var self = this;
+      self.$image.addClass(function() {
+        return 'fig-img';
+      });
+      self.$image.wrap(function() {
+        var img = $(this)[0];
+        var threshold = screen.width <= MAX_WIDTH ? self.$threshold : MIN_THRES;
+        var fancyLink = img.height / img.width < threshold ?
+            "<div></div>" :
+            "<a class='fancybox' href='" + img.src + "' alt='" + img.alt + "'></a>";
+        var caption = "<span class='caption'>" + img.alt + "</span>";
+        return "<div class='figure center'>" + fancyLink + caption + "</div>";
+      });
+    }
+  };
 
-    $(document).ready(function() {
-        new ImageFancyBox(".post-content .main-content-wrap p > img").run();
-    });
+  $(document).ready(function() {
+    new ImageFancyBox(".post-content .main-content-wrap p > img").run();
+  });
 })(jQuery);
 ;(function($) {
   'use strict';

@@ -4,7 +4,14 @@
   <url>
     <loc>http://blog.waterstrong.me/git-server-repository/</loc>
     
-    <lastmod>2017-03-23T14:21:23.000Z</lastmod>
+    <lastmod>2017-03-25T04:07:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/about/index.html</loc>
+    
+    <lastmod>2017-03-25T03:21:56.000Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>http://blog.waterstrong.me/links/index.html</loc>
     
     <lastmod>2017-03-23T14:13:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/about/index.html</loc>
-    
-    <lastmod>2017-03-23T14:13:22.000Z</lastmod>
     
   </url>
   
@@ -226,14 +226,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
