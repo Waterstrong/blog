@@ -131,9 +131,9 @@
     
       <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="SVN" scheme="http://blog.waterstrong.me/tags/SVN/"/>
-    
       <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
+    
+      <category term="SVN" scheme="http://blog.waterstrong.me/tags/SVN/"/>
     
   </entry>
   

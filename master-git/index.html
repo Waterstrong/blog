@@ -44,7 +44,7 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-9qfqhgbbdfbnaoohscqe25t21sdw5ajshlejx1yljnudp4ntz8r5vh5unosl.min.css">
+    <link rel="stylesheet" href="/assets/css/style-6ucwk1ufcnbcv5rmfinwqgvzr3nryir9o2tfqjx1pojgosk5ftdgyfup7sgs.min.css">
     <!--STYLES END-->
     
     
@@ -453,12 +453,6 @@
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
         
-            <li class="post-action">
-                <a class="post-action-btn btn btn--default" href="#ds-thread">
-                    <i class="fa fa-comment-o"></i>
-                </a>
-            </li>
-        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -489,10 +483,7 @@
 
         
             
-                <div id="ds-thread" class="ds-thread" data-thread-key="master-git/"
-     data-title="优雅地使用Git" data-url="http://blog.waterstrong.me/master-git/">
-</div>
-
+                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
             
         
     </div>
@@ -567,12 +558,6 @@
         <li class="post-action hide-xs">
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
-        
-            <li class="post-action">
-                <a class="post-action-btn btn btn--default" href="#ds-thread">
-                    <i class="fa fa-comment-o"></i>
-                </a>
-            </li>
         
         <li class="post-action">
             
@@ -963,21 +948,23 @@
         
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-ws9fpg1elmewrdqzmdyc710aatwjkbtszhki6rk5gajpnu8lo3dlydgahkbf.min.js"></script>
+<script src="/assets/js/script-gioyaezhuu280m6dtoezb8xzldfe10yaid6x456fjwzvbtergmimehcnkk8j.min.js"></script>
 <!--SCRIPTS END-->
 
     
-        <script type="text/javascript">
-            var duoshuoQuery = {short_name:'waterstrong'};
-            (function() {
-                var ds = document.createElement('script');
-                ds.type = 'text/javascript';ds.async = true;
-                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                ds.charset = 'UTF-8';
-                (document.getElementsByTagName('head')[0]
-                || document.getElementsByTagName('body')[0]).appendChild(ds);
-            })();
-        </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    <script type="text/javascript">
+        var cloudTieConfig = {
+            url: document.location.href,
+            sourceId: 'master-git/',
+            productKey: 'ef74001757cb4d4f930484b8651ca13d',
+            target: 'cloud-tie-wrapper'
+        };
+        var yunManualLoad = true;
+        (function() {
+            Tie.loader('aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s', true);
+        })();
+    </script>
     
 
 
