@@ -1308,6 +1308,20 @@ blockquote {
   #sidebar .sidebar-profile-bio {
     display: none; } }
 
+#cloud-tie-wrapper .tie-empty-tip {
+  pointer-events: none;
+  cursor: default; }
+  #cloud-tie-wrapper .tie-empty-tip > a {
+    text-indent: -9999px;
+    visibility: hidden;
+    line-height: 0;
+    display: inline-block; }
+  #cloud-tie-wrapper .tie-empty-tip > a:after {
+    content: "天行健，君子以自强不息；地势坤，君子以厚德载物。";
+    text-indent: 0;
+    visibility: visible;
+    display: block; }
+
 .alert {
   position: relative;
   text-align: left;
