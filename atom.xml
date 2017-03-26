@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-03-26T13:39:40.000Z</updated>
+  <updated>2017-03-26T13:49:57.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/duoshuo-away/"/>
     <id>http://blog.waterstrong.me/duoshuo-away/</id>
     <published>2017-03-24T10:58:54.000Z</published>
-    <updated>2017-03-26T13:39:40.000Z</updated>
+    <updated>2017-03-26T13:49:57.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;多说即将关闭&quot;&gt;&lt;a href=&quot;#多说即将关闭&quot; class=&quot;headerlink&quot; title=&quot;多说即将关闭&quot;&gt;&lt;/a&gt;多说即将关闭&lt;/h2&gt;&lt;div class=&quot;figure left fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/duoshuo-away/duoshuo_post.png&quot; title=&quot;&quot; data-fancybox-group=&quot;&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/duoshuo-away/duoshuo_post.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;p&gt;在多说网本月21号发布关闭多说项目前几天，当时一直在修改主题源码升级博客功能，就一直遇到多说评论框加载失败的情况，一开始以为自己修改的代码影响到了多说的加载，后来一查发现原来是多说系统近期不稳定导致的，本来有时多说加载是相对比较慢，有时会出现问题，但也不至于系统那么不稳定，定是发生了什么事情，果不其然，随后在3月21号，多说网发表声明称&lt;strong&gt;因公司业务调整将在2017年6月1日正式关停多说服务&lt;/strong&gt;，以下是通知的原文截图。&lt;br&gt;&lt;img src=&quot;/assets/duoshuo-away/duoshuo_notice.png&quot; alt=&quot;多说即将关闭通知&quot;&gt;&lt;/p&gt;
@@ -46,6 +46,7 @@
 &lt;li&gt;&lt;p&gt;(可选)由于后台目前还不支持自定义的CSS样式，可以选择在&lt;code&gt;/source/_css/layouts/&lt;/code&gt;中新加一个文件命名为&lt;code&gt;_yungentie.scss&lt;/code&gt;，可以写自定义的样式，同时在入口SCSS文件处引入新建文件，即&lt;code&gt;@import &amp;#39;layouts/yungentie&amp;#39;&lt;/code&gt;。&lt;br&gt;&lt;img src=&quot;/assets/duoshuo-away/yungentie1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;hr&gt;
 </content>
     
     <summary type="html">
