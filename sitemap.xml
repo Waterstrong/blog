@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/mac-rw-ntfs/</loc>
+    
+    <lastmod>2017-03-30T15:19:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/svn-to-git-migration/</loc>
     
     <lastmod>2017-03-30T12:06:38.000Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://blog.waterstrong.me/java-checkstyle/</loc>
     
     <lastmod>2017-02-19T06:01:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/mac-rw-ntfs/</loc>
-    
-    <lastmod>2017-02-16T16:34:20.000Z</lastmod>
     
   </url>
   
@@ -240,13 +240,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -255,6 +248,13 @@
   
   <url>
     <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

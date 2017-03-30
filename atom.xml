@@ -554,7 +554,7 @@
     <link href="http://blog.waterstrong.me/mac-rw-ntfs/"/>
     <id>http://blog.waterstrong.me/mac-rw-ntfs/</id>
     <published>2016-09-11T13:10:13.000Z</published>
-    <updated>2017-02-16T16:34:20.000Z</updated>
+    <updated>2017-03-30T15:19:40.000Z</updated>
     
     <content type="html">&lt;p&gt;其实老早就遇到了Mac下写NTFS的问题，本来因为有两块移动硬盘，把其中一块500G的格式化成了Mac支持的格式，用于备份一些重要数据，而另一块1T之前已经存了不少数据，也懒得麻烦就一直放着没有管，但最近电脑数据太多，已经报警磁盘空间不足，不得不进行数据备份了，最早的硬盘已差不多满了，但又不想改磁盘格式，并且以后还可能在Win下拷贝数据，必须得想办法解决在Mac读写NTFS磁盘问题。&lt;/p&gt;
 &lt;p&gt;可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。&lt;br&gt;&lt;img src=&quot;/assets/mac-rw-ntfs/disk_utility.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
