@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/svn-to-git-migration/</loc>
+    
+    <lastmod>2017-03-30T12:06:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/duoshuo-away/</loc>
     
     <lastmod>2017-03-26T13:49:57.000Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://blog.waterstrong.me/about/index.html</loc>
     
     <lastmod>2017-03-25T03:21:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/svn-to-git-migration/</loc>
-    
-    <lastmod>2017-03-23T14:15:13.000Z</lastmod>
     
   </url>
   

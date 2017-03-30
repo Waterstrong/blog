@@ -219,7 +219,7 @@
     <link href="http://blog.waterstrong.me/svn-to-git-migration/"/>
     <id>http://blog.waterstrong.me/svn-to-git-migration/</id>
     <published>2017-02-10T14:51:30.000Z</published>
-    <updated>2017-03-23T14:15:13.000Z</updated>
+    <updated>2017-03-30T12:06:38.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;这里就不再赘述关于SVN与Git的区别以及为什么要迁移源码到Git了，毕竟Git是当前的主流DVCS了，而且已经公认地非常好用，如果你还在使用SVN的话该考虑换了，是时候迁移那些遗留代码了，有兴趣可以参阅 &lt;a href=&quot;https://www.atlassian.com/git/tutorials/why-git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Why Git&lt;/a&gt; 和 &lt;a href=&quot;https://www.atlassian.com/git/tutorials/perforce-git&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Perforce to Git&lt;/a&gt; 了解更多。通常来说，在项目开发过程中，难免会遇到一些老项目代码正被SVN管理着，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码？并且如何保留提交记录、分支记录以及开发成员等信息呢？笔者前一段时间就经历了这样的迁移工作，还是有必要分享一下，也算是一种总结了。&lt;/p&gt;
 &lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;迁移SVN源码到Git仓库的方法肯定不是暴力地将代码Copy再Paste到Git仓库，也不是直接在项目下git init初始化仓库的，而是应该使用&lt;a href=&quot;https://git-scm.com/docs/git-svn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;git svn&lt;/a&gt;命令操作实现迁移工作。那git-svn命令如何使用？有哪些注意事项呢？&lt;/p&gt;
