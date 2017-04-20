@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
+    
+    <lastmod>2017-04-20T11:44:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
+    
+    <lastmod>2017-04-17T13:05:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/mac-rw-ntfs/</loc>
     
     <lastmod>2017-03-30T15:19:40.000Z</lastmod>
@@ -177,20 +191,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/cpp-singleton/</loc>
-    
-    <lastmod>2016-10-18T14:46:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/concourse-ci/</loc>
-    
-    <lastmod>2016-10-17T15:51:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me/transactional-mechanism-protocol/</loc>
     
     <lastmod>2016-10-17T15:23:31.000Z</lastmod>
@@ -247,14 +247,14 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
