@@ -17,16 +17,16 @@
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="Security">
+    <meta name="description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Docker学习与实践 - 安全篇">
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
-<meta property="og:description" content="Security">
-<meta property="og:updated_time" content="2017-04-21T15:59:00.000Z">
+<meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
+<meta property="og:updated_time" content="2017-04-21T16:33:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
-<meta name="twitter:description" content="Security">
+<meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
 <meta name="twitter:creator" content="@shuiqianglin">
     
     
@@ -298,18 +298,33 @@
 <li>镜像的安全性，如：如何确保下载的镜像是可信的、未被篡改过的；</li>
 <li>Docker守护进程安全性，如：如何确保发送给Daemon的命令是由可信用户发起的。</li>
 </ul>
-<p>接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。</p>
-<h2 id="Docker访问主机系统"><a href="#Docker访问主机系统" class="headerlink" title="Docker访问主机系统"></a>Docker访问主机系统</h2><p><a href="http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/shadow-file-formats.html" target="_blank" rel="external"></a></p>
-<p>使用供应商最支持的存储驱动程序，<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="external">aufs</a>是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃</p>
-<p>是的，如果是Privileged容器……<br>能够允许所有设备执行任意操作<br>能够读写内核内存 /dev/kcore</p>
-<p>使用参数 –net=host 可以嗅探所有网络流量</p>
+<p>接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。<br><sub>「<em>特此声明: 大部分内容都是来自内部培训资料</em>」</sub></p>
+<h2 id="Docker访问主机系统"><a href="#Docker访问主机系统" class="headerlink" title="Docker访问主机系统"></a>Docker访问主机系统</h2><ul>
+<li><p>首先来验证一下，能否访问主机上的存储密码相关的 <a href="http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/shadow-file-formats.html" target="_blank" rel="external">/etc/shadow</a> 文件？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/shadow  <span class="comment"># 使用普通用户访问</span></span><br><span class="line">cat: /etc/shadow: Permission denied</span><br><span class="line"></span><br><span class="line">$ who am i; groups;  <span class="comment"># 查看当前的用户和组</span></span><br><span class="line">vagrant  pts/0  (10.0.2.2)</span><br><span class="line">vagrant docker</span><br><span class="line"></span><br><span class="line">$ sudo cat /etc/shadow  <span class="comment"># 使用管理员用户访问</span></span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$HmunRCSU</span><span class="variable">$YXNgf</span>...bnj2AVtjAFfmh0:16744:0:99999:7:::</span><br><span class="line">daemon:*:16744:0:99999:7:::</span><br><span class="line">vagrant:<span class="variable">$6</span><span class="variable">$55jH0QFsuLa</span>...vGb8lH/9jQy4r0:16744:0:99999:7:::</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再来验证一下，能否在 Docker 容器中访问<code>/etc/shadow</code>文件呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -v /:/hostfs busybox cat /hostfs/etc/shadow</span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$HmunRCSU</span><span class="variable">$YXNgf</span>...bnj2AVtjAFfmh0:16744:0:99999:7:::</span><br><span class="line">daemon:*:16744:0:99999:7:::</span><br><span class="line">vagrant:<span class="variable">$6</span><span class="variable">$55jH0QFsuLa</span>...vGb8lH/9jQy4r0:16744:0:99999:7:::</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看到，在容器中是可以访问宿主机上只有root用户才能访问的密码敏感文件的。</p>
+<ul>
+<li><p>再来看一下，能否在Docker容器中修改主机文件系统？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ls / | grep threat</span><br><span class="line"></span><br><span class="line">$ docker run -it -v /:/hostfs busybox touch /hostfs/threat-on-the-way</span><br><span class="line"></span><br><span class="line">$ ls / | grep threatls / | grep threat</span><br><span class="line">threat-on-the-way</span><br></pre></td></tr></table></figure>
+<p>可以看到，在 Docker 容器中，能够在宿主机根目录创建文件，并且可以修改主机文件系统。更严重的时，如果是 <a href="https://docs.docker.com/engine/security/security/#kernel-namespaces" target="_blank" rel="external">Privileged</a> 容器，即在运行容器时指定<code>--privileged</code>参数，则能够允许容器所有设备执行任意操作，能够读写内核内存<code>/proc/kcore</code>，使用参数<code>--net=host</code>可以嗅探主机所有网络流量。</p>
+</li>
+<li><p>最后，来查看一下 Docker 容器和<code>Metadata</code>存储在哪儿？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ls  /var/lib/docker</span><br><span class="line">aufs  containers  graph  linkgraph.db  network  repositories-aufs  tmp  trust  volumes</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> /var/lib/docker/; sudo du --max-depth=1</span><br><span class="line">4	./trust</span><br><span class="line">88	./network</span><br><span class="line">5246812	./aufs</span><br><span class="line">4	./tmp</span><br><span class="line">579872	./volumes</span><br><span class="line">1900	./containers</span><br><span class="line">11740	./graph</span><br><span class="line">5840444	.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最推荐使用供应商最支持的存储驱动程序，<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="external">aufs</a>是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。</p>
 <h2 id="Docker安全最佳实践"><a href="#Docker安全最佳实践" class="headerlink" title="Docker安全最佳实践"></a>Docker安全最佳实践</h2><p>为了保证 Docker 安全性，需要在各方面遵循一些实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行方面。</p>
 <h4 id="在宿主机方面"><a href="#在宿主机方面" class="headerlink" title="在宿主机方面"></a>在宿主机方面</h4><ul>
 <li>保持内核及时更新，防止黑客利用未修复的漏洞进行攻击</li>
 <li>增强主机安全保护，如果主机不安全了，容器也就谈不上安全了</li>
 <li>保持Docker及时更新，特别要关注Docker安全相关方面的更新</li>
 </ul>
-<h4 id="Docker守护进程方面"><a href="#Docker守护进程方面" class="headerlink" title="Docker守护进程方面"></a>Docker守护进程方面</h4><ul>
+<h4 id="守护进程方面"><a href="#守护进程方面" class="headerlink" title="守护进程方面"></a>守护进程方面</h4><ul>
 <li>只允许受信用户控制Docker守护进程，保证与Daemon的连接是可信的</li>
 <li>不使用不受信的镜像仓库，因为镜像可能会被篡改过</li>
 <li>必要时请为Docker守护进程应用 <a href="https://docs.docker.com/engine/security/https/" target="_blank" rel="external">TLS</a> 认证网络</li>
@@ -330,7 +345,7 @@
 <li>指定容器重启策略为on-failure，重启策略有四种，详细可以参阅 <a href="https://docs.docker.com/engine/reference/run/#restart-policies---restart" target="_blank" rel="external">Restart policies</a></li>
 <li>使用<em>强制权限控制系统</em> <a href="https://wiki.ubuntu.com/AppArmor" target="_blank" rel="external">AppArmor</a> 和 <em>Linux安全增强工具</em> <a href="http://selinuxproject.org/page/Main_Page" target="_blank" rel="external">SELinux</a> 保证额外的安全层</li>
 </ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Docker安全性主要体现在容器安全性、镜像的安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。</p>
 <hr>
 <p>References</p>
 <ul>

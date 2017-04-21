@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-04-21T15:59:00.000Z</updated>
+  <updated>2017-04-21T16:33:12.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/docker-security/"/>
     <id>http://blog.waterstrong.me/docker-security/</id>
     <published>2017-04-08T12:17:16.000Z</published>
-    <updated>2017-04-21T15:59:00.000Z</updated>
+    <updated>2017-04-21T16:33:12.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在多数情况下，启动Docker容器时都以root用户权限在运行，首先来看一下如果有ROOT权限可以做什么？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。&lt;/p&gt;
 &lt;p&gt;容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。与虚拟机是不同的，虚拟机并没有与主机共享内核，虚拟机崩溃一般不会导致宿主机崩溃。&lt;/p&gt;
@@ -30,18 +30,33 @@
 &lt;li&gt;镜像的安全性，如：如何确保下载的镜像是可信的、未被篡改过的；&lt;/li&gt;
 &lt;li&gt;Docker守护进程安全性，如：如何确保发送给Daemon的命令是由可信用户发起的。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。&lt;/p&gt;
-&lt;h2 id=&quot;Docker访问主机系统&quot;&gt;&lt;a href=&quot;#Docker访问主机系统&quot; class=&quot;headerlink&quot; title=&quot;Docker访问主机系统&quot;&gt;&lt;/a&gt;Docker访问主机系统&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/shadow-file-formats.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;使用供应商最支持的存储驱动程序，&lt;a href=&quot;https://en.wikipedia.org/wiki/Aufs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;aufs&lt;/a&gt;是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃&lt;/p&gt;
-&lt;p&gt;是的，如果是Privileged容器……&lt;br&gt;能够允许所有设备执行任意操作&lt;br&gt;能够读写内核内存 /dev/kcore&lt;/p&gt;
-&lt;p&gt;使用参数 –net=host 可以嗅探所有网络流量&lt;/p&gt;
+&lt;p&gt;接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。&lt;br&gt;&lt;sub&gt;「&lt;em&gt;特此声明: 大部分内容都是来自内部培训资料&lt;/em&gt;」&lt;/sub&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Docker访问主机系统&quot;&gt;&lt;a href=&quot;#Docker访问主机系统&quot; class=&quot;headerlink&quot; title=&quot;Docker访问主机系统&quot;&gt;&lt;/a&gt;Docker访问主机系统&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;首先来验证一下，能否访问主机上的存储密码相关的 &lt;a href=&quot;http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/shadow-file-formats.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;/etc/shadow&lt;/a&gt; 文件？&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ cat /etc/shadow  &lt;span class=&quot;comment&quot;&gt;# 使用普通用户访问&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cat: /etc/shadow: Permission denied&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ who am i; groups;  &lt;span class=&quot;comment&quot;&gt;# 查看当前的用户和组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant  pts/0  (10.0.2.2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ sudo cat /etc/shadow  &lt;span class=&quot;comment&quot;&gt;# 使用管理员用户访问&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;root:&lt;span class=&quot;variable&quot;&gt;$6&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$HmunRCSU&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$YXNgf&lt;/span&gt;...bnj2AVtjAFfmh0:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;daemon:*:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant:&lt;span class=&quot;variable&quot;&gt;$6&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$55jH0QFsuLa&lt;/span&gt;...vGb8lH/9jQy4r0:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;再来验证一下，能否在 Docker 容器中访问&lt;code&gt;/etc/shadow&lt;/code&gt;文件呢？&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker run -v /:/hostfs busybox cat /hostfs/etc/shadow&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;root:&lt;span class=&quot;variable&quot;&gt;$6&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$HmunRCSU&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$YXNgf&lt;/span&gt;...bnj2AVtjAFfmh0:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;daemon:*:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vagrant:&lt;span class=&quot;variable&quot;&gt;$6&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$55jH0QFsuLa&lt;/span&gt;...vGb8lH/9jQy4r0:16744:0:99999:7:::&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以看到，在容器中是可以访问宿主机上只有root用户才能访问的密码敏感文件的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;再来看一下，能否在Docker容器中修改主机文件系统？&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ls / | grep threat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker run -it -v /:/hostfs busybox touch /hostfs/threat-on-the-way&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ls / | grep threatls / | grep threat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;threat-on-the-way&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到，在 Docker 容器中，能够在宿主机根目录创建文件，并且可以修改主机文件系统。更严重的时，如果是 &lt;a href=&quot;https://docs.docker.com/engine/security/security/#kernel-namespaces&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Privileged&lt;/a&gt; 容器，即在运行容器时指定&lt;code&gt;--privileged&lt;/code&gt;参数，则能够允许容器所有设备执行任意操作，能够读写内核内存&lt;code&gt;/proc/kcore&lt;/code&gt;，使用参数&lt;code&gt;--net=host&lt;/code&gt;可以嗅探主机所有网络流量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;最后，来查看一下 Docker 容器和&lt;code&gt;Metadata&lt;/code&gt;存储在哪儿？&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ls  /var/lib/docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;aufs  containers  graph  linkgraph.db  network  repositories-aufs  tmp  trust  volumes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /var/lib/docker/; sudo du --max-depth=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4	./trust&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;88	./network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5246812	./aufs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4	./tmp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;579872	./volumes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1900	./containers&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11740	./graph&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5840444	.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最推荐使用供应商最支持的存储驱动程序，&lt;a href=&quot;https://en.wikipedia.org/wiki/Aufs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;aufs&lt;/a&gt;是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。&lt;/p&gt;
 &lt;h2 id=&quot;Docker安全最佳实践&quot;&gt;&lt;a href=&quot;#Docker安全最佳实践&quot; class=&quot;headerlink&quot; title=&quot;Docker安全最佳实践&quot;&gt;&lt;/a&gt;Docker安全最佳实践&lt;/h2&gt;&lt;p&gt;为了保证 Docker 安全性，需要在各方面遵循一些实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行方面。&lt;/p&gt;
 &lt;h4 id=&quot;在宿主机方面&quot;&gt;&lt;a href=&quot;#在宿主机方面&quot; class=&quot;headerlink&quot; title=&quot;在宿主机方面&quot;&gt;&lt;/a&gt;在宿主机方面&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;保持内核及时更新，防止黑客利用未修复的漏洞进行攻击&lt;/li&gt;
 &lt;li&gt;增强主机安全保护，如果主机不安全了，容器也就谈不上安全了&lt;/li&gt;
 &lt;li&gt;保持Docker及时更新，特别要关注Docker安全相关方面的更新&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&quot;Docker守护进程方面&quot;&gt;&lt;a href=&quot;#Docker守护进程方面&quot; class=&quot;headerlink&quot; title=&quot;Docker守护进程方面&quot;&gt;&lt;/a&gt;Docker守护进程方面&lt;/h4&gt;&lt;ul&gt;
+&lt;h4 id=&quot;守护进程方面&quot;&gt;&lt;a href=&quot;#守护进程方面&quot; class=&quot;headerlink&quot; title=&quot;守护进程方面&quot;&gt;&lt;/a&gt;守护进程方面&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;只允许受信用户控制Docker守护进程，保证与Daemon的连接是可信的&lt;/li&gt;
 &lt;li&gt;不使用不受信的镜像仓库，因为镜像可能会被篡改过&lt;/li&gt;
 &lt;li&gt;必要时请为Docker守护进程应用 &lt;a href=&quot;https://docs.docker.com/engine/security/https/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;TLS&lt;/a&gt; 认证网络&lt;/li&gt;
@@ -62,7 +77,7 @@
 &lt;li&gt;指定容器重启策略为on-failure，重启策略有四种，详细可以参阅 &lt;a href=&quot;https://docs.docker.com/engine/reference/run/#restart-policies---restart&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Restart policies&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;使用&lt;em&gt;强制权限控制系统&lt;/em&gt; &lt;a href=&quot;https://wiki.ubuntu.com/AppArmor&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AppArmor&lt;/a&gt; 和 &lt;em&gt;Linux安全增强工具&lt;/em&gt; &lt;a href=&quot;http://selinuxproject.org/page/Main_Page&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SELinux&lt;/a&gt; 保证额外的安全层&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h2&gt;&lt;p&gt;Docker安全性主要体现在容器安全性、镜像的安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。&lt;/p&gt;
+&lt;h2 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h2&gt;&lt;p&gt;Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References&lt;/p&gt;
 &lt;ul&gt;
@@ -75,7 +90,7 @@
     
     <summary type="html">
     
-      Security
+      Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。
     
     </summary>
     
