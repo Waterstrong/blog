@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="generator" content="Waterstrong Blog">
+    <title>Docker学习与实践 - 网络篇 - Waterstrong Blog</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,Shuiqiang,ThoughtWorks,">
+    
+    
+        <link rel="icon" href="http://blog.waterstrong.me/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Docker中的网络接口默认都是虚拟接口，Docker的网络利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是veth pair，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Docker学习与实践 - 网络篇">
+<meta property="og:url" content="http://blog.waterstrong.me/docker-networking/index.html">
+<meta property="og:site_name" content="Waterstrong Blog">
+<meta property="og:description" content="Docker中的网络接口默认都是虚拟接口，Docker的网络利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是veth pair，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/docker/docker_bridge.jpg">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/docker/networking_model.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/docker/overlay_network.png">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/docker/sdn_3layers.jpg">
+<meta property="og:image" content="http://blog.waterstrong.me/assets/docker/multi_hosts_network.jpg">
+<meta property="og:updated_time" content="2017-04-21T14:39:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker学习与实践 - 网络篇">
+<meta name="twitter:description" content="Docker中的网络接口默认都是虚拟接口，Docker的网络利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是veth pair，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。">
+<meta name="twitter:image" content="http://blog.waterstrong.me/assets/docker/docker_bridge.jpg">
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <meta property="og:image" content="http://blog.waterstrong.me/docker-networking/assets/docker/networking.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.waterstrong.me/docker-networking/assets/docker/networking.jpg" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-mfzprhpgorfbifioefmqnrqqafhwsgogxhtbiohy3accfaiq5zjqurtwde8m.min.css">
+    <!--STYLES END-->
+    
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Waterstrong Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !<br> Stay quiet, run wild !<br> <a href="/about">More about…</a></p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-globe" title="Reload"></i>
+                        <span class="sidebar-button-desc">Reload</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="http://waterstrong.me"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.jpg"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/links"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Docker学习与实践 - 网络篇
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-04-02T21:59:27+08:00">
+	
+		    Apr 02, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Platforms/">Platforms</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>通常来说，要实现网络通信，机器需要至少一个网络接口(物理接口或虚拟接口)来收发数据包，另外，如果不同子网之间要进行通信，还需要路由机制。Docker中的网络接口默认都是虚拟接口，虚拟接口的优势之一是转发效率较高。</p>
+<p>Linux通过在内核中进行数据复制来实现虚拟接口之间的数据转发，通俗地讲，<em>发送接口</em>的<em>发送缓存</em>数据包被直接复制到<em>接收接口</em>的<em>接收缓存</em>中，对于本地系统和容器内系统来说，就像是一个正常的以太网卡，但它不需要真正与外部网络设备通信，因此速度快，转发效率高。</p>
+<p>Docker的网络实现其实就是利用了该技术，即利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是<code>veth pair</code>，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。</p>
+<h2 id="Docker网络实现原理"><a href="#Docker网络实现原理" class="headerlink" title="Docker网络实现原理"></a>Docker网络实现原理</h2><p>启动Docker时会在宿主机上创建一个名为<code>docker0</code>的虚拟网桥，Docker启动一个容器时会根据<code>docker0</code>的IP，容器内的虚拟接口为<code>eth0</code>，各容器的网关则是<code>docker0</code>的IP。<br><img src="/assets/docker/docker_bridge.jpg" alt=""></p>
+<p>Docker创建一个容器的时候，会执行如下操作：</p>
+<ol>
+<li>创建一对虚拟接口，即<code>veth pair</code>，分别放到宿主机和容器中;</li>
+<li>主机一端桥接到默认的<code>docker0</code>或指定网桥上，具有一个唯一的名字，如<code>veth0ac844e</code>;</li>
+<li>另一端放到新容器中，并修改名字为<code>eth0</code>，该接口只在容器的命名空间可见;</li>
+<li>从网桥可用地址段中获取一个空闲地址分配给容器的<code>eth0</code>，并配置默认路由到桥接网卡<code>veth0ac844e</code>。</li>
+</ol>
+<p>这样，该容器就可以使用<code>eth0</code>虚拟网卡来连接其它容器和网络了。当该容器结束后，Docker会清空容器，容器内的<code>eth0</code>会随网络命名空间一起被清除，<code>veth0ac844e</code>接口也被自动从<code>docker0</code>卸载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr  <span class="comment"># 可以看到网桥docker0分配的子网段是172.17.0.1/16</span></span><br><span class="line">...</span><br><span class="line">7: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default</span><br><span class="line">    link/ether 02:42:74:d9:49:de brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.1/16 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:74ff:fed9:49de/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ brctl show  <span class="comment"># 可以看到网桥docker0上的虚拟接口</span></span><br><span class="line">bridge name	bridge id		STP enabled	interfaces</span><br><span class="line">docker0		8000.024274d949de	no		veth0ac844e</span><br><span class="line">							veth36e091d</span><br><span class="line"></span><br><span class="line">$ brctl showstp docker0  <span class="comment"># 查看网桥docker0的生成树状态</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ethtool -i docker0  <span class="comment"># 查看网桥docker0的网卡驱动类型</span></span><br><span class="line">driver: bridge</span><br><span class="line">version: 2.3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ethtool -S veth0ac844e  <span class="comment"># 查看该网络接口的唯一识别编号peer_ifindex</span></span><br><span class="line">NIC statistics:</span><br><span class="line">     peer_ifindex: 10</span><br><span class="line"></span><br><span class="line">$ ip link  <span class="comment"># 进入容器后运行该命令，查看veth编号</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">10: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default</span><br><span class="line">    link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
+<h2 id="Docker容器网络模型"><a href="#Docker容器网络模型" class="headerlink" title="Docker容器网络模型"></a>Docker容器网络模型</h2><h4 id="网络模型基本组件"><a href="#网络模型基本组件" class="headerlink" title="网络模型基本组件"></a>网络模型基本组件</h4><p>在容器网络模型中，通常会包括容器(Container)、沙箱(Sandbox)、端点(Endpoint)、网络(Network)等组件，其中，网络会涉及桥接网(Bridge Network)或重叠网(Overlay Network)。</p>
+<p>容器网络模型示意图如下图所示：<br><img src="/assets/docker/networking_model.png" alt=""></p>
+<ul>
+<li>容器(Container): 容器能够作为任意一个或多个网络的一部分，能够同时对接桥接网和重叠网网络。</li>
+<li>沙箱(Sandbox): 包含容器网络堆栈配置信息，是一个隔离的环境，可能包含多网络的多个端点。</li>
+<li>端点(Endpoint): 连接沙箱和网络的接口，绑定到特定的网络，比如之前提到的<code>veth pair</code>。</li>
+<li>网络(Network): 使得一组端点之间能够相互直接交流的，实现可以是Linux网桥或重叠网。</li>
+</ul>
+<h4 id="容器网络模型优势"><a href="#容器网络模型优势" class="headerlink" title="容器网络模型优势"></a>容器网络模型优势</h4><p>首先，与Docker Links进行简单对比，Docker Links允许容器之间互相发现，并使用容器名作为别名进行互相之间的通信，比DNS或服务发现更容易使用，且不用关心端口映射，但Docker Links有一些限制，比如:</p>
+<ul>
+<li>只能在同一宿主机内使用，不能跨主机</li>
+<li>重新创建容器会移除之前的链接(Links)</li>
+<li>被链接的容器必须是一个已经启动的容器</li>
+</ul>
+<p>因此，在Docker 1.9版本之后，官方推荐使用Docker网络功能代替Docker Links。Docker容器网络模型的主要优势在于:</p>
+<ul>
+<li>在某个特定网络下的所有容器能自由地相互通信</li>
+<li>多个网络有助于分散容器之间的流量传输</li>
+<li>多个端点允许一个容器加入到多个网络中</li>
+<li>能够支持同主机和跨主机的容器间通信</li>
+</ul>
+<h4 id="桥接网络与重叠网络"><a href="#桥接网络与重叠网络" class="headerlink" title="桥接网络与重叠网络"></a>桥接网络与重叠网络</h4><p>桥接网络(Bridge Network)，在同一宿主机上的多个容器可以连接到同一桥接网络来实现彼此网络通信，之前提到了Docker默认的虚拟网桥为<code>docker0</code>，当然也可以创建自定义的网络生成新的虚拟网桥，而将容器连接到的该虚拟网桥上形成的网络称为桥接网络。在运行容器时可指定<code>--net=bridge</code>使用桥接模式，将容器桥接到宿主机的虚拟网桥上，从虚拟网桥的空闲网段中划分出一个子网私有IP分配给该容器。</p>
+<p>重叠网络(Overly Network，也有的译成叠加或覆盖网络)，在物理网络之上，通过软件定义网络(Software Defined Network, SDN) 创建虚拟网络抽象，使得应用之间在逻辑上彼此隔离，但共享相同的底层物理网络，同时简化网络管理。</p>
+<blockquote>
+<p>Overlay networking is a method of using software to create layers of network abstraction that can be used to run multiple separate, discrete virtualized network layers on top of the physical network, often providing new applications or security benefits.</p>
+</blockquote>
+<p><img src="/assets/docker/overlay_network.png" alt="图片来自网络"></p>
+<p>更通俗地讲，重叠网是一种运行于一个或多个已存在的网络之上的虚拟网络，即在IPv4底层网络的基础上通过节点之间单播机制将主机两两相连，形成一个虚拟、独立的具有星形和环形拓扑的虚拟网络，就好像在原有的网络上叠加了一层新的网络，以提供特定的附加功能。</p>
+<p>重叠网技术的基本思路是在互联网承载层和应用层之间增加一个中间层，结合IP承载网技术，为上层业务和应用提供有针对性的服务，对已有的应用和业务进行适当控制，是对现有互联网体系架构的系统性修补。在<em>软件定义网络</em>领域中，重叠网络的实现大多采用隧道(Tunneling)技术实现，它可以基于现行的IP网络进行叠加部署，消除传统二层网络的限制，如<a href="https://en.wikipedia.org/wiki/Virtual_Extensible_LAN" target="_blank" rel="external">VXLAN</a>、<a href="http://www.sdnlab.com/11819.html" target="_blank" rel="external">NVGRE</a>等，都是基于隧道原理实现网络通信，利用叠加在三层网络之上的虚拟网络传递二层数据包，实现了可以跨越三层物理网络进行通信的二层逻辑网络，突破了传统二层网络中存在的物理位置受限、VLAN数量有限等障碍，大幅度降低管理成本和运营风险。</p>
+<p>在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性支持，用户可以在Swarm中使用它或者将其作为Compose工具。通过创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且能够实现不同的应用程序或者应用程序不同部分的相互隔离。而在之前的版本中，要实现跨主机的容器间网络通信，需要借助第三方网络插件的实现，可以在后面的章节中了解更多。</p>
+<h2 id="Docker四种网络方式"><a href="#Docker四种网络方式" class="headerlink" title="Docker四种网络方式"></a>Docker四种网络方式</h2><p>可以在<code>docker run</code>时通过<code>--net</code>参数来指定容器的网络配置，有4种可选值：<code>bridge</code>, <code>host</code>, <code>container:NAME_or_ID</code>, <code>none</code>。</p>
+<h4 id="bridge模式"><a href="#bridge模式" class="headerlink" title="bridge模式"></a>bridge模式</h4><p>使用<code>--net=bridge</code>指定，为默认模式，连接到默认的网桥<code>docker0</code>，此模式会为每个容器分配一个独立的网络命名空间，使用该设置可以看到在容器中创建了<code>eth0</code>。<br>详细举个例子，假如需要创建自定义的网络，命名为<code>web</code>，系统会为其分配一个以<code>br-</code>开头的网桥名，如<code>br-2e9f4f21f001</code>，当指定<code>--net=web</code>时，即连接到对应的网桥上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">$ docker network create web  <span class="comment"># 默认参数-d, --driver=bridge</span></span><br><span class="line">2e9f4f21f001fb679b657a9ef020efdd3843d51f7af24a2438114dbcfdd8fce8</span><br><span class="line"></span><br><span class="line">$ docker network ls  <span class="comment"># NAME列即为--net参数可选值，DRIVER列为网卡驱动类型</span></span><br><span class="line">NETWORK ID          NAME                DRIVER</span><br><span class="line">100cae621cad        bridge              bridge</span><br><span class="line">2e9f4f21f001        web                 bridge</span><br><span class="line">a14b172c4c88        none                null</span><br><span class="line">314ed40a56b6        host                host</span><br><span class="line"></span><br><span class="line">$ ip addr  <span class="comment"># 为网桥br-2e9f4f21f001分配的子网段是172.18.0.1/16</span></span><br><span class="line">...</span><br><span class="line">17: br-2e9f4f21f001: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default</span><br><span class="line">    link/ether 02:42:72:60:5c:14 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.18.0.1/16 scope global br-2e9f4f21f001</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:72ff:fe60:5c14/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ethtool -i br-2e9f4f21f001  <span class="comment"># 查看网桥br-2e9f4f21f001的网卡驱动类型</span></span><br><span class="line">driver: bridge</span><br><span class="line">version: 2.3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ modinfo bridge  <span class="comment"># 查看网卡驱动bridge的详细信息</span></span><br><span class="line">filename:       /lib/modules/3.19.0-32-generic/kernel/net/bridge/bridge.ko</span><br><span class="line">version:        2.3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ docker run -itd --net=web --name web_container busybox</span><br><span class="line">16835c9b647f4e40fb35bfc406e7676280a997d540be2e4a2af5ee6b32a1a10a</span><br><span class="line"></span><br><span class="line">$ brctl show  <span class="comment"># 运行容器后可看到已动态创建并关联了接口veth52ab366</span></span><br><span class="line">bridge name	bridge id		STP enabled	interfaces</span><br><span class="line">br-2e9f4f21f001	8000.024272605c14	no		veth52ab366</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ brctl showstp br-2e9f4f21f001  <span class="comment"># 也可进一步查看该网桥的生成树状态</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ docker network inspect web  <span class="comment"># 可以看到刚创建的容器已关联并分配了IP</span></span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">"Name"</span>: <span class="string">"web"</span>,</span><br><span class="line">    <span class="string">"Id"</span>: <span class="string">"2e9f4f21f001fb679b657a9ef020efdd3843d51f7af24a2438114dbcfdd8fce8"</span>,</span><br><span class="line">    <span class="string">"Scope"</span>: <span class="string">"local"</span>,</span><br><span class="line">    <span class="string">"Driver"</span>: <span class="string">"bridge"</span>,</span><br><span class="line">    <span class="string">"IPAM"</span>: &#123;</span><br><span class="line">      <span class="string">"Driver"</span>: <span class="string">"default"</span>,</span><br><span class="line">      <span class="string">"Config"</span>: [&#123;&#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"Containers"</span>: &#123;</span><br><span class="line">      <span class="string">"16835c9b647f4e40fb35bfc406e7676280a997d540be2e4a2af5ee6b32a1a10a"</span>: &#123;</span><br><span class="line">        <span class="string">"EndpointID"</span>: <span class="string">"878bd0f230a44d5bcddc08f04a659118005cca25e629049f10a87174175ffeb1"</span>,</span><br><span class="line">        <span class="string">"MacAddress"</span>: <span class="string">"02:42:ac:12:00:02"</span>,</span><br><span class="line">        <span class="string">"IPv4Address"</span>: <span class="string">"172.18.0.2/16"</span>,</span><br><span class="line">        <span class="string">"IPv6Address"</span>: <span class="string">""</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"Options"</span>: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">$ docker inspect 16835c9b647f  <span class="comment"># 可进一步查看容器web_container更底层的详细信息</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="host模式"><a href="#host模式" class="headerlink" title="host模式"></a>host模式</h4><p>使用<code>--net=host</code>指定，Docker使用的网络和宿主机的一样，该方式创建出来的容器，可以看到主机上所有的网络设备，容器中对这些设备有全部的访问权限。<br>容器进程可以与主机其它root进程一样，能打开低范围的端口，可以访问本地网络服务，如 <a href="https://dbus.freedesktop.org/doc/dbus-tutorial.html" target="_blank" rel="external">D-Bus</a>，还可以让容器做一些影响整个主机系统的事情，比如重启主机。<br>因此，使用这个选项的时候要非常小心，在非隔离的环境中使用<code>host模式</code>是不安全的，如果进一步的使用<code>--privileged=true</code>，容器可以直接配置主机的网络堆栈。</p>
+<h4 id="container模式"><a href="#container模式" class="headerlink" title="container模式"></a>container模式</h4><p>使用<code>--net=container:CONTAINER_ID/CONTAINER_NAME</code>指定，多个容器使用共同的网络，即两者的网络完全相同。<br>将新建容器的进程放到一个已存在容器的网络栈中，新容器进程有自己的文件系统、进程列表和资源限制，但会和已存在的容器共享IP地址和端口等网络资源，两者进程可以直接通过 <a href="http://www.omnisecu.com/cisco-certified-network-associate-ccna/what-is-loopback-interface-in-a-router.php" target="_blank" rel="external">环回接口</a> 通信。</p>
+<h4 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h4><p>使用<code>--net=none</code>指定，这种模式下，将新容器放到隔离的网络栈中，但是不进行网络配置，实际上 <a href="https://wiki.openstack.org/wiki/Docker" target="_blank" rel="external">nova-docker</a> 用的就是这种方式，这种方式将网络配置的责任完全交给用户，可以实现更加灵活复杂的网络。</p>
+<h2 id="Docker网络端口映射"><a href="#Docker网络端口映射" class="headerlink" title="Docker网络端口映射"></a>Docker网络端口映射</h2><p>通常来说，容器是用来服务的，这就需要让外部网络能够访问容器，默认情况下，容器可以主动访问到外部网络的连接，但是外部网络无法访问到容器。虽然容器本身是有IP地址和端口，但非本地主机是访问不到的，另外，这些IP在容器每次启动时都可能会改变。</p>
+<p>Docker给容器内部服务的访问提供了一个简单而可靠的方法，即通过端口绑定主机系统的接口，允许非本地客户端访问容器内部运行的服务，映射容器端口到宿主机的原理是通过在本地的<code>iptables</code>的NAT表中添加相应的规则实现的，可以通过命令<code>sudo iptables -t nat -nL</code>查看，具体可以参阅 <a href="https://yeasy.gitbooks.io/docker_practice/content/advanced_network/port_mapping.html" target="_blank" rel="external">端口映射实现</a> 了解更多细节。</p>
+<h3 id="自动映射端口"><a href="#自动映射端口" class="headerlink" title="自动映射端口"></a>自动映射端口</h3><p>使用<code>-P</code>参数(大写)，Docker会自动绑定所有对外提供服务的容器端口，映射的主机端口将会从没有使用的端口池中自动选择。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -P --name review registry:5000/review</span><br><span class="line">$ docker ps <span class="_">-l</span></span><br><span class="line">CONTAINER ID	...	PORTS			NAMES</span><br><span class="line">049e50062368	...	0.0.0.0:32774-&gt;8082/tcp	review</span><br></pre></td></tr></table></figure></p>
+<p>若指定<code>--expose</code>选项，表示指定需要对外提供服务的端口。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -P --expose 22 --name server ubuntu:14.04</span><br><span class="line">$ docker ps <span class="_">-l</span></span><br><span class="line">CONTAINER ID	...	PORTS			NAMES</span><br><span class="line">9a5964ec55d0	...	0.0.0.0:32779-&gt;22/tcp	server</span><br></pre></td></tr></table></figure></p>
+<h4 id="指定映射端口"><a href="#指定映射端口" class="headerlink" title="指定映射端口"></a>指定映射端口</h4><p>使用<code>-p</code>参数(小写)，可以指定要映射的端口，但需要注意的是，在端口映射时应避免主机端口冲突，比如主机的8080端口已经被占用了，那么再映射到该端口就会冲突，即在一个指定端口上只可以绑定一个容器。支持的格式有:</p>
+<ul>
+<li><p><code>[HOST_PORT:]CONTAINER_PORT</code><br>映射所有接口地址，可以指定单组端口映射，比如<code>-p 5678:8082</code>，也可以指定端口映射范围，比如<code>-p 5678-5679:8082-8083</code>，主机的端口范围和容器的端口范围必须有效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -p 8082 --name review_0 registry:5000/review</span><br><span class="line">$ docker run <span class="_">-d</span> -p 8082:8082 --name review_1 registry:5000/review</span><br><span class="line">$ docker run <span class="_">-d</span> -p 8182-8183:8082-8083 --name review_2 registry:5000/review</span><br></pre></td></tr></table></figure>
+<p>此时，默认会绑定本地所有接口上的所有地址，即监听所有网络接口。另外，<code>-p</code>可以多次使用来绑定多个端口:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -p 8382:8082 -p 8383:8083 --name review registry:5000/review</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>IP:HOST_PORT:CONTAINER_PORT</code><br>映射到指定地址的指定端口，比如这里指定映射使用一个特定地址为localhost地址127.0.0.1</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -p 127.0.0.1:8282:8082 --name review_3 registry:5000/review</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>IP::CONTAINER_PORT</code><br>映射到指定地址的任意端口，比如这里绑定localhost的任意端口到容器的8082端口，本地主机会自动分配一个端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -p 127.0.0.1::8082 --name rewew_4 registry:5000/review</span><br></pre></td></tr></table></figure>
+<p>还可以使用<code>udp</code>标记来指定<code>udp</code>端口:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run <span class="_">-d</span> -p 127.0.0.1::8082/udp --name review_5 registry:5000/review</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="查看端口配置"><a href="#查看端口配置" class="headerlink" title="查看端口配置"></a>查看端口配置</h4><p>可以通过<code>docker ps</code>、<code>docker inspect &lt;CONTAINER&gt;</code>或<code>docker port &lt;CONTAINER&gt; [PORT]</code>查看具体的绑定端口和IP等信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ docker port review_2  <span class="comment"># 格式为 [container_port] -&gt; [host_ip]:[host_port]</span></span><br><span class="line">8082/tcp -&gt; 0.0.0.0:8182</span><br><span class="line">8083/tcp -&gt; 0.0.0.0:8183</span><br><span class="line"></span><br><span class="line">$ docker port review_2 8082</span><br><span class="line">0.0.0.0:8182</span><br><span class="line"></span><br><span class="line">$ docker inspect --format &#123;&#123;.NetworkSettings.IPAddress&#125;&#125; review_2</span><br><span class="line">172.17.0.7</span><br><span class="line"></span><br><span class="line">$ ping 172.17.0.7 -c 3</span><br><span class="line">PING 172.17.0.7 (172.17.0.7) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.17.0.7: icmp_seq=1 ttl=64 time=0.045 ms</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>其中，映射的<code>0.0.0.0</code>表示将接受主机来自所有接口的流量，同时，可通过上节中提到的参数指定允许访问容器的主机上的IP、端口等，以制定更严格的规则。如果希望永久绑定到某个固定的IP地址，可以在Docker配置文件<code>/etc/default/docker</code>中指定<code>DOCKER_OPTS=&quot;--ip=IP_ADDRESS&quot;</code>，之后重启Docker服务即可生效。</p>
+<h2 id="Docker软件定义网络"><a href="#Docker软件定义网络" class="headerlink" title="Docker软件定义网络"></a>Docker软件定义网络</h2><h4 id="什么是软件定义网络？"><a href="#什么是软件定义网络？" class="headerlink" title="什么是软件定义网络？"></a>什么是软件定义网络？</h4><p>软件定义网络(Software-Defined Networking, SDN)，是由 <a href="https://en.wikipedia.org/wiki/Emulex" target="_blank" rel="external">Emulex</a> 提出的一种新型网络创新架构，其核心技术 <a href="https://www.opennetworking.org/sdn-resources/openflow" target="_blank" rel="external">OpenFlow</a> 协议通过将网络设备控制平面与数据平面分离开来，从而实现了网络流量的灵活控制，为核心网络及应用的创新提供了良好的平台。</p>
+<blockquote>
+<p>The physical separation of the network control plane from the forwarding plane, and where a control plane controls several devices.<br>SDN is an emerging architecture that is dynamic, manageable, cost-effective, and adaptable, making it ideal for the high-bandwidth, dynamic nature of today’s applications.</p>
+</blockquote>
+<p><img src="/assets/docker/sdn_3layers.jpg" alt="图片来自网络"></p>
+<p>由于传统的网络设备(交换机、路由器)的固件是由设备制造商锁定和控制，而SDN将网络控制与物理网络拓扑分离，创建虚拟网络抽象，从而摆脱硬件对网络架构的限制，并且可对网络架构进行修改。更通俗地讲，网络管理者不直接操作底层的设备，而是通过编程的方式，通过控制器的程序去操作交换机等设备，比如设计转发和路由规则、设计新的网络协议、提供各种各样的服务、实现多个安全方案等，这样的好处在于，可以极大地增强控制层的灵活性。</p>
+<p>在DOCKER 1.9之后支持了软件定义网络，增强了网络特性，允许Docker引擎创建虚拟网络，这样，具备网络功能的容器可跨越多个主机进行通信，并且容器间可无缝交流有助于实现真正的分布式应用，另外，开发者也可以更加灵活地搭建类产品环境的测试环境了。</p>
+<h4 id="Docker网基本络命令"><a href="#Docker网基本络命令" class="headerlink" title="Docker网基本络命令"></a>Docker网基本络命令</h4><p>Docker的<code>network</code>命令主要包含<code>create</code>, <code>connect</code>, <code>disconnect</code>, <code>inspect</code>, <code>ls</code>, <code>prune</code>以及<code>rm</code>，可以通过输入帮助命令查看并了解更多。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ docker network --help</span><br><span class="line">Usage:	docker network [OPTIONS] COMMAND [OPTIONS]</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  create                   Create a network</span><br><span class="line">  connect                  Connect container to a network</span><br><span class="line">  disconnect               Disconnect container from a network</span><br><span class="line">  inspect                  Display detailed network information</span><br><span class="line">  ls                       List all networks</span><br><span class="line">  prune                    Remove all unused networks</span><br><span class="line">  rm                       Remove a network</span><br><span class="line"></span><br><span class="line">Run <span class="string">'docker network COMMAND --help'</span> <span class="keyword">for</span> more information on a command.</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>create</code>用法: <code>docker network create [OPTIONS] NETWORK</code>，创建一个新的网络，可配置一些可选参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    --attachable             Enable manual container attachment</span><br><span class="line">    --aux-address map        Auxiliary IPv4 or IPv6 addresses used by Network driver (default map[])</span><br><span class="line">-d, --driver string          Driver to manage the Network (default &quot;bridge&quot;)</span><br><span class="line">    --gateway stringSlice    IPv4 or IPv6 Gateway for the master subnet</span><br><span class="line">    --internal               Restrict external access to the network</span><br><span class="line">    --ip-range stringSlice   Allocate container ip from a sub-range</span><br><span class="line">    --ipam-driver string     IP Address Management Driver (default &quot;default&quot;)</span><br><span class="line">    --ipam-opt map           Set IPAM driver specific options (default map[])</span><br><span class="line">    --ipv6                   Enable IPv6 networking</span><br><span class="line">    --label list             Set metadata on a network (default [])</span><br><span class="line">-o, --opt map                Set driver specific options (default map[])</span><br><span class="line">    --subnet stringSlice     Subnet in CIDR format that represents a network segment</span><br></pre></td></tr></table></figure>
+<p>在创建一个网络时，不指定<code>--driver</code>情况下默认会使用网络驱动<code>bridge</code>，同时创建一个<code>br-</code>开头的虚拟网桥，可以在『Docker四种网络方式』章节的『bridge模式』部分中找到相关命令查看详细信息。另外，驱动<code>host</code>和<code>null</code>都只能允许管理唯一一个实例网络.</p>
+</li>
+<li><p><code>connect</code>用法: <code>docker network connect [OPTIONS] NETWORK CONTAINER</code>，连接容器到某个网络中，可选参数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--alias stringSlice           Add network-scoped alias for the container</span><br><span class="line">--ip string                   IP Address</span><br><span class="line">--ip6 string                  IPv6 Address</span><br><span class="line">--link list                   Add link to another container (default [])</span><br><span class="line">--link-local-ip stringSlice   Add a link-local address for the container</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>disconnect</code>用法: <code>docker network disconnect [OPTIONS] NETWORK CONTAINER</code>，断开容器到网络的连接，可选参数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-f, --force   Force the container to disconnect from a network</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>inspect</code>用法: <code>docker network inspect [OPTIONS] NETWORK [NETWORK...]</code>，显示在某个网络上的详细信息，可选参数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-f, --format string   Format the output using the given Go template</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>ls</code>用法: <code>docker network ls [OPTIONS]</code>，列出当前所有的网络，可选参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-f, --filter filter   Provide filter values (e.g. &apos;driver=bridge&apos;)</span><br><span class="line">    --format string   Pretty-print networks using a Go template</span><br><span class="line">    --no-trunc        Do not truncate the output</span><br><span class="line">-q, --quiet           Only display network IDs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>prune</code>用法: <code>docker network prune [OPTIONS]</code>，删除所有当前未使用的网络，可选参数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-f, --force   Do not prompt for confirmation</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>rm</code>用法: <code>docker network rm NETWORK [NETWORK...]</code>，删除指定的一个或多个网络。</p>
+</li>
+</ul>
+<h4 id="同主机的容器网络通信"><a href="#同主机的容器网络通信" class="headerlink" title="同主机的容器网络通信"></a>同主机的容器网络通信</h4><p>通过学习了Docker的网络命令，那接下来就练习一下，在同一主机上准备创建两个网络，分别为<code>web</code>和<code>app</code>，然后分别在其中创建容器，实现<code>web</code>网络下的容器与<code>app</code>网络下的容器相互通信，从而可通过创建虚拟网络模拟出类似产品环境的网络情况。若之前已创建了同名的网络，可根据情况变更网络名称或删除。</p>
+<h6 id="创建网络web并运行容器"><a href="#创建网络web并运行容器" class="headerlink" title="创建网络web并运行容器"></a>创建网络<code>web</code>并运行容器</h6><ul>
+<li><p>创建网络<code>web</code>并查看当前所有网络</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker network create web</span><br><span class="line">$ docker network ls</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在网络<code>web</code>下创建名为<code>web_container</code>的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -itd --net=web --name web_container busybox</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看网络<code>web</code>下的所有容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker network inspect web</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="创建网络app并运行容器"><a href="#创建网络app并运行容器" class="headerlink" title="创建网络app并运行容器"></a>创建网络<code>app</code>并运行容器</h6><ul>
+<li><p>创建网络<code>app</code>并查看当前所有网络</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker network create app</span><br><span class="line">$ docker network ls</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在网络<code>app</code>下创建名为<code>app_container</code>的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -itd --name app_container --net=app busybox</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看网络<code>app</code>下的所有容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker network inspect app</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="连接容器到网络并测试"><a href="#连接容器到网络并测试" class="headerlink" title="连接容器到网络并测试"></a>连接容器到网络并测试</h6><ul>
+<li><p>通过命令实现容器<code>web_container</code>连接到网络<code>app</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker network connect app web_container</span><br></pre></td></tr></table></figure>
+<p>这样，容器<code>web_container</code>就可以通过<code>app_container.app</code>连接到容器<code>app_container</code>。</p>
+</li>
+<li><p>在容器<code>web_container</code>中Ping一下<code>app_container.app</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">exec</span> -it web_container sh  <span class="comment"># 进入容器</span></span><br><span class="line"></span><br><span class="line">$ ping app_container.app  <span class="comment"># 在容器内执行，注意返回的IP不应是127.0.x.x</span></span><br><span class="line">PING app_container.app (172.19.0.2): 56 data bytes</span><br><span class="line">64 bytes from 172.19.0.2: seq=0 ttl=64 time=0.434 ms</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">exit</span> <span class="comment"># 退出容器</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再次查看网络<code>web</code>和<code>app</code>下的所有容器，特别注意有什么变化？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker network inspect web</span><br><span class="line">$ docker network inspect app</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="跨主机的容器网络通信"><a href="#跨主机的容器网络通信" class="headerlink" title="跨主机的容器网络通信"></a>跨主机的容器网络通信</h4><p>在Docker 1.9版本之前，要实现跨主机的容器间网络通信，需要借助第三方网络插件的支持，网络插件在很大程度上降低不同类型主机上容器通信的难度，扩展由Docker提供的核心网络功能。</p>
+<p>而在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性，即支持创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且实现不同的应用程序或者应用程序不同部分能够相互隔离，互联子系统设计为可插拔式，兼容VXLAN或者IPVLAN等技术。<br><img src="/assets/docker/multi_hosts_network.jpg" alt="图片来自网络"></p>
+<p>目前，Docker容器实现跨主机通信主要通过以下方式：</p>
+<ul>
+<li>自带重叠网络(Overlay Network) 组件，结合 <a href="https://docs.docker.com/swarm/overview/" target="_blank" rel="external">Docker Swarm</a> 实现，主要原理也是通过Key-Value存储服务进行调用。</li>
+<li>第三方插件，如 <a href="https://github.com/weaveworks/weave" target="_blank" rel="external">Weave</a>, <a href="https://www.projectcalico.org/docker-libnetwork-is-almost-here-and-calico-is-ready/" target="_blank" rel="external">Calico</a>, <a href="https://github.com/contiv/netplugin" target="_blank" rel="external">Contiv Netplugin</a>, <a href="https://github.com/contiv/netplugin" target="_blank" rel="external">Cisco</a>, <a href="https://docs.docker.com/machine/drivers/vsphere/" target="_blank" rel="external">VMware</a>, <a href="https://blog.midonet.org/kuryr-midonet-networking-docker-1-9/" target="_blank" rel="external">MidoNet</a>, <a href="https://github.com/jpetazzo/pipework" target="_blank" rel="external">pipework</a>, <a href="https://github.com/coreos/flannel" target="_blank" rel="external">flannel</a> 等。</li>
+</ul>
+<p>而这里将重点介绍自带Overlay Network组件和Docker Swarm的实现方式，首先启动一台虚拟机模拟Node1，将主机模拟为Node2。</p>
+<h6 id="初始化-Docker-Swarm"><a href="#初始化-Docker-Swarm" class="headerlink" title="初始化 Docker Swarm"></a>初始化 Docker Swarm</h6><ul>
+<li><p>在Node1上初始化并创建Docker Swarm，作为Manager。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ docker swarm init --advertise-addr 192.168.56.102</span><br><span class="line">Swarm initialized: current node (s08ktyv5yij5v7tu66t1ll2<span class="keyword">fi</span>) is now a manager.</span><br><span class="line"></span><br><span class="line">To add a worker to this swarm, run the following <span class="built_in">command</span>:</span><br><span class="line"></span><br><span class="line">    docker swarm join \</span><br><span class="line">    --token SWMTKN-1-68zbx1wtxgklsj36y3yjq90h6jcx2hewloku685fkvd44m9hw7-acgn20k3ary37fbd2mgtdf9t5 \</span><br><span class="line">    192.168.56.102:2377</span><br><span class="line"></span><br><span class="line">To add a manager to this swarm, run <span class="string">'docker swarm join-token manager'</span> and follow the instructions.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Node2上运行如下命令加入到Swarm中，作为Worker。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker swarm join \</span><br><span class="line">&gt;     --token SWMTKN-1-68zbx1wtxgklsj36y3yjq90h6jcx2hewloku685fkvd44m9hw7-acgn20k3ary37fbd2mgtdf9t5 \</span><br><span class="line">&gt;     192.168.56.102:2377</span><br><span class="line">This node joined a swarm as a worker.</span><br></pre></td></tr></table></figure>
+<p>也可以通过命令<code>docker swarm join-token worker</code>再次查看其token和IP。</p>
+</li>
+<li><p>在Node1上查看当前所有Node信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker node ls</span><br><span class="line">ID                           HOSTNAME               STATUS  AVAILABILITY  MANAGER STATUS</span><br><span class="line">3r8p73yl8rkxkyiocnlxzc4wy    moby                   Ready   Active</span><br><span class="line">s08ktyv5yij5v7tu66t1ll2<span class="keyword">fi</span> *  localhost.localdomain  Ready   Active        Leader</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="创建-Overlay-Network"><a href="#创建-Overlay-Network" class="headerlink" title="创建 Overlay Network"></a>创建 Overlay Network</h6><ul>
+<li><p>在Node1上创建Overlay网络命名为<code>net_overlay</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ docker network create <span class="_">-d</span>=overlay net_overlay</span><br><span class="line">n9n1no3w0uku2lgn5jo5czc0l</span><br><span class="line"></span><br><span class="line">$ docker network ls</span><br><span class="line">NETWORK ID          NAME                   DRIVER              SCOPE</span><br><span class="line">694d3a222895        bridge                 bridge              <span class="built_in">local</span></span><br><span class="line">64f31cf05fee        docker_gwbridge        bridge              <span class="built_in">local</span></span><br><span class="line">22b5291ac1fb        host                   host                <span class="built_in">local</span></span><br><span class="line">yhb42l4f7a6q        ingress                overlay             swarm</span><br><span class="line">n9n1no3w0uku        net_overlay            overlay             swarm</span><br><span class="line">b76cb60af763        none                   null                <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<p>这样，所有在Swarm中的主机都可以访问该网络了，除了<code>docker0</code>默认网桥外，这里多出了一个<code>docker_gwbridge</code>的网桥，<code>docker0</code>在跨多主机容器网络中并没有被用到，而是<code>docker_gwbridge</code>替代了<code>docker0</code>用来实现Overlay网络中容器间的通信以及容器到外部的通信，其职能就和单机容器网络中<code>docker0</code>一样。</p>
+</li>
+<li><p>查看<code>net_overlay</code>网络的配置信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ docker network inspect net_overlay</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"Name"</span>: <span class="string">"net_overlay"</span>,</span><br><span class="line">        <span class="string">"Id"</span>: <span class="string">"n9n1no3w0uku2lgn5jo5czc0l"</span>,</span><br><span class="line">        <span class="string">"Scope"</span>: <span class="string">"swarm"</span>,</span><br><span class="line">        <span class="string">"Driver"</span>: <span class="string">"overlay"</span>,</span><br><span class="line">        <span class="string">"EnableIPv6"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"IPAM"</span>: &#123;</span><br><span class="line">            <span class="string">"Driver"</span>: <span class="string">"default"</span>,</span><br><span class="line">            <span class="string">"Options"</span>: null,</span><br><span class="line">            <span class="string">"Config"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"Subnet"</span>: <span class="string">"10.0.0.0/24"</span>,</span><br><span class="line">                    <span class="string">"Gateway"</span>: <span class="string">"10.0.0.1"</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="启动服务并测试连接"><a href="#启动服务并测试连接" class="headerlink" title="启动服务并测试连接"></a>启动服务并测试连接</h6><ul>
+<li><p>创建服务并启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker service create --name hello --network net_overlay --replicas 2 ubuntu sleep infinity</span><br><span class="line">j56ia0rkjtc39eds80rt3yh4v</span><br><span class="line"></span><br><span class="line">$ docker service ls</span><br><span class="line">j56ia0rkjtc3  hello  replicated  1/2       ubuntu:latest</span><br></pre></td></tr></table></figure>
+<p>这里，创建了一个名为<code>hello</code>的服务，并绑定到<code>net_overlay</code>网络上，同时创建两个容器副本以<code>sleep infinity</code>的命令运行，该命令使得容器不会立即退出，两个容器分别会运行在两个节点为上。</p>
+</li>
+<li><p>查看容器运行状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker service ps hello</span><br><span class="line">4fla3n6yogkk  hello.1  ubuntu:latest  localhost.localdomain  Running</span><br><span class="line">p4adrd04a94y  hello.2  ubuntu:latest  moby                   Running</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后使用<code>docker ps</code>命令分别在Node1和Node2上查看容器信息获得容器ID，再通过<code>inspect</code>命令分别查看两个节点上的容器IP地址，使用<code>exec</code>命令登录到其中任意一个节点的容器内，使用<code>ping</code>或<code>traceroute</code>命令测试是否能连接到另一个节点上的容器，如果没有<code>ping</code>命令可以执行命令<code>apt-get update; apt-get install iputils-ping -y</code>安装即可。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>主要介绍了Docker网络相关的内容，包括Docker的网络实现原理、容器网络模型组件与优势、桥接网络与重叠网络的概念、Docker的四种网络方式、Docker网络端口映射、软件定义网络概念等，同时还练习了Docker网络基本命令，配置了同主机的容器虚拟网络，以及搭建了跨主机的容器虚拟网络。在整体和细节上都对Docker网络有了一个更清晰的认识，同时也对Docker网络相关命令更加熟练，能够配置同主机上的容器网络，并且也能够搭建跨主机的容器网络环境。</p>
+<hr>
+<p>References</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/userguide/networking/" target="_blank" rel="external">Docker networking</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/networking/#user-defined-networks" target="_blank" rel="external">Docker container networking</a></li>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/underly/network.html" target="_blank" rel="external">Docker 网络实现</a></li>
+<li><a href="https://www.sdxcentral.com/sdn/definitions/what-is-overlay-networking/" target="_blank" rel="external">What is Overlay Networking?</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/networking/work-with-networks/" target="_blank" rel="external">Work with network commands</a></li>
+<li><a href="http://www.docker.org.cn/dockerppt/111.html" target="_blank" rel="external">Docker学习笔记：Docker 网络配置</a></li>
+<li><a href="https://www.opennetworking.org/sdn-resources/sdn-definition" target="_blank" rel="external">Software-Defined Networking Definition</a></li>
+<li><a href="http://tonybai.com/2016/02/15/understanding-docker-multi-host-networking/" target="_blank" rel="external">理解Docker跨多主机容器网络</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/" target="_blank" rel="external">Get started with multi-host networking</a></li>
+<li><a href="http://blog.nigelpoulton.com/demystifying-docker-overlay-networking/" target="_blank" rel="external">Demystifying Docker overlay networking</a></li>
+<li><a href="http://www.dockone.io/article/840" target="_blank" rel="external">Docker 1.9 Overlay Network实现跨主机网络互通</a></li>
+<li><a href="https://docs.docker.com/engine/swarm/swarm-mode/" target="_blank" rel="external">Run Docker Engine in swarm mode</a></li>
+</ul>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Docker/">Docker</a> <a class="tag tag--primary tag--small t-link" href="/tags/Network/">Network</a> <a class="tag tag--primary tag--small t-link" href="/tags/容器/">容器</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/docker-security/"  data-tooltip="Docker学习与实践 - 安全篇">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/duoshuo-away/" data-tooltip="再见多说，你好云跟帖">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+        
+            
+                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights left">
+        &copy; 2017 <a href="https://github.com/waterstrong" target="_blank">Waterstrong</a>
+    </span>
+    
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="visit">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="site-visit">Site Visited:
+            <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </span>
+    <span>, </span>
+    <span id="busuanzi_container_page_pv" style='display:none'>
+        <span id="page-visit">Page Visited:
+            <span id="busuanzi_value_page_pv"></span>
+        </span>
+    </span>
+</span>
+
+    <span class="copyrights right">
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/docker-security/"  data-tooltip="Docker学习与实践 - 安全篇">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/duoshuo-away/" data-tooltip="再见多说，你好云跟帖">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options bdsharebuttonbox">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="tsina">
+                <i class="fa fa-weibo"></i>Share on Sina Weibo
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="weixin">
+                <i class="fa fa-wechat"></i>Share on Wechat
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="sqq">
+                <i class="fa fa-qq"></i>Share on QQ
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="fbook">
+                <i class="fa fa-facebook-official"></i>Share on Facebook
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="linkedin">
+                <i class="fa fa-linkedin"></i>Share on LinkedIn
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="twi">
+                <i class="fa fa-twitter"></i>Share on Twitter
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !<br> Stay quiet, run wild !<br> <a href="/about">More about…</a></p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Dev Consultant</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="/assets/images/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                33 posts found
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-75ot1bbprzygi10g2rwomyqmj7mnrf0qsi3xobchlpb4g0vfrfl76dkuz1s9.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+    <script type="text/javascript">
+        var cloudTieConfig = {
+            url: document.location.href,
+            sourceId: 'docker-networking/',
+            productKey: 'ef74001757cb4d4f930484b8651ca13d',
+            target: 'cloud-tie-wrapper'
+        };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+
+
+    </body>
+</html>
