@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-04-22T05:00:03.000Z</updated>
+  <updated>2017-04-22T06:52:06.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/docker-security/"/>
     <id>http://blog.waterstrong.me/docker-security/</id>
     <published>2017-04-08T12:17:16.000Z</published>
-    <updated>2017-04-22T05:00:03.000Z</updated>
+    <updated>2017-04-22T06:52:06.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在多数情况下，启动Docker容器时都以root用户权限在运行，那么如果有ROOT权限可以做什么呢？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。&lt;/p&gt;
 &lt;p&gt;容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。与虚拟机是不同的，虚拟机并没有与主机共享内核，虚拟机崩溃一般不会导致宿主机崩溃。&lt;/p&gt;
@@ -75,7 +75,7 @@
 &lt;li&gt;使用&lt;em&gt;强制权限控制系统&lt;/em&gt; &lt;a href=&quot;https://wiki.ubuntu.com/AppArmor&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AppArmor&lt;/a&gt; 和 &lt;em&gt;Linux安全增强工具&lt;/em&gt; &lt;a href=&quot;http://selinuxproject.org/page/Main_Page&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SELinux&lt;/a&gt; 保证额外的安全层&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;小结&quot;&gt;&lt;a href=&quot;#小结&quot; class=&quot;headerlink&quot; title=&quot;小结&quot;&gt;&lt;/a&gt;小结&lt;/h2&gt;&lt;p&gt;Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。&lt;/p&gt;
-&lt;p&gt;&lt;sub&gt;「&lt;em&gt;特此声明: 本文大部分内容来自内部培训资料&lt;/em&gt;」&lt;/sub&gt;&lt;/p&gt;
+&lt;p&gt;&lt;sub&gt;「&lt;em&gt;特此声明: 本文大部分内容译自内部培训资料&lt;/em&gt;」&lt;/sub&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References&lt;/p&gt;
 &lt;ul&gt;
