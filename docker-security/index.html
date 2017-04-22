@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
-<meta property="og:updated_time" content="2017-04-22T01:36:54.000Z">
+<meta property="og:updated_time" content="2017-04-22T03:10:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
 <meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
@@ -317,7 +317,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ls  /var/lib/docker</span><br><span class="line">aufs  containers  graph  linkgraph.db  network  repositories-aufs  tmp  trust  volumes</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> /var/lib/docker/; sudo du --max-depth=1</span><br><span class="line">4	./trust</span><br><span class="line">88	./network</span><br><span class="line">5246812	./aufs</span><br><span class="line">4	./tmp</span><br><span class="line">579872	./volumes</span><br><span class="line">1900	./containers</span><br><span class="line">11740	./graph</span><br><span class="line">5840444	.</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>最推荐使用供应商最支持的存储驱动程序，<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="external">aufs</a>是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。</p>
+<p>运行态容器默认都是使用<code>/var/docker/lib</code>目录，容器内部写日志、产生运行时数据等都会影响该目录，并且产生的文件越来越多，占用空间越来越大，因此需要定期清理无用的镜像和容器，应为Docker挂载点<code>/var/docker/lib</code>创建单独的分区，最好是SSD盘。<br>另外，最推荐使用供应商最支持的存储驱动程序，<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="external">aufs</a>是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。</p>
 <h2 id="Docker安全最佳实践"><a href="#Docker安全最佳实践" class="headerlink" title="Docker安全最佳实践"></a>Docker安全最佳实践</h2><p>为了保证 Docker 安全性，需要在各方面遵循一些实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行方面。</p>
 <h4 id="在宿主机方面"><a href="#在宿主机方面" class="headerlink" title="在宿主机方面"></a>在宿主机方面</h4><ul>
 <li>保持内核及时更新，防止黑客利用未修复的漏洞进行攻击</li>
@@ -338,7 +338,6 @@
 <li>重新构建镜像时需要包含安全补丁，防止黑客利用漏洞实施攻击</li>
 </ul>
 <h4 id="容器运行时方面"><a href="#容器运行时方面" class="headerlink" title="容器运行时方面"></a>容器运行时方面</h4><ul>
-<li>为Docker挂载点<code>/var/docker/lib</code>创建单独的分区，所占用的资源会越来越多</li>
 <li>不要到产品环境中使用任何开发者工具(<a href="https://github.com/boot2docker/boot2docker" target="_blank" rel="external">boot2docker</a>, <a href="https://kitematic.com/" target="_blank" rel="external">kinematic</a>)</li>
 <li>限制容器使用Linux内核能力和资源使用，为守护进程设置受限的控制资源权限(<a href="https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime" target="_blank" rel="external">–ulimit</a>)</li>
 <li>不要使用 <a href="https://docs.docker.com/engine/security/security/#kernel-namespaces" target="_blank" rel="external">Privileged</a> 容器，如果使用<code>--privileged</code>参数将授予容器与主机几乎相同的权限</li>
