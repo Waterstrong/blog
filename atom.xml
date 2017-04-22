@@ -110,12 +110,12 @@
     <link href="http://blog.waterstrong.me/docker-networking/"/>
     <id>http://blog.waterstrong.me/docker-networking/</id>
     <published>2017-04-02T13:59:27.000Z</published>
-    <updated>2017-04-21T14:39:28.000Z</updated>
+    <updated>2017-04-22T04:43:06.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;通常来说，要实现网络通信，机器需要至少一个网络接口(物理接口或虚拟接口)来收发数据包，另外，如果不同子网之间要进行通信，还需要路由机制。Docker中的网络接口默认都是虚拟接口，虚拟接口的优势之一是转发效率较高。&lt;/p&gt;
 &lt;p&gt;Linux通过在内核中进行数据复制来实现虚拟接口之间的数据转发，通俗地讲，&lt;em&gt;发送接口&lt;/em&gt;的&lt;em&gt;发送缓存&lt;/em&gt;数据包被直接复制到&lt;em&gt;接收接口&lt;/em&gt;的&lt;em&gt;接收缓存&lt;/em&gt;中，对于本地系统和容器内系统来说，就像是一个正常的以太网卡，但它不需要真正与外部网络设备通信，因此速度快，转发效率高。&lt;/p&gt;
 &lt;p&gt;Docker的网络实现其实就是利用了该技术，即利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是&lt;code&gt;veth pair&lt;/code&gt;，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。&lt;/p&gt;
-&lt;h2 id=&quot;Docker网络实现原理&quot;&gt;&lt;a href=&quot;#Docker网络实现原理&quot; class=&quot;headerlink&quot; title=&quot;Docker网络实现原理&quot;&gt;&lt;/a&gt;Docker网络实现原理&lt;/h2&gt;&lt;p&gt;启动Docker时会在宿主机上创建一个名为&lt;code&gt;docker0&lt;/code&gt;的虚拟网桥，Docker启动一个容器时会根据&lt;code&gt;docker0&lt;/code&gt;的IP，容器内的虚拟接口为&lt;code&gt;eth0&lt;/code&gt;，各容器的网关则是&lt;code&gt;docker0&lt;/code&gt;的IP。&lt;br&gt;&lt;img src=&quot;/assets/docker/docker_bridge.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Docker网络实现原理&quot;&gt;&lt;a href=&quot;#Docker网络实现原理&quot; class=&quot;headerlink&quot; title=&quot;Docker网络实现原理&quot;&gt;&lt;/a&gt;Docker网络实现原理&lt;/h2&gt;&lt;p&gt;启动Docker时会在宿主机上创建一个名为&lt;code&gt;docker0&lt;/code&gt;的虚拟网桥，Docker启动一个容器时会根据&lt;code&gt;docker0&lt;/code&gt;的网段划分容器的虚拟子网和私有IP，容器内的虚拟接口为&lt;code&gt;eth0&lt;/code&gt;，各容器的网关则是&lt;code&gt;docker0&lt;/code&gt;的IP。&lt;br&gt;&lt;img src=&quot;/assets/docker/docker_bridge.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Docker创建一个容器的时候，会执行如下操作：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;创建一对虚拟接口，即&lt;code&gt;veth pair&lt;/code&gt;，分别放到宿主机和容器中;&lt;/li&gt;
