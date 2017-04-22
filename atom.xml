@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-04-22T04:57:29.000Z</updated>
+  <updated>2017-04-22T04:58:27.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/docker-security/"/>
     <id>http://blog.waterstrong.me/docker-security/</id>
     <published>2017-04-08T12:17:16.000Z</published>
-    <updated>2017-04-22T04:57:29.000Z</updated>
+    <updated>2017-04-22T04:58:27.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在多数情况下，启动Docker容器时都以root用户权限在运行，那么如果有ROOT权限可以做什么呢？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。&lt;/p&gt;
 &lt;p&gt;容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。与虚拟机是不同的，虚拟机并没有与主机共享内核，虚拟机崩溃一般不会导致宿主机崩溃。&lt;/p&gt;
@@ -41,13 +41,13 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;再来看一下，能否在Docker容器中修改主机文件系统？&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ls / | grep threat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker run -it -v /:/hostfs busybox touch /hostfs/threat-on-the-way&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ls / | grep threatls / | grep threat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;threat-on-the-way&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可以看到，在 Docker 容器中，能够在宿主机根目录创建文件，并且可以修改主机文件系统。更严重的时，如果是 &lt;a href=&quot;https://docs.docker.com/engine/security/security/#kernel-namespaces&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Privileged&lt;/a&gt; 容器，即在运行容器时指定&lt;code&gt;--privileged&lt;/code&gt;参数，则能够允许容器所有设备执行任意操作，能够读写内核内存&lt;code&gt;/proc/kcore&lt;/code&gt;，使用参数&lt;code&gt;--net=host&lt;/code&gt;可以嗅探主机所有网络流量。&lt;/p&gt;
+&lt;p&gt;可以看到，在 Docker 容器中，能够在宿主机根目录创建文件，并且可以修改主机文件系统。更严重的时，如果是 &lt;a href=&quot;https://docs.docker.com/engine/security/security/#kernel-namespaces&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Privileged&lt;/a&gt; 容器，即在运行容器时指定&lt;code&gt;--privileged=true&lt;/code&gt;参数，则能够允许容器所有设备执行任意操作，能够读写内核内存&lt;code&gt;/proc/kcore&lt;/code&gt;，使用参数&lt;code&gt;--net=host&lt;/code&gt;可以嗅探主机所有网络流量。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;最后，来查看一下 Docker 容器和&lt;code&gt;Metadata&lt;/code&gt;存储在哪儿？&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ls  /var/lib/docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;aufs  containers  graph  linkgraph.db  network  repositories-aufs  tmp  trust  volumes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /var/lib/docker/; sudo du --max-depth=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4	./trust&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;88	./network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5246812	./aufs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4	./tmp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;579872	./volumes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1900	./containers&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11740	./graph&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5840444	.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;运行态容器默认都是使用&lt;code&gt;/var/docker/lib&lt;/code&gt;目录，容器内部写日志、产生运行时数据等都会影响该目录，并且产生的文件越来越多，占用空间越来越大，因此需要定期清理无用的镜像和容器，应为Docker挂载点&lt;code&gt;/var/docker/lib&lt;/code&gt;创建单独的分区，最好是SSD盘。&lt;br&gt;另外，最推荐使用供应商最支持的存储驱动程序，&lt;a href=&quot;https://en.wikipedia.org/wiki/Aufs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;aufs&lt;/a&gt;是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;运行态容器默认都是使用&lt;code&gt;/var/docker/lib&lt;/code&gt;目录，容器内部写日志、产生运行时数据等都会影响该目录，并且产生的文件越来越多，占用空间越来越大，因此需要定期清理无用的镜像和容器，应为Docker挂载点&lt;code&gt;/var/docker/lib&lt;/code&gt;创建单独的分区，最好是SSD盘。&lt;br&gt;另外，最推荐使用供应商最支持的存储驱动程序，&lt;a href=&quot;https://en.wikipedia.org/wiki/Aufs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;aufs&lt;/a&gt;是唯一的允许容器共享执行文件的存储驱动，但可能会导致严重的内核崩溃。&lt;/p&gt;
 &lt;h2 id=&quot;Docker安全最佳实践&quot;&gt;&lt;a href=&quot;#Docker安全最佳实践&quot; class=&quot;headerlink&quot; title=&quot;Docker安全最佳实践&quot;&gt;&lt;/a&gt;Docker安全最佳实践&lt;/h2&gt;&lt;p&gt;为了保证 Docker 安全性，需要在各方面遵循一些实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行方面。&lt;/p&gt;
 &lt;h4 id=&quot;在宿主机方面&quot;&gt;&lt;a href=&quot;#在宿主机方面&quot; class=&quot;headerlink&quot; title=&quot;在宿主机方面&quot;&gt;&lt;/a&gt;在宿主机方面&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;保持内核及时更新，防止黑客利用未修复的漏洞进行攻击&lt;/li&gt;
