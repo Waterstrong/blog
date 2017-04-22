@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
-<meta property="og:updated_time" content="2017-04-22T04:55:45.000Z">
+<meta property="og:updated_time" content="2017-04-22T04:57:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
 <meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
@@ -305,10 +305,8 @@
 </li>
 <li><p>再来验证一下，能否在 Docker 容器中访问<code>/etc/shadow</code>文件呢？</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -v /:/hostfs busybox cat /hostfs/etc/shadow</span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$HmunRCSU</span><span class="variable">$YXNgf</span>...bnj2AVtjAFfmh0:16744:0:99999:7:::</span><br><span class="line">daemon:*:16744:0:99999:7:::</span><br><span class="line">vagrant:<span class="variable">$6</span><span class="variable">$55jH0QFsuLa</span>...vGb8lH/9jQy4r0:16744:0:99999:7:::</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>可以看到，在容器中是可以访问宿主机上只有root用户才能访问的密码敏感文件的，当然也是可以访问其他root权限的文件的。</p>
 </li>
-</ul>
-<p>可以看到，在容器中是可以访问宿主机上只有root用户才能访问的密码敏感文件的。</p>
-<ul>
 <li><p>再来看一下，能否在Docker容器中修改主机文件系统？</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ls / | grep threat</span><br><span class="line"></span><br><span class="line">$ docker run -it -v /:/hostfs busybox touch /hostfs/threat-on-the-way</span><br><span class="line"></span><br><span class="line">$ ls / | grep threatls / | grep threat</span><br><span class="line">threat-on-the-way</span><br></pre></td></tr></table></figure>
 <p>可以看到，在 Docker 容器中，能够在宿主机根目录创建文件，并且可以修改主机文件系统。更严重的时，如果是 <a href="https://docs.docker.com/engine/security/security/#kernel-namespaces" target="_blank" rel="external">Privileged</a> 容器，即在运行容器时指定<code>--privileged</code>参数，则能够允许容器所有设备执行任意操作，能够读写内核内存<code>/proc/kcore</code>，使用参数<code>--net=host</code>可以嗅探主机所有网络流量。</p>
