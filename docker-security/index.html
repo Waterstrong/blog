@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
-<meta property="og:updated_time" content="2017-04-22T03:10:35.000Z">
+<meta property="og:updated_time" content="2017-04-22T04:55:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
 <meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
@@ -290,7 +290,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在多数情况下，启动Docker容器时都以root用户权限在运行，首先来看一下如果有ROOT权限可以做什么？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。</p>
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在多数情况下，启动Docker容器时都以root用户权限在运行，那么如果有ROOT权限可以做什么呢？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。</p>
 <p>容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。与虚拟机是不同的，虚拟机并没有与主机共享内核，虚拟机崩溃一般不会导致宿主机崩溃。</p>
 <p>Docker的安全性主要体现在如下几个方面：</p>
 <ul>
