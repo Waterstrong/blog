@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
-<meta property="og:updated_time" content="2017-04-22T04:58:27.000Z">
+<meta property="og:updated_time" content="2017-04-22T05:00:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
 <meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
@@ -326,7 +326,7 @@
 <li>只允许受信用户控制Docker守护进程，保证与Daemon的连接是可信的</li>
 <li>不使用不受信的镜像仓库，因为镜像可能会被篡改过</li>
 <li>必要时请为Docker守护进程应用 <a href="https://docs.docker.com/engine/security/https/" target="_blank" rel="external">TLS</a> 认证网络</li>
-<li>限制容器之间的网络通信，如果两个容器之间没有通信的必要就限制其实网络通信功能</li>
+<li>限制容器之间的网络通信，如果两个容器之间没有通信的必要就限制其网络通信功能</li>
 </ul>
 <h4 id="使用镜像方面"><a href="#使用镜像方面" class="headerlink" title="使用镜像方面"></a>使用镜像方面</h4><ul>
 <li>在Dockerfile中为容器创建一个非root用户，具体方法可以参阅 <a href="http://www.projectatomic.io/docs/docker-image-author-guidance/" target="_blank" rel="external">文章</a></li>
@@ -339,7 +339,7 @@
 <li>不要到产品环境中使用任何开发者工具(<a href="https://github.com/boot2docker/boot2docker" target="_blank" rel="external">boot2docker</a>, <a href="https://kitematic.com/" target="_blank" rel="external">kinematic</a>)</li>
 <li>限制容器使用Linux内核能力和资源使用，为守护进程设置受限的控制资源权限(<a href="https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime" target="_blank" rel="external">–ulimit</a>)</li>
 <li>不要使用 <a href="https://docs.docker.com/engine/security/security/#kernel-namespaces" target="_blank" rel="external">Privileged</a> 容器，如果使用<code>--privileged</code>参数将授予容器与主机几乎相同的权限</li>
-<li>指定容器重启策略为on-failure，重启策略有四种，详细可以参阅 <a href="https://docs.docker.com/engine/reference/run/#restart-policies---restart" target="_blank" rel="external">Restart policies</a></li>
+<li>指定容器重启策略为<code>on-failure</code>，重启策略有四种，详细可以参阅 <a href="https://docs.docker.com/engine/reference/run/#restart-policies---restart" target="_blank" rel="external">Restart policies</a></li>
 <li>使用<em>强制权限控制系统</em> <a href="https://wiki.ubuntu.com/AppArmor" target="_blank" rel="external">AppArmor</a> 和 <em>Linux安全增强工具</em> <a href="http://selinuxproject.org/page/Main_Page" target="_blank" rel="external">SELinux</a> 保证额外的安全层</li>
 </ul>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。</p>
