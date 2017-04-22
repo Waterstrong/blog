@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/docker-security/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
-<meta property="og:updated_time" content="2017-04-21T16:33:12.000Z">
+<meta property="og:updated_time" content="2017-04-22T01:36:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 安全篇">
 <meta name="twitter:description" content="Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性方面，容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。">
@@ -298,7 +298,7 @@
 <li>镜像的安全性，如：如何确保下载的镜像是可信的、未被篡改过的；</li>
 <li>Docker守护进程安全性，如：如何确保发送给Daemon的命令是由可信用户发起的。</li>
 </ul>
-<p>接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。<br><sub>「<em>特此声明: 大部分内容都是来自内部培训资料</em>」</sub></p>
+<p>接下来会通过一些简单的操作来验证一些安全问题，同时会提出一些安全上的实践和原则。</p>
 <h2 id="Docker访问主机系统"><a href="#Docker访问主机系统" class="headerlink" title="Docker访问主机系统"></a>Docker访问主机系统</h2><ul>
 <li><p>首先来验证一下，能否访问主机上的存储密码相关的 <a href="http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/shadow-file-formats.html" target="_blank" rel="external">/etc/shadow</a> 文件？</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/shadow  <span class="comment"># 使用普通用户访问</span></span><br><span class="line">cat: /etc/shadow: Permission denied</span><br><span class="line"></span><br><span class="line">$ who am i; groups;  <span class="comment"># 查看当前的用户和组</span></span><br><span class="line">vagrant  pts/0  (10.0.2.2)</span><br><span class="line">vagrant docker</span><br><span class="line"></span><br><span class="line">$ sudo cat /etc/shadow  <span class="comment"># 使用管理员用户访问</span></span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$HmunRCSU</span><span class="variable">$YXNgf</span>...bnj2AVtjAFfmh0:16744:0:99999:7:::</span><br><span class="line">daemon:*:16744:0:99999:7:::</span><br><span class="line">vagrant:<span class="variable">$6</span><span class="variable">$55jH0QFsuLa</span>...vGb8lH/9jQy4r0:16744:0:99999:7:::</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
@@ -346,6 +346,7 @@
 <li>使用<em>强制权限控制系统</em> <a href="https://wiki.ubuntu.com/AppArmor" target="_blank" rel="external">AppArmor</a> 和 <em>Linux安全增强工具</em> <a href="http://selinuxproject.org/page/Main_Page" target="_blank" rel="external">SELinux</a> 保证额外的安全层</li>
 </ul>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Docker安全性主要体现在容器安全性、镜像安全性和守护进程安全性，可以看到在Docker容器中能够访问宿主机的高权限资源，如果管理和使用不得当，将造成严重的后果，因此，在平时使用Docker时应在多方面遵循一些最佳实践和原则，包括宿主机方面、Docker守护进程、使用镜像以及容器运行等方面，尽可能保证 Docker 安全性。</p>
+<p><sub>「<em>特此声明: 本文大部分内容来自内部培训资料</em>」</sub></p>
 <hr>
 <p>References</p>
 <ul>
