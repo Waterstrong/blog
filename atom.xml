@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-04-22T06:52:06.000Z</updated>
+  <updated>2017-04-26T16:21:43.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,111 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第一期 Docker Workshop 活动回顾【多图】</title>
+    <link href="http://blog.waterstrong.me/docker-workshop-part1/"/>
+    <id>http://blog.waterstrong.me/docker-workshop-part1/</id>
+    <published>2017-04-23T10:40:32.000Z</published>
+    <updated>2017-04-26T16:21:43.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;IT行业近年来进入了飞速发展的时代，颠覆行业的IT产品层出不穷，从而造就的独角兽公司也一个接一个。软件开发领域不断演进的生态圈是支撑这些变革的重要基础。持续交付、云计算、微服务、DevOps…各种颠覆性的技术和概念层出不穷。&lt;/p&gt;
+&lt;p&gt;以Docker为首的容器技术也是近几年来非常火热的技术之一。Docker自从2014年发布1.0版本以后，容器技术终于走上了大规模商用的正轨。其带来的秒级启动、环境封装、安全隔离、高效迁移等优势对传统的持续集成及部署方式带来了巨大的冲击。如今，很多公司都已经在使用Docker了，并带来了良好的经济效益。&lt;/p&gt;
+&lt;h2 id=&quot;活动介绍&quot;&gt;&lt;a href=&quot;#活动介绍&quot; class=&quot;headerlink&quot; title=&quot;活动介绍&quot;&gt;&lt;/a&gt;活动介绍&lt;/h2&gt;&lt;p&gt;此次『Docker In Production工作坊』将带你进入Docker的世界，通过动手练习快速掌握Docker基本技术和高阶使用，为在生产环境中使用Docker打下坚实的基础。&lt;/p&gt;
+&lt;p&gt;本次工作坊由 &lt;em&gt;ThoughtWorks成都DevOps社区&lt;/em&gt; 组织，&lt;em&gt;Marketing团队&lt;/em&gt;大力支持，非常感谢。活动总共包含两期，本次第一期内容包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;准备：环境搭建&lt;/li&gt;
+&lt;li&gt;第1章：容器介绍&lt;/li&gt;
+&lt;li&gt;第2章：了解Docker&lt;/li&gt;
+&lt;li&gt;第3章：卷和网络基础&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;活动日程&quot;&gt;&lt;a href=&quot;#活动日程&quot; class=&quot;headerlink&quot; title=&quot;活动日程&quot;&gt;&lt;/a&gt;活动日程&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;时间:&lt;/strong&gt; 2017年4月22日（周六），10:00—16:30&lt;br&gt;&lt;strong&gt;地点:&lt;/strong&gt; 成都市高新区天府大道中段1268号 天府软件园E1-1栋7楼，ThoughtWorks办公室。&lt;br&gt;&lt;strong&gt;活动流程:&lt;/strong&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;div class=&quot;figure right fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/agenda.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/agenda.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;10:00-10:30 介绍&amp;amp;破冰&lt;br&gt;10:30-11:00 环境准备&lt;br&gt;11:00-12:00 容器介绍&lt;br&gt;12:00-13:00 午餐&lt;br&gt;13:00-14:30 了解Docker&lt;br&gt;14:30-14:40 茶歇&lt;br&gt;14:40-16:50 卷和网络基础&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;由于本次活动场地及活动规模限制，为了更好地交流体验，本次活动人数限制为了20人。&lt;br&gt;本工作坊需要大量的动手练习，参加的同学每人会携带笔记本一台(Windows、Mac、Linux操作系统均可)，为了让大家的环境统一，节省准备环境的时间，都会提前通知安装Vagrant和Virtualbox最新版本。&lt;/p&gt;
+&lt;h2 id=&quot;活动回顾&quot;&gt;&lt;a href=&quot;#活动回顾&quot; class=&quot;headerlink&quot; title=&quot;活动回顾&quot;&gt;&lt;/a&gt;活动回顾&lt;/h2&gt;&lt;p&gt;大家经历一天的实战练习，都非常好地坚持下来了，而且还是热情高涨，首先来一张合照吧。&lt;br&gt;&lt;img src=&quot;/assets/2017-04-22/all_us.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那接下来就一起回顾一下本次活动吧。&lt;/p&gt;
+&lt;p&gt;参会人员陆续到达，开始签到啦，工作人员在前台进行引导入场。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/sign_in_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;signin&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/sign_in_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/sign_in_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;signin&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/sign_in_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;大家开始拷贝相关资料，提前准备搭建环境。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/prepare_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;prepare&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/prepare_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/prepare_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;prepare&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/prepare_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;主持人带领大家一起进入自我介绍环节，以小组的形式交流。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/self_intro_0.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;selfintro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/self_intro_0.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-25&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/self_intro_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;selfintro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/self_intro_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-25&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/self_intro_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;selfintro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/self_intro_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-25&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/self_intro_3.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;selfintro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/self_intro_3.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-25&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/self_intro_4.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;selfintro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/self_intro_4.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;来看看讲师风采，非常地接地气，大家也都在认真地听讲。&lt;/p&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_3.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_3.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_4.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_4.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_5.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_5.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_11.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_11.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_22.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_22.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_44.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_44.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/course_55.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;course&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/course_55.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;茶歇和午餐肯定是少不了的啦，免费的活动还提供零食，更能学到知识，实在太值了。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/break_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;break&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/break_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/break_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;break&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/break_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/fruit_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;break&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/fruit_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/food_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;break&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/food_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/fruit_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;break&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/fruit_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;大家一起完成练习，非常地投入，热情洋溢。&lt;/p&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_3.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_3.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_4.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_4.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_5.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_5.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_6.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_6.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_7.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_7.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/practice_8.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;practice&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/practice_8.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;最后活动结束了，讲师和志愿者们一起进行Retro，回顾这一天的活动。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/retro_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;retro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/retro_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/retro_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;retro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/retro_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;h2 id=&quot;活动总结&quot;&gt;&lt;a href=&quot;#活动总结&quot; class=&quot;headerlink&quot; title=&quot;活动总结&quot;&gt;&lt;/a&gt;活动总结&lt;/h2&gt;&lt;p&gt;本次活动得到了Marketing团队的大力支持，同时组织者们也精心准备，经历内部多次的Rehearsal演练给大家分享了精彩的内容，得到了很多同学的好评。不过在过程中也遇到了很多问题，比如某些电脑配置不高，导致没有办法完成后续练习，体验效果不好，还有Windows电脑在安装环境时出现了一些问题，比如内存和空间不足，配置不正确等。实在没有办法的情况下，只能让两个人Pair练习了，而且讲师们也贡献出了自己的电脑帮助大家练习。&lt;/p&gt;
+&lt;p&gt;总得来说，这次活动还是很成功的，期待第二期内容。这里做一下第二期的广告，时间待定，主要内容包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务注册发现(Consul的使用)&lt;/li&gt;
+&lt;li&gt;多主机部署(Docker Swarm应用)&lt;/li&gt;
+&lt;li&gt;Docker日志监控(ELASTICSEARCH, FLUENTD, AND KIBANA)&lt;/li&gt;
+&lt;li&gt;应用和服务管理(监控和报警, 自定义Dashboard)&lt;/li&gt;
+&lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;特此致谢&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;sub&gt;志愿者以及负责人&lt;/sub&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Zhenghe Yu, Zejiang Yu, Chen Lin, Junyao Yu, Xiaoman Ou, Ying He, Yixiu Tang&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;sub&gt;讲师&lt;/sub&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Bowen Huang, Pei Xu, Yidong Du, Qinmu Xie, Shuiqiang Lin&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      此次『Docker In Production工作坊』将带你进入Docker的世界，通过动手练习快速掌握Docker基本技术和高阶使用。本次工作坊由 ThoughtWorks成都DevOps社区 组织，Marketing团队大力支持。
+    
+    </summary>
+    
+      <category term="Community" scheme="http://blog.waterstrong.me/categories/Community/"/>
+    
+    
+      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
+    
+      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="Workshop" scheme="http://blog.waterstrong.me/tags/Workshop/"/>
+    
+      <category term="Chengdu" scheme="http://blog.waterstrong.me/tags/Chengdu/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker学习与实践 - 安全篇</title>
@@ -108,7 +213,7 @@
     <link href="http://blog.waterstrong.me/docker-networking/"/>
     <id>http://blog.waterstrong.me/docker-networking/</id>
     <published>2017-04-02T13:59:27.000Z</published>
-    <updated>2017-04-22T04:43:06.000Z</updated>
+    <updated>2017-04-22T06:53:08.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;通常来说，要实现网络通信，机器需要至少一个网络接口(物理接口或虚拟接口)来收发数据包，另外，如果不同子网之间要进行通信，还需要路由机制。Docker中的网络接口默认都是虚拟接口，虚拟接口的优势之一是转发效率较高。&lt;/p&gt;
 &lt;p&gt;Linux通过在内核中进行数据复制来实现虚拟接口之间的数据转发，通俗地讲，&lt;em&gt;发送接口&lt;/em&gt;的&lt;em&gt;发送缓存&lt;/em&gt;数据包被直接复制到&lt;em&gt;接收接口&lt;/em&gt;的&lt;em&gt;接收缓存&lt;/em&gt;中，对于本地系统和容器内系统来说，就像是一个正常的以太网卡，但它不需要真正与外部网络设备通信，因此速度快，转发效率高。&lt;/p&gt;
@@ -803,9 +908,9 @@
       <category term="Techniques" scheme="http://blog.waterstrong.me/categories/Techniques/"/>
     
     
-      <category term="Transaction" scheme="http://blog.waterstrong.me/tags/Transaction/"/>
-    
       <category term="分布式事务" scheme="http://blog.waterstrong.me/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    
+      <category term="Transaction" scheme="http://blog.waterstrong.me/tags/Transaction/"/>
     
       <category term="Spring Boot" scheme="http://blog.waterstrong.me/tags/Spring-Boot/"/>
     
@@ -814,45 +919,6 @@
       <category term="Bitronix" scheme="http://blog.waterstrong.me/tags/Bitronix/"/>
     
       <category term="Atomikos" scheme="http://blog.waterstrong.me/tags/Atomikos/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Groovy SQL Batch</title>
-    <link href="http://blog.waterstrong.me/groovy-sql-batch/"/>
-    <id>http://blog.waterstrong.me/groovy-sql-batch/</id>
-    <published>2016-09-14T14:38:59.000Z</published>
-    <updated>2017-02-16T16:30:37.000Z</updated>
-    
-    <content type="html">&lt;p&gt;通常，如果需要写一些针对数据库临时执行特定操作的脚本时，Groovy是一个不错的选择，如果数据量比较大的情况下需要用到Batch方式，接下来就我们就使用Groovy SQL快速实现一个简单的数据库批量操作Demo，如对已有User的姓名进行修饰更新。&lt;/p&gt;
-&lt;h2 id=&quot;Preparation&quot;&gt;&lt;a href=&quot;#Preparation&quot; class=&quot;headerlink&quot; title=&quot;Preparation&quot;&gt;&lt;/a&gt;Preparation&lt;/h2&gt;&lt;p&gt;准备阶段主要Import依赖，以及配置数据库各项属性并创建连接：&lt;br&gt;&lt;figure class=&quot;highlight gradle&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; groovy.sql.Sql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; org.springframework.test.context.jdbc.Sql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Also can set to &lt;span class=&quot;keyword&quot;&gt;project&lt;/span&gt;.ext.sql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; sql = Sql.newInstance(&lt;span class=&quot;string&quot;&gt;&#39;url&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;user&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;pwd&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;driver&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Set the variables&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ext &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    batchSize = &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    customizeFile = &lt;span class=&quot;keyword&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;file.txt&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Statement&quot;&gt;&lt;a href=&quot;#Statement&quot; class=&quot;headerlink&quot; title=&quot;Statement&quot;&gt;&lt;/a&gt;Statement&lt;/h2&gt;&lt;p&gt;创建语句并执行，比如写一个查询和更新：&lt;br&gt;&lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; getUsers() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    println &lt;span class=&quot;string&quot;&gt;&#39;Start to find users...&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sql.rows &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        SELECT USER_ID AS userId, USER_NAME AS userName FROM TB_USER WITH UR&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String getUpdateStatement() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        UPDATE TB_USER SET USER_NAME=? WHERE USER_ID=?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &quot;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Extraction&quot;&gt;&lt;a href=&quot;#Extraction&quot; class=&quot;headerlink&quot; title=&quot;Extraction&quot;&gt;&lt;/a&gt;Extraction&lt;/h2&gt;&lt;p&gt;Extration可以从查询结果中提取值并重新赋值给新对象，同时写入记录到文件中，建议采用&lt;code&gt;withWriter&lt;/code&gt;高效写文件的方式：&lt;br&gt;&lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;List extractUserIds(users) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    println &lt;span class=&quot;string&quot;&gt;&#39;Start to extract users...&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; userIds = [:]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    customizeFile.withWriter &amp;#123; writer -&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        users.each &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            userIds.put(it.userId, it.userNames)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            writer.println it.userId&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    userIds&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Transaction-amp-Batch&quot;&gt;&lt;a href=&quot;#Transaction-amp-Batch&quot; class=&quot;headerlink&quot; title=&quot;Transaction &amp;amp; Batch&quot;&gt;&lt;/a&gt;Transaction &amp;amp; Batch&lt;/h2&gt;&lt;p&gt;对于指执行，建议采用先准备好Sql脚本并加入到Batch中的方式，这样可以按批发送给数据库执行，提升效率，同时在最外层加上事务管理：&lt;br&gt;&lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; processBatchUpdate(userIds) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    println &lt;span class=&quot;string&quot;&gt;&quot;Start to batch(size: $batchSize) update...&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sql.withTransaction &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sql.withBatch(batchSize, updateStatement) &amp;#123; statement -&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            userIds.each &amp;#123; statement.addBatch decorate(it.userName), it.userId &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    println &lt;span class=&quot;string&quot;&gt;&quot;$&amp;#123;userIds.size()&amp;#125; users updated&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Default-Task&quot;&gt;&lt;a href=&quot;#Default-Task&quot; class=&quot;headerlink&quot; title=&quot;Default Task&quot;&gt;&lt;/a&gt;Default Task&lt;/h2&gt;&lt;p&gt;默认会被执行的任务，通常是入口，并且执行完毕可应关闭数据库Session：&lt;br&gt;&lt;figure class=&quot;highlight gradle&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;defaultTasks = [&lt;span class=&quot;string&quot;&gt;&#39;defaultMain&#39;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Generally dependsOn: initialiseDriver&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;task&lt;/span&gt; defaultMain() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    onlyIf &amp;#123; !customizeFile.exitsts() &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;doLast&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; userIds = extractUserIds(users)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        processBatchUpdate userIds&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sql.close()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;更多关于&lt;code&gt;Groovy SQL&lt;/code&gt;的用法可以参考官网资料&lt;a href=&quot;http://docs.groovy-lang.org/latest/html/api/groovy/sql/Sql.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Groovy Class Sql&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;References&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://docs.groovy-lang.org/latest/html/api/groovy/sql/Sql.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Groovy Class Sql&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.schibsted.pl/blog/groovy-sql-an-easy-way-to-database-scripting/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GROOVY SQL – AN EASY WAY TO DATABASE SCRIPTING&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      通常，如果需要写一些针对数据库临时执行特定操作的脚本时，Groovy是一个不错的选择，如果数据量比较大的情况下需要用到Batch方式，接下来将介绍使用Groovy SQL快速实现一个简单的数据库Batch操作Demo。
-    
-    </summary>
-    
-      <category term="Languages" scheme="http://blog.waterstrong.me/categories/Languages/"/>
-    
-    
-      <category term="Groovy" scheme="http://blog.waterstrong.me/tags/Groovy/"/>
-    
-      <category term="SQL" scheme="http://blog.waterstrong.me/tags/SQL/"/>
-    
-      <category term="Batch" scheme="http://blog.waterstrong.me/tags/Batch/"/>
     
   </entry>
   
