@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
 <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/areas.png">
-<meta property="og:updated_time" content="2017-03-18T15:51:10.000Z">
+<meta property="og:updated_time" content="2017-05-07T09:43:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优雅地使用Git">
 <meta name="twitter:description" content="Git是一款免费且开源的分布式版本控制系统(DVCS)，Git是由Linux之父Linus Torvalds在2005年创造出来最初用于管理Linux内核代码，Git能以非常高效的方式管理各种规模的项目，目前算是世界上最先进的分布式版本控制系统。">
@@ -308,9 +308,10 @@
 <ol>
 <li>在工作区中添加或修改文件</li>
 <li>将文件快照添加到暂存区中</li>
-<li>将暂存区的文件提交并永久存入版本库<br><img src="/assets/master-git/areas.png" alt=""></li>
+<li>将暂存区的文件提交并永久存入版本库</li>
 </ol>
-<p>更多细节和原理介绍可以阅读<a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control" target="_blank" rel="external">Git官网介绍</a>，这里就不再赘述。</p>
+<p><img src="/assets/master-git/areas.png" alt="图片来自 git-scm.com"></p>
+<p>更多细节和原理介绍可以阅读 <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control" target="_blank" rel="external">Git官网介绍</a>，这里就不再赘述。</p>
 <h2 id="Git准备"><a href="#Git准备" class="headerlink" title="Git准备"></a>Git准备</h2><p>首先必需要提出来的是，强烈建议使用CLI，不要总想着GUI，如果你能对你执行的操作有完全掌控，你不必担心出现一些非意料的问题，并且当你使用熟练后你会发现CLI比GUI效率高很多，另外，当你从鼠标转移到了键盘上后，你才会感受到，原来生活可以变得如此美好。接下来会简单列举入门准备的步骤：</p>
 <h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><p>请根据操作系统下载并安装Git，请参见<a href="https://git-scm.com/downloads" target="_blank" rel="external">Git Downloads</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git --version  <span class="comment"># 查看安装版本</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">help</span> <span class="_">-a</span>  <span class="comment"># 列出所有子命令</span></span><br><span class="line">git <span class="built_in">help</span> &lt;<span class="built_in">command</span>&gt;  <span class="comment"># 查看某个子命令的帮助</span></span><br><span class="line"></span><br><span class="line">git <span class="built_in">help</span> -g  <span class="comment"># 列出一些概念引导</span></span><br><span class="line">git <span class="built_in">help</span> &lt;concept&gt;  <span class="comment"># 查看某个概念引导，比如git help tutorial</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h4><p>因为Git是分布式的，需要在本地配置Git用户名和邮箱作为一个标识。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"your_name"</span>  <span class="comment"># 若无参数，则表示查看当前配置</span></span><br><span class="line">git config --global user.email <span class="string">"your_email"</span></span><br></pre></td></tr></table></figure></p>

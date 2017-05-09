@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.waterstrong.me/master-git/</loc>
+    
+    <lastmod>2017-05-07T09:43:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.waterstrong.me/docker-workshop-part1/</loc>
     
-    <lastmod>2017-04-28T05:45:30.000Z</lastmod>
+    <lastmod>2017-05-07T09:43:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.waterstrong.me/about/index.html</loc>
+    
+    <lastmod>2017-04-29T01:43:47.000Z</lastmod>
     
   </url>
   
@@ -72,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/about/index.html</loc>
-    
-    <lastmod>2017-03-25T03:21:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2017-03-23T14:13:54.000Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>http://blog.waterstrong.me/links/index.html</loc>
     
     <lastmod>2017-03-23T14:13:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.waterstrong.me/master-git/</loc>
-    
-    <lastmod>2017-03-18T15:51:10.000Z</lastmod>
     
   </url>
   
@@ -261,7 +261,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -275,7 +275,7 @@
   </url>
   
   <url>
-    <loc>http://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>http://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
