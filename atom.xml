@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-05-11T14:53:45.000Z</updated>
+  <updated>2017-05-11T14:55:27.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://blog.waterstrong.me/DevRelCon2017-Chengdu/"/>
     <id>http://blog.waterstrong.me/DevRelCon2017-Chengdu/</id>
     <published>2017-05-08T13:20:37.000Z</published>
-    <updated>2017-05-11T14:53:45.000Z</updated>
+    <updated>2017-05-11T14:55:27.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;&lt;em&gt;中国首届开发者关系大会&lt;/em&gt; 于5月6日在北京举行，16位来自欧美、中国、日本的开发者关系领域资深演讲嘉宾共聚北京，邀请大家共同探讨如何围绕产品和服务建立活跃的开发者社区、打造优质的开发者体验、维护良好的开发者关系，更多内容可以了解 &lt;a href=&quot;http://weibo.com/ttarticle/p/show?id=2309404097576856093949&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;微博&lt;/a&gt;。为了不让成都的小伙伴错过这一次精彩的演讲，&lt;em&gt;&lt;acronym title=&quot;Free Code Camp&quot;&gt;FCC&lt;/acronym&gt;成都社区&lt;/em&gt; 在5月6日当天组织了直播观影活动&amp;amp;线下分享活动。&lt;/p&gt;
 &lt;h2 id=&quot;活动介绍&quot;&gt;&lt;a href=&quot;#活动介绍&quot; class=&quot;headerlink&quot; title=&quot;活动介绍&quot;&gt;&lt;/a&gt;活动介绍&lt;/h2&gt;&lt;p&gt;本次是成都分会场的活动，除了直接观影外，还包括线下分享交流，主办方为：&lt;/p&gt;
@@ -55,7 +55,7 @@
 &lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/water.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/water.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/shuige.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/shuige.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
 &lt;p&gt;最后大家一起合影，结束一天的活动，最后当然少不了吃顿好的，就不上图了，大家意会就可以了。&lt;br&gt;&lt;img src=&quot;/assets/2017-05-06/all.jpg&quot; alt=&quot;活动合影&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;活动总结&quot;&gt;&lt;a href=&quot;#活动总结&quot; class=&quot;headerlink&quot; title=&quot;活动总结&quot;&gt;&lt;/a&gt;活动总结&lt;/h2&gt;&lt;p&gt;本次活动报名人数不算多，由于上午的远程直播音频声音太小，音质太差，因此临时决定将下午的分享提前到上午开始，在总体时间上还需要进一步控制。不过整体上活动还是不错的，虽然人数不多，但都是社区活跃者，大家都很投入，也得到了充分地沟通和交流，活动结束后大家也一起去聚了餐，感谢 &lt;em&gt;姜姜姜&lt;/em&gt; 同学的盛情款待^_^。&lt;/p&gt;
+&lt;h2 id=&quot;活动小结&quot;&gt;&lt;a href=&quot;#活动小结&quot; class=&quot;headerlink&quot; title=&quot;活动小结&quot;&gt;&lt;/a&gt;活动小结&lt;/h2&gt;&lt;p&gt;本次活动报名人数不算多，由于上午的远程直播音频声音太小，音质太差，因此临时决定将下午的分享提前到上午开始，在总体时间上还需要进一步控制。不过整体上活动还是不错的，虽然人数不多，但都是社区活跃者，大家都很投入，也得到了充分地沟通和交流，活动结束后大家也一起去聚了餐，感谢 &lt;em&gt;姜姜姜&lt;/em&gt; 同学的盛情款待^_^。&lt;/p&gt;
 &lt;hr&gt;
 </content>
     
@@ -208,7 +208,7 @@
     <link href="http://blog.waterstrong.me/docker-workshop-part1/"/>
     <id>http://blog.waterstrong.me/docker-workshop-part1/</id>
     <published>2017-04-23T10:40:32.000Z</published>
-    <updated>2017-05-11T13:07:41.000Z</updated>
+    <updated>2017-05-11T14:55:22.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;IT行业近年来进入了飞速发展的时代，颠覆行业的IT产品层出不穷，从而造就的独角兽公司也一个接一个。软件开发领域不断演进的生态圈是支撑这些变革的重要基础。持续交付、云计算、微服务、DevOps…各种颠覆性的技术和概念层出不穷。&lt;/p&gt;
 &lt;p&gt;以Docker为首的容器技术也是近几年来非常火热的技术之一。Docker自从2014年发布1.0版本以后，容器技术终于走上了大规模商用的正轨。其带来的秒级启动、环境封装、安全隔离、高效迁移等优势对传统的持续集成及部署方式带来了巨大的冲击。如今，很多公司都已经在使用Docker了，并带来了良好的经济效益。&lt;/p&gt;
@@ -268,7 +268,7 @@
 &lt;p&gt;最后活动结束了，讲师和志愿者们一起进行Retro，回顾这一天的活动。&lt;/p&gt;
 &lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/retro_1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;retro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/retro_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-04-22/retro_2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;retro&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-04-22/retro_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
-&lt;h2 id=&quot;活动总结&quot;&gt;&lt;a href=&quot;#活动总结&quot; class=&quot;headerlink&quot; title=&quot;活动总结&quot;&gt;&lt;/a&gt;活动总结&lt;/h2&gt;&lt;p&gt;本次活动得到了Marketing团队的大力支持，同时组织者们也精心准备，经历内部多次的Rehearsal演练给大家分享了精彩的内容，得到了很多同学的好评。不过在过程中也遇到了很多问题，比如某些电脑配置不高，导致没有办法完成后续练习，体验效果不好，还有Windows电脑在安装环境时出现了一些问题，比如内存和空间不足，配置不正确等。实在没有办法的情况下，只能让两个人Pair练习了，而且讲师们也贡献出了自己的电脑帮助大家练习。&lt;/p&gt;
+&lt;h2 id=&quot;活动小结&quot;&gt;&lt;a href=&quot;#活动小结&quot; class=&quot;headerlink&quot; title=&quot;活动小结&quot;&gt;&lt;/a&gt;活动小结&lt;/h2&gt;&lt;p&gt;本次活动得到了Marketing团队的大力支持，同时组织者们也精心准备，经历内部多次的Rehearsal演练给大家分享了精彩的内容，得到了很多同学的好评。不过在过程中也遇到了很多问题，比如某些电脑配置不高，导致没有办法完成后续练习，体验效果不好，还有Windows电脑在安装环境时出现了一些问题，比如内存和空间不足，配置不正确等。实在没有办法的情况下，只能让两个人Pair练习了，而且讲师们也贡献出了自己的电脑帮助大家练习。&lt;/p&gt;
 &lt;p&gt;总得来说，这次活动还是很成功的，期待第二期内容。这里做一下第二期的广告，时间待定，主要内容包括：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;服务注册发现(Consul的使用)&lt;/li&gt;
