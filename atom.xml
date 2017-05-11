@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.waterstrong.me/"/>
-  <updated>2017-05-10T16:08:31.000Z</updated>
+  <updated>2017-05-11T14:36:16.000Z</updated>
   <id>http://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>开发者关系大会 | 成都分会场 活动回顾</title>
+    <link href="http://blog.waterstrong.me/DevRelCon2017-Chengdu/"/>
+    <id>http://blog.waterstrong.me/DevRelCon2017-Chengdu/</id>
+    <published>2017-05-08T13:20:37.000Z</published>
+    <updated>2017-05-11T14:36:16.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;&lt;em&gt;中国首届开发者关系大会&lt;/em&gt; 于5月6日在北京举行，16位来自欧美、中国、日本的开发者关系领域资深演讲嘉宾共聚北京，邀请大家共同探讨如何围绕产品和服务建立活跃的开发者社区、打造优质的开发者体验、维护良好的开发者关系，更多内容可以了解 &lt;a href=&quot;http://weibo.com/ttarticle/p/show?id=2309404097576856093949&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;微博&lt;/a&gt;。为了不让成都的小伙伴错过这一次精彩的演讲，&lt;em&gt;&lt;acronym title=&quot;Free Code Camp&quot;&gt;FCC&lt;/acronym&gt;成都社区&lt;/em&gt; 在5月6日当天组织了直播观影活动&amp;amp;线下分享活动。&lt;/p&gt;
+&lt;h2 id=&quot;活动介绍&quot;&gt;&lt;a href=&quot;#活动介绍&quot; class=&quot;headerlink&quot; title=&quot;活动介绍&quot;&gt;&lt;/a&gt;活动介绍&lt;/h2&gt;&lt;p&gt;本次是成都分会场的活动，除了直接观影外，还包括线下分享交流，主办方为：FCC成都社区，猿生态开发者社区。&lt;br&gt;&lt;strong&gt;活动时间:&lt;/strong&gt; 2017年05月06日（周六），09:30-17:00&lt;br&gt;&lt;strong&gt;活动地点:&lt;/strong&gt; 成都市高新区天府大道中段1268号 天府软件园E1-1栋7楼，ThoughtWorks办公室&lt;br&gt;&lt;strong&gt;活动流程:&lt;/strong&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;09:45-12:15 主会场直播观影&lt;/li&gt;
+&lt;li&gt;12:15-14:00 午餐 自由交流&lt;/li&gt;
+&lt;li&gt;14:00-15:00《生活的智慧 程序员的起源》—— Akagilnc&lt;/li&gt;
+&lt;li&gt;15:00-16:00《了解敏捷实践 感受敏捷文化》—— Waterstrong&lt;/li&gt;
+&lt;li&gt;16:00-17:00《工匠 重复中的精进》—— 水歌&lt;/li&gt;
+&lt;li&gt;17:00-17:05 反馈 合影&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;活动回顾&quot;&gt;&lt;a href=&quot;#活动回顾&quot; class=&quot;headerlink&quot; title=&quot;活动回顾&quot;&gt;&lt;/a&gt;活动回顾&lt;/h2&gt;&lt;p&gt;早上九点半左右，大家开始陆续签到入场。&lt;/p&gt;
+&lt;div class=&quot;figure fig-100&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;clear&quot; title=&quot;&quot; data-fancybox-group=&quot;live&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/sign_in.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;已经远程接入直播观影中，不过远程的音质效果实在想吐槽一下了，最后不得不决定，提前开始线下的分享。&lt;/p&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/live1.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;live&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/live1.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-50&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/live2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;live&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/live2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;讲师精彩分享中，首先，由 &lt;em&gt;Ak&lt;/em&gt; 分享了 &lt;em&gt;生活的智慧 程序员的起源&lt;/em&gt;，然后，由我给大家分享了 &lt;em&gt;了解敏捷实践 感受敏捷文化&lt;/em&gt;，最后，&lt;em&gt;水歌&lt;/em&gt; 为大家分享了 &lt;em&gt;工匠 重复中的精进&lt;/em&gt;，在此过程中，大家都在积极地参与讨论和提问，一起交流分享。&lt;/p&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/ak.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/ak.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/water2.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/water2.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/shuige.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/shuige.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
+&lt;p&gt;最后大家一起合影，结束一天的活动，最后当然少不了吃顿好的，就不上图了，大家意会就可以了。&lt;br&gt;&lt;img src=&quot;/assets/2017-05-06/all.jpg&quot; alt=&quot;活动合影&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;活动总结&quot;&gt;&lt;a href=&quot;#活动总结&quot; class=&quot;headerlink&quot; title=&quot;活动总结&quot;&gt;&lt;/a&gt;活动总结&lt;/h2&gt;&lt;p&gt;本次活动报名人数不算多，由于上午的远程直播音频声音太小，音质太差，因此临时决定将下午的分享提前到上午开始，在总体时间上还需要进一步控制。不过整体上活动还是不错的，虽然人数不多，但大家都很投入，也得到了充分地沟通和交流，活动结束后大家也一起去聚了餐，感谢 &lt;em&gt;姜姜姜&lt;/em&gt; 同学的盛情款待^_^。&lt;/p&gt;
+&lt;hr&gt;
+</content>
+    
+    <summary type="html">
+    
+      为了不让成都的小伙伴错过中国首届开发者关系大会精彩的演讲，FCC成都社区 在5月6日当天组织了直播观影活动&amp;线下分享活动。
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>漫谈敏捷软件开发实践与文化</title>
@@ -155,7 +195,7 @@
     <link href="http://blog.waterstrong.me/docker-workshop-part1/"/>
     <id>http://blog.waterstrong.me/docker-workshop-part1/</id>
     <published>2017-04-23T10:40:32.000Z</published>
-    <updated>2017-05-07T09:43:37.000Z</updated>
+    <updated>2017-05-11T13:07:41.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;IT行业近年来进入了飞速发展的时代，颠覆行业的IT产品层出不穷，从而造就的独角兽公司也一个接一个。软件开发领域不断演进的生态圈是支撑这些变革的重要基础。持续交付、云计算、微服务、DevOps…各种颠覆性的技术和概念层出不穷。&lt;/p&gt;
 &lt;p&gt;以Docker为首的容器技术也是近几年来非常火热的技术之一。Docker自从2014年发布1.0版本以后，容器技术终于走上了大规模商用的正轨。其带来的秒级启动、环境封装、安全隔离、高效迁移等优势对传统的持续集成及部署方式带来了巨大的冲击。如今，很多公司都已经在使用Docker了，并带来了良好的经济效益。&lt;/p&gt;
@@ -245,9 +285,9 @@
       <category term="Community" scheme="http://blog.waterstrong.me/categories/Community/"/>
     
     
-      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
-    
       <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
     
       <category term="Workshop" scheme="http://blog.waterstrong.me/tags/Workshop/"/>
     
@@ -755,9 +795,9 @@
     
       <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
-    
       <category term="Repository" scheme="http://blog.waterstrong.me/tags/Repository/"/>
+    
+      <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
     
   </entry>
   
@@ -899,79 +939,6 @@
     <summary type="html">
     
       当前有一个源系统G，主要存储大量数据，每条数据以唯一的ID标识，该系统每天会不定时处理一些合并数据的操作，出于某些需求原因，同时还有若干下游子系统A。
-    
-    </summary>
-    
-      <category term="Frameworks" scheme="http://blog.waterstrong.me/categories/Frameworks/"/>
-    
-    
-      <category term="AMQP" scheme="http://blog.waterstrong.me/tags/AMQP/"/>
-    
-      <category term="RabbitMQ" scheme="http://blog.waterstrong.me/tags/RabbitMQ/"/>
-    
-      <category term="Message" scheme="http://blog.waterstrong.me/tags/Message/"/>
-    
-      <category term="Topic" scheme="http://blog.waterstrong.me/tags/Topic/"/>
-    
-      <category term="Exchange" scheme="http://blog.waterstrong.me/tags/Exchange/"/>
-    
-      <category term="Queue" scheme="http://blog.waterstrong.me/tags/Queue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RabbitMQ入门指南</title>
-    <link href="http://blog.waterstrong.me/rabbitmq-start-guide/"/>
-    <id>http://blog.waterstrong.me/rabbitmq-start-guide/</id>
-    <published>2016-10-21T14:55:14.000Z</published>
-    <updated>2016-11-07T14:53:18.000Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;RabbitMQ基本介绍&quot;&gt;&lt;a href=&quot;#RabbitMQ基本介绍&quot; class=&quot;headerlink&quot; title=&quot;RabbitMQ基本介绍&quot;&gt;&lt;/a&gt;RabbitMQ基本介绍&lt;/h3&gt;&lt;p&gt;RabbitMQ(Rabbit Message Queue)，即消息队列系统，它是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是&lt;a href=&quot;https://spring.io/understanding/AMQP&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AMQP(Advanced Message Queueing Protocol)&lt;/a&gt;的标准实现。&lt;/p&gt;
-&lt;p&gt;AMQP是一个公开发布的异步消息的规范，是提供统一消息服务的应用层标准&lt;strong&gt;高级消息队列协议&lt;/strong&gt;，为面向消息的中间件设计，消息中间件主要用于组件之间的解耦，消息的发送者无需知道消息使用者的存在，反之亦然。相对于&lt;a href=&quot;https://en.wikipedia.org/wiki/Java_Message_Service&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JMS(Java Message Service)&lt;/a&gt;规范来说，JMS使用的是特定的APIs，而消息格式可自由定义，而AMQP对消息的格式和传输是有要求的，但实现不会受操作系统、开发语言以及平台等的限制。&lt;/p&gt;
-&lt;p&gt;JMS和AMQP还有一个较大的区别：JMS有队列(Queues)和主题(Topics)两种形式，发送到JMS队列的消息最多只能被一个Client消费，发送到JMS主题的消息可能会被多个Clients消费；AMQP只有队列(Queues)，队列的消息只能被单个接受者消费，发送者并不直接把消息发送到队列中，而是发送到Exchange中，该Exchage会与一个或多个队列绑定，能够实现与JMS队列和主题同样的功能。&lt;/p&gt;
-&lt;p&gt;RabbitMQ的主要宣传点在于其健壮性好、易于使用、高性能、高并发、集群易扩展以及强大的开源社区支持，鉴于些，在实际项目中使用还是比较可靠有价值的。接下来就介绍一下RabbitMQ从安装到简单示例的入门教程。&lt;/p&gt;
-&lt;h3 id=&quot;RabbitMQ下载安装&quot;&gt;&lt;a href=&quot;#RabbitMQ下载安装&quot; class=&quot;headerlink&quot; title=&quot;RabbitMQ下载安装&quot;&gt;&lt;/a&gt;RabbitMQ下载安装&lt;/h3&gt;&lt;p&gt;这里提供三种方式下载并安装RabbitMQ Server：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;需要在&lt;a href=&quot;https://www.rabbitmq.com/download.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RabbitMQ下载页&lt;/a&gt;下载对应操作系统的RabbitMQ Server安装包进行安装。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;通过命令行安装，比如如果在MAC系统下可以通过homebrew安装。&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ brew install rabbitmq&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ rabbitmq-server       &lt;span class=&quot;comment&quot;&gt;# 解压并以默认设置启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;通过&lt;a href=&quot;https://docs.docker.com/compose/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Docker Compose&lt;/a&gt;快速启动RabbitMQ Server，但需要保证已经安装并启动了Docker服务，然后创建&lt;code&gt;docker-compose.yml&lt;/code&gt;的文件，并在同目录下执行命令&lt;code&gt;docker-compose up&lt;/code&gt;即可启动RabbitMQ服务。推荐使用该方式，方便快捷，并在独立Container中运行。&lt;/p&gt;
-&lt;figure class=&quot;highlight yml&quot;&gt;&lt;figcaption&gt;&lt;span&gt;docker-compose.yml&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;rabbitmq:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  image:&lt;/span&gt; rabbitmq:management&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;    -&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;5672:5672&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;    -&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;15672:15672&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;在安装完成并启动服务后，可通过访问&lt;a href=&quot;http://localhost:15672&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://localhost:15672&lt;/a&gt;测试，默认用户名和密码是&lt;code&gt;guest&lt;/code&gt;。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/overview_totals.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;RabbitMQ入门使用&quot;&gt;&lt;a href=&quot;#RabbitMQ入门使用&quot; class=&quot;headerlink&quot; title=&quot;RabbitMQ入门使用&quot;&gt;&lt;/a&gt;RabbitMQ入门使用&lt;/h3&gt;&lt;p&gt;以Java为例集成RabbitMQ，针对不同应用场景使用其对应的功能，以下入门示例都出自&lt;a href=&quot;http://www.rabbitmq.com/getstarted.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网教程&lt;/a&gt;。&lt;/p&gt;
-&lt;h5 id=&quot;应用场景一：Simple-Queue-“Hello-Word”&quot;&gt;&lt;a href=&quot;#应用场景一：Simple-Queue-“Hello-Word”&quot; class=&quot;headerlink&quot; title=&quot;应用场景一：Simple Queue “Hello Word”&quot;&gt;&lt;/a&gt;应用场景一：Simple Queue “Hello Word”&lt;/h5&gt;&lt;p&gt;一个&lt;strong&gt;P&lt;/strong&gt;roducer发送消息到Queue中，一个&lt;strong&gt;C&lt;/strong&gt;onsumer从Queue读取消息并打印。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/simple_queue.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;有兴趣可参阅示例代码：&lt;a href=&quot;https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/helloWorld&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hello World Demo&lt;/a&gt;。&lt;/p&gt;
-&lt;h5 id=&quot;应用场景二：Work-Queues&quot;&gt;&lt;a href=&quot;#应用场景二：Work-Queues&quot; class=&quot;headerlink&quot; title=&quot;应用场景二：Work Queues&quot;&gt;&lt;/a&gt;应用场景二：Work Queues&lt;/h5&gt;&lt;p&gt;将消息分配给多个Consumer进行处理，可以避免在执行资源密集性任务时同步处理导致阻塞等待的问题，从而在一定程度上提升并行能力，通常称该类Consumer为Work，多个Work在后台接收分配到的任务并处理。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/work_queues.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h5 id=&quot;应用场景三：Publish-Subscribe&quot;&gt;&lt;a href=&quot;#应用场景三：Publish-Subscribe&quot; class=&quot;headerlink&quot; title=&quot;应用场景三：Publish/Subscribe&quot;&gt;&lt;/a&gt;应用场景三：Publish/Subscribe&lt;/h5&gt;&lt;p&gt;前两个场景都是把一个消息传递给一个Consumer/Worker，而这里的Publish/Subscribe需要把消息传递给多个Consumer。这里Producer不会将消息直接发送到队列，事实上，Producer也并不知道消息会传递给任何的Queue，而是将消息发送到一个Exchange上，Exchange的作用在于收到Producer的消息并推送给绑定的Queue，这样Exchange就将消息传递给绑定的Queues及其以对应的Consumer了，这里使用的Exchange是&lt;code&gt;fanout&lt;/code&gt;，其实就是广播功能。Exchange通常分为四种：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;fanout：该类型路由规则非常简单，会把所有发送到该Exchange的消息路由到所有与它绑定的Queue中，相当于广播功能&lt;/li&gt;
-&lt;li&gt;direct：该类型路由规则会将消息路由到binding key与routing key完全匹配的Queue中，在场景四中会用到&lt;/li&gt;
-&lt;li&gt;topic：与direct类型相似，只是规则没有那么严格，可以模糊匹配和多条件匹配，在场景五中会进一步解释&lt;/li&gt;
-&lt;li&gt;headers：该类型不依赖于routing key与binding key的匹配规则来路由消息，而是根据发送的消息内容中的headers属性进行匹配&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/rabbitmq-guide/publish_subscribe.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;比如一个打印Log的系统，当所有接收Log的Consumer接收到消息后都可以打印Log，有兴趣可参阅示例代码：&lt;a href=&quot;https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/publishsubscribe&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Publish/Subscribe Demo&lt;/a&gt;。&lt;/p&gt;
-&lt;h5 id=&quot;应用场景四：Routing&quot;&gt;&lt;a href=&quot;#应用场景四：Routing&quot; class=&quot;headerlink&quot; title=&quot;应用场景四：Routing&quot;&gt;&lt;/a&gt;应用场景四：Routing&lt;/h5&gt;&lt;p&gt;在上一场景中，只是一个简单的Log系统，相当于广播功能，更进一步，可以针对不同的日志发送到不同的Consumer进行不同的处理，比如有的写文件，有的打印控制台等，那么就需要定义Routing路由了。为了使用Routing功能，可以将Exchange定义为&lt;code&gt;direct&lt;/code&gt;类型，需要设置&lt;code&gt;routing_key&lt;/code&gt;绑定到Queue上，然后就可以发送消息了。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/routing.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h5 id=&quot;应用场景五：Topics&quot;&gt;&lt;a href=&quot;#应用场景五：Topics&quot; class=&quot;headerlink&quot; title=&quot;应用场景五：Topics&quot;&gt;&lt;/a&gt;应用场景五：Topics&lt;/h5&gt;&lt;p&gt;在以上场景中，使用&lt;code&gt;direct&lt;/code&gt;类型的Exchange可以实现对不同消息的路由，但只是支持单一的条件，为了支持多种条件，比如不仅针对Log的级别，还要针对其来源进行分发消息，这时候可以使用Topic来实现了，其中的逻辑和&lt;code&gt;direct&lt;/code&gt;的类似，只是&lt;code&gt;routing_key&lt;/code&gt;支持多个用点&lt;code&gt;.&lt;/code&gt;分隔的值用于匹配路由信息，其中路由Key可以使用&lt;code&gt;*&lt;/code&gt;替代一个词，&lt;code&gt;#&lt;/code&gt;匹配0个或多个词。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/topics.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;有兴趣可参阅示例代码：&lt;a href=&quot;https://github.com/Waterstrong/spring-rabbitmq/tree/master/src/main/java/ws/demo/rabbitmq/message/topics&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Topics Demo&lt;/a&gt;。&lt;/p&gt;
-&lt;h5 id=&quot;应用场景六：RPC-Remote-procedure-call&quot;&gt;&lt;a href=&quot;#应用场景六：RPC-Remote-procedure-call&quot; class=&quot;headerlink&quot; title=&quot;应用场景六：RPC(Remote procedure call)&quot;&gt;&lt;/a&gt;应用场景六：RPC(Remote procedure call)&lt;/h5&gt;&lt;p&gt;在前面的场景二中，能够实现使用&lt;em&gt;Work Queues&lt;/em&gt;分发处理运算任务，但如果需要将任务发送到远程服务器上执行处理，然后等待返回运算结果呢？那就需要RPC远程过程回调了。这里描述的场景将和之前的完全不一样，需要构建一个Client和RPC Server，Client作为远程调用的发起者携带一些如&lt;code&gt;reply_to&lt;/code&gt;,&lt;code&gt;correlation_id&lt;/code&gt;等的特定信息发送请求到&lt;code&gt;rpc_queue&lt;/code&gt;上，RPC Server接收到请求后执行处理函数并将运算结果返回给&lt;code&gt;Callback Queue&lt;/code&gt;，Client就可以接收到对应&lt;code&gt;correlationId&lt;/code&gt;的返回结果了。&lt;br&gt;&lt;img src=&quot;/assets/rabbitmq-guide/rpc.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;The-End-结束语&quot;&gt;&lt;a href=&quot;#The-End-结束语&quot; class=&quot;headerlink&quot; title=&quot;The End 结束语&quot;&gt;&lt;/a&gt;The End 结束语&lt;/h3&gt;&lt;p&gt;本节只是针对RabbitMQ的主要功能及基本使用进行了介绍，如果对RabbitMQ的服务配置、客户端应用以及插件管理感兴趣，可以阅读下一篇博客&lt;a href=&quot;/rabbitmq-professional&quot;&gt;RabbitMQ进阶指南&lt;/a&gt;了解更多精彩内容。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;References&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.rabbitmq.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RabbitMQ Home&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://www.rabbitmq.com/getstarted.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RabbitMQ Tutorials&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://spring.io/understanding/AMQP&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Understanding AMQP&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://spring.io/guides/gs/messaging-rabbitmq/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Messaging with RabbitMQ&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。
     
     </summary>
     
