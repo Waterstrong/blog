@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://blog.waterstrong.me/git-server-repository/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，如GitHub、Bitbucket、GitLab、Coding.NET、OSChina.NET、CSDN.NET等，不过，本文中只关注使用简单的Git命令快速搭建共享服务器仓库。">
-<meta property="og:updated_time" content="2017-03-26T05:59:21.000Z">
+<meta property="og:updated_time" content="2017-05-14T00:13:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何创建Git服务器仓库">
 <meta name="twitter:description" content="在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，如GitHub、Bitbucket、GitLab、Coding.NET、OSChina.NET、CSDN.NET等，不过，本文中只关注使用简单的Git命令快速搭建共享服务器仓库。">
@@ -36,7 +36,7 @@
         <meta property="og:image" content="http://blog.waterstrong.me/assets/images/head.jpg"/>
     
     
-        <div id='wx_pic' style='margin:0 auto; display:none;'>
+        <div id="thumbnail" style="width:0;height:0;overflow:hidden;">
             <img src="http://blog.waterstrong.me/assets/master-git/git_bare.png" />
         </div>
         <meta property="og:image" content="http://blog.waterstrong.me/assets/master-git/git_bare.png"/>
@@ -45,7 +45,7 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-iaxgdcxsn2yur2hdaeu0eo172oyiblaxbvrxwdgjpmzdioefvsgtumhdfe5v.min.css">
+    <link rel="stylesheet" href="/assets/css/style-ezudqnjgxtymchejyjk9fnijnyldwlkdaqft5kt2zbmbisulzyf8csmjctm2.min.css">
     <!--STYLES END-->
     
     
@@ -293,7 +293,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，比如目前最流行的面向开源及私有软件项目的托管平台是<a href="https://github.com/" target="_blank" rel="external">GitHub</a>，还有一些其他优秀的平台，如Atlassian的<a href="https://bitbucket.org/" target="_blank" rel="external">Bitbucket</a>、<a href="https://gitlab.com" target="_blank" rel="external">GitLab</a>、<a href="https://coding.net" target="_blank" rel="external">Coding.NET</a>、开源中国的<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>、<a href="https://code.csdn.net/" target="_blank" rel="external">CSDN.NET</a>等，不仅可以使用Public和Private服务，还可以付费搭建定制服务，不过有些跑题了，本文中只关注使用简单的命令快速搭建共享服务器仓库。另外，关于Git的使用，可以参阅 <a href="http://blog.waterstrong.me/master-git/">优雅地使用Git</a> 了解更多内容，这里也不会再涉及Git命令细节。</p>
+            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>在使用Git时，通常会选择使用一个项目代码托管平台，这样的平台可以有很多选择，比如目前最流行的面向开源及私有软件项目的托管平台是<a href="https://github.com/" target="_blank" rel="external">GitHub</a>，还有一些其他优秀的平台，如Atlassian的<a href="https://bitbucket.org/" target="_blank" rel="external">Bitbucket</a>、<a href="https://gitlab.com" target="_blank" rel="external">GitLab</a>、<a href="https://coding.net" target="_blank" rel="external">Coding.NET</a>、开源中国的<a href="http://git.oschina.net/" target="_blank" rel="external">码云</a>、<a href="https://code.csdn.net/" target="_blank" rel="external">CSDN.NET</a>等，不仅可以使用Public和Private服务，还可以付费搭建定制服务，不过有些跑题了，本文中只关注使用简单的命令快速搭建共享服务器仓库。另外，关于Git的使用，可以参阅 <a href="/master-git">优雅地使用Git</a> 了解更多内容，这里也不会再涉及Git命令细节。</p>
 <h2 id="创建服务器仓库"><a href="#创建服务器仓库" class="headerlink" title="创建服务器仓库"></a>创建服务器仓库</h2><p>先创建一个文件夹名为<code>demo.git</code>，在其中使用命令创建裸仓库(作为服务器仓库)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">git init --bare</span><br><span class="line"></span><br><span class="line"># &gt; ls</span><br><span class="line"># HEAD  branches  config  description  hooks  info  objects  refs</span><br><span class="line"></span><br><span class="line"># &gt; tree -a</span><br><span class="line">.</span><br><span class="line">├── HEAD 	# 指向当前所处的分支</span><br><span class="line">├── branches	# 包含的Git分支信息</span><br><span class="line">├── config	# Git仓库的配置文件</span><br><span class="line">├── description	# Git仓库的描述信息</span><br><span class="line">├── hooks	# 一些shell钩子脚本</span><br><span class="line">│   ├── applypatch-msg.sample</span><br><span class="line">│   ├── commit-msg.sample</span><br><span class="line">│   ├── post-update.sample</span><br><span class="line">│   ├── pre-applypatch.sample</span><br><span class="line">│   ├── pre-commit.sample</span><br><span class="line">│   ├── pre-push.sample</span><br><span class="line">│   ├── pre-rebase.sample</span><br><span class="line">│   ├── prepare-commit-msg.sample</span><br><span class="line">│   └── update.sample</span><br><span class="line">├── info	# 包含仓库的一些信息</span><br><span class="line">│   └── exclude</span><br><span class="line">├── objects	# Git仓库的所有对象</span><br><span class="line">│   ├── info</span><br><span class="line">│   └── pack</span><br><span class="line">└── refs 	# 标识分支指向的提交</span><br><span class="line">    ├── heads</span><br><span class="line">    └── tags</span><br></pre></td></tr></table></figure></p>
 <p>与使用<code>git init</code>命令创建的目录不太一样，其中并没有<code>.git</code>目录，而是直接在工程目录下列出了其他的目录，并且可以查看到<code>config</code>中的内容<code>bare=true</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	repositoryformatversion = 0</span><br><span class="line">	filemode = true</span><br><span class="line">	bare = true</span><br><span class="line">	ignorecase = true</span><br><span class="line">	precomposeunicode = true</span><br></pre></td></tr></table></figure></p>
 <p>如果期望将普通的Git仓库转换为服务器仓库，可以使用如下命令进行转换，克隆出<code>.git</code>内容作为服务器仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare xxx</span><br></pre></td></tr></table></figure></p>
@@ -857,7 +857,7 @@
         
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-2knupg73bcyquvzhxxhke6k27wmz0rodli2ebzmm5tl1bgpybkz9ijartkvl.min.js"></script>
+<script src="/assets/js/script-nas4vutpujheotuigdphs6mtt3xdccncqerdko6kgamjdyldozzkmp6qjh81.min.js"></script>
 <!--SCRIPTS END-->
 
     
