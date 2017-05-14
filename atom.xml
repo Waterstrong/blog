@@ -4,9 +4,9 @@
   <subtitle>Enjoy this moment!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.waterstrong.me/"/>
+  <link href="https://blog.waterstrong.me/"/>
   <updated>2017-05-11T14:58:25.000Z</updated>
-  <id>http://blog.waterstrong.me/</id>
+  <id>https://blog.waterstrong.me/</id>
   
   <author>
     <name>Waterstrong</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>开发者关系大会 | 成都分会场 活动回顾</title>
-    <link href="http://blog.waterstrong.me/DevRelCon2017-Chengdu/"/>
-    <id>http://blog.waterstrong.me/DevRelCon2017-Chengdu/</id>
+    <link href="https://blog.waterstrong.me/DevRelCon2017-Chengdu/"/>
+    <id>https://blog.waterstrong.me/DevRelCon2017-Chengdu/</id>
     <published>2017-05-08T13:20:37.000Z</published>
     <updated>2017-05-11T14:58:25.000Z</updated>
     
@@ -65,19 +65,19 @@
     
     </summary>
     
-      <category term="Community" scheme="http://blog.waterstrong.me/categories/Community/"/>
+      <category term="Community" scheme="https://blog.waterstrong.me/categories/Community/"/>
     
     
-      <category term="Chengdu" scheme="http://blog.waterstrong.me/tags/Chengdu/"/>
+      <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
     
-      <category term="FCC" scheme="http://blog.waterstrong.me/tags/FCC/"/>
+      <category term="FCC" scheme="https://blog.waterstrong.me/tags/FCC/"/>
     
   </entry>
   
   <entry>
     <title>漫谈敏捷软件开发实践与文化</title>
-    <link href="http://blog.waterstrong.me/understanding-agile/"/>
-    <id>http://blog.waterstrong.me/understanding-agile/</id>
+    <link href="https://blog.waterstrong.me/understanding-agile/"/>
+    <id>https://blog.waterstrong.me/understanding-agile/</id>
     <published>2017-04-30T07:37:05.000Z</published>
     <updated>2017-05-10T16:08:31.000Z</updated>
     
@@ -198,21 +198,21 @@
     
     </summary>
     
-      <category term="Methodology" scheme="http://blog.waterstrong.me/categories/Methodology/"/>
+      <category term="Methodology" scheme="https://blog.waterstrong.me/categories/Methodology/"/>
     
     
-      <category term="Agile" scheme="http://blog.waterstrong.me/tags/Agile/"/>
+      <category term="Agile" scheme="https://blog.waterstrong.me/tags/Agile/"/>
     
-      <category term="Scrum" scheme="http://blog.waterstrong.me/tags/Scrum/"/>
+      <category term="Scrum" scheme="https://blog.waterstrong.me/tags/Scrum/"/>
     
-      <category term="XP" scheme="http://blog.waterstrong.me/tags/XP/"/>
+      <category term="XP" scheme="https://blog.waterstrong.me/tags/XP/"/>
     
   </entry>
   
   <entry>
     <title>第一期 Docker Workshop 活动回顾【多图】</title>
-    <link href="http://blog.waterstrong.me/docker-workshop-part1/"/>
-    <id>http://blog.waterstrong.me/docker-workshop-part1/</id>
+    <link href="https://blog.waterstrong.me/docker-workshop-part1/"/>
+    <id>https://blog.waterstrong.me/docker-workshop-part1/</id>
     <published>2017-04-23T10:40:32.000Z</published>
     <updated>2017-05-11T15:41:17.000Z</updated>
     
@@ -301,23 +301,23 @@
     
     </summary>
     
-      <category term="Community" scheme="http://blog.waterstrong.me/categories/Community/"/>
+      <category term="Community" scheme="https://blog.waterstrong.me/categories/Community/"/>
     
     
-      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
+      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
     
-      <category term="DevOps" scheme="http://blog.waterstrong.me/tags/DevOps/"/>
+      <category term="DevOps" scheme="https://blog.waterstrong.me/tags/DevOps/"/>
     
-      <category term="Workshop" scheme="http://blog.waterstrong.me/tags/Workshop/"/>
+      <category term="Workshop" scheme="https://blog.waterstrong.me/tags/Workshop/"/>
     
-      <category term="Chengdu" scheme="http://blog.waterstrong.me/tags/Chengdu/"/>
+      <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
     
   </entry>
   
   <entry>
     <title>Docker学习与实践 - 安全篇</title>
-    <link href="http://blog.waterstrong.me/docker-security/"/>
-    <id>http://blog.waterstrong.me/docker-security/</id>
+    <link href="https://blog.waterstrong.me/docker-security/"/>
+    <id>https://blog.waterstrong.me/docker-security/</id>
     <published>2017-04-08T12:17:16.000Z</published>
     <updated>2017-04-22T06:52:06.000Z</updated>
     
@@ -391,21 +391,21 @@
     
     </summary>
     
-      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
+      <category term="Platforms" scheme="https://blog.waterstrong.me/categories/Platforms/"/>
     
     
-      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
+      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
     
-      <category term="容器" scheme="http://blog.waterstrong.me/tags/%E5%AE%B9%E5%99%A8/"/>
+      <category term="容器" scheme="https://blog.waterstrong.me/tags/%E5%AE%B9%E5%99%A8/"/>
     
-      <category term="Security" scheme="http://blog.waterstrong.me/tags/Security/"/>
+      <category term="Security" scheme="https://blog.waterstrong.me/tags/Security/"/>
     
   </entry>
   
   <entry>
     <title>Docker学习与实践 - 网络篇</title>
-    <link href="http://blog.waterstrong.me/docker-networking/"/>
-    <id>http://blog.waterstrong.me/docker-networking/</id>
+    <link href="https://blog.waterstrong.me/docker-networking/"/>
+    <id>https://blog.waterstrong.me/docker-networking/</id>
     <published>2017-04-02T13:59:27.000Z</published>
     <updated>2017-04-22T06:53:08.000Z</updated>
     
@@ -610,21 +610,21 @@
     
     </summary>
     
-      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
+      <category term="Platforms" scheme="https://blog.waterstrong.me/categories/Platforms/"/>
     
     
-      <category term="Docker" scheme="http://blog.waterstrong.me/tags/Docker/"/>
+      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
     
-      <category term="容器" scheme="http://blog.waterstrong.me/tags/%E5%AE%B9%E5%99%A8/"/>
+      <category term="容器" scheme="https://blog.waterstrong.me/tags/%E5%AE%B9%E5%99%A8/"/>
     
-      <category term="Network" scheme="http://blog.waterstrong.me/tags/Network/"/>
+      <category term="Network" scheme="https://blog.waterstrong.me/tags/Network/"/>
     
   </entry>
   
   <entry>
     <title>再见多说，你好云跟帖</title>
-    <link href="http://blog.waterstrong.me/duoshuo-away/"/>
-    <id>http://blog.waterstrong.me/duoshuo-away/</id>
+    <link href="https://blog.waterstrong.me/duoshuo-away/"/>
+    <id>https://blog.waterstrong.me/duoshuo-away/</id>
     <published>2017-03-24T10:58:54.000Z</published>
     <updated>2017-03-26T13:49:57.000Z</updated>
     
@@ -661,23 +661,23 @@
     
     </summary>
     
-      <category term="Platforms" scheme="http://blog.waterstrong.me/categories/Platforms/"/>
+      <category term="Platforms" scheme="https://blog.waterstrong.me/categories/Platforms/"/>
     
     
-      <category term="Disqus" scheme="http://blog.waterstrong.me/tags/Disqus/"/>
+      <category term="Disqus" scheme="https://blog.waterstrong.me/tags/Disqus/"/>
     
-      <category term="多说" scheme="http://blog.waterstrong.me/tags/%E5%A4%9A%E8%AF%B4/"/>
+      <category term="多说" scheme="https://blog.waterstrong.me/tags/%E5%A4%9A%E8%AF%B4/"/>
     
-      <category term="评论" scheme="http://blog.waterstrong.me/tags/%E8%AF%84%E8%AE%BA/"/>
+      <category term="评论" scheme="https://blog.waterstrong.me/tags/%E8%AF%84%E8%AE%BA/"/>
     
-      <category term="云跟帖" scheme="http://blog.waterstrong.me/tags/%E4%BA%91%E8%B7%9F%E5%B8%96/"/>
+      <category term="云跟帖" scheme="https://blog.waterstrong.me/tags/%E4%BA%91%E8%B7%9F%E5%B8%96/"/>
     
   </entry>
   
   <entry>
     <title>JSX语法介绍与使用</title>
-    <link href="http://blog.waterstrong.me/jsx-syntax/"/>
-    <id>http://blog.waterstrong.me/jsx-syntax/</id>
+    <link href="https://blog.waterstrong.me/jsx-syntax/"/>
+    <id>https://blog.waterstrong.me/jsx-syntax/</id>
     <published>2017-03-21T05:04:06.000Z</published>
     <updated>2017-03-26T06:28:41.000Z</updated>
     
@@ -767,21 +767,21 @@
     
     </summary>
     
-      <category term="Languages" scheme="http://blog.waterstrong.me/categories/Languages/"/>
+      <category term="Languages" scheme="https://blog.waterstrong.me/categories/Languages/"/>
     
     
-      <category term="JSX" scheme="http://blog.waterstrong.me/tags/JSX/"/>
+      <category term="JSX" scheme="https://blog.waterstrong.me/tags/JSX/"/>
     
-      <category term="JavaScript" scheme="http://blog.waterstrong.me/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="https://blog.waterstrong.me/tags/JavaScript/"/>
     
-      <category term="React" scheme="http://blog.waterstrong.me/tags/React/"/>
+      <category term="React" scheme="https://blog.waterstrong.me/tags/React/"/>
     
   </entry>
   
   <entry>
     <title>如何创建Git服务器仓库</title>
-    <link href="http://blog.waterstrong.me/git-server-repository/"/>
-    <id>http://blog.waterstrong.me/git-server-repository/</id>
+    <link href="https://blog.waterstrong.me/git-server-repository/"/>
+    <id>https://blog.waterstrong.me/git-server-repository/</id>
     <published>2017-02-15T14:35:49.000Z</published>
     <updated>2017-05-14T00:13:37.000Z</updated>
     
@@ -809,21 +809,21 @@
     
     </summary>
     
-      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+      <category term="Tools" scheme="https://blog.waterstrong.me/categories/Tools/"/>
     
     
-      <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
+      <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
+      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
-      <category term="Repository" scheme="http://blog.waterstrong.me/tags/Repository/"/>
+      <category term="Repository" scheme="https://blog.waterstrong.me/tags/Repository/"/>
     
   </entry>
   
   <entry>
     <title>如何从SVN迁移源码到Git仓库</title>
-    <link href="http://blog.waterstrong.me/svn-to-git-migration/"/>
-    <id>http://blog.waterstrong.me/svn-to-git-migration/</id>
+    <link href="https://blog.waterstrong.me/svn-to-git-migration/"/>
+    <id>https://blog.waterstrong.me/svn-to-git-migration/</id>
     <published>2017-02-10T14:51:30.000Z</published>
     <updated>2017-03-30T12:06:38.000Z</updated>
     
@@ -889,21 +889,21 @@
     
     </summary>
     
-      <category term="Tools" scheme="http://blog.waterstrong.me/categories/Tools/"/>
+      <category term="Tools" scheme="https://blog.waterstrong.me/categories/Tools/"/>
     
     
-      <category term="Git" scheme="http://blog.waterstrong.me/tags/Git/"/>
+      <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="http://blog.waterstrong.me/tags/VCS/"/>
+      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
-      <category term="SVN" scheme="http://blog.waterstrong.me/tags/SVN/"/>
+      <category term="SVN" scheme="https://blog.waterstrong.me/tags/SVN/"/>
     
   </entry>
   
   <entry>
     <title>RabbitMQ项目实践应用 - 发布订阅模式</title>
-    <link href="http://blog.waterstrong.me/rabbitmq-in-project/"/>
-    <id>http://blog.waterstrong.me/rabbitmq-in-project/</id>
+    <link href="https://blog.waterstrong.me/rabbitmq-in-project/"/>
+    <id>https://blog.waterstrong.me/rabbitmq-in-project/</id>
     <published>2016-11-01T15:26:31.000Z</published>
     <updated>2016-11-07T14:58:23.000Z</updated>
     
@@ -961,20 +961,20 @@
     
     </summary>
     
-      <category term="Frameworks" scheme="http://blog.waterstrong.me/categories/Frameworks/"/>
+      <category term="Frameworks" scheme="https://blog.waterstrong.me/categories/Frameworks/"/>
     
     
-      <category term="AMQP" scheme="http://blog.waterstrong.me/tags/AMQP/"/>
+      <category term="AMQP" scheme="https://blog.waterstrong.me/tags/AMQP/"/>
     
-      <category term="RabbitMQ" scheme="http://blog.waterstrong.me/tags/RabbitMQ/"/>
+      <category term="RabbitMQ" scheme="https://blog.waterstrong.me/tags/RabbitMQ/"/>
     
-      <category term="Message" scheme="http://blog.waterstrong.me/tags/Message/"/>
+      <category term="Message" scheme="https://blog.waterstrong.me/tags/Message/"/>
     
-      <category term="Topic" scheme="http://blog.waterstrong.me/tags/Topic/"/>
+      <category term="Topic" scheme="https://blog.waterstrong.me/tags/Topic/"/>
     
-      <category term="Exchange" scheme="http://blog.waterstrong.me/tags/Exchange/"/>
+      <category term="Exchange" scheme="https://blog.waterstrong.me/tags/Exchange/"/>
     
-      <category term="Queue" scheme="http://blog.waterstrong.me/tags/Queue/"/>
+      <category term="Queue" scheme="https://blog.waterstrong.me/tags/Queue/"/>
     
   </entry>
   
