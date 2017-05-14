@@ -68,9 +68,9 @@
       <category term="Community" scheme="https://blog.waterstrong.me/categories/Community/"/>
     
     
-      <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
-    
       <category term="FCC" scheme="https://blog.waterstrong.me/tags/FCC/"/>
+    
+      <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
     
   </entry>
   
@@ -894,9 +894,9 @@
     
       <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
-    
       <category term="SVN" scheme="https://blog.waterstrong.me/tags/SVN/"/>
+    
+      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
   </entry>
   
