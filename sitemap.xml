@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_popup.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/select_share.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -30,6 +30,13 @@
   </url>
   
   <url>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/view/like_view.js</loc>
+    
+    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/view/share_view.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
@@ -44,14 +51,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/view/like_view.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/view/image_view.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/view/image_view.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/start/router.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -86,21 +93,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/start/router.js</loc>
-    
-    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/conf/define.js</loc>
-    
-    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/conf/const.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/share_api.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -108,13 +101,6 @@
   
   <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/slide_api.js</loc>
-    
-    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/share_api.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -135,14 +121,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/image_api.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/like_api.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/like_api.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/image_api.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -157,6 +143,20 @@
   
   <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share/api_base.js</loc>
+    
+    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/conf/define.js</loc>
+    
+    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/conf/const.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -191,6 +191,13 @@
   </url>
   
   <url>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/component/pop_base.js</loc>
+    
+    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/component/partners.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
@@ -198,7 +205,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/component/pop_base.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/component/animate.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -219,21 +226,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/component/animate.js</loc>
-    
-    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/base/class.js</loc>
-    
-    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/trans/data.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -247,14 +240,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share.js</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/trans/data.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/weixin_popup.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/js/share.js</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -268,6 +261,13 @@
   </url>
   
   <url>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/weixin_popup.css</loc>
+    
+    <lastmod>2017-05-14T00:53:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style4.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
@@ -275,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style2_32.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style2_24.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style2_24.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style2_32.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -310,7 +310,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style1_16.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style0_32.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -331,14 +331,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/select_share.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_popup.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style1_24.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style1_16.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -359,7 +359,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style0_32.css</loc>
+    <loc>https://blog.waterstrong.me/assets/bdshare_static/api/css/share_style1_24.css</loc>
     
     <lastmod>2017-05-14T00:53:43.000Z</lastmod>
     
@@ -639,14 +639,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
