@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.waterstrong.me/DevRelCon2017-Chengdu/</loc>
+    
+    <lastmod>2017-05-14T07:29:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me//404.html</loc>
     
     <lastmod>2017-05-14T02:48:59.000Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://blog.waterstrong.me/docker-workshop-part1/</loc>
     
     <lastmod>2017-05-11T15:41:17.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/DevRelCon2017-Chengdu/</loc>
-    
-    <lastmod>2017-05-11T14:58:25.000Z</lastmod>
     
   </url>
   
@@ -282,14 +282,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
