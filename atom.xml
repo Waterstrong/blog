@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.waterstrong.me/"/>
-  <updated>2017-05-14T07:29:37.000Z</updated>
+  <updated>2017-05-21T05:50:36.000Z</updated>
   <id>https://blog.waterstrong.me/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="https://blog.waterstrong.me/DevRelCon2017-Chengdu/"/>
     <id>https://blog.waterstrong.me/DevRelCon2017-Chengdu/</id>
     <published>2017-05-08T13:20:37.000Z</published>
-    <updated>2017-05-14T07:29:37.000Z</updated>
+    <updated>2017-05-21T05:50:36.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;&lt;em&gt;中国首届开发者关系大会&lt;/em&gt; 于5月6日在北京举行，16位来自欧美、中国、日本的开发者关系领域资深演讲嘉宾共聚北京，邀请大家共同探讨如何围绕产品和服务建立活跃的开发者社区、打造优质的开发者体验、维护良好的开发者关系，更多内容可以了解 &lt;a href=&quot;http://weibo.com/ttarticle/p/show?id=2309404097576856093949&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;微博&lt;/a&gt;。为了不让成都的小伙伴错过这一次精彩的演讲，&lt;em&gt;&lt;acronym title=&quot;Free Code Camp&quot;&gt;FCC&lt;/acronym&gt;成都社区&lt;/em&gt; 在5月6日当天组织了直播观影活动&amp;amp;线下分享活动。&lt;/p&gt;
 &lt;h2 id=&quot;活动介绍&quot;&gt;&lt;a href=&quot;#活动介绍&quot; class=&quot;headerlink&quot; title=&quot;活动介绍&quot;&gt;&lt;/a&gt;活动介绍&lt;/h2&gt;&lt;p&gt;本次是成都分会场的活动，除了直接观影外，还包括线下分享交流，主办方为：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;FCC成都社区&lt;/li&gt;
-&lt;li&gt;猿生态开发者社区&lt;/li&gt;
+&lt;li&gt;猿生态开发者社群&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;活动时间:&lt;/strong&gt; &lt;/p&gt;
 &lt;ul&gt;
@@ -56,6 +56,17 @@
 &lt;div class=&quot;figure fig-33&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/shuige.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;speaker&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/shuige.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;
 &lt;p&gt;最后大家一起合影，结束一天的活动，最后当然少不了吃顿好的，就不上图了，大家意会就可以了。&lt;br&gt;&lt;img src=&quot;/assets/2017-05-06/all.jpg&quot; alt=&quot;活动合影&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;活动小结&quot;&gt;&lt;a href=&quot;#活动小结&quot; class=&quot;headerlink&quot; title=&quot;活动小结&quot;&gt;&lt;/a&gt;活动小结&lt;/h2&gt;&lt;p&gt;本次活动报名人数不算多，由于上午的远程直播音频声音太小，音质太差，因此临时决定将下午的分享提前到上午开始，在总体时间上还需要进一步控制。不过整体上活动还是不错的，虽然人数不多，但都是社区活跃者，大家都很投入，也得到了充分地沟通和交流，活动结束后大家也一起去聚了餐，感谢 &lt;em&gt;姜姜姜&lt;/em&gt; 同学的盛情款待^_^。&lt;/p&gt;
+&lt;div class=&quot;figure fig-33 right&quot; style=&quot;width:;&quot;&gt;&lt;a class=&quot;fancybox&quot; href=&quot;/assets/2017-05-06/certificate.jpg&quot; title=&quot;&quot; data-fancybox-group=&quot;&quot;&gt;&lt;img class=&quot;fig-img&quot; src=&quot;/assets/2017-05-06/certificate.jpg&quot; alt=&quot;&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;另外，开发者大会组委会还特意制作了精美证书，非常感谢！&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;hr&gt;
 &lt;hr&gt;
 </content>
     
@@ -894,9 +905,9 @@
     
       <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
-    
       <category term="SVN" scheme="https://blog.waterstrong.me/tags/SVN/"/>
+    
+      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
   </entry>
   
