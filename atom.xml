@@ -221,11 +221,11 @@
   </entry>
   
   <entry>
-    <title>第一期 Docker Workshop 活动回顾【多图】</title>
+    <title>第一期Docker工作坊活动回顾【多图】</title>
     <link href="https://blog.waterstrong.me/docker-workshop-part1/"/>
     <id>https://blog.waterstrong.me/docker-workshop-part1/</id>
     <published>2017-04-23T10:40:32.000Z</published>
-    <updated>2017-05-19T14:31:31.000Z</updated>
+    <updated>2017-05-30T00:29:30.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;背景介绍&quot;&gt;&lt;a href=&quot;#背景介绍&quot; class=&quot;headerlink&quot; title=&quot;背景介绍&quot;&gt;&lt;/a&gt;背景介绍&lt;/h2&gt;&lt;p&gt;IT行业近年来进入了飞速发展的时代，颠覆行业的IT产品层出不穷，从而造就的独角兽公司也一个接一个。软件开发领域不断演进的生态圈是支撑这些变革的重要基础。持续交付、云计算、微服务、DevOps…各种颠覆性的技术和概念层出不穷。&lt;/p&gt;
 &lt;p&gt;以Docker为首的容器技术也是近几年来非常火热的技术之一。Docker自从2014年发布1.0版本以后，容器技术终于走上了大规模商用的正轨。其带来的秒级启动、环境封装、安全隔离、高效迁移等优势对传统的持续集成及部署方式带来了巨大的冲击。如今，很多公司都已经在使用Docker了，并带来了良好的经济效益。&lt;/p&gt;
@@ -315,11 +315,11 @@
       <category term="Community" scheme="https://blog.waterstrong.me/categories/Community/"/>
     
     
-      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
-    
       <category term="DevOps" scheme="https://blog.waterstrong.me/tags/DevOps/"/>
     
       <category term="Workshop" scheme="https://blog.waterstrong.me/tags/Workshop/"/>
+    
+      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
     
       <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
     
@@ -330,7 +330,7 @@
     <link href="https://blog.waterstrong.me/docker-security/"/>
     <id>https://blog.waterstrong.me/docker-security/</id>
     <published>2017-04-08T12:17:16.000Z</published>
-    <updated>2017-04-22T06:52:06.000Z</updated>
+    <updated>2017-05-30T00:40:01.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在多数情况下，启动Docker容器时都以root用户权限在运行，那么如果有ROOT权限可以做什么呢？当然可以做很多的事情，比如：访问所有信息、修改任何内容、关闭机器、结束进程以及安装各种软件等。&lt;/p&gt;
 &lt;p&gt;容器的安全性问题的根源在于容器和宿主机共享内核，如果容器里的应用导致Linux内核崩溃，那么整个系统可能都会崩溃。与虚拟机是不同的，虚拟机并没有与主机共享内核，虚拟机崩溃一般不会导致宿主机崩溃。&lt;/p&gt;
@@ -418,12 +418,12 @@
     <link href="https://blog.waterstrong.me/docker-networking/"/>
     <id>https://blog.waterstrong.me/docker-networking/</id>
     <published>2017-04-02T13:59:27.000Z</published>
-    <updated>2017-04-22T06:53:08.000Z</updated>
+    <updated>2017-05-30T00:40:29.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;通常来说，要实现网络通信，机器需要至少一个网络接口(物理接口或虚拟接口)来收发数据包，另外，如果不同子网之间要进行通信，还需要路由机制。Docker中的网络接口默认都是虚拟接口，虚拟接口的优势之一是转发效率较高。&lt;/p&gt;
 &lt;p&gt;Linux通过在内核中进行数据复制来实现虚拟接口之间的数据转发，通俗地讲，&lt;em&gt;发送接口&lt;/em&gt;的&lt;em&gt;发送缓存&lt;/em&gt;数据包被直接复制到&lt;em&gt;接收接口&lt;/em&gt;的&lt;em&gt;接收缓存&lt;/em&gt;中，对于本地系统和容器内系统来说，就像是一个正常的以太网卡，但它不需要真正与外部网络设备通信，因此速度快，转发效率高。&lt;/p&gt;
 &lt;p&gt;Docker的网络实现其实就是利用了该技术，即利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是&lt;code&gt;veth pair&lt;/code&gt;，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。&lt;/p&gt;
-&lt;h2 id=&quot;Docker网络实现原理&quot;&gt;&lt;a href=&quot;#Docker网络实现原理&quot; class=&quot;headerlink&quot; title=&quot;Docker网络实现原理&quot;&gt;&lt;/a&gt;Docker网络实现原理&lt;/h2&gt;&lt;p&gt;启动Docker时会在宿主机上创建一个名为&lt;code&gt;docker0&lt;/code&gt;的虚拟网桥，Docker启动一个容器时会根据&lt;code&gt;docker0&lt;/code&gt;的网段划分容器的虚拟子网和私有IP，容器内的虚拟接口为&lt;code&gt;eth0&lt;/code&gt;，各容器的网关则是&lt;code&gt;docker0&lt;/code&gt;的IP。&lt;br&gt;&lt;img src=&quot;/assets/docker/docker_bridge.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Docker网络实现原理&quot;&gt;&lt;a href=&quot;#Docker网络实现原理&quot; class=&quot;headerlink&quot; title=&quot;Docker网络实现原理&quot;&gt;&lt;/a&gt;Docker网络实现原理&lt;/h2&gt;&lt;p&gt;启动Docker时会在宿主机上创建一个名为&lt;code&gt;docker0&lt;/code&gt;的虚拟网桥，Docker启动一个容器时会根据&lt;code&gt;docker0&lt;/code&gt;的网段划分容器的虚拟子网和私有IP，容器内的虚拟接口为&lt;code&gt;eth0&lt;/code&gt;，各容器的网关则是&lt;code&gt;docker0&lt;/code&gt;的IP。&lt;br&gt;&lt;img src=&quot;/assets/docker-network/docker_bridge.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Docker创建一个容器的时候，会执行如下操作：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;创建一对虚拟接口，即&lt;code&gt;veth pair&lt;/code&gt;，分别放到宿主机和容器中;&lt;/li&gt;
@@ -434,7 +434,7 @@
 &lt;p&gt;这样，该容器就可以使用&lt;code&gt;eth0&lt;/code&gt;虚拟网卡来连接其它容器和网络了。当该容器结束后，Docker会清空容器，容器内的&lt;code&gt;eth0&lt;/code&gt;会随网络命名空间一起被清除，&lt;code&gt;veth0ac844e&lt;/code&gt;接口也被自动从&lt;code&gt;docker0&lt;/code&gt;卸载。&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ip addr  &lt;span class=&quot;comment&quot;&gt;# 可以看到网桥docker0分配的子网段是172.17.0.1/16&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7: docker0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc noqueue state UP group default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    link/ether 02:42:74:d9:49:de brd ff:ff:ff:ff:ff:ff&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    inet 172.17.0.1/16 scope global docker0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       valid_lft forever preferred_lft forever&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    inet6 fe80::42:74ff:fed9:49de/64 scope link&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       valid_lft forever preferred_lft forever&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ brctl show  &lt;span class=&quot;comment&quot;&gt;# 可以看到网桥docker0上的虚拟接口&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bridge name	bridge id		STP enabled	interfaces&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker0		8000.024274d949de	no		veth0ac844e&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;							veth36e091d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ brctl showstp docker0  &lt;span class=&quot;comment&quot;&gt;# 查看网桥docker0的生成树状态&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ethtool -i docker0  &lt;span class=&quot;comment&quot;&gt;# 查看网桥docker0的网卡驱动类型&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;driver: bridge&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;version: 2.3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ethtool -S veth0ac844e  &lt;span class=&quot;comment&quot;&gt;# 查看该网络接口的唯一识别编号peer_ifindex&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NIC statistics:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     peer_ifindex: 10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ip link  &lt;span class=&quot;comment&quot;&gt;# 进入容器后运行该命令，查看veth编号&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1: lo: &amp;lt;LOOPBACK,UP,LOWER_UP&amp;gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10: eth0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h2 id=&quot;Docker容器网络模型&quot;&gt;&lt;a href=&quot;#Docker容器网络模型&quot; class=&quot;headerlink&quot; title=&quot;Docker容器网络模型&quot;&gt;&lt;/a&gt;Docker容器网络模型&lt;/h2&gt;&lt;h4 id=&quot;网络模型基本组件&quot;&gt;&lt;a href=&quot;#网络模型基本组件&quot; class=&quot;headerlink&quot; title=&quot;网络模型基本组件&quot;&gt;&lt;/a&gt;网络模型基本组件&lt;/h4&gt;&lt;p&gt;在容器网络模型中，通常会包括容器(Container)、沙箱(Sandbox)、端点(Endpoint)、网络(Network)等组件，其中，网络会涉及桥接网(Bridge Network)或重叠网(Overlay Network)。&lt;/p&gt;
-&lt;p&gt;容器网络模型示意图如下图所示：&lt;br&gt;&lt;img src=&quot;/assets/docker/networking_model.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;容器网络模型示意图如下图所示：&lt;br&gt;&lt;img src=&quot;/assets/docker-network/networking_model.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;容器(Container): 容器能够作为任意一个或多个网络的一部分，能够同时对接桥接网和重叠网网络。&lt;/li&gt;
 &lt;li&gt;沙箱(Sandbox): 包含容器网络堆栈配置信息，是一个隔离的环境，可能包含多网络的多个端点。&lt;/li&gt;
@@ -459,7 +459,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;Overlay networking is a method of using software to create layers of network abstraction that can be used to run multiple separate, discrete virtualized network layers on top of the physical network, often providing new applications or security benefits.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/docker/overlay_network.png&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/docker-network/overlay_network.png&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
 &lt;p&gt;更通俗地讲，重叠网是一种运行于一个或多个已存在的网络之上的虚拟网络，即在IPv4底层网络的基础上通过节点之间单播机制将主机两两相连，形成一个虚拟、独立的具有星形和环形拓扑的虚拟网络，就好像在原有的网络上叠加了一层新的网络，以提供特定的附加功能。&lt;/p&gt;
 &lt;p&gt;重叠网技术的基本思路是在互联网承载层和应用层之间增加一个中间层，结合IP承载网技术，为上层业务和应用提供有针对性的服务，对已有的应用和业务进行适当控制，是对现有互联网体系架构的系统性修补。在&lt;em&gt;软件定义网络&lt;/em&gt;领域中，重叠网络的实现大多采用隧道(Tunneling)技术实现，它可以基于现行的IP网络进行叠加部署，消除传统二层网络的限制，如&lt;a href=&quot;https://en.wikipedia.org/wiki/Virtual_Extensible_LAN&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;VXLAN&lt;/a&gt;、&lt;a href=&quot;http://www.sdnlab.com/11819.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;NVGRE&lt;/a&gt;等，都是基于隧道原理实现网络通信，利用叠加在三层网络之上的虚拟网络传递二层数据包，实现了可以跨越三层物理网络进行通信的二层逻辑网络，突破了传统二层网络中存在的物理位置受限、VLAN数量有限等障碍，大幅度降低管理成本和运营风险。&lt;/p&gt;
 &lt;p&gt;在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性支持，用户可以在Swarm中使用它或者将其作为Compose工具。通过创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且能够实现不同的应用程序或者应用程序不同部分的相互隔离。而在之前的版本中，要实现跨主机的容器间网络通信，需要借助第三方网络插件的实现，可以在后面的章节中了解更多。&lt;/p&gt;
@@ -495,7 +495,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;The physical separation of the network control plane from the forwarding plane, and where a control plane controls several devices.&lt;br&gt;SDN is an emerging architecture that is dynamic, manageable, cost-effective, and adaptable, making it ideal for the high-bandwidth, dynamic nature of today’s applications.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/docker/sdn_3layers.jpg&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/docker-network/sdn_3layers.jpg&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
 &lt;p&gt;由于传统的网络设备(交换机、路由器)的固件是由设备制造商锁定和控制，而SDN将网络控制与物理网络拓扑分离，创建虚拟网络抽象，从而摆脱硬件对网络架构的限制，并且可对网络架构进行修改。更通俗地讲，网络管理者不直接操作底层的设备，而是通过编程的方式，通过控制器的程序去操作交换机等设备，比如设计转发和路由规则、设计新的网络协议、提供各种各样的服务、实现多个安全方案等，这样的好处在于，可以极大地增强控制层的灵活性。&lt;/p&gt;
 &lt;p&gt;在DOCKER 1.9之后支持了软件定义网络，增强了网络特性，允许Docker引擎创建虚拟网络，这样，具备网络功能的容器可跨越多个主机进行通信，并且容器间可无缝交流有助于实现真正的分布式应用，另外，开发者也可以更加灵活地搭建类产品环境的测试环境了。&lt;/p&gt;
 &lt;h4 id=&quot;Docker网基本络命令&quot;&gt;&lt;a href=&quot;#Docker网基本络命令&quot; class=&quot;headerlink&quot; title=&quot;Docker网基本络命令&quot;&gt;&lt;/a&gt;Docker网基本络命令&lt;/h4&gt;&lt;p&gt;Docker的&lt;code&gt;network&lt;/code&gt;命令主要包含&lt;code&gt;create&lt;/code&gt;, &lt;code&gt;connect&lt;/code&gt;, &lt;code&gt;disconnect&lt;/code&gt;, &lt;code&gt;inspect&lt;/code&gt;, &lt;code&gt;ls&lt;/code&gt;, &lt;code&gt;prune&lt;/code&gt;以及&lt;code&gt;rm&lt;/code&gt;，可以通过输入帮助命令查看并了解更多。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker network --help&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Usage:	docker network [OPTIONS] COMMAND [OPTIONS]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Commands:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  create                   Create a network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  connect                  Connect container to a network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  disconnect               Disconnect container from a network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  inspect                  Display detailed network information&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ls                       List all networks&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  prune                    Remove all unused networks&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  rm                       Remove a network&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Run &lt;span class=&quot;string&quot;&gt;&#39;docker network COMMAND --help&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; more information on a command.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -558,7 +558,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;跨主机的容器网络通信&quot;&gt;&lt;a href=&quot;#跨主机的容器网络通信&quot; class=&quot;headerlink&quot; title=&quot;跨主机的容器网络通信&quot;&gt;&lt;/a&gt;跨主机的容器网络通信&lt;/h4&gt;&lt;p&gt;在Docker 1.9版本之前，要实现跨主机的容器间网络通信，需要借助第三方网络插件的支持，网络插件在很大程度上降低不同类型主机上容器通信的难度，扩展由Docker提供的核心网络功能。&lt;/p&gt;
-&lt;p&gt;而在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性，即支持创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且实现不同的应用程序或者应用程序不同部分能够相互隔离，互联子系统设计为可插拔式，兼容VXLAN或者IPVLAN等技术。&lt;br&gt;&lt;img src=&quot;/assets/docker/multi_hosts_network.jpg&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
+&lt;p&gt;而在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性，即支持创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且实现不同的应用程序或者应用程序不同部分能够相互隔离，互联子系统设计为可插拔式，兼容VXLAN或者IPVLAN等技术。&lt;br&gt;&lt;img src=&quot;/assets/docker-network/multi_hosts_network.jpg&quot; alt=&quot;图片来自网络&quot;&gt;&lt;/p&gt;
 &lt;p&gt;目前，Docker容器实现跨主机通信主要通过以下方式：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;自带重叠网络(Overlay Network) 组件，结合 &lt;a href=&quot;https://docs.docker.com/swarm/overview/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Docker Swarm&lt;/a&gt; 实现，主要原理也是通过Key-Value存储服务进行调用。&lt;/li&gt;

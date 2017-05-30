@@ -23,16 +23,16 @@
 <meta property="og:url" content="https://blog.waterstrong.me/docker-networking/index.html">
 <meta property="og:site_name" content="Waterstrong Blog">
 <meta property="og:description" content="Docker中的网络接口默认都是虚拟接口，Docker的网络利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是veth pair，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。">
-<meta property="og:image" content="https://blog.waterstrong.me/assets/docker/docker_bridge.jpg">
-<meta property="og:image" content="https://blog.waterstrong.me/assets/docker/networking_model.png">
-<meta property="og:image" content="https://blog.waterstrong.me/assets/docker/overlay_network.png">
-<meta property="og:image" content="https://blog.waterstrong.me/assets/docker/sdn_3layers.jpg">
-<meta property="og:image" content="https://blog.waterstrong.me/assets/docker/multi_hosts_network.jpg">
-<meta property="og:updated_time" content="2017-04-22T06:53:08.000Z">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/docker_bridge.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/networking_model.png">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/overlay_network.png">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/sdn_3layers.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/multi_hosts_network.jpg">
+<meta property="og:updated_time" content="2017-05-30T00:40:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker学习与实践 - 网络篇">
 <meta name="twitter:description" content="Docker中的网络接口默认都是虚拟接口，Docker的网络利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是veth pair，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。">
-<meta name="twitter:image" content="https://blog.waterstrong.me/assets/docker/docker_bridge.jpg">
+<meta name="twitter:image" content="https://blog.waterstrong.me/assets/docker-network/docker_bridge.jpg">
 <meta name="twitter:creator" content="@shuiqianglin">
     
     
@@ -43,10 +43,10 @@
     
     
         <div id="thumbnail" style="width:0;height:0;overflow:hidden;">
-            <img src="https://blog.waterstrong.me/assets/docker/networking.jpg" />
+            <img src="https://blog.waterstrong.me/assets/docker-network/networking.jpg" />
         </div>
-        <meta property="og:image" content="https://blog.waterstrong.me/assets/docker/networking.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://blog.waterstrong.me/assets/docker/networking.jpg" />
+        <meta property="og:image" content="https://blog.waterstrong.me/assets/docker-network/networking.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://blog.waterstrong.me/assets/docker-network/networking.jpg" />
     
     
     
@@ -304,7 +304,7 @@
             <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>通常来说，要实现网络通信，机器需要至少一个网络接口(物理接口或虚拟接口)来收发数据包，另外，如果不同子网之间要进行通信，还需要路由机制。Docker中的网络接口默认都是虚拟接口，虚拟接口的优势之一是转发效率较高。</p>
 <p>Linux通过在内核中进行数据复制来实现虚拟接口之间的数据转发，通俗地讲，<em>发送接口</em>的<em>发送缓存</em>数据包被直接复制到<em>接收接口</em>的<em>接收缓存</em>中，对于本地系统和容器内系统来说，就像是一个正常的以太网卡，但它不需要真正与外部网络设备通信，因此速度快，转发效率高。</p>
 <p>Docker的网络实现其实就是利用了该技术，即利用了Linux上的网络命名空间和虚拟网络设备实现的，特别是<code>veth pair</code>，它在宿主机和容器内分别创建虚拟接口，并让它们彼此连通。</p>
-<h2 id="Docker网络实现原理"><a href="#Docker网络实现原理" class="headerlink" title="Docker网络实现原理"></a>Docker网络实现原理</h2><p>启动Docker时会在宿主机上创建一个名为<code>docker0</code>的虚拟网桥，Docker启动一个容器时会根据<code>docker0</code>的网段划分容器的虚拟子网和私有IP，容器内的虚拟接口为<code>eth0</code>，各容器的网关则是<code>docker0</code>的IP。<br><img src="/assets/docker/docker_bridge.jpg" alt=""></p>
+<h2 id="Docker网络实现原理"><a href="#Docker网络实现原理" class="headerlink" title="Docker网络实现原理"></a>Docker网络实现原理</h2><p>启动Docker时会在宿主机上创建一个名为<code>docker0</code>的虚拟网桥，Docker启动一个容器时会根据<code>docker0</code>的网段划分容器的虚拟子网和私有IP，容器内的虚拟接口为<code>eth0</code>，各容器的网关则是<code>docker0</code>的IP。<br><img src="/assets/docker-network/docker_bridge.jpg" alt=""></p>
 <p>Docker创建一个容器的时候，会执行如下操作：</p>
 <ol>
 <li>创建一对虚拟接口，即<code>veth pair</code>，分别放到宿主机和容器中;</li>
@@ -315,7 +315,7 @@
 <p>这样，该容器就可以使用<code>eth0</code>虚拟网卡来连接其它容器和网络了。当该容器结束后，Docker会清空容器，容器内的<code>eth0</code>会随网络命名空间一起被清除，<code>veth0ac844e</code>接口也被自动从<code>docker0</code>卸载。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ ip addr  <span class="comment"># 可以看到网桥docker0分配的子网段是172.17.0.1/16</span></span><br><span class="line">...</span><br><span class="line">7: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default</span><br><span class="line">    link/ether 02:42:74:d9:49:de brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.1/16 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:74ff:fed9:49de/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ brctl show  <span class="comment"># 可以看到网桥docker0上的虚拟接口</span></span><br><span class="line">bridge name	bridge id		STP enabled	interfaces</span><br><span class="line">docker0		8000.024274d949de	no		veth0ac844e</span><br><span class="line">							veth36e091d</span><br><span class="line"></span><br><span class="line">$ brctl showstp docker0  <span class="comment"># 查看网桥docker0的生成树状态</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ethtool -i docker0  <span class="comment"># 查看网桥docker0的网卡驱动类型</span></span><br><span class="line">driver: bridge</span><br><span class="line">version: 2.3</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">$ ethtool -S veth0ac844e  <span class="comment"># 查看该网络接口的唯一识别编号peer_ifindex</span></span><br><span class="line">NIC statistics:</span><br><span class="line">     peer_ifindex: 10</span><br><span class="line"></span><br><span class="line">$ ip link  <span class="comment"># 进入容器后运行该命令，查看veth编号</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">10: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default</span><br><span class="line">    link/ether 02:42:ac:11:00:03 brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
 <h2 id="Docker容器网络模型"><a href="#Docker容器网络模型" class="headerlink" title="Docker容器网络模型"></a>Docker容器网络模型</h2><h4 id="网络模型基本组件"><a href="#网络模型基本组件" class="headerlink" title="网络模型基本组件"></a>网络模型基本组件</h4><p>在容器网络模型中，通常会包括容器(Container)、沙箱(Sandbox)、端点(Endpoint)、网络(Network)等组件，其中，网络会涉及桥接网(Bridge Network)或重叠网(Overlay Network)。</p>
-<p>容器网络模型示意图如下图所示：<br><img src="/assets/docker/networking_model.png" alt=""></p>
+<p>容器网络模型示意图如下图所示：<br><img src="/assets/docker-network/networking_model.png" alt=""></p>
 <ul>
 <li>容器(Container): 容器能够作为任意一个或多个网络的一部分，能够同时对接桥接网和重叠网网络。</li>
 <li>沙箱(Sandbox): 包含容器网络堆栈配置信息，是一个隔离的环境，可能包含多网络的多个端点。</li>
@@ -340,7 +340,7 @@
 <blockquote>
 <p>Overlay networking is a method of using software to create layers of network abstraction that can be used to run multiple separate, discrete virtualized network layers on top of the physical network, often providing new applications or security benefits.</p>
 </blockquote>
-<p><img src="/assets/docker/overlay_network.png" alt="图片来自网络"></p>
+<p><img src="/assets/docker-network/overlay_network.png" alt="图片来自网络"></p>
 <p>更通俗地讲，重叠网是一种运行于一个或多个已存在的网络之上的虚拟网络，即在IPv4底层网络的基础上通过节点之间单播机制将主机两两相连，形成一个虚拟、独立的具有星形和环形拓扑的虚拟网络，就好像在原有的网络上叠加了一层新的网络，以提供特定的附加功能。</p>
 <p>重叠网技术的基本思路是在互联网承载层和应用层之间增加一个中间层，结合IP承载网技术，为上层业务和应用提供有针对性的服务，对已有的应用和业务进行适当控制，是对现有互联网体系架构的系统性修补。在<em>软件定义网络</em>领域中，重叠网络的实现大多采用隧道(Tunneling)技术实现，它可以基于现行的IP网络进行叠加部署，消除传统二层网络的限制，如<a href="https://en.wikipedia.org/wiki/Virtual_Extensible_LAN" target="_blank" rel="external">VXLAN</a>、<a href="http://www.sdnlab.com/11819.html" target="_blank" rel="external">NVGRE</a>等，都是基于隧道原理实现网络通信，利用叠加在三层网络之上的虚拟网络传递二层数据包，实现了可以跨越三层物理网络进行通信的二层逻辑网络，突破了传统二层网络中存在的物理位置受限、VLAN数量有限等障碍，大幅度降低管理成本和运营风险。</p>
 <p>在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性支持，用户可以在Swarm中使用它或者将其作为Compose工具。通过创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且能够实现不同的应用程序或者应用程序不同部分的相互隔离。而在之前的版本中，要实现跨主机的容器间网络通信，需要借助第三方网络插件的实现，可以在后面的章节中了解更多。</p>
@@ -376,7 +376,7 @@
 <blockquote>
 <p>The physical separation of the network control plane from the forwarding plane, and where a control plane controls several devices.<br>SDN is an emerging architecture that is dynamic, manageable, cost-effective, and adaptable, making it ideal for the high-bandwidth, dynamic nature of today’s applications.</p>
 </blockquote>
-<p><img src="/assets/docker/sdn_3layers.jpg" alt="图片来自网络"></p>
+<p><img src="/assets/docker-network/sdn_3layers.jpg" alt="图片来自网络"></p>
 <p>由于传统的网络设备(交换机、路由器)的固件是由设备制造商锁定和控制，而SDN将网络控制与物理网络拓扑分离，创建虚拟网络抽象，从而摆脱硬件对网络架构的限制，并且可对网络架构进行修改。更通俗地讲，网络管理者不直接操作底层的设备，而是通过编程的方式，通过控制器的程序去操作交换机等设备，比如设计转发和路由规则、设计新的网络协议、提供各种各样的服务、实现多个安全方案等，这样的好处在于，可以极大地增强控制层的灵活性。</p>
 <p>在DOCKER 1.9之后支持了软件定义网络，增强了网络特性，允许Docker引擎创建虚拟网络，这样，具备网络功能的容器可跨越多个主机进行通信，并且容器间可无缝交流有助于实现真正的分布式应用，另外，开发者也可以更加灵活地搭建类产品环境的测试环境了。</p>
 <h4 id="Docker网基本络命令"><a href="#Docker网基本络命令" class="headerlink" title="Docker网基本络命令"></a>Docker网基本络命令</h4><p>Docker的<code>network</code>命令主要包含<code>create</code>, <code>connect</code>, <code>disconnect</code>, <code>inspect</code>, <code>ls</code>, <code>prune</code>以及<code>rm</code>，可以通过输入帮助命令查看并了解更多。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ docker network --help</span><br><span class="line">Usage:	docker network [OPTIONS] COMMAND [OPTIONS]</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  create                   Create a network</span><br><span class="line">  connect                  Connect container to a network</span><br><span class="line">  disconnect               Disconnect container from a network</span><br><span class="line">  inspect                  Display detailed network information</span><br><span class="line">  ls                       List all networks</span><br><span class="line">  prune                    Remove all unused networks</span><br><span class="line">  rm                       Remove a network</span><br><span class="line"></span><br><span class="line">Run <span class="string">'docker network COMMAND --help'</span> <span class="keyword">for</span> more information on a command.</span><br></pre></td></tr></table></figure></p>
@@ -439,7 +439,7 @@
 </li>
 </ul>
 <h4 id="跨主机的容器网络通信"><a href="#跨主机的容器网络通信" class="headerlink" title="跨主机的容器网络通信"></a>跨主机的容器网络通信</h4><p>在Docker 1.9版本之前，要实现跨主机的容器间网络通信，需要借助第三方网络插件的支持，网络插件在很大程度上降低不同类型主机上容器通信的难度，扩展由Docker提供的核心网络功能。</p>
-<p>而在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性，即支持创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且实现不同的应用程序或者应用程序不同部分能够相互隔离，互联子系统设计为可插拔式，兼容VXLAN或者IPVLAN等技术。<br><img src="/assets/docker/multi_hosts_network.jpg" alt="图片来自网络"></p>
+<p>而在Docker 1.9之后的版本中，Docker官方集成了重叠网络的特性，即支持创建虚拟网络并将其连接到容器上，可实现多个主机上容器相互通信，并且实现不同的应用程序或者应用程序不同部分能够相互隔离，互联子系统设计为可插拔式，兼容VXLAN或者IPVLAN等技术。<br><img src="/assets/docker-network/multi_hosts_network.jpg" alt="图片来自网络"></p>
 <p>目前，Docker容器实现跨主机通信主要通过以下方式：</p>
 <ul>
 <li>自带重叠网络(Overlay Network) 组件，结合 <a href="https://docs.docker.com/swarm/overview/" target="_blank" rel="external">Docker Swarm</a> 实现，主要原理也是通过Key-Value存储服务进行调用。</li>
