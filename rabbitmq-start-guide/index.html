@@ -18,6 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="RabbitMQ是一款开源消息队列中间件，采用Erlang语言开发，RabbitMQ是AMQP的标准实现，在易用性、扩展性、高可用性等方面表现不错。">
+<meta name="keywords" content="AMQP,RabbitMQ,Message,Topic,Exchange,Queue">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="RabbitMQ入门指南">
 <meta property="og:url" content="https://blog.waterstrong.me/rabbitmq-start-guide/index.html">
@@ -312,10 +313,10 @@
 <li><p>需要在<a href="https://www.rabbitmq.com/download.html" target="_blank" rel="external">RabbitMQ下载页</a>下载对应操作系统的RabbitMQ Server安装包进行安装。</p>
 </li>
 <li><p>通过命令行安装，比如如果在MAC系统下可以通过homebrew安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ brew install rabbitmq</span><br><span class="line">$ rabbitmq-server       <span class="comment"># 解压并以默认设置启动</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ brew install rabbitmq</div><div class="line">$ rabbitmq-server       <span class="comment"># 解压并以默认设置启动</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>通过<a href="https://docs.docker.com/compose/" target="_blank" rel="external">Docker Compose</a>快速启动RabbitMQ Server，但需要保证已经安装并启动了Docker服务，然后创建<code>docker-compose.yml</code>的文件，并在同目录下执行命令<code>docker-compose up</code>即可启动RabbitMQ服务。推荐使用该方式，方便快捷，并在独立Container中运行。</p>
-<figure class="highlight yml"><figcaption><span>docker-compose.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line"><span class="attr">  image:</span> rabbitmq:management</span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"5672:5672"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"15672:15672"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><figcaption><span>docker-compose.yml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">rabbitmq:</span></div><div class="line"><span class="attr">  image:</span> <span class="attr">rabbitmq:management</span></div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"5672:5672"</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"15672:15672"</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>在安装完成并启动服务后，可通过访问<a href="http://localhost:15672" target="_blank" rel="external">http://localhost:15672</a>测试，默认用户名和密码是<code>guest</code>。<br><img src="/assets/rabbitmq-guide/overview_totals.png" alt=""></p>
@@ -884,7 +885,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                36 posts found
+                37 posts found
             </p>
         </div>
     </div>

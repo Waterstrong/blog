@@ -18,6 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="如何实现在Mac下读写NTFS磁盘，除了购买Mac读写NTFS磁盘的工具，或使用虚拟机作为媒介再Share给Mac的方式外，还可以使用更为快捷、简单、干净的Mac内置原生方式解决写NTFS硬盘的问题。">
+<meta name="keywords" content="Mac,NTFS,移动硬盘">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Mac如何读写NTFS磁盘">
 <meta property="og:url" content="https://blog.waterstrong.me/mac-rw-ntfs/index.html">
@@ -301,8 +302,8 @@
         <div class="main-content-wrap">
             <p>其实老早就遇到了Mac下写NTFS的问题，本来因为有两块移动硬盘，把其中一块500G的格式化成了Mac支持的格式，用于备份一些重要数据，而另一块1T之前已经存了不少数据，也懒得麻烦就一直放着没有管，但最近电脑数据太多，已经报警磁盘空间不足，不得不进行数据备份了，最早的硬盘已差不多满了，但又不想改磁盘格式，并且以后还可能在Win下拷贝数据，必须得想办法解决在Mac读写NTFS磁盘问题。</p>
 <p>可能也有很多同学遇到和我类似的问题，但不用担心，其实是有办法解决的，可能有些同学愿意购买Mac读写NTFS磁盘的工具，或者使用虚拟机作为媒介再Share给Mac，个人而言，不希望安装过多的软件，有洁癖，虚拟机的方式太慢太啰嗦，怕麻烦，所以只能寻求Mac内置原生方式，而这里就将介绍这种更为快捷、简单、干净的方式，只需要两步即可。<br><img src="/assets/mac-rw-ntfs/disk_utility.jpg" alt=""></p>
-<h4 id="Step1-配置fstab"><a href="#Step1-配置fstab" class="headerlink" title="Step1 配置fstab"></a>Step1 配置fstab</h4><p>在终端输入如下命令编辑<code>fstab</code>文件，并写入<code>LABEL</code>以及其值，若文件不存在将新建该文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/fstab</span><br><span class="line"></span><br><span class="line">LABEL=Datum none ntfs rw,auto,nobrowse  <span class="comment"># 使用磁盘名方式</span></span><br><span class="line">LABEL=68D036FA-EE09-4B80-AC93-01E54D51059A none ntfs rw,auto,nobrowse  <span class="comment"># 使用UUID方式</span></span><br></pre></td></tr></table></figure></p>
-<p>其中，<code>rw</code>表示读写方式，<code>nobrowse</code>表示默认不在finder的边栏中显示，如果不加<code>nobrowse</code>可能在挂载后还是只读模式。<code>Datum</code>是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开<code>Disk Utility</code>工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diskutil info /Volumes/Datum</span><br></pre></td></tr></table></figure></p>
+<h4 id="Step1-配置fstab"><a href="#Step1-配置fstab" class="headerlink" title="Step1 配置fstab"></a>Step1 配置fstab</h4><p>在终端输入如下命令编辑<code>fstab</code>文件，并写入<code>LABEL</code>以及其值，若文件不存在将新建该文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo vim /etc/fstab</div><div class="line"></div><div class="line">LABEL=Datum none ntfs rw,auto,nobrowse  <span class="comment"># 使用磁盘名方式</span></div><div class="line">LABEL=68D036FA-EE09-4B80-AC93-01E54D51059A none ntfs rw,auto,nobrowse  <span class="comment"># 使用UUID方式</span></div></pre></td></tr></table></figure></p>
+<p>其中，<code>rw</code>表示读写方式，<code>nobrowse</code>表示默认不在finder的边栏中显示，如果不加<code>nobrowse</code>可能在挂载后还是只读模式。<code>Datum</code>是硬盘名或分出来的磁盘名，如果有多个磁盘可以重复再写一行，当然也可以使用磁盘UUID，可在应用程序中打开<code>Disk Utility</code>工具查看，或者使用命令行方式查看，比如查看Datum盘信息的命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">diskutil info /Volumes/Datum</div></pre></td></tr></table></figure></p>
 <h4 id="Step2-打开磁盘"><a href="#Step2-打开磁盘" class="headerlink" title="Step2 打开磁盘"></a>Step2 打开磁盘</h4><p>由于设置了默认不在Finder边栏显示，因此需要手动打开磁盘，确保磁盘已经挂载成功，可以通过<code>Disk Utility</code>或在命令行挂载并查看。<br><img src="/assets/mac-rw-ntfs/drive_info.png" alt=""></p>
 <p>打开硬盘磁盘的方式有两种：</p>
 <ul>
@@ -852,7 +853,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                36 posts found
+                37 posts found
             </p>
         </div>
     </div>

@@ -18,6 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="目前主流的CI/CD工具包括Concourse CI, Jenkins, Travis CI和GoCD，它们各自到底有什么优缺点，Concourse CI有什么优势和亮点能够跻身Tech Radar?">
+<meta name="keywords" content="DevOps,CI&#x2F;CD,ConcourseCI,Jenkins,TravisCI,GoCD">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Concourse CI 介绍">
 <meta property="og:url" content="https://blog.waterstrong.me/concourse-ci/index.html">
@@ -406,27 +407,27 @@
 <li>Clusters with BOSH</li>
 </ul>
 <p>首先我们在本地采用最快捷的Vagrant方式安装，运行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant init concourse/lite  <span class="comment"># creates ./Vagrantfile</span></span><br><span class="line">vagrant up  <span class="comment"># downloads the box and spins up the VM</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vagrant init concourse/lite  <span class="comment"># creates ./Vagrantfile</span></div><div class="line">vagrant up  <span class="comment"># downloads the box and spins up the VM</span></div></pre></td></tr></table></figure>
 <p>然后Concourse服务已经开始运行了，通过<a href="http://192.168.100.4:8080" target="_blank" rel="external">192.168.100.4:8080</a>地址进行访问。<br><img src="/assets/concourse-ci/no_pipeline.png" alt=""></p>
 <p>如果提示需要更新升级，可以尝试运行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vagrant box update --box concourse/lite <span class="comment"># gets the newest Vagrant box</span></span><br><span class="line">vagrant destroy                         <span class="comment"># remove the old Vagrant box</span></span><br><span class="line">vagrant up                              <span class="comment"># re-create the machine with the newer box</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vagrant box update --box concourse/lite <span class="comment"># gets the newest Vagrant box</span></div><div class="line">vagrant destroy                         <span class="comment"># remove the old Vagrant box</span></div><div class="line">vagrant up                              <span class="comment"># re-create the machine with the newer box</span></div></pre></td></tr></table></figure>
 <p>但针对线上环境，不推荐Vagrant方式安装，Vagrant用于学习目的，快速掌握Concourse工作方式还是不错的选择，如果针对线上产品的项目，可以尝试采用后两种方式安装，更多安装介绍请参见<a href="http://concourse.ci/installing.html" target="_blank" rel="external">Concourse Installing</a>。</p>
 <p>当安装Concourse完成后，还需要在本地下载<a href="http://concourse.ci/fly-cli.html" target="_blank" rel="external">the Fly CLI</a>. 也可以访问Concourse主界面，然后点击Fly CLI链接进入下载页。</p>
 <p>针对Linux和Mac OS X系统，首先需要给下载的FLY CLI文件添加执行权限，然后安装到系统并添加到$PATH中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x fly</span><br><span class="line">install fly /usr/<span class="built_in">local</span>/bin/fly</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod +x fly</div><div class="line">install fly /usr/<span class="built_in">local</span>/bin/fly</div></pre></td></tr></table></figure>
 <h4 id="Step2-Using-yml-to-describe-pipeline"><a href="#Step2-Using-yml-to-describe-pipeline" class="headerlink" title="Step2. Using *.yml to describe pipeline"></a>Step2. Using *.yml to describe pipeline</h4><p>为了创建一个Pipeline，首先在创建名为<code>hello.yml</code>的文件，并写入以下内容:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">- name:</span> hello-world</span><br><span class="line"><span class="attr">  plan:</span></span><br><span class="line"><span class="attr">  - task:</span> say-hello</span><br><span class="line"><span class="attr">    config:</span></span><br><span class="line"><span class="attr">      platform:</span> linux</span><br><span class="line"><span class="attr">      image_resource:</span></span><br><span class="line"><span class="attr">        type:</span> docker-image</span><br><span class="line"><span class="attr">        source:</span> &#123;repository: ubuntu&#125;</span><br><span class="line"><span class="attr">      run:</span></span><br><span class="line"><span class="attr">        path:</span> echo</span><br><span class="line"><span class="attr">        args:</span> [<span class="string">"Hello, world!"</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="attr">jobs:</span></div><div class="line"><span class="attr">- name:</span> <span class="string">hello-world</span></div><div class="line"><span class="attr">  plan:</span></div><div class="line"><span class="attr">  - task:</span> <span class="string">say-hello</span></div><div class="line"><span class="attr">    config:</span></div><div class="line"><span class="attr">      platform:</span> <span class="string">linux</span></div><div class="line"><span class="attr">      image_resource:</span></div><div class="line"><span class="attr">        type:</span> <span class="string">docker-image</span></div><div class="line"><span class="attr">        source:</span> <span class="string">&#123;repository:</span> <span class="string">ubuntu&#125;</span></div><div class="line"><span class="attr">      run:</span></div><div class="line"><span class="attr">        path:</span> <span class="string">echo</span></div><div class="line"><span class="attr">        args:</span> <span class="string">["Hello,</span> <span class="string">world!"]</span></div></pre></td></tr></table></figure>
 <p>关于定义Pipeline的更多内容可参见<a href="http://concourse.ci/pipelines.html" target="_blank" rel="external">Pipelines</a>。</p>
 <h4 id="Step3-Push-to-Concourse"><a href="#Step3-Push-to-Concourse" class="headerlink" title="Step3. Push to Concourse"></a>Step3. Push to Concourse</h4><p>如果使用的是Vagrant安装方式，我们可以尝试登录到本地VirutalBox中：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fly -t lite login -c http://192.168.100.4:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fly -t lite login -c http://192.168.100.4:8080</div></pre></td></tr></table></figure>
 <p>当前已经保存了名为<code>lite</code>的目标，会在以后的多个命令行中使用，<code>-t</code>代表目标名(Target Name)。</p>
 <p>当准备好<code>hello.yml</code>后，可以通过以下命令设置Pipelilne：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fly -t lite <span class="built_in">set</span>-pipeline -p hello-world -c hello.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fly -t lite <span class="built_in">set</span>-pipeline -p hello-world -c hello.yml</div></pre></td></tr></table></figure>
 <p>然后刷新Concourse主页面，可以看到已经设置好一个简单的Hello World的Pipeline了。<br><img src="/assets/concourse-ci/hello_demo_pipeline.png" alt=""></p>
 <p>该默认配置是暂停Pipeline，可以通过界面启动，也可以通过命令行方式启动：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fly -t lite unpause-pipeline -p hello-world</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fly -t lite unpause-pipeline -p hello-world</div></pre></td></tr></table></figure>
 <p>也可以通过命令查看当前Pipeline的配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fly -t lite get-pipeline -p hello-world</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fly -t lite get-pipeline -p hello-world</div></pre></td></tr></table></figure>
 <p>该Pipeline非常简单，只有单一的<code>Job</code>，整个计划中只有一个<code>Task</code>，可以看到<code>Task</code>执行过程的快照：</p>
 <p><img src="/assets/concourse-ci/hello_run_build.png" alt=""></p>
 <p>更多示例教程可以参见<a href="http://concourse.ci/tutorials.html" target="_blank" rel="external">Concourse官网Demo</a>或<a href="https://github.com/starkandwayne/concourse-tutorial" target="_blank" rel="external">GitHub的Concourse教程</a>。</p>
@@ -978,7 +979,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                36 posts found
+                37 posts found
             </p>
         </div>
     </div>

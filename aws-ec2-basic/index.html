@@ -18,6 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="Amazon EC2是一个IaaS云服务，主要提供弹性的计算资源，EC2是整个AWS最核心的组成部分，可以在很短的时间内创建、启动和运行不同的类型和大小的EC2实例。">
+<meta name="keywords" content="DevOps,AWS EC2,IaaS,云服务,SSH">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="AWS EC2入门篇">
 <meta property="og:url" content="https://blog.waterstrong.me/aws-ec2-basic/index.html">
@@ -336,7 +337,7 @@
 <p>点击<code>Launch Instance</code>创建一个实例，可以选择<code>Community AMIs</code>进行筛选，也可能直接选择Amazon的Linux AMI，据说是速度和性能都进行过优化:<br><img src="/assets/aws-ec2-basic/launch_choose_ami.png" alt=""></p>
 <p>一定只选择标记为<code>Free tier eligible</code>的免费类型，否则运行一段时间就等着哭吧:<br><img src="/assets/aws-ec2-basic/launch_choose_instance_type.png" alt=""></p>
 <p>根据步骤和提示一步步完成即可，最后启动会选择Key Pair。当系统提示提供密钥时，选择Choose an existing key pair，然后选择已创建的密钥对。另外，也可以新建密钥对，选择Create a new key pair，输入密钥对的名称，然后选择Download Key Pair。这是保存私有密钥文件的唯一机会，因此务必单击进行下载，将私有密钥文件保存在安全位置。当启动实例时，需要提供密钥对的名称，当每次连接到实例时，需要提供相应的私有密钥。<br><img src="/assets/aws-ec2-basic/launch_select_key_pair.png" alt=""></p>
-<p>最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击<code>Instances -&gt; 选择Instance -&gt; Connect</code>查看，Shell Command如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i &lt;key.pem&gt; &lt;username&gt;@&lt;instance-address&gt;</span><br></pre></td></tr></table></figure></p>
+<p>最后就可以看到Instances页面出现了已创建成功的实例。如果需要SSH到实例，可以点击<code>Instances -&gt; 选择Instance -&gt; Connect</code>查看，Shell Command如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -i &lt;key.pem&gt; &lt;username&gt;@&lt;instance-address&gt;</div></pre></td></tr></table></figure></p>
 <p>更多说明请参见<a href="http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html" target="_blank" rel="external">Amazon EC2 的设置</a>和<a href="http://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/managing-users.html" target="_blank" rel="external">在 Linux 实例上管理用户账户</a></p>
 <h3 id="Instances-Management-实例管理"><a href="#Instances-Management-实例管理" class="headerlink" title="Instances Management 实例管理"></a>Instances Management 实例管理</h3><p>实例(Instance), 即虚拟计算环境。实例的预配置模板，也称为亚马逊系统映像(AMI)，其中包含服务器需要的程序包(包括操作系统和其他软件)。实例CPU、内存、存储和网络容量的多种配置，也称为实例类型。</p>
 <p>在<code>Instances</code>栏中可以对实例进行Reboot, Stop, Start, Terminate(永久删除)以及其他的网络,安全,卷等设置。<br><img src="/assets/aws-ec2-basic/instances.png" alt=""></p>
@@ -348,7 +349,7 @@
 <p>可以选择<code>elastic block store -&gt; Volumes -&gt; Create Volume</code>创建一个新卷:<br><img src="/assets/aws-ec2-basic/create_volume.png" alt=""></p>
 <p>选择Volumes中的一个条目，通过<code>Actions或右键 -&gt; Attach Volume</code>连接到某个Instance上:<br><img src="/assets/aws-ec2-basic/attach_volume.png" alt=""></p>
 <p>在Instance上通过以下命令实现Mount(挂载)创建的卷:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">df -h  <span class="comment"># 查看已挂载的卷</span></span><br><span class="line">df -T  <span class="comment"># 可以查看挂载卷的类型</span></span><br><span class="line"></span><br><span class="line">sudo fdisk <span class="_">-l</span>  <span class="comment"># 查看连接到的卷</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当确定卷的名称为 /dev/xvdf</span></span><br><span class="line">sudo mkfs.ext4 /dev/xvdf  <span class="comment"># 格式化卷类型为ext4</span></span><br><span class="line">mkdir /mnt/ebs  <span class="comment"># 创建文件夹</span></span><br><span class="line">sudo mount /dev/xvdf /mnt/ebs  <span class="comment"># 挂载卷到ebs</span></span><br><span class="line">df -T  <span class="comment"># 再次查看挂载情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若需要卸载卷</span></span><br><span class="line">sudo umount /dev/xvdf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">df -h  <span class="comment"># 查看已挂载的卷</span></div><div class="line">df -T  <span class="comment"># 可以查看挂载卷的类型</span></div><div class="line"></div><div class="line">sudo fdisk -l  <span class="comment"># 查看连接到的卷</span></div><div class="line"></div><div class="line"><span class="comment"># 当确定卷的名称为 /dev/xvdf</span></div><div class="line">sudo mkfs.ext4 /dev/xvdf  <span class="comment"># 格式化卷类型为ext4</span></div><div class="line">mkdir /mnt/ebs  <span class="comment"># 创建文件夹</span></div><div class="line">sudo mount /dev/xvdf /mnt/ebs  <span class="comment"># 挂载卷到ebs</span></div><div class="line">df -T  <span class="comment"># 再次查看挂载情况</span></div><div class="line"></div><div class="line"><span class="comment"># 若需要卸载卷</span></div><div class="line">sudo umount /dev/xvdf</div></pre></td></tr></table></figure>
 <h3 id="Snapshots-快照"><a href="#Snapshots-快照" class="headerlink" title="Snapshots 快照"></a>Snapshots 快照</h3><p>每个快照代表一个卷在一个特定时间点的状态。快照属于增量备份，这意味着仅保存设备上在最新快照之后更改的数据块。相对容易理解，此处不再赘述。</p>
 <h3 id="Security-Groups-安全组"><a href="#Security-Groups-安全组" class="headerlink" title="Security Groups 安全组"></a>Security Groups 安全组</h3><p>可以使用安全组来控制实例的访问权限，这些安全组类似于一个传入网络防火墙，可以指定允许访问实例的协议、端口和源IP范围。可以创建多个安全组，并给每个安全组指定不同的规则，然后可以给每个实例分配一个或多个安全组，通过这些规则规则确定允许哪些流量可访问实例。</p>
 <p>Security Group安全组架构如图所示:<br><img src="/assets/aws-ec2-basic/architecture_security_group.png" alt=""></p>
@@ -907,7 +908,7 @@
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                36 posts found
+                37 posts found
             </p>
         </div>
     </div>

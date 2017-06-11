@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.waterstrong.me/tw-pair-programming-chengdu/</loc>
+    
+    <lastmod>2017-06-11T13:31:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.waterstrong.me/java-unit-intg-test/</loc>
+    
+    <lastmod>2017-06-11T02:14:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me/master-git/</loc>
     
     <lastmod>2017-06-01T08:04:47.000Z</lastmod>
@@ -124,13 +138,6 @@
     <loc>https://blog.waterstrong.me/groovy-sql-batch/</loc>
     
     <lastmod>2017-02-16T16:30:37.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/java-unit-intg-test/</loc>
-    
-    <lastmod>2016-11-21T14:36:42.000Z</lastmod>
     
   </url>
   
@@ -275,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
@@ -289,7 +296,7 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-categories/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
