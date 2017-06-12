@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.waterstrong.me/"/>
-  <updated>2017-06-11T14:19:58.000Z</updated>
+  <updated>2017-06-12T15:34:01.000Z</updated>
   <id>https://blog.waterstrong.me/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>最佳编程体验之旅 - 成都站 活动回顾【多图】</title>
+    <title>最佳编程体验之旅 - 成都站 活动回顾</title>
     <link href="https://blog.waterstrong.me/tw-pair-programming-chengdu/"/>
     <id>https://blog.waterstrong.me/tw-pair-programming-chengdu/</id>
     <published>2017-06-08T13:10:12.000Z</published>
-    <updated>2017-06-11T14:19:58.000Z</updated>
+    <updated>2017-06-12T15:34:01.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="活动介绍"><a href="#活动介绍" class="headerlink" title="活动介绍"></a>活动介绍</h2><p><strong>Thought</strong>Works举办的最佳编程体验之旅结对编程活动，主要面向在校学生，旨在将一些好的实践以更加轻松有趣地方式分享给同学们，并且在体验结对编程乐趣的同时，更有机会获得超值大奖。<br><img src="/assets/2017-06-03/intro.png" alt="活动宣传页"></p>
 <p>本次活动主要分为线上和现场，活动详情可参阅 <a href="https://school.thoughtworks.cn/pair-programming/" target="_blank" rel="external">ThoughtWorks最佳编程体验之旅 SEASON 2</a>，有兴趣可以进一步阅读 <a href="https://mp.weixin.qq.com/s?__biz=MzI0MDUyNDAxMQ==&amp;mid=2247483829&amp;idx=1&amp;sn=a4ee3f5ee47560cd3234f22ae8e94727&amp;chksm=e918ce31de6f472754691287e5d0430017c86d43f85eb0d7b7b06b9a60ae9ef575344496c6c3&amp;mpshare=1&amp;scene=1&amp;srcid=0516GqFBnZkePblBpz0eye1s#rd" target="_blank" rel="external">1+1&gt;2的编程验证？</a>。本次回顾主要是针对现场活动，不过还是需要介绍一下活动的整体周期安排：</p>
@@ -44,6 +44,9 @@
 <div class="figure " style="width:;"><a class="fancybox" href="/assets/2017-06-03/award1.jpg" title="" data-fancybox-group="award"><img class="fig-img" src="/assets/2017-06-03/award1.jpg" alt=""></a></div><div style="clear:both;"></div>
 <div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-03/award2.jpg" title="" data-fancybox-group="award"><img class="fig-img" src="/assets/2017-06-03/award2.jpg" alt=""></a></div>
 <div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-03/award3.jpg" title="" data-fancybox-group="award"><img class="fig-img" src="/assets/2017-06-03/award3.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>在2号(周五)下午先后进行破冰、公司介绍及结对编程介绍后，大家开始准备开发环境了，过程中还是遇到了一些环境问题，不过还好都解决了。</p>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-03/env1.jpg" title="" data-fancybox-group="environment"><img class="fig-img" src="/assets/2017-06-03/env1.jpg" alt=""></a></div>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-03/env2.jpg" title="" data-fancybox-group="environment"><img class="fig-img" src="/assets/2017-06-03/env2.jpg" alt=""></a></div><div style="clear:both;"></div>
 <p>在3号(周六)，活动现场大家沉浸在结对编程的乐趣中，同时Coach参与指导每组学生结对过程，即使到了午饭时间大家还在很投入地编码。</p>
 <div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-03/onsite1.jpg" title="" data-fancybox-group="onsite"><img class="fig-img" src="/assets/2017-06-03/onsite1.jpg" alt=""></a></div>
 <div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-03/onsite2.jpg" title="" data-fancybox-group="onsite"><img class="fig-img" src="/assets/2017-06-03/onsite2.jpg" alt=""></a></div><div style="clear:both;"></div>
@@ -63,6 +66,16 @@
 <div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-03/prize3.jpg" title="3rd Prize" data-fancybox-group="prize"><img class="fig-img" src="/assets/2017-06-03/prize3.jpg" alt="3rd Prize"></a><span class="caption">3rd Prize</span></div><div style="clear:both;"></div>
 <p>最后大家非常开心，总结点评、颁奖之后，大家一起合照，至次，本次最佳编程体验之旅圆满结束。<br><img src="/assets/2017-06-03/all.jpg" alt="活动合影"></p>
 <h2 id="活动小结"><a href="#活动小结" class="headerlink" title="活动小结"></a>活动小结</h2><p>本次活动很圆满成功，相对于去年的『男神女神活动』，今年参加的人数明显增多，而且效果也非常不错，当然去年的效果也很不错(学生少，Coach多，学生得到的指导也更多)。今年唯一需要吐槽一下的就是Coach太少了(40+学生，4位Coach)，这样连续两天半下来Coach和所有工作人员也都会感觉非常疲惫，不过大家一起将活动推向成功，相信每一个人内心也是非常高兴和满足的！</p>
+<hr>
+<p><strong>扩展阅读&amp;资料&amp;练习:</strong></p>
+<ul>
+<li><a href="http://www.jianshu.com/p/d79cef4296b8" target="_blank" rel="external">如何爱上结对编程</a> | <a href="http://www.jianshu.com/p/62f16cd4fef3" target="_blank" rel="external">深度解读 - TDD（测试驱动开发）</a> | <a href="http://www.jianshu.com/p/ffd89d5df276" target="_blank" rel="external">重构-靠谱程序员的必备技能</a></li>
+<li><a href="https://github.com/Waterstrong/batch-clone" target="_blank" rel="external">Batch Clone Code</a> | <a href="https://github.com/WowCoach/tdd-kata-js" target="_blank" rel="external">TDD Kata JS</a> | <a href="https://github.com/WowCoach/tdd-kata-java" target="_blank" rel="external">TDD Kata Java</a></li>
+<li><a href="https://github.com/Waterstrong/game-of-life-js" target="_blank" rel="external">Conway’s Game of Life - ES6 + React</a></li>
+<li><a href="https://github.com/Waterstrong/game-of-life-java" target="_blank" rel="external">Conway’s Game of Life - Java</a></li>
+<li><a href="https://github.com/trotyl/conway-game-of-life" target="_blank" rel="external">Conway’s Game of Life - Angular</a></li>
+<li><a href="https://github.com/xiazihang/game-of-life-ruby.git" target="_blank" rel="external">Conway’s Game of Life - Ruby</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">
