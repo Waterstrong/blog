@@ -18,7 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="Spring Boot除了对非XA的事务进行了封装处理，并提供了注解@Transactional的方式实现事务管理，也对多XA资源的分布式JTA事务提供了很好的支持，通常可选的内嵌事务管理器有Atomikos和Bitronix。">
-<meta name="keywords" content="分布式事务,Spring Boot,JTA,Transaction,Bitronix,Atomikos">
+<meta name="keywords" content="分布式事务,Transaction,Spring Boot,JTA,Bitronix,Atomikos">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="JTA实现分布式事务">
 <meta property="og:url" content="https://blog.waterstrong.me/xa-transactions-with-jta/index.html">
@@ -49,6 +49,17 @@
     <link rel="stylesheet" href="/assets/css/style-lxhqetshmihrwg9wqv1ivwonnouqtxpcklg9reumzognbkvoaou28nyoiaav.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-75679138-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
     
     <script type="text/javascript">
     var _hmt = _hmt || [];
@@ -382,6 +393,12 @@
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
         
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -412,7 +429,9 @@
 
         
             
-                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
             
         
     </div>
@@ -487,6 +506,12 @@
         <li class="post-action hide-xs">
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
         
         <li class="post-action">
             
@@ -881,15 +906,22 @@
 <!--SCRIPTS END-->
 
     
-    <script type="text/javascript">
-        var cloudTieConfig = {
-            url: document.location.href,
-            sourceId: 'xa-transactions-with-jta/',
-            productKey: 'ef74001757cb4d4f930484b8651ca13d',
-            target: 'cloud-tie-wrapper'
-        };
-    </script>
-    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://blog.waterstrong.me/xa-transactions-with-jta/';
+                 
+                    this.page.identifier = 'xa-transactions-with-jta/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'waterstrongblog';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
     
 
 

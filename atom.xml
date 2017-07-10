@@ -717,7 +717,7 @@
     <link href="https://blog.waterstrong.me/duoshuo-away/"/>
     <id>https://blog.waterstrong.me/duoshuo-away/</id>
     <published>2017-03-24T10:58:54.000Z</published>
-    <updated>2017-03-26T13:49:57.000Z</updated>
+    <updated>2017-07-10T14:39:57.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="多说即将关闭"><a href="#多说即将关闭" class="headerlink" title="多说即将关闭"></a>多说即将关闭</h2><div class="figure left fig-50" style="width:;"><a class="fancybox" href="/assets/duoshuo-away/duoshuo_post.png" title="" data-fancybox-group=""><img class="fig-img" src="/assets/duoshuo-away/duoshuo_post.png" alt=""></a></div>
 <p>在多说网本月21号发布关闭多说项目前几天，当时一直在修改主题源码升级博客功能，就一直遇到多说评论框加载失败的情况，一开始以为自己修改的代码影响到了多说的加载，后来一查发现原来是多说系统近期不稳定导致的，本来有时多说加载是相对比较慢，有时会出现问题，但也不至于系统那么不稳定，定是发生了什么事情，果不其然，随后在3月21号，多说网发表声明称<strong>因公司业务调整将在2017年6月1日正式关停多说服务</strong>，以下是通知的原文截图。<br><img src="/assets/duoshuo-away/duoshuo_notice.png" alt="多说即将关闭通知"></p>
@@ -744,6 +744,9 @@
 </li>
 </ol>
 <hr>
+<p>2017.07.10 更新…</p>
+<p>果不其然，从使用到现在不足四个月，就收到了 <em>网易云跟帖</em> 关闭服务的提示邮件。<br><div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/duoshuo-away/yugentie-shutdown.png" title="" data-fancybox-group=""><img class="fig-img" src="/assets/duoshuo-away/yugentie-shutdown.png" alt=""></a></div><div style="clear:both;"></div></p>
+<p>国内做评论系统还是有诸多限制和难处，这次就直接转到用 <em>Disqus</em> 了！ <sub>那就请自带梯子吧…</sub></p>
 ]]></content>
     
     <summary type="html">
@@ -985,9 +988,9 @@
     
       <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
     
-      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
-    
       <category term="SVN" scheme="https://blog.waterstrong.me/tags/SVN/"/>
+    
+      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
   </entry>
   

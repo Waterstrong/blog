@@ -18,7 +18,7 @@
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
     <meta name="description" content="在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？">
-<meta name="keywords" content="Git,VCS,SVN">
+<meta name="keywords" content="Git,SVN,VCS">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="如何从SVN迁移源码到Git仓库">
 <meta property="og:url" content="https://blog.waterstrong.me/svn-to-git-migration/index.html">
@@ -54,6 +54,17 @@
     <link rel="stylesheet" href="/assets/css/style-lxhqetshmihrwg9wqv1ivwonnouqtxpcklg9reumzognbkvoaou28nyoiaav.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-75679138-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
     
     <script type="text/javascript">
     var _hmt = _hmt || [];
@@ -408,6 +419,12 @@
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
         
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -438,7 +455,9 @@
 
         
             
-                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
             
         
     </div>
@@ -513,6 +532,12 @@
         <li class="post-action hide-xs">
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
         
         <li class="post-action">
             
@@ -907,15 +932,22 @@
 <!--SCRIPTS END-->
 
     
-    <script type="text/javascript">
-        var cloudTieConfig = {
-            url: document.location.href,
-            sourceId: 'svn-to-git-migration/',
-            productKey: 'ef74001757cb4d4f930484b8651ca13d',
-            target: 'cloud-tie-wrapper'
-        };
-    </script>
-    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://blog.waterstrong.me/svn-to-git-migration/';
+                 
+                    this.page.identifier = 'svn-to-git-migration/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'waterstrongblog';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
     
 
 

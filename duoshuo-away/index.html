@@ -30,7 +30,8 @@
 <meta property="og:image" content="https://blog.waterstrong.me/assets/duoshuo-away/disqus.png">
 <meta property="og:image" content="https://blog.waterstrong.me/assets/duoshuo-away/yungentie0.png">
 <meta property="og:image" content="https://blog.waterstrong.me/assets/duoshuo-away/yungentie1.png">
-<meta property="og:updated_time" content="2017-03-26T13:49:57.000Z">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/duoshuo-away/yugentie-shutdown.png">
+<meta property="og:updated_time" content="2017-07-10T14:39:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再见多说，你好云跟帖">
 <meta name="twitter:description" content="多说网在3月21号发表声明称因公司业务调整将在2017年6月1日正式关停多说服务，作为使用评论系统的朋友，需要开始导出数据，除了选择Disqus，是否有国内评论系统替代方案呢？">
@@ -56,6 +57,17 @@
     <link rel="stylesheet" href="/assets/css/style-lxhqetshmihrwg9wqv1ivwonnouqtxpcklg9reumzognbkvoaou28nyoiaav.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-75679138-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
     
     <script type="text/javascript">
     var _hmt = _hmt || [];
@@ -328,6 +340,9 @@
 </li>
 </ol>
 <hr>
+<p>2017.07.10 更新…</p>
+<p>果不其然，从使用到现在不足四个月，就收到了 <em>网易云跟帖</em> 关闭服务的提示邮件。<br><div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/duoshuo-away/yugentie-shutdown.png" title="" data-fancybox-group=""><img class="fig-img" src="/assets/duoshuo-away/yugentie-shutdown.png" alt=""></a></div><div style="clear:both;"></div></p>
+<p>国内做评论系统还是有诸多限制和难处，这次就直接转到用 <em>Disqus</em> 了！ <sub>那就请自带梯子吧…</sub></p>
 
             
         </div>
@@ -381,6 +396,12 @@
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
         
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
         <li class="post-action">
             
                 <a class="post-action-btn btn btn--default" href="#">
@@ -411,7 +432,9 @@
 
         
             
-                <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
             
         
     </div>
@@ -486,6 +509,12 @@
         <li class="post-action hide-xs">
             <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
         </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
         
         <li class="post-action">
             
@@ -880,15 +909,22 @@
 <!--SCRIPTS END-->
 
     
-    <script type="text/javascript">
-        var cloudTieConfig = {
-            url: document.location.href,
-            sourceId: 'duoshuo-away/',
-            productKey: 'ef74001757cb4d4f930484b8651ca13d',
-            target: 'cloud-tie-wrapper'
-        };
-    </script>
-    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://blog.waterstrong.me/duoshuo-away/';
+                 
+                    this.page.identifier = 'duoshuo-away/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'waterstrongblog';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
     
 
 
