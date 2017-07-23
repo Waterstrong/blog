@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.waterstrong.me/"/>
-  <updated>2017-07-23T06:14:28.000Z</updated>
+  <updated>2017-07-23T06:25:29.000Z</updated>
   <id>https://blog.waterstrong.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://blog.waterstrong.me/docker-workshop-part2/"/>
     <id>https://blog.waterstrong.me/docker-workshop-part2/</id>
     <published>2017-06-30T14:27:34.000Z</published>
-    <updated>2017-07-23T06:14:28.000Z</updated>
+    <updated>2017-07-23T06:25:29.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>近年来持续交付、云计算、微服务、DevOps…各种技术和概念层出不穷，容器技术就是近年来最火热的技术之一。Docker自从2014年发布1.0版本以后，使得容器技术一直以惊人的速度在发展。如今容器技术围绕着Docker已经形成了完整的生态圈。<br>本次Docker工作坊第二期活动将带你进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。</p>
 <h2 id="活动介绍"><a href="#活动介绍" class="headerlink" title="活动介绍"></a>活动介绍</h2><p>本次工作坊由 <em>ThoughtWorks成都 Cloud&amp;DevOps社区</em> 组织，<em>Marketing团队</em>大力支持，非常感谢。这是活动的第二期，继 <a href="/docker-workshop-part1">第一期Docker工作坊活动</a> 后，本期内容主要包括：</p>
@@ -82,7 +82,7 @@
     
     <summary type="html">
     
-      继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带你再次进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。
+      继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带大家再次进入Docker的世界，通过动手练习学习和理解Docker的高阶使用。本次工作坊由 ThoughtWorks成都DevOps社区 组织，Marketing团队大力支持。
     
     </summary>
     
@@ -389,7 +389,7 @@
     <link href="https://blog.waterstrong.me/docker-workshop-part1/"/>
     <id>https://blog.waterstrong.me/docker-workshop-part1/</id>
     <published>2017-04-23T10:40:32.000Z</published>
-    <updated>2017-05-30T00:29:30.000Z</updated>
+    <updated>2017-07-23T06:22:10.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>IT行业近年来进入了飞速发展的时代，颠覆行业的IT产品层出不穷，从而造就的独角兽公司也一个接一个。软件开发领域不断演进的生态圈是支撑这些变革的重要基础。持续交付、云计算、微服务、DevOps…各种颠覆性的技术和概念层出不穷。</p>
 <p>以Docker为首的容器技术也是近几年来非常火热的技术之一。Docker自从2014年发布1.0版本以后，容器技术终于走上了大规模商用的正轨。其带来的秒级启动、环境封装、安全隔离、高效迁移等优势对传统的持续集成及部署方式带来了巨大的冲击。如今，很多公司都已经在使用Docker了，并带来了良好的经济效益。</p>
@@ -472,7 +472,7 @@
     
     <summary type="html">
     
-      此次『Docker In Production工作坊』将带你进入Docker的世界，通过动手练习快速掌握Docker基本技术和高阶使用。本次工作坊由 ThoughtWorks成都DevOps社区 组织，Marketing团队大力支持。
+      此次『Docker In Production工作坊』将带你进入Docker的世界，通过动手练习快速掌握Docker基本技术和进阶使用。本次工作坊由 ThoughtWorks成都DevOps社区 组织，Marketing团队大力支持。
     
     </summary>
     

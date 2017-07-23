@@ -4,7 +4,14 @@
   <url>
     <loc>https://blog.waterstrong.me/docker-workshop-part2/</loc>
     
-    <lastmod>2017-07-23T06:14:28.000Z</lastmod>
+    <lastmod>2017-07-23T06:25:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.waterstrong.me/docker-workshop-part1/</loc>
+    
+    <lastmod>2017-07-23T06:22:10.000Z</lastmod>
     
   </url>
   
@@ -47,13 +54,6 @@
     <loc>https://blog.waterstrong.me/docker-security/</loc>
     
     <lastmod>2017-05-30T00:40:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.waterstrong.me/docker-workshop-part1/</loc>
-    
-    <lastmod>2017-05-30T00:29:30.000Z</lastmod>
     
   </url>
   
@@ -296,14 +296,14 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
+    <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     
