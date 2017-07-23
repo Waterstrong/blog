@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.waterstrong.me/"/>
-  <updated>2017-06-12T15:34:01.000Z</updated>
+  <updated>2017-07-23T06:14:28.000Z</updated>
   <id>https://blog.waterstrong.me/</id>
   
   <author>
@@ -14,6 +14,90 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第二期Docker工作坊活动回顾【多图】</title>
+    <link href="https://blog.waterstrong.me/docker-workshop-part2/"/>
+    <id>https://blog.waterstrong.me/docker-workshop-part2/</id>
+    <published>2017-06-30T14:27:34.000Z</published>
+    <updated>2017-07-23T06:14:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>近年来持续交付、云计算、微服务、DevOps…各种技术和概念层出不穷，容器技术就是近年来最火热的技术之一。Docker自从2014年发布1.0版本以后，使得容器技术一直以惊人的速度在发展。如今容器技术围绕着Docker已经形成了完整的生态圈。<br>本次Docker工作坊第二期活动将带你进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。</p>
+<h2 id="活动介绍"><a href="#活动介绍" class="headerlink" title="活动介绍"></a>活动介绍</h2><p>本次工作坊由 <em>ThoughtWorks成都 Cloud&amp;DevOps社区</em> 组织，<em>Marketing团队</em>大力支持，非常感谢。这是活动的第二期，继 <a href="/docker-workshop-part1">第一期Docker工作坊活动</a> 后，本期内容主要包括：</p>
+<ul>
+<li>准备：环境检查 + 上期内容快速回顾</li>
+<li>第4章：多主机部署与服务发现</li>
+<li>第5章：日志、跟踪、监控、Dashboard</li>
+<li>第6章：下一步，未来的发展趋势</li>
+</ul>
+<p>由于本次活动场地及活动规模限制，为了更好地交流体验，我们从报名人数中筛选了21名具有一定经验的朋友来参加活动。本工作坊需要大量的动手练习，参加的同学每人会携带笔记本一台，为了让大家的环境统一，节省准备环境的时间，都会提前通知安装 <em>Vagrant</em> 和 <em>Virtualbox</em> 最新版本。</p>
+<h2 id="活动日程"><a href="#活动日程" class="headerlink" title="活动日程"></a>活动日程</h2><p><strong>时间:</strong> 2017年6月24日（周六），10:00—16:30<br><strong>地点:</strong> 成都市高新区天府大道中段1268号 天府软件园E1-1栋7楼，ThoughtWorks办公室。<br><strong>活动流程:</strong><br>09:30-10:00 活动签到<br>10:00-10:20 开场 &amp; 破冰游戏<br>10:20-10:40 安装环境<br>10:40-12:10 多主机部署与服务发现<br>12:10-13:30 午餐 &amp; 交流<br>13:30-15:30 日志、跟踪、监控、Dashboard<br>15:30-15:45 茶歇<br>15:45-16:30 下一步，未来发展趋势<br>16:30-16:45 反馈抽奖，合影留念</p>
+<h2 id="活动回顾"><a href="#活动回顾" class="headerlink" title="活动回顾"></a>活动回顾</h2><p>6月24日由成都Cloud&amp;DevOps社区组织的对外工作坊-Docker In Production 第二期圆满结束！虽然天气很热，但是大家热情高涨，非常好地坚持下来，首先来一张合照。<br><img src="/assets/2017-06-24/group_all.jpg" alt=""></p>
+<p>接下来，我们就一起回顾一下次本次活动吧。</p>
+<p>9点半以后，报名的同学陆续到达，开始签到啦，工作人员在前台进行引导入场。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_1.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_2.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_3.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_3.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>10点开始，主持人带领大家一起进入自我介绍与破冰环节，大家相互认识，以促进彼此了解。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_1.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_2.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_3.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_3.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>完成环境配置后，就正式开始讲课啦，来看看讲师风采，非常地精神饱满，大家也都在非常认真地跟着节奏听讲。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_1.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_2.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_3.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_3.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_4.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_4.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_5.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_5.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_6.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_6.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>茶歇和午餐肯定是少不了的啦，免费的活动还提供水果和零食，又能学到知识，认识新朋友，实在太超值了，饭后有趣的小游戏也消除了大家的困意。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/food_1.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/food_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/food_2.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/food_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/game_2.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/game_2.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>大家一起完成练习，讲师也在随时进行辅导，非常地投入，热情洋溢。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_1.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_2.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_3.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_3.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_4.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_4.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_5.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_5.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_6.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_6.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>大家一起抽奖，反馈并合影留念，讲师和志愿者们也一起进行Retro回顾这一天的活动，这是充满热情的社区小分队。</p>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-24/gift_1.jpg" title="" data-fancybox-group="community"><img class="fig-img" src="/assets/2017-06-24/gift_1.jpg" alt=""></a></div>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-24/community_1.jpg" title="" data-fancybox-group="community"><img class="fig-img" src="/assets/2017-06-24/community_1.jpg" alt=""></a></div><div style="clear:both;"></div>
+<h2 id="活动小结"><a href="#活动小结" class="headerlink" title="活动小结"></a>活动小结</h2><p>本次活动得到了Marketing团队的大力支持，同时组织者们也精心准备，经历内部多次的Rehearsal演练给大家分享了精彩的内容。本次到场人数共19人，其中，参与过第一场活动的就有8名，得到了参与者们的好评。</p>
+<p>问得来说，从准备到实施，每位成员都积极参与，分工合作，相比第一次活动，进行了很多提升和改进，比如：在时间安排上更加合理，提前准备环境也非常也非常顺利，午后的小游戏也增加了活动氛围，同时新增了部分讲师，大家在充分准备的情况下有效地保证了现场活动的效果。</p>
+<hr>
+<p><strong>特此致谢</strong></p>
+<blockquote>
+<p><sub>Markting 团队</sub></p>
+</blockquote>
+<p><sub>志愿者及负责人</sub></p>
+<blockquote>
+<p><sub>Zhenghe Yu, Kai Hu, Yixiu Tang, Pei Xu, Bowen Huang, Yang Huang</sub></p>
+</blockquote>
+<p><sub>讲师</sub></p>
+<blockquote>
+<p><sub>Qi Xiao, Shuiqiang Lin, Bing Wang, Yidong Du, Zijie Tang</sub></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带你再次进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。
+    
+    </summary>
+    
+      <category term="Community" scheme="https://blog.waterstrong.me/categories/Community/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.waterstrong.me/tags/Docker/"/>
+    
+      <category term="DevOps" scheme="https://blog.waterstrong.me/tags/DevOps/"/>
+    
+      <category term="Workshop" scheme="https://blog.waterstrong.me/tags/Workshop/"/>
+    
+      <category term="Chengdu" scheme="https://blog.waterstrong.me/tags/Chengdu/"/>
+    
+  </entry>
   
   <entry>
     <title>最佳编程体验之旅 - 成都站 活动回顾</title>
@@ -911,86 +995,6 @@
       <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
       <category term="Repository" scheme="https://blog.waterstrong.me/tags/Repository/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何从SVN迁移源码到Git仓库</title>
-    <link href="https://blog.waterstrong.me/svn-to-git-migration/"/>
-    <id>https://blog.waterstrong.me/svn-to-git-migration/</id>
-    <published>2017-02-10T14:51:30.000Z</published>
-    <updated>2017-03-30T12:06:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>这里就不再赘述关于SVN与Git的区别以及为什么要迁移源码到Git了，毕竟Git是当前的主流DVCS了，而且已经公认地非常好用，如果你还在使用SVN的话该考虑换了，是时候迁移那些遗留代码了，有兴趣可以参阅 <a href="https://www.atlassian.com/git/tutorials/why-git" target="_blank" rel="external">Why Git</a> 和 <a href="https://www.atlassian.com/git/tutorials/perforce-git" target="_blank" rel="external">Perforce to Git</a> 了解更多。通常来说，在项目开发过程中，难免会遇到一些老项目代码正被SVN管理着，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码？并且如何保留提交记录、分支记录以及开发成员等信息呢？笔者前一段时间就经历了这样的迁移工作，还是有必要分享一下，也算是一种总结了。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>迁移SVN源码到Git仓库的方法肯定不是暴力地将代码Copy再Paste到Git仓库，也不是直接在项目下git init初始化仓库的，而是应该使用<a href="https://git-scm.com/docs/git-svn" target="_blank" rel="external">git svn</a>命令操作实现迁移工作。那git-svn命令如何使用？有哪些注意事项呢？</p>
-<p>首先，在正式开始迁移项目之前，需要做一些准备工作：</p>
-<ol>
-<li>准备一台安装有最新Git环境的磁盘容量足的电脑</li>
-<li>已经获知Git仓库的远程地址，无论是自己创建还是团队提供</li>
-<li>确保对Git远程仓库有读写权限，无论通过用户名密码还是SSH访问都行</li>
-<li>准备一份开发者的SVN用户名到Git全名+邮件的映射关系列表文件authors.txt，格式为：<code>loginname = Username &lt;user@example.com&gt;</code></li>
-</ol>
-<p>由于SVN对每次提交只记录开发者的用户名，而Git存储其全名和邮件地址，这意味着需要对开发者信息进行映射转换，在准备<code>authors.txt</code>文件时，可以到团队系统数据库直接查询开发者<em>登录名、用户名和邮件地址</em>并拼接成指定的格式，或者可下载<em>Atlassian</em>的工具包<a href="https://bitbucket.org/atlassian/svn-migration-scripts/downloads" target="_blank" rel="external">svn-migration-scripts.jar</a>，通过命令拉取SVN仓库的用户并生成对应的开发者信息映射文件，需要Java运行时环境支持：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar svn-migration-scripts.jar authors https://svn.example.com &gt; authors.txt</div></pre></td></tr></table></figure></p>
-<h2 id="转换仓库"><a href="#转换仓库" class="headerlink" title="转换仓库"></a>转换仓库</h2><p>准备工作完成后可以开始实施转移仓库了，应该注意的是，在转移SVN项目时需要根据是否是标准的SVN文件布局来确定命令行的参数。（注：以下所有示意图均来自Atlassian）</p>
-<h4 id="标准的SVN文件布局"><a href="#标准的SVN文件布局" class="headerlink" title="标准的SVN文件布局"></a>标准的SVN文件布局</h4><p><img src="/assets/master-git/standard_svn_repo.png" alt=""><br>如果SVN仓库使用标准的了<code>/trunk</code>, <code>/branches</code>和<code>/tags</code>的目录结构，就可在运行命令时加上参数<code>--stdlayout</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git svn clone --stdlayout --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</div><div class="line"></div><div class="line">git svn clone --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo</div></pre></td></tr></table></figure></p>
-<h4 id="非标准的的SVN文件布局"><a href="#非标准的的SVN文件布局" class="headerlink" title="非标准的的SVN文件布局"></a>非标准的的SVN文件布局</h4><p><img src="/assets/master-git/nonstandard_svn_repo.png" alt=""><br>如果SVN仓库是非标准的目录布局，那就需要分别显示指定参数<code>--trunk, --branches, --tags</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git svn clone --trunk=/trunk --branches=/branches --branches=/bugfixes --tags=/tags --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="Authors文件的使用"><a href="#Authors文件的使用" class="headerlink" title="Authors文件的使用"></a>Authors文件的使用</h4><ul>
-<li><code>--authors-file</code>：在之前的命令中已经提到需要添加参数<code>--authors-file=&lt;filename&gt;</code>读取开发者信息映射文件，文件内容格式为<code>loginname = Username &lt;user@example.com&gt;</code>，但如果在文件中不存SVN某个用户名的对应关系，那么git svn操作会被自动中止，因此，必须在<code>authors.txt</code>文件中添加丢失的用户对应关系，然后重新运行git svn命令即可。配置其git config时的key为<code>svn.authorsfile</code>。</li>
-<li><code>--authors-prog</code>：但如果希望在使用authors.txt文件时，即使某个SVN用户名对应关系不存在，命令也可以执行成功并自动使用默认值，可以使用该参数<code>--authors-prog=&lt;filename&gt;</code>。配置其git config时的key为<code>svn.authorsProg</code>，另外，可以在<a href="https://www.atlassian.com/git/tutorials/migrating-synchronize" target="_blank" rel="external">Tutorials - Synchronize</a>中找到关于authors文件的更多使用信息。</li>
-</ul>
-<h4 id="大仓库的转换策略"><a href="#大仓库的转换策略" class="headerlink" title="大仓库的转换策略"></a>大仓库的转换策略</h4><p>特别注意的是，当SVN仓库非常非常大时，据官方统计数据，若转换拥有33000个提交的400MB大小的仓库需要花12个小时来完成转换。因此，在这种情况下，可以选择找一台机器，运行命令后就不管了直到完成转换为止，或者是选择放弃保存非常老的提交历史记录，这样可以加速转换过程，如果转换时只保留部分提交历史的话可以使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git svn clone -r$&#123;REVNUMBER&#125;:HEAD --stdlayout --authors-file=authors.txt &lt;svn-repo&gt;/&lt;project&gt; &lt;git-repo-name&gt;</div><div class="line"></div><div class="line">git svn clone -r19698:HEAD --stdlayout --authors-file=authors.txt https://svn.waterstrong.com/demo demo</div></pre></td></tr></table></figure></p>
-<h2 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h2><p>至此，SVN到Git的转换工作接近尾声，如果只是关注 <strong>trunk</strong> 和 <strong>master</strong> 主分支，那么可以不用在意清理仓库这一部分的内容了，可以直接跳过进入下一节，如果需要清理并将分支和标签进行本地化，则可以关注一下本节内容。</p>
-<p>对于SVN的分支和标签，转换操作是不会将其导入到新的Git仓库中，而且在Git分支中也找不到SVN的分支branch，也找不到对应的标签tag，不过可以使用命令<code>git branch -r</code>可以查看到所有SVN的分支和标签，这是因为在使用<code>git svn clone</code>命令时会将SVN的分支和标签导入为Git的远程分支和标签，如下示意图所示。<br><img src="/assets/master-git/repo_structure.jpg" alt=""></p>
-<p>该策略主要是为SVN与Git双向同步服务的，但通常SVN单向转换到Git后都会直接使用Git了，并且会禁止SVN提交了，所以还是会对分支和标签内容进行清理以转换为Git的分支和标签。可以使用Atlassian提供的脚本工具快速实现对仓库分支和标签的清理工作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -Dfile.encoding=utf-8 -jar svn-migration-scripts.jar clean-git --force</div></pre></td></tr></table></figure></p>
-<p>将SVN分支和标签转换Git的本地分支和标签后结构如下图所示：<br><img src="/assets/master-git/local_git_repo.png" alt=""></p>
-<h2 id="收尾工作"><a href="#收尾工作" class="headerlink" title="收尾工作"></a>收尾工作</h2><p>完成以上步骤后，迁移工作基本完成，接下来需要根据项目代码性质、团队约定等情况做一些收尾工作，需要具体情况具体分析。这里会以一个Gradle构建的Java项目(IDE使用IntelliJ)为例介绍从SVN迁移到Git后的收尾工作：</p>
-<ol>
-<li><p>查看Git远程地址是否已经配置了，如果还没有配置，可以使用命令<code>git remote</code>命令配置<code>origin</code>，比较常用的两组命令为：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote add origin xxx  # 添加新的远程地址</div><div class="line">git remote set-url origin xxx  # 修改origin的远程地址</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用命令<code>git update-index</code>配置构建工具的执行权限，如果有其他执行脚本也需要配置相应权限信息：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git update-index --chmod=+x gradlew</div><div class="line">git update-index --chmod=+x gradlew.bat</div><div class="line">git update-index --chmod=+x xxx.sh</div></pre></td></tr></table></figure>
-</li>
-<li><p>添加<code>.gitignore</code>文件，根据不同的项目写入要忽略的文件，如Java项目ignore文件会包括：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/out</div><div class="line">/build</div><div class="line">/.idea</div><div class="line">.gradle</div><div class="line">.DS_Store</div><div class="line">*.iml</div><div class="line">*.ipr</div><div class="line">*.iws</div></pre></td></tr></table></figure>
-</li>
-<li><p>更新IDE的vcs配置为Git而非Svn，在<code>build.gradle</code>文件修改vcs配置：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">idea.project.vcs = &quot;Git&quot;</div></pre></td></tr></table></figure>
-</li>
-<li><p>最后上传到Repo，并根据团队内部的约定设置相应的权限，通常会有一个检查清单，比如：</p>
-<ul>
-<li>设置分支模型</li>
-<li>添加分支权限</li>
-<li>限定PR合并权限</li>
-<li>配置SVN提交通知</li>
-<li>变更CI拉取代码地址</li>
-<li>……</li>
-</ul>
-</li>
-</ol>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总得来说，从SVN迁移源码到Git仓库包括：准备工作、转换仓库、清理仓库以及收尾工作，其中清理仓库部分可以跳过，其他部分是需要完成的，还必须注意SVN文件布局以及正确地使用authors文件，同时，要考虑在遇到大仓库时应根据实际情况采用相对适合的迁移策略，最后，应遵循团队的约定，对照检查清单完成所有收尾工作。</p>
-<hr>
-<p>References</p>
-<ul>
-<li><a href="https://www.atlassian.com/git/tutorials/migrating-convert" target="_blank" rel="external">Migrate to Git from SVN</a></li>
-<li><a href="https://git-scm.com/docs/git-svn" target="_blank" rel="external">git-svn docs</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      在项目开发过程中，难免会遇到老项目的代码是被SVN管理的，但基于当下诸多原因，或是扩展开发，或是战略转移，或是为了更好地开发体验，需要将这些在维护的遗留项目源码迁移为Git管理。那如何有效地迁移源码并保留历史记录呢？
-    
-    </summary>
-    
-      <category term="Tools" scheme="https://blog.waterstrong.me/categories/Tools/"/>
-    
-    
-      <category term="Git" scheme="https://blog.waterstrong.me/tags/Git/"/>
-    
-      <category term="SVN" scheme="https://blog.waterstrong.me/tags/SVN/"/>
-    
-      <category term="VCS" scheme="https://blog.waterstrong.me/tags/VCS/"/>
     
   </entry>
   

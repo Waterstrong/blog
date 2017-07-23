@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.waterstrong.me/docker-workshop-part2/</loc>
+    
+    <lastmod>2017-07-23T06:14:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.waterstrong.me/duoshuo-away/</loc>
     
     <lastmod>2017-07-10T14:39:57.000Z</lastmod>
@@ -282,13 +289,6 @@
   </url>
   
   <url>
-    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
-    
-    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.waterstrong.me/all-categories/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
@@ -297,6 +297,13 @@
   
   <url>
     <loc>https://blog.waterstrong.me/all-tags/index.html</loc>
+    
+    <lastmod>2016-06-09T04:28:44.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.waterstrong.me/all-archives/index.html</loc>
     
     <lastmod>2016-06-09T04:28:44.000Z</lastmod>
     

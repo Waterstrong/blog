@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="generator" content="Waterstrong Blog">
+    <title>第二期Docker工作坊活动回顾【多图】 - Waterstrong</title>
+    <meta name="author" content="Waterstrong">
+    
+        <meta name="keywords" content="Waterstrong,林水强,ThoughtWorks,敏捷实践,Continuous Delivery,持续集成 持续交付,微服务,DevOps Linux,">
+    
+    
+        <link rel="icon" href="https://blog.waterstrong.me/assets/images/favicon.png">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带你再次进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。">
+<meta name="keywords" content="Docker,DevOps,Workshop,Chengdu">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="第二期Docker工作坊活动回顾【多图】">
+<meta property="og:url" content="https://blog.waterstrong.me/docker-workshop-part2/index.html">
+<meta property="og:site_name" content="Waterstrong Blog">
+<meta property="og:description" content="继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带你再次进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/group_all.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/sign_in_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/sign_in_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/sign_in_3.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/intro_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/intro_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/intro_3.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_3.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_4.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_5.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/teacher_6.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/food_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/food_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/game_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_2.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_3.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_4.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_5.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/practice_6.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/gift_1.jpg">
+<meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/community_1.jpg">
+<meta property="og:updated_time" content="2017-07-23T06:14:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第二期Docker工作坊活动回顾【多图】">
+<meta name="twitter:description" content="继Docker工作坊第一期活动后，第二期活动终于和大家见面了，本期活动将带你再次进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。">
+<meta name="twitter:image" content="https://blog.waterstrong.me/assets/2017-06-24/group_all.jpg">
+<meta name="twitter:creator" content="@shuiqianglin">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://blog.waterstrong.me/assets/images/head.jpg"/>
+    
+    
+        <div id="thumbnail" style="width:0;height:0;overflow:hidden;">
+            <img src="https://blog.waterstrong.me/assets/2017-06-24/index.jpeg" />
+        </div>
+        <meta property="og:image" content="https://blog.waterstrong.me/assets/2017-06-24/index.jpeg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://blog.waterstrong.me/assets/2017-06-24/index.jpeg" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-lxhqetshmihrwg9wqv1ivwonnouqtxpcklg9reumzognbkvoaou28nyoiaav.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-75679138-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+    <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0eebfc18021c9d6853ca20f45d03d4a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="6">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Waterstrong Blog</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="6">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about" title="Waterstrong">
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Waterstrong</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !<br> Stay quiet, run wild !<br> <a href="/about">More about…</a></p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-globe" title="Reload"></i>
+                        <span class="sidebar-button-desc">Reload</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" title="Categories"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" title="Tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" title="Search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" title="About"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://waterstrong.me"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" title="Home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/waterstrong"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" title="GitHub"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/assets/images/qrcode.jpg"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-wechat" title="Wechat"></i>
+                        <span class="sidebar-button-desc">Wechat</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="mailto:sqlin@thoughtworks.com"
+                            
+                                target="_blank"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o" title="Mail"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" title="RSS"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/links"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-link" title="Friends"></i>
+                        <span class="sidebar-button-desc">Friends</span>
+                    </a>
+                </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="6"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title" itemprop="headline">
+            第二期Docker工作坊活动回顾【多图】
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-06-30T22:27:34+08:00">
+	
+		    Jun 30, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Community/">Community</a>
+
+
+    
+</div>
+
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>近年来持续交付、云计算、微服务、DevOps…各种技术和概念层出不穷，容器技术就是近年来最火热的技术之一。Docker自从2014年发布1.0版本以后，使得容器技术一直以惊人的速度在发展。如今容器技术围绕着Docker已经形成了完整的生态圈。<br>本次Docker工作坊第二期活动将带你进入Docker的世界，通过动手练习快速掌握Docker的高阶使用技巧，为在生产环境中使用Docker打下坚实的基础。</p>
+<h2 id="活动介绍"><a href="#活动介绍" class="headerlink" title="活动介绍"></a>活动介绍</h2><p>本次工作坊由 <em>ThoughtWorks成都 Cloud&amp;DevOps社区</em> 组织，<em>Marketing团队</em>大力支持，非常感谢。这是活动的第二期，继 <a href="/docker-workshop-part1">第一期Docker工作坊活动</a> 后，本期内容主要包括：</p>
+<ul>
+<li>准备：环境检查 + 上期内容快速回顾</li>
+<li>第4章：多主机部署与服务发现</li>
+<li>第5章：日志、跟踪、监控、Dashboard</li>
+<li>第6章：下一步，未来的发展趋势</li>
+</ul>
+<p>由于本次活动场地及活动规模限制，为了更好地交流体验，我们从报名人数中筛选了21名具有一定经验的朋友来参加活动。本工作坊需要大量的动手练习，参加的同学每人会携带笔记本一台，为了让大家的环境统一，节省准备环境的时间，都会提前通知安装 <em>Vagrant</em> 和 <em>Virtualbox</em> 最新版本。</p>
+<h2 id="活动日程"><a href="#活动日程" class="headerlink" title="活动日程"></a>活动日程</h2><p><strong>时间:</strong> 2017年6月24日（周六），10:00—16:30<br><strong>地点:</strong> 成都市高新区天府大道中段1268号 天府软件园E1-1栋7楼，ThoughtWorks办公室。<br><strong>活动流程:</strong><br>09:30-10:00 活动签到<br>10:00-10:20 开场 &amp; 破冰游戏<br>10:20-10:40 安装环境<br>10:40-12:10 多主机部署与服务发现<br>12:10-13:30 午餐 &amp; 交流<br>13:30-15:30 日志、跟踪、监控、Dashboard<br>15:30-15:45 茶歇<br>15:45-16:30 下一步，未来发展趋势<br>16:30-16:45 反馈抽奖，合影留念</p>
+<h2 id="活动回顾"><a href="#活动回顾" class="headerlink" title="活动回顾"></a>活动回顾</h2><p>6月24日由成都Cloud&amp;DevOps社区组织的对外工作坊-Docker In Production 第二期圆满结束！虽然天气很热，但是大家热情高涨，非常好地坚持下来，首先来一张合照。<br><img src="/assets/2017-06-24/group_all.jpg" alt=""></p>
+<p>接下来，我们就一起回顾一下次本次活动吧。</p>
+<p>9点半以后，报名的同学陆续到达，开始签到啦，工作人员在前台进行引导入场。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_1.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_2.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/sign_in_3.jpg" title="" data-fancybox-group="signin"><img class="fig-img" src="/assets/2017-06-24/sign_in_3.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>10点开始，主持人带领大家一起进入自我介绍与破冰环节，大家相互认识，以促进彼此了解。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_1.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_2.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/intro_3.jpg" title="" data-fancybox-group="selfintro"><img class="fig-img" src="/assets/2017-06-24/intro_3.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>完成环境配置后，就正式开始讲课啦，来看看讲师风采，非常地精神饱满，大家也都在非常认真地跟着节奏听讲。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_1.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_2.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_3.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_3.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_4.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_4.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_5.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_5.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/teacher_6.jpg" title="" data-fancybox-group="teacher"><img class="fig-img" src="/assets/2017-06-24/teacher_6.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>茶歇和午餐肯定是少不了的啦，免费的活动还提供水果和零食，又能学到知识，认识新朋友，实在太超值了，饭后有趣的小游戏也消除了大家的困意。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/food_1.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/food_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/food_2.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/food_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/game_2.jpg" title="" data-fancybox-group="break"><img class="fig-img" src="/assets/2017-06-24/game_2.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>大家一起完成练习，讲师也在随时进行辅导，非常地投入，热情洋溢。</p>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_1.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_1.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_2.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_2.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_3.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_3.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_4.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_4.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_5.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_5.jpg" alt=""></a></div>
+<div class="figure fig-33" style="width:;"><a class="fancybox" href="/assets/2017-06-24/practice_6.jpg" title="" data-fancybox-group="practice"><img class="fig-img" src="/assets/2017-06-24/practice_6.jpg" alt=""></a></div><div style="clear:both;"></div>
+<p>大家一起抽奖，反馈并合影留念，讲师和志愿者们也一起进行Retro回顾这一天的活动，这是充满热情的社区小分队。</p>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-24/gift_1.jpg" title="" data-fancybox-group="community"><img class="fig-img" src="/assets/2017-06-24/gift_1.jpg" alt=""></a></div>
+<div class="figure fig-50" style="width:;"><a class="fancybox" href="/assets/2017-06-24/community_1.jpg" title="" data-fancybox-group="community"><img class="fig-img" src="/assets/2017-06-24/community_1.jpg" alt=""></a></div><div style="clear:both;"></div>
+<h2 id="活动小结"><a href="#活动小结" class="headerlink" title="活动小结"></a>活动小结</h2><p>本次活动得到了Marketing团队的大力支持，同时组织者们也精心准备，经历内部多次的Rehearsal演练给大家分享了精彩的内容。本次到场人数共19人，其中，参与过第一场活动的就有8名，得到了参与者们的好评。</p>
+<p>问得来说，从准备到实施，每位成员都积极参与，分工合作，相比第一次活动，进行了很多提升和改进，比如：在时间安排上更加合理，提前准备环境也非常也非常顺利，午后的小游戏也增加了活动氛围，同时新增了部分讲师，大家在充分准备的情况下有效地保证了现场活动的效果。</p>
+<hr>
+<p><strong>特此致谢</strong></p>
+<blockquote>
+<p><sub>Markting 团队</sub></p>
+</blockquote>
+<p><sub>志愿者及负责人</sub></p>
+<blockquote>
+<p><sub>Zhenghe Yu, Kai Hu, Yixiu Tang, Pei Xu, Bowen Huang, Yang Huang</sub></p>
+</blockquote>
+<p><sub>讲师</sub></p>
+<blockquote>
+<p><sub>Qi Xiao, Shuiqiang Lin, Bing Wang, Yidong Du, Zijie Tang</sub></p>
+</blockquote>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Chengdu/">Chengdu</a> <a class="tag tag--primary tag--small t-link" href="/tags/DevOps/">DevOps</a> <a class="tag tag--primary tag--small t-link" href="/tags/Docker/">Docker</a> <a class="tag tag--primary tag--small t-link" href="/tags/Workshop/">Workshop</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/tw-pair-programming-chengdu/" data-tooltip="最佳编程体验之旅 - 成都站 活动回顾">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights left">
+        &copy; 2017 <a href="https://github.com/waterstrong" target="_blank">Waterstrong</a>
+    </span>
+    
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="visit">
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="site-visit">Site Visited:
+            <span id="busuanzi_value_site_uv"></span>
+        </span>
+    </span>
+    <span>, </span>
+    <span id="busuanzi_container_page_pv" style='display:none'>
+        <span id="page-visit">Page Visited:
+            <span id="busuanzi_value_page_pv"></span>
+        </span>
+    </span>
+</span>
+
+    <span class="copyrights right">
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="6">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/tw-pair-programming-chengdu/" data-tooltip="最佳编程体验之旅 - 成都站 活动回顾">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share bdsharebuttonbox">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-copy" target="new" data-cmd="copy"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-qq" target="new" href="#" data-cmd="sqq"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-wechat" target="new" href="#" data-cmd="weixin"></a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default fa fa-weibo" target="new" href="#" data-cmd="tsina"></a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body)
+            .appendChild(createElement('script'))
+            .src = '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="6">
+    <ul class="share-options bdsharebuttonbox">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="tsina">
+                <i class="fa fa-weibo"></i>Share on Sina Weibo
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="weixin">
+                <i class="fa fa-wechat"></i>Share on Wechat
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="sqq">
+                <i class="fa fa-qq"></i>Share on QQ
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="fbook">
+                <i class="fa fa-facebook-official"></i>Share on Facebook
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="linkedin">
+                <i class="fa fa-linkedin"></i>Share on LinkedIn
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="#" data-cmd="twi">
+                <i class="fa fa-twitter"></i>Share on Twitter
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Waterstrong</h4>
+        
+            <div id="about-card-bio"><p>I’m Waterstrong! The man who has made up his mind to win will never say “Impossible” !<br> Stay quiet, run wild !<br> <a href="/about">More about…</a></p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Dev Consultant</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chengdu, China
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <!--<img class="searchby-algolia-logo" src="/assets/images/algolia-light.svg">-->
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    autofocus="autofocus"/>
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/cpp-singleton/">
+                            <img class="media-image" src="/assets/common-pic/city2.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/cpp-singleton/">
+                            <h3 class="media-heading">C++单例模式实现</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>之前遇到关于C++实现单例模式的问题，并非那么简单，主要有部分问题要解决，现在和大家分享一下。我们都知道在Java/C#中实现起来相当容易，但C++确实是有点绕，不过这正是其魅力所在，现在直接上代码，有注释。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/directshow-graphics/">
+                            <img class="media-image" src="/assets/common-pic/vintage1.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/directshow-graphics/">
+                            <h3 class="media-heading">DirectShow获取摄像头图像</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 28, 2011
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/mybatis-in-practice/">
+                            <img class="media-image" src="/assets/mybatis-practice/mybatis.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/mybatis-in-practice/">
+                            <h3 class="media-heading">MyBatis入门与实践</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Oct 12, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/code-your-ioc/">
+                            <img class="media-image" src="/assets/ioc-practice/di.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/code-your-ioc/">
+                            <h3 class="media-heading">如何实现一个简单的IoC容器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <img class="media-image" src="/assets/mysql-case/mysql.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/mysql-case-sensitive-linux/">
+                            <h3 class="media-heading">MySQL在Linux下默认区分大小写</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Dec 20, 2015
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>前段时间遇到一个Hibernate/JPA自动映射MySQL Schema时报错问题，然后查了一下官方文档，原来是MySQL在Linux下默认区分大小写导致的，大致了解了一下，主要涉及两个变量lower_case_file_system和lower_case_table_names。<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aspect-oriented-programming/">
+                            <img class="media-image" src="/assets/aop/aop_diagram.jpg" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aspect-oriented-programming/">
+                            <h3 class="media-heading">AOP面向切面编程</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <img class="media-image" src="/assets/transactional-mp/XA_two_phase_commit.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/transactional-mechanism-protocol/">
+                            <h3 class="media-heading">事务处理机制与协议</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 4, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aws-ec2-basic/">
+                            <img class="media-image" src="/assets/aws-ec2-basic/aws_homepage.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aws-ec2-basic/">
+                            <h3 class="media-heading">AWS EC2入门篇</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 11, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aws-ec2-vpn/">
+                            <img class="media-image" src="/assets/aws-ec2-vpn/6s_test_vpn.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/aws-ec2-vpn/">
+                            <h3 class="media-heading">AWS EC2搭建VPN服务器</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/concourse-ci/">
+                            <img class="media-image" src="/assets/concourse-ci/pipeline_cover.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://blog.waterstrong.me/concourse-ci/">
+                            <h3 class="media-heading">Concourse CI 介绍</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 19, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                38 posts found
+            </p>
+        </div>
+    </div>
+</div>
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-6pgmbfxddirxmnsankwb4t2veduaiakbz4vwt6plyqwlmdlrgosqwi8nv8sr.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://blog.waterstrong.me/docker-workshop-part2/';
+                 
+                    this.page.identifier = 'docker-workshop-part2/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'waterstrongblog';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+
+    </body>
+</html>
